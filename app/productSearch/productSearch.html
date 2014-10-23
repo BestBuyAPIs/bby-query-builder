@@ -1,0 +1,32 @@
+<div ng-controller="ProductSearchCtrl">
+    <div id="left-side-container" class="query-container">
+        <ul class="menu content-container">
+            <li class="selected-option"><a href="#/productSearch">product Search</a></li>
+            <li><a href="#/recommendations">recommendations</a></li>
+        </ul>
+        <div class="content-container" id="builder-content">
+            <div class="query-information">
+                <p>
+                    <label for="api-key">Enter your API key:</label>
+                    <input id="api-key" type="text" ng-model="apiKey">
+                </p>
+
+                <p>
+                    <label for="category">Select a category:</label>
+                    <select id="category" ng-model="category" ng-options="opt as opt.label for opt in categories"></select>
+                </p>
+            </div>
+        </div>
+    </div>
+    <div id="right-side-container" class="query-container">
+        <div class="content-container" id="response-content">
+            <p>#request:
+                <button id="copy-button" class="copy-button" type="button" clip-copy="buildRemixQuery()">
+                    <img src="assets/clipboard_white.png" width="20" height="20" alt="copy"/></button>
+            </p>
+            <span id="remix-query" class="query-text" ng-bind="buildRemixQuery()"></span>
+
+            <div style="display:none"><p>#response:</p></div>
+        </div>
+    </div>
+</div>

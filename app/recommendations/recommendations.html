@@ -1,0 +1,61 @@
+<div id="recommendations-div" ng-controller="RecommendationsCtrl">
+    <div id="left-side-container" class="query-container">
+        <ul class="menu content-container">
+            <li><a href="#/productSearch">product Search</a></li>
+            <li class="selected-option"><a href="#/recommendations">recommendations</a></li>
+        </ul>
+        <div class="content-container" id="builder-content">
+            <div>
+                <div class="query-information">
+                    <p>
+                        <label for="api-key" id="api-key-label">Enter your API key:</label>
+                        <input id="api-key" type="text" ng-model="apiKey"/>
+                    </p>
+
+                    <p>
+                        <button id="invoke-query" class="query-button" ng-click="invokeRecommendationsQuery()">RUN
+                            query
+                        </button>
+                    </p>
+
+                    <p>
+                        <button id="get-product-information" class="query-button" ng-click="invokeRemixQuery()" ng-disabled="isRemixQueryButtonDisabled()">
+                            GET product
+                        </button>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="right-side-container" class="query-container">
+        <div class="content-container" id="response-content">
+            <div>
+                <p>#request:
+                    <button id="recommendations-copy-button" class="copy-button" type="button" clip-copy="buildRecommendationsQuery()">
+                        <img src="assets/clipboard_white.png" width="20" height="20" alt="copy"/>
+                    </button>
+                </p>
+                <span class="query-text" id="recommendations-query" ng-bind="buildRecommendationsQuery()"></span>
+            </div>
+            <div>
+                <p>#response:</p>
+
+                <textarea class="query-result" id="recommendations-query-result">{{ results }}</textarea>
+
+                <hr style="width:90%;color:white;margin-left:auto;margin-right:auto;"/>
+                <p>#request:
+                    <button id="remix-copy-button" class="copy-button" type="button" clip-copy="buildRemixQuery()">
+                        <img src="assets/clipboard_white.png" width="20" height="20" alt="copy"/>
+                    </button>
+                </p>
+
+                <p>
+                    <span class="query-text" id="remix-query" ng-bind="buildRemixQuery()"></span>
+                </p>
+
+                <p>#response:</p>
+                <textarea class="query-result" id="remix-query-result">{{ remixResults }}</textarea>
+            </div>
+        </div>
+    </div>
+</div>

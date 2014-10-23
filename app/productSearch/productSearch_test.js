@@ -57,6 +57,25 @@ describe('bby-query-mixer.productSearch module', function () {
                 expect(scope.buildRemixQuery()).toEqual("https://api.remix.bestbuy.com/v1/products(categoryPath.id=someCategory)");
             });
 
+            it('should return a query string with a sort filter and sortOrder when a sort filter is selected', function () {
+                scope.category = {
+                    value: "someCategory"
+                };
+                scope.apiKey = "youreAnApiKey";
+                scope.sortBy = "none"
+                expect(scope.buildRemixQuery()).toEqual("https://api.remix.bestbuy.com/v1/products(categoryPath.id=someCategory)?apiKey=youreAnApiKey");
+                scope.sortBy = "sku"
+                expect(scope.buildRemixQuery()).toEqual("https://api.remix.bestbuy.com/v1/products(categoryPath.id=someCategory)?apiKey=youreAnApiKey&sort=sku.asc");
+                scope.sortOrder = "desc"
+                expect(scope.buildRemixQuery()).toEqual("https://api.remix.bestbuy.com/v1/products(categoryPath.id=someCategory)?apiKey=youreAnApiKey&sort=sku.desc");
+                scope.sortBy = "none"
+                expect(scope.buildRemixQuery()).toEqual("https://api.remix.bestbuy.com/v1/products(categoryPath.id=someCategory)?apiKey=youreAnApiKey")
+                scope.apiKey = ""
+                expect(scope.buildRemixQuery()).toEqual("https://api.remix.bestbuy.com/v1/products(categoryPath.id=someCategory)")
+                expect(scope.sortOrder.isDisabled)
+                expect(scope.sortBy.isDisabled)
+            });
+
         });
 
     });

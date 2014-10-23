@@ -28,9 +28,14 @@
 
                 <p>
                     <label>Sort order</label>
-                    <input type="radio" name="sortOrder" ng-model="sortOrder" ng-disabled="apiKey == ''" value="asc">
+                    <input type="radio" name="sortOrder" ng-model="sortOrder"
+                           ng-disabled="sortBy == 'none' || apiKey == ''"
+                           ng-checked="sortBy != 'none'"
+                           value="asc">
                     Ascending<br/>
-                    <input type="radio" name="sortOrder" ng-model="sortOrder" ng-disabled="apiKey == ''" value="desc">
+                    <input type="radio" name="sortOrder" ng-model="sortOrder"
+                           ng-disabled="sortBy == 'none' || apiKey == ''"
+                           value="desc">
                     Descending<br/>
                 </p>
             </div>

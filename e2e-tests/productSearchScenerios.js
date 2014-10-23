@@ -22,7 +22,7 @@ describe('bby-query-mixer', function () {
 
             var category = element((by.model('category')));
             expect(category.all(by.css('option')).count()).toBe(20);
-            expect(category.$('option:checked').getText()).toEqual('All Cell Phones with Plans');
+            expect(category.$('option[selected="selected"]').getText()).toEqual('All Cell Phones with Plans');
             expect(remixQuery.getText()).toBe('https://api.remix.bestbuy.com/v1/products(categoryPath.id=pcmcat209400050001)');
 
             var apiKeyInput = element(by.model('apiKey'));

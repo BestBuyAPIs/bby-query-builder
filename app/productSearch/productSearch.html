@@ -13,7 +13,25 @@
 
                 <p>
                     <label for="category">Select a category:</label>
-                    <select id="category" ng-model="category" ng-options="opt as opt.label for opt in categories"></select>
+                    <select id="category" ng-model="category" ng-disabled="apiKey == ''"
+                            ng-options="opt as opt.label for opt in categories"></select>
+                </p>
+
+                <p>
+                    <label>Sort by</label>
+                    <input type="radio" name="sortBy" ng-model="sortBy" ng-disabled="apiKey == ''" value="none">
+                    (none)<br/>
+                    <input type="radio" name="sortBy" ng-model="sortBy" ng-disabled="apiKey == ''" value="sku"> SKU<br/>
+                    <input type="radio" name="sortBy" ng-model="sortBy" ng-disabled="apiKey == ''" value="price">
+                    Price<br/>
+                </p>
+
+                <p>
+                    <label>Sort order</label>
+                    <input type="radio" name="sortOrder" ng-model="sortOrder" ng-disabled="apiKey == ''" value="asc">
+                    Ascending<br/>
+                    <input type="radio" name="sortOrder" ng-model="sortOrder" ng-disabled="apiKey == ''" value="desc">
+                    Descending<br/>
                 </p>
             </div>
         </div>

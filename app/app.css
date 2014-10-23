@@ -183,3 +183,9 @@ label:after {
     width: 20px;
     outline: none;
 }
+
+#portal-link {
+    text-decoration: none;
+    border: none;
+    outline: none;
+}

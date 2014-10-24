@@ -1,9 +1,7 @@
 'use strict';
 
-describe('my app', function () {
-
+describe('bby-query-mixer', function () {
     describe('recommendations', function () {
-
         beforeEach(function () {
             browser.get('index.html#/recommendations');
         });

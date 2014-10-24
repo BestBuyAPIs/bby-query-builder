@@ -2,7 +2,7 @@
 
 [![Build Status](https://travis-ci.org/BestBuyAPIs/bby-query-mixer.svg)](https://travis-ci.org/BestBuyAPIs/bby-query-mixer)
 
-This is a sample AngularJS app allows you to build queries for the Best Buy API /products endpoint. It is based on [angular-seed](https://github.com/angular/angular-seed).
+BBY Query Mixer is an application to help developers learn Best Buy's APIs. It is based on [angular-seed](https://github.com/angular/angular-seed).
 
 Included in this app are queries for fetching products:
 
@@ -11,7 +11,7 @@ Included in this app are queries for fetching products:
 
 ## Getting Started
 
-The rest of this page explains how to get the code and run it. If you want to use the application, go [here](https://developer.bestbuy.com).
+The rest of this page explains how to get the code and run it. If you want to use the application, go [here](http://bestbuyapis.github.io/bby-query-mixer).
 
 ## Working with the code
 ### Prerequisites

@@ -3,7 +3,7 @@
 exports.config = {
     allScriptsTimeout: 11000,
 
-    seleniumServerJar: './lib/selenium-server-standalone-2.39.0.jar',
+    //seleniumServerJar: './lib/selenium-server-standalone-2.39.0.jar',
 
     specs: [
         'e2e-tests/*.js'

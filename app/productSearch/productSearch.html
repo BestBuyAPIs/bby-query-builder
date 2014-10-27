@@ -19,23 +19,18 @@
 
                 <p>
                     <label>Sort by</label>
-                    <input type="radio" name="sortBy" ng-model="sortBy" ng-disabled="apiKey == ''" value="none">
+                    <input type="radio" name="sortBy" ng-model="sortBy" value="none">
                     (none)<br/>
-                    <input type="radio" name="sortBy" ng-model="sortBy" ng-disabled="apiKey == ''" value="sku"> SKU<br/>
-                    <input type="radio" name="sortBy" ng-model="sortBy" ng-disabled="apiKey == ''" value="price">
+                    <input type="radio" name="sortBy" ng-model="sortBy" value="sku"> SKU<br/>
+                    <input type="radio" name="sortBy" ng-model="sortBy" value="price">
                     Price<br/>
                 </p>
 
                 <p>
                     <label>Sort order</label>
-                    <input type="radio" name="sortOrder" ng-model="sortOrder"
-                           ng-disabled="sortBy == 'none' || apiKey == ''"
-                           ng-checked="sortBy != 'none'"
-                           value="asc">
+                    <input type="radio" name="sortOrder" ng-model="sortOrder" ng-checked="true" value="asc">
                     Ascending<br/>
-                    <input type="radio" name="sortOrder" ng-model="sortOrder"
-                           ng-disabled="sortBy == 'none' || apiKey == ''"
-                           value="desc">
+                    <input type="radio" name="sortOrder" ng-model="sortOrder" value="desc">
                     Descending<br/>
                 </p>
             </div>

@@ -8,10 +8,9 @@ exports.config = {
     ],
 
     capabilities: {
-        'browserName': 'phantomjs',
-        'phantomjs.binary.path': require('phantomjs').path
+        'browserName': 'chrome'
     },
-
+    
     baseUrl: 'http://localhost:8000/app/',
 
     framework: 'jasmine',

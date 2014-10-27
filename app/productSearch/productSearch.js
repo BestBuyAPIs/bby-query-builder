@@ -11,16 +11,26 @@ angular.module('bby-query-mixer.productSearch').controller('ProductSearchCtrl', 
         $scope.sortOrder = 'asc';
 
         $scope.buildRemixQuery = function () {
-            var categorySearchCriterion = $scope.category.value ? '(categoryPath.id=' + $scope.category.value + ')' : '';
-            var apiKeyQueryString = $scope.apiKey ? '?apiKey=' + $scope.apiKey : '';
-            var sortByQueryString = ($scope.apiKey && $scope.sortBy && $scope.sortBy != 'none') ? '&sort=' + $scope.sortBy : '';
-            var sortOrderQueryString = ($scope.apiKey && $scope.sortBy && $scope.sortBy != 'none' && $scope.sortOrder) ? '.' + $scope.sortOrder : '';
+            var baseUrl = 'https://api.remix.bestbuy.com/v1/products' + ($scope.category.value ? '(categoryPath.id=' + $scope.category.value + ')' : '');
+            return baseUrl + $scope.buildParams();
+        };
 
-            if (categorySearchCriterion || apiKeyQueryString) {
-                return 'https://api.remix.bestbuy.com/v1/products' + categorySearchCriterion + apiKeyQueryString + sortByQueryString + sortOrderQueryString;
+        $scope.buildParams = function () {
+            var paramArgs = [];
+
+            if ($scope.apiKey) {
+                paramArgs.push('apiKey=' + $scope.apiKey);
             }
 
-            return '';
+            if ($scope.sortBy && $scope.sortBy != 'none') {
+                paramArgs.push('sort=' + $scope.sortBy + '.' + $scope.sortOrder);
+            }
+
+            if (paramArgs.length > 0) {
+                return '?' + paramArgs.join('&');
+            } else {
+                return '';
+            }
         };
     }
 ]);

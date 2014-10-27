@@ -12,6 +12,11 @@ describe('bby-query-mixer', function () {
             expect(element(by.model('apiKey')).isPresent()).toBe(true);
             expect(element.all(by.css('[ng-view] label[for="category"]')).getText()).toMatch(/Select a category/);
             expect(element(by.model('category')).isPresent()).toBe(true);
+            expect(element(by.model('sortBy')).isPresent()).toBe(true);
+            expect(element.all(by.model('sortBy')).first().isEnabled()).toBe(true);
+
+            expect(element(by.model('sortOrder')).isPresent()).toBe(true);
+            expect(element.all(by.model('sortOrder')).first().isEnabled()).toBe(true);
 
             var remixQuery = element(by.css('span[id="remix-query"]'));
             expect(remixQuery.isPresent()).toBe(true);

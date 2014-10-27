@@ -1,14 +1,20 @@
 /* app css stylesheet */
 
-input, button, textarea {
-    border-radius: 4px;
-    -webkit-appearance: none;
-    -moz-appearance: none;
+select, input, button, textarea {
+    outline: none;
+    left-padding: 4px;
+    margin: 2px;
 }
 
-select, input, button, textarea {
+select, textarea {
+    border-radius: 4px;
     border: none;
-    outline: none;
+    height: 30px;
+}
+
+button {
+    border-radius: 4px;
+    border: none;
 }
 
 label:after {

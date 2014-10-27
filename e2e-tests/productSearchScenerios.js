@@ -12,11 +12,12 @@ describe('bby-query-mixer', function () {
             expect(element(by.model('apiKey')).isPresent()).toBe(true);
             expect(element.all(by.css('[ng-view] label[for="category"]')).getText()).toMatch(/Select a category/);
             expect(element(by.model('category')).isPresent()).toBe(true);
-            expect(element(by.model('sortBy')).isPresent()).toBe(true);
-            expect(element.all(by.model('sortBy')).first().isEnabled()).toBe(true);
 
-            expect(element(by.model('sortOrder')).isPresent()).toBe(true);
-            expect(element.all(by.model('sortOrder')).first().isEnabled()).toBe(true);
+            expect(element(by.id('sort-by-none')).isEnabled()).toBe(true);
+            expect(element(by.id('sort-by-sku')).isEnabled()).toBe(true);
+            expect(element(by.id('sort-by-price')).isEnabled()).toBe(true);
+            expect(element(by.id('sort-order-asc')).isEnabled()).toBe(true);
+            expect(element(by.id('sort-order-desc')).isEnabled()).toBe(true);
 
             var remixQuery = element(by.css('span[id="remix-query"]'));
             expect(remixQuery.isPresent()).toBe(true);
@@ -36,6 +37,12 @@ describe('bby-query-mixer', function () {
 
             element(by.cssContainingText('option', 'Laptops')).click();
             expect(remixQuery.getText()).toBe('https://api.remix.bestbuy.com/v1/products(categoryPath.id=abcat0502000)?apiKey=someApiKey');
+
+            element(by.id('sort-by-sku')).click();
+            expect(remixQuery.getText()).toBe('https://api.remix.bestbuy.com/v1/products(categoryPath.id=abcat0502000)?apiKey=someApiKey&sort=sku.asc');
+
+            element(by.id('sort-order-desc')).click();
+            expect(remixQuery.getText()).toBe('https://api.remix.bestbuy.com/v1/products(categoryPath.id=abcat0502000)?apiKey=someApiKey&sort=sku.desc');
         });
     });
 });

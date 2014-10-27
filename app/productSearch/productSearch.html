@@ -13,8 +13,7 @@
 
                 <p>
                     <label for="category">Select a category:</label>
-                    <select id="category" ng-model="category" ng-disabled="apiKey == ''"
-                            ng-options="opt as opt.label for opt in categories"></select>
+                    <select id="category" ng-model="category" ng-options="opt as opt.label for opt in categories"></select>
                 </p>
 
                 <p>
@@ -25,7 +24,6 @@
                     <br/>
                     <input id="sort-by-price" type="radio" name="sortBy" ng-model="sortBy" value="price">Price</input>
                 </p>
-
                 <p>
                     <label>Sort order</label>
                     <input id="sort-order-asc" type="radio" name="sortOrder" ng-model="sortOrder" ng-checked="true"

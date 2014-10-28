@@ -13,7 +13,8 @@
 
                 <p>
                     <label for="category">Select a category:</label>
-                    <select id="category" ng-model="category" ng-options="opt as opt.label for opt in categories"></select>
+                    <select id="category" ng-model="category"
+                            ng-options="opt as opt.label for opt in categories"></select>
                 </p>
 
                 <p>
@@ -22,7 +23,8 @@
                     <br/>
                     <input id="sort-by-sku" type="radio" name="sortBy" ng-model="sortBy" value="sku">SKU</input>
                     <br/>
-                    <input id="sort-by-price" type="radio" name="sortBy" ng-model="sortBy" value="salePrice">Price</input>
+                    <input id="sort-by-saleprice" type="radio" name="sortBy" ng-model="sortBy" value="salePrice">Sale
+                    Price</input>
                 </p>
                 <p>
                     <label>Sort order</label>

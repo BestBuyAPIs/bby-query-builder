@@ -15,7 +15,7 @@ describe('bby-query-mixer', function () {
 
             expect(element(by.id('sort-by-none')).isEnabled()).toBe(true);
             expect(element(by.id('sort-by-sku')).isEnabled()).toBe(true);
-            expect(element(by.id('sort-by-price')).isEnabled()).toBe(true);
+            expect(element(by.id('sort-by-saleprice')).isEnabled()).toBe(true);
             expect(element(by.id('sort-order-asc')).isEnabled()).toBe(true);
             expect(element(by.id('sort-order-desc')).isEnabled()).toBe(true);
 
@@ -43,6 +43,9 @@ describe('bby-query-mixer', function () {
 
             element(by.id('sort-order-desc')).click();
             expect(remixQuery.getText()).toBe('https://api.remix.bestbuy.com/v1/products(categoryPath.id=abcat0502000)?apiKey=someApiKey&sort=sku.desc');
+
+            element(by.id('sort-by-saleprice')).click();
+            expect(remixQuery.getText()).toBe('https://api.remix.bestbuy.com/v1/products(categoryPath.id=abcat0502000)?apiKey=someApiKey&sort=salePrice.desc');
         });
     });
 });

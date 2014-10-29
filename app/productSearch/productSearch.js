@@ -26,6 +26,8 @@ angular.module('bby-query-mixer.productSearch').controller('ProductSearchCtrl', 
                 paramArgs.push('sort=' + $scope.sortBy + '.' + $scope.sortOrder);
             }
 
+            paramArgs.push('format=json');
+
             if (paramArgs.length > 0) {
                 return '?' + paramArgs.join('&');
             } else {

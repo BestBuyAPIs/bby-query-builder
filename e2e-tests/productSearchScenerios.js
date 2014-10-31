@@ -27,23 +27,23 @@ describe('bby-query-mixer', function () {
             var category = element((by.model('category')));
             expect(category.all(by.css('option')).count()).toBe(20);
             expect(category.$('option[selected="selected"]').getText()).toEqual('All Cell Phones with Plans');
-            expect(remixQuery.getText()).toBe('https://api.remix.bestbuy.com/v1/products(categoryPath.id=pcmcat209400050001)');
+            expect(remixQuery.getText()).toBe('https://api.remix.bestbuy.com/v1/products(categoryPath.id=pcmcat209400050001)?format=json');
 
             var apiKeyInput = element(by.model('apiKey'));
             apiKeyInput.sendKeys('someApiKey');
-            expect(remixQuery.getText()).toBe('https://api.remix.bestbuy.com/v1/products(categoryPath.id=pcmcat209400050001)?apiKey=someApiKey');
+            expect(remixQuery.getText()).toBe('https://api.remix.bestbuy.com/v1/products(categoryPath.id=pcmcat209400050001)?apiKey=someApiKey&format=json');
 
             element(by.cssContainingText('option', 'Laptops')).click();
-            expect(remixQuery.getText()).toBe('https://api.remix.bestbuy.com/v1/products(categoryPath.id=abcat0502000)?apiKey=someApiKey');
+            expect(remixQuery.getText()).toBe('https://api.remix.bestbuy.com/v1/products(categoryPath.id=abcat0502000)?apiKey=someApiKey&format=json');
 
             element(by.id('sort-by-sku')).click();
-            expect(remixQuery.getText()).toBe('https://api.remix.bestbuy.com/v1/products(categoryPath.id=abcat0502000)?apiKey=someApiKey&sort=sku.asc');
+            expect(remixQuery.getText()).toBe('https://api.remix.bestbuy.com/v1/products(categoryPath.id=abcat0502000)?apiKey=someApiKey&sort=sku.asc&format=json');
 
             element(by.id('sort-order-desc')).click();
-            expect(remixQuery.getText()).toBe('https://api.remix.bestbuy.com/v1/products(categoryPath.id=abcat0502000)?apiKey=someApiKey&sort=sku.desc');
+            expect(remixQuery.getText()).toBe('https://api.remix.bestbuy.com/v1/products(categoryPath.id=abcat0502000)?apiKey=someApiKey&sort=sku.desc&format=json');
 
             element(by.id('sort-by-saleprice')).click();
-            expect(remixQuery.getText()).toBe('https://api.remix.bestbuy.com/v1/products(categoryPath.id=abcat0502000)?apiKey=someApiKey&sort=salePrice.desc');
+            expect(remixQuery.getText()).toBe('https://api.remix.bestbuy.com/v1/products(categoryPath.id=abcat0502000)?apiKey=someApiKey&sort=salePrice.desc&format=json');
         });
     });
 });

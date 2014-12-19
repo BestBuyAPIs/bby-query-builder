@@ -5,7 +5,6 @@ angular.module('bby-query-mixer.recommendations').controller('RecommendationsCtr
     '$resource',
     'recommendationsConfig',
     function ($scope, $resource, recommendationsConfig) {
-        $scope.apiKey = '';
         $scope.results = {};
         $scope.remixResults = {};
         $scope.skuList = recommendationsConfig.skuList;

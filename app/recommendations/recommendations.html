@@ -1,4 +1,4 @@
-<div id="recommendations-div" ng-controller="RecommendationsCtrl">
+<div id="recommendations-div" ng-controller="RecommendationsCtrl as recommendations">
     <div id="left-side-container" class="query-container">
         <ul class="menu content-container">
             <li><a href="#/productSearch">product Search</a></li>
@@ -7,11 +7,10 @@
         <div class="content-container" id="builder-content">
             <div>
                 <div class="query-information">
-                    <p>
+<!--                     <p>
                         <label for="api-key" id="api-key-label">Enter your API key:</label>
                         <input id="api-key" type="text" ng-model="apiKey"/>
-                    </p>
-
+                    </p> -->
                     <p>
                         <button id="invoke-query" class="query-button" ng-click="invokeRecommendationsQuery()">RUN
                             query

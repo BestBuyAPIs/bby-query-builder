@@ -19,10 +19,6 @@ describe('bby-query-mixer.productSearch module', function () {
             expect(ctrl).toBeDefined();
         });
 
-        it('should have apiKey', function () {
-            expect(scope.apiKey).toBeDefined();
-        });
-
         it('should have a category id associated with each category label', function () {
             scope.categories.map(function (categoryOption) {
                 expect(categoryOption.value).toBeDefined();

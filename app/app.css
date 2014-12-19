@@ -195,3 +195,6 @@ label:after {
     border: none;
     outline: none;
 }
+#apikeyinput {
+    text-align: right;
+}

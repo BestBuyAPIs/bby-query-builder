@@ -38,10 +38,6 @@ describe('bby-query-mixer.recommendations module', function () {
             expect(ctrl).toBeDefined();
         });
 
-        it('should have apiKey', function () {
-            expect(scope.apiKey).toBeDefined();
-        });
-
         it('should have a skuList constant defined', function () {
             expect(scope.skuList).toBe('sku1,sku2,sku3');
         });

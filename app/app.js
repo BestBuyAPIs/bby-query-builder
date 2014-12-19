@@ -10,4 +10,8 @@ angular.module('bby-query-mixer', [
     .config(['$routeProvider', 'ngClipProvider', function ($routeProvider, ngClipProvider) {
         $routeProvider.otherwise({redirectTo: '/productSearch'});
         ngClipProvider.setPath("bower_components/zeroclipboard/dist/ZeroClipboard.swf");
+    }])
+    .controller('pageController', ['$scope', function($scope){
+    	$scope.apiKey = '';
+
     }]);

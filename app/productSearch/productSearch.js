@@ -4,7 +4,6 @@ angular.module('bby-query-mixer.productSearch').controller('ProductSearchCtrl', 
     '$scope',
     'categoryConfig',
     function ($scope, categoryConfig) {
-        $scope.apiKey = '';
         $scope.categories = angular.copy(categoryConfig);
         $scope.category = $scope.categories[0];
         $scope.sortBy = 'none';

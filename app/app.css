@@ -23,7 +23,7 @@ label:after {
     white-space: pre;
 }
 
-.menu {
+/*.menu {
     list-style: none;
     margin-bottom: 2em;
     padding: 0 0 0.5em;
@@ -49,7 +49,7 @@ label:after {
 .menu > li:nth-child(1):before {
     content: "";
     padding: 0;
-}
+}*/
 
 .menu a {
     text-decoration: none;
@@ -197,5 +197,4 @@ label:after {
 }
 #apikeyinput {
     text-align: right;
-    color: #f9c500;
 }

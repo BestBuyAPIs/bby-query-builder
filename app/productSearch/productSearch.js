@@ -33,5 +33,17 @@ angular.module('bby-query-mixer.productSearch').controller('ProductSearchCtrl', 
                 return '';
             }
         };
+
+        //human readable URL stuff
+        $scope.baseApiUrl = 'https://api.remix.bestbuy.com/v1/products';
+        //$scope.category.value + '(categoryPath.id='  $scope.category.value + ')'
+        //api parameter args below:
+        var readablerecipe = {
+            stuff: 'apiKey='+$scope.apiKey, 
+            otherstuff: 'sort='+$scope.sortBy+ '.' + $scope.sortOrder,
+            andmore: 'format=json'
+        }
+        //add '&' between each param args...
+
     }
 ]);

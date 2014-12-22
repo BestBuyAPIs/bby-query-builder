@@ -15,6 +15,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="bower_components/html5-boilerplate/css/normalize.css">
     <link rel="stylesheet" href="bower_components/html5-boilerplate/css/main.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">    
     <link rel="stylesheet" href="app.css">
     <script src="bower_components/html5-boilerplate/js/vendor/modernizr-2.6.2.min.js"></script>
 </head>
@@ -36,9 +37,12 @@
                 <input id="api-key" type="text" ng-model="apiKey">
             </p>
         </div>
-            <ul class="menu content-container" ng-controller="menuController">
-                <li ng-class="{selectedOption:isActive('/productSearch')}"><a href="#/productSearch">product Search</a></li>
-                <li ng-class="{selectedOption:isActive('/recommendations')}"><a href="#/recommendations">recommendations</a></li>
+            <ul class="nav nav-tabs menu" ng-controller="menuController">
+                <li ng-class="{active:isActive('/productSearch')}"><a href="#/productSearch">product Search</a></li>
+                <li ng-class="{active:isActive('/recommendations')}"><a href="#/recommendations">recommendations</a></li>
+                <li ng-class="{selectedOption:isActive('/openBox')}"><a>open box</a></li>
+                <li ng-class="{selectedOption:isActive('/stores')}"><a>stores</a></li>
+                <li ng-class="{selectedOption:isActive('/category')}"><a>category</a></li>
             </ul>
     <div ng-view>
     </div>
@@ -46,6 +50,7 @@
 <!-- In production use:
 <script src="//ajax.googleapis.com/ajax/libs/angularjs/x.x.x/angular.min.js"></script>
 -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 <script src="bower_components/angular/angular.js"></script>
 <script src="bower_components/angular-route/angular-route.js"></script>
 <script src="bower_components/angular-resource/angular-resource.js"></script>

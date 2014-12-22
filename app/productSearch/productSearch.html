@@ -11,6 +11,7 @@
 
                 <p>
                     <label>Sort by</label>
+                    <br>
                     <input id="sort-by-none" type="radio" name="sortBy" ng-model="sortBy" value="none">(none)</input>
                     <br/>
                     <input id="sort-by-sku" type="radio" name="sortBy" ng-model="sortBy" value="sku">SKU</input>
@@ -20,6 +21,7 @@
                 </p>
                 <p>
                     <label>Sort order</label>
+                    <br>
                     <input id="sort-order-asc" type="radio" name="sortOrder" ng-model="sortOrder" ng-checked="true"
                            value="asc">Ascending</input>
                     <br/>
@@ -36,6 +38,12 @@
             </p>
             <span id="remix-query" class="query-text" ng-bind="buildRemixQuery()"></span>
 
+            <br><br><label>Request URL Breakdown</label>
+            <p>Base url: <span ng-bind="baseApiUrl"></span></p>
+            <p>Category ID: (categoryPath.id=<span ng-bind="category.value"></span>)</p>
+            <p>Your key: ?apiKey=<span ng-bind="apiKey"></span></p>
+            <p>Response format: &format=json</p>
+            <p>Sort by:</p>
             <div style="display:none"><p>#response:</p></div>
         </div>
     </div>

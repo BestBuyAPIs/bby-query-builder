@@ -14,4 +14,9 @@ angular.module('bby-query-mixer', [
     .controller('pageController', ['$scope', function($scope){
     	$scope.apiKey = '';
 
+    }])
+    .controller('menuController', ['$scope', '$location', function($scope, $location) {
+        $scope.isActive = function(route) {
+            return route === $location.path();
+        }
     }]);

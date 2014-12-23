@@ -18,6 +18,7 @@
     "karma-junit-reporter": "^0.2.2",
     "karma-phantomjs-launcher": "^0.1.4",
     "phantomjs": "^1.9.11",
+    "pretty-js": "^0.1.7",
     "protractor": "^1.1.1",
     "selenium-webdriver": "^2.43.5",
     "shelljs": "^0.2.6"
@@ -35,4 +36,3 @@
     "protractor": "protractor protractor.conf.js"
   }
 }
-

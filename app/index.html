@@ -31,12 +31,8 @@
             <a href="https://developer.bestbuy.com" id="portal-link"><img src="assets/logo.png"/></a>
         </div>
     </div>
-        <div id="apikeyinput">
-            <p>
-                <span for="api-key" id="api-key-label">API key:</span>
-                <input id="api-key" type="text" ng-model="apiKey">
-            </p>
-        </div>
+    <div class='row'>
+        <div class="col-sm-8">
             <ul class="nav nav-tabs menu" ng-controller="menuController">
                 <li ng-class="{active:isActive('/productSearch')}"><a href="#/productSearch">product Search</a></li>
                 <li ng-class="{active:isActive('/recommendations')}"><a href="#/recommendations">recommendations</a></li>
@@ -44,6 +40,16 @@
                 <li ng-class="{active:isActive('/stores')}"><a>stores</a></li>
                 <li ng-class="{active:isActive('/category')}"><a>category</a></li>
             </ul>
+        </div>
+        <div class="col-sm-4">
+            <div id="apikeyinput">
+            <p>
+                <span for="api-key" id="api-key-label">API key:</span>
+                <input id="api-key" type="text" ng-model="apiKey">
+            </p>
+            </div>
+        </div>
+    </div>
     <div ng-view>
     </div>
 </div>

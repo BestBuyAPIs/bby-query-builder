@@ -34,10 +34,5 @@ angular.module('bby-query-mixer.productSearch').controller('ProductSearchCtrl', 
             }
         };
 
-        //human readable URL stuff
-        $scope.baseApiUrl = 'https://api.remix.bestbuy.com/v1/products';
-        //$scope.category.value + '(categoryPath.id='  $scope.category.value + ')'
-        //api parameter args below:
-
     }
 ]);

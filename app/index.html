@@ -40,9 +40,9 @@
             <ul class="nav nav-tabs menu" ng-controller="menuController">
                 <li ng-class="{active:isActive('/productSearch')}"><a href="#/productSearch">product Search</a></li>
                 <li ng-class="{active:isActive('/recommendations')}"><a href="#/recommendations">recommendations</a></li>
-                <li ng-class="{selectedOption:isActive('/openBox')}"><a>open box</a></li>
-                <li ng-class="{selectedOption:isActive('/stores')}"><a>stores</a></li>
-                <li ng-class="{selectedOption:isActive('/category')}"><a>category</a></li>
+                <li ng-class="{active:isActive('/openbox')}"><a>open box</a></li>
+                <li ng-class="{active:isActive('/stores')}"><a>stores</a></li>
+                <li ng-class="{active:isActive('/category')}"><a>category</a></li>
             </ul>
     <div ng-view>
     </div>

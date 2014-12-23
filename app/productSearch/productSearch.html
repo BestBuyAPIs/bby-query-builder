@@ -36,14 +36,15 @@
                 <button id="copy-button" class="copy-button" type="button" clip-copy="buildRemixQuery()">
                     <img src="assets/clipboard_white.png" width="20" height="20" alt="copy"/></button>
             </p>
-            <span id="remix-query" class="query-text" ng-bind="buildRemixQuery()"></span>
+            <h5><span id="remix-query" class="query-text" ng-bind="buildRemixQuery()"></span></h5>
 
-            <br><br><label>Request URL Breakdown</label>
-            <p>Base url: <span ng-bind="baseApiUrl"></span></p>
-            <p>Category ID: (categoryPath.id=<span ng-bind="category.value"></span>)</p>
-            <p>Your key: ?apiKey=<span ng-bind="apiKey"></span></p>
-            <p>Response format: &format=json</p>
-            <p>Sort by:</p>
+            <br><br><pre><code>var exampleUrlJSON = {
+            baseURL : https://api.remix.bestbuy.com/v1/products,
+            categoryId : (categoryPath.id=<span ng-bind="category.value"></span>),
+            apiKey : ?apiKey=<span ng-bind="apiKey"></span>,
+            responseFormat : &format=json<span ng-show="sortBy != 'none'">,
+            sort : &sort=<span ng-bind="sortBy"></span>.<span ng-bind="sortOrder"></span></span>
+            }</code></pre>
             <div style="display:none"><p>#response:</p></div>
         </div>
     </div>

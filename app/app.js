@@ -6,7 +6,7 @@ angular.module('bby-query-mixer', [
     'bby-query-mixer.productSearch',
     'bby-query-mixer.recommendations',
     'ngClipboard'
-])
+    ])
     .config(['$routeProvider', 'ngClipProvider', function ($routeProvider, ngClipProvider) {
         $routeProvider.otherwise({redirectTo: '/productSearch'});
         ngClipProvider.setPath("bower_components/zeroclipboard/dist/ZeroClipboard.swf");

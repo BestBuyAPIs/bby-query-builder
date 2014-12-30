@@ -15,7 +15,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="bower_components/html5-boilerplate/css/normalize.css">
     <link rel="stylesheet" href="bower_components/html5-boilerplate/css/main.css">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">    
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/ng-tags-input/2.0.1/ng-tags-input.min.css" />    
     <link rel="stylesheet" href="app.css">
     <script src="bower_components/html5-boilerplate/js/vendor/modernizr-2.6.2.min.js"></script>
 </head>
@@ -36,9 +37,9 @@
             <ul class="nav nav-tabs menu" ng-controller="menuController">
                 <li ng-class="{active:isActive('/productSearch')}"><a href="#/productSearch">product Search</a></li>
                 <li ng-class="{active:isActive('/recommendations')}"><a href="#/recommendations">recommendations</a></li>
-                <li ng-class="{active:isActive('/openbox')}"><a>open box</a></li>
-                <li  ng-class="{active:isActive('/stores')}"><a>stores</a></li>
-                <li  ng-class="{active:isActive('/category')}"><a>category</a></li>
+                <li style="display:none" ng-class="{active:isActive('/openbox')}"><a>open box</a></li>
+                <li style="display:none" ng-class="{active:isActive('/stores')}"><a>stores</a></li>
+                <li style="display:none" ng-class="{active:isActive('/category')}"><a>category</a></li>
             </ul>
         </div>
         <div class="col-sm-4">
@@ -62,6 +63,7 @@
 <script src="bower_components/angular-resource/angular-resource.js"></script>
 <script src="bower_components/zeroclipboard/dist/ZeroClipboard.js"></script>
 <script src="bower_components/ng-clip/src/ngClip.js"></script>
+<script src="bower_components/ng-tags-input/ng-tags-input.js"></script>
 <script src="app.js"></script>
 <script src="productSearch/00-module.js"></script>
 <script src="productSearch/categoryConfig.js"></script>
@@ -69,6 +71,7 @@
 <script src="recommendations/00-module.js"></script>
 <script src="recommendations/recommendationsConfig.js"></script>
 <script src="recommendations/recommendations.js"></script>
-<script src="services/httpclientservice.js"></script>
+<script src="http://cdnjs.cloudflare.com/ajax/libs/ng-tags-input/2.0.1/ng-tags-input.min.js"></script>
+
 </body>
 </html>

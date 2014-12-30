@@ -3,7 +3,8 @@
 angular.module('bby-query-mixer.productSearch').controller('ProductSearchCtrl', [
     '$scope',
     'categoryConfig',
-    function ($scope, categoryConfig) {
+    '$http',
+    function ($scope, categoryConfig, $http) {
         $scope.categories = angular.copy(categoryConfig);
         $scope.category = $scope.categories[0];
         $scope.sortBy = 'none';
@@ -32,6 +33,15 @@ angular.module('bby-query-mixer.productSearch').controller('ProductSearchCtrl', 
             } else {
                 return '';
             }
+        };
+
+        $scope.showOptions = [
+            { text: 'sku'},
+            { text: 'name'}
+        ];
+
+        $scope.loadShowOptions = function(query) {
+            return $http.get('productSearch/showOptions.json');
         };
 
     }

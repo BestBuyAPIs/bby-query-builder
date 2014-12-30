@@ -6,11 +6,15 @@
                 <h4>What information do you want?</h4>
                 <p>Choose here...</p>
                 <h4>Specify what information to return:</h4>
-                <p>Choose here...</p>
+                <label for="show">Select 'show' options:</label>
+                <tags-input ng-model="showOptions" add-from-autocomplete-only="true" placeholder="Enter here">
+                    <auto-complete source="loadShowOptions($query)" min-length="1" max-results-to-show="10" ></auto-complete>
+            </tagsinput>
+
                 <h4>Pagination</h4>
                 <p>Results per page:</h4>
                 <br>
-                <button class="btn btn-success">RUN query</button>
+                <button class="query-button">RUN query</button>
 <!--                 <p>
                     <label for="category">Select a category:</label>
                     <select id="category" ng-model="category"
@@ -40,7 +44,7 @@
         </div>
     </div>
     <div id="right-side-container" class="query-container">
-                    <br><br><pre><code>var exampleUrlJSON = {
+                    <br><br><pre><code id="exampleUrlJson">var exampleUrlJSON = {
             baseURL : 'https://api.remix.bestbuy.com/v1/products',
             categoryId : '(categoryPath.id=<span ng-bind="category.value"></span>)',
             apiKey : '?apiKey=<span ng-bind="apiKey"></span>',<span ng-show="sortBy != 'none'">

@@ -36,12 +36,22 @@ angular.module('bby-query-mixer.productSearch').controller('ProductSearchCtrl', 
         };
 
         $scope.showOptions = [
-            { text: 'sku'},
-            { text: 'name'}
+            { text: 'SKU', value: 'SKU' },
+            { text: 'name', value: 'name' },
+            { text: 'price', value: 'price' },
+            { text: 'description', value: 'description' },
+            { text: 'weight', value: 'weight' },
+            { text: 'sale price', value: 'sale price' },
+            { text: 'batteries included', value: 'batteries included' },
+            { text: 'customer review average', value:'customer review average' }
         ];
 
-        $scope.loadShowOptions = function(query) {
-            return $http.get('productSearch/showOptions.json');
+        $scope.option = {
+            showOptions: ['SKU', 'name']
+        };
+
+        $scope.showOpts = function () {
+            console.log($scope.option.showOptions);
         };
 
     }

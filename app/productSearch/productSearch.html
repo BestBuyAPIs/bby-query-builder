@@ -6,12 +6,16 @@
                 <h4>What information do you want?</h4>
                 <p>Choose here...</p>
                 <h4>Specify what information to return:</h4>
-                <label for="show">Select 'show' options:</label>
-                <tags-input ng-model="showOptions" add-from-autocomplete-only="true" placeholder="Enter here">
-                    <auto-complete source="loadShowOptions($query)" min-length="1" max-results-to-show="10" ></auto-complete>
-            </tagsinput>
 
-                <h4>Pagination</h4>
+                <div class="container" style="border:2px solid #032741; width:500px; height: 150px; overflow-y: scroll; padding-left:30px;">
+                    <label ng-repeat="opt in showOptions">
+                        <input type="checkbox" checklist-model="option.showOptions" checklist-value="opt.text">
+                        {{opt.text}}
+                    </label>
+                </div>
+                    <!-- <div>results {{ option.showOptions | json}}</div> -->
+ 
+                 <h4>Pagination</h4>
                 <p>Results per page:</h4>
                 <br>
                 <button class="query-button">RUN query</button>

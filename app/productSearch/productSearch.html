@@ -53,6 +53,7 @@
             categoryId : '(categoryPath.id=<span ng-bind="category.value"></span>)',
             apiKey : '?apiKey=<span ng-bind="apiKey"></span>',<span ng-show="sortBy != 'none'">
             sortOptions : '&sort=<span ng-bind="sortBy"></span>.<span ng-bind="sortOrder"></span>',</span>
+            showOptions : '&show=<span ng-bind="option.showOptions.join(',')"></span>
             responseFormat : '&format=json'
             }</code></pre>
         <div class="content-container" id="response-content">

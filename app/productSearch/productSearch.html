@@ -3,11 +3,15 @@
         <div class="content-container" id="builder-content">
             <div class="query-information">
                 <p><h1>Products API</h1><a href="https://developer.bestbuy.com/documentation/products-api">Learn more with our full documentation</a></p>
-                <h4>What information do you want?</h4>
-                <p>Choose here...</p>
+                <p>
+                    <label for="category">Select a category:</label>
+                    <select id="category" ng-model="category"
+                            ng-options="opt as opt.label for opt in categories"></select>
+                </p>
+
                 <h4>Specify what information to return:</h4>
 
-                <div class="container" style="border:2px solid #032741; width:500px; height: 150px; overflow-y: scroll; padding-left:30px;">
+                <div class="container" style="border:2px solid #032741; width:500px; height: 150px; overflow-y: scroll; padding-left:30px; margin-left:5%;width:75%">
                     <label ng-repeat="opt in showOptions">
                         <input type="checkbox" checklist-model="option.showOptions" checklist-value="opt.text">
                         {{opt.text}}
@@ -18,45 +22,46 @@
                  <h4>Pagination</h4>
                 <p>Results per page:</h4>
                 <br>
+            <div class="row">
+                <div class="col-md-6">
+                    <p>
+                        <label>Sort by</label>
+                        <input id="sort-by-none" type="radio" name="sortBy" ng-model="sortBy" value="none">(none)</input>
+                        <br/>
+                        <input id="sort-by-sku" type="radio" name="sortBy" ng-model="sortBy" value="sku">SKU</input>
+                        <br/>
+                        <input id="sort-by-saleprice" type="radio" name="sortBy" ng-model="sortBy" value="salePrice">Sale
+                        Price</input>
+                    </p>
+                </div>
+                <div class="col-md-6">
+                    <p>
+                        <label>Sort order</label>
+                        <input id="sort-order-asc" type="radio" name="sortOrder" ng-model="sortOrder" ng-checked="true"
+                               value="asc">Ascending</input>
+                        <br/>
+                        <input id="sort-order-desc" type="radio" name="sortOrder" ng-model="sortOrder" value="desc">Descending</input>
+                    </p>
+                </div>
+            </div>
                 <button class="query-button" ng-click="invokeRemixQuery()">RUN query</button>
-<!--                 <p>
-                    <label for="category">Select a category:</label>
-                    <select id="category" ng-model="category"
-                            ng-options="opt as opt.label for opt in categories"></select>
-                </p>
 
-                <p>
-                    <label>Sort by</label>
-                    <br>
-                    <input id="sort-by-none" type="radio" name="sortBy" ng-model="sortBy" value="none">(none)</input>
-                    <br/>
-                    <input id="sort-by-sku" type="radio" name="sortBy" ng-model="sortBy" value="sku">SKU</input>
-                    <br/>
-                    <input id="sort-by-saleprice" type="radio" name="sortBy" ng-model="sortBy" value="salePrice">Sale
-                    Price</input>
-                </p>
-                <p>
-                    <label>Sort order</label>
-                    <br>
-                    <input id="sort-order-asc" type="radio" name="sortOrder" ng-model="sortOrder" ng-checked="true"
-                           value="asc">Ascending</input>
-                    <br/>
-                    <input id="sort-order-desc" type="radio" name="sortOrder" ng-model="sortOrder" value="desc">Descending</input>
-                </p> -->
 
             </div>
         </div>
     </div>
     <div id="right-side-container" class="query-container">
-            <br><br><pre><code id="exampleUrlJson">var exampleUrlJSON = {
-            baseURL : 'https://api.remix.bestbuy.com/v1/products',
-            categoryId : '(categoryPath.id=<span ng-bind="category.value"></span>)',
-            apiKey : '?apiKey=<span ng-bind="apiKey"></span>',<span ng-show="sortBy != 'none'">
-            sortOptions : '&sort=<span ng-bind="sortBy"></span>.<span ng-bind="sortOrder"></span>',</span>
-            showOptions : '&show=<span ng-bind="option.showOptions.join(',')"></span>
-            responseFormat : '&format=json'
-            }</code></pre>
+        <h4 class="container">URL Breakdown</h4>
+        <div ng-filter="" id="exampleUrlJson"><!--   var exampleUrlJSON = { -->
+        baseURL : 'https://api.remix.bestbuy.com/v1/products',
+        categoryId : '(categoryPath.id=<span ng-bind="category.value"></span>)',
+        apiKey : '?apiKey=<span ng-bind="apiKey"></span>',<span ng-show="sortBy != 'none'">
+        sortOptions : '&sort=<span ng-bind="sortBy"></span>.<span ng-bind="sortOrder"></span>',</span>
+        showOptions : '&show=<span ng-bind="option.showOptions.join(',')"></span>
+        responseFormat : '&format=json'
+    <!-- } --></div>
         <div class="content-container" id="response-content">
+            <h4 class="container">Completed URL</h4>
             <p>#request:
                 <button id="copy-button" class="copy-button" type="button" clip-copy="buildRemixQuery()">
                     <img src="assets/clipboard_white.png" width="20" height="20" alt="copy"/></button>
@@ -64,7 +69,7 @@
             <h5><span id="remix-query" class="query-text" ng-bind="buildRemixQuery()"></span></h5>
             <div style="">
                 <p>#response:</p>
-                <textarea style="color:black;" class="query-result" id="remix-query-result">{{ remixResults | json }}</textarea>
+                <textarea style="color:black; height:400px;" class="query-result" id="remix-query-result">{{ remixResults | json }}</textarea>
 
             </div>
         </div>

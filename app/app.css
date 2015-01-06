@@ -203,3 +203,10 @@ textarea {
     height: 70px;
 }
 label { display: block; }
+
+#exampleUrlJson {
+    display: block;
+    unicode-bidi: embed;
+    font-family: monospace;
+    white-space: pre;
+}

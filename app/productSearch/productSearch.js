@@ -22,12 +22,11 @@ angular.module('bby-query-mixer.productSearch').controller('ProductSearchCtrl', 
         $scope.showOptions = [
             { text: 'sku', value: 'sku' },
             { text: 'name', value: 'name' },
-            { text: 'price', value: 'price' },
-            { text: 'description', value: 'description' },
+            { text: 'regularPrice', value: 'regularPrice' },
+            { text: 'shortDescription', value: 'shortDescription' },
             { text: 'weight', value: 'weight' },
-            { text: 'sale price', value: 'sale price' },
-            { text: 'batteries included', value: 'batteries included' },
-            { text: 'customer review average', value:'customer review average' }
+            { text: 'height', value: 'height' },
+            { text: 'longDescription', value: 'longDescription' }
         ];
 
         $scope.option = {

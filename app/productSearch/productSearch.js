@@ -4,11 +4,20 @@ angular.module('bby-query-mixer.productSearch').controller('ProductSearchCtrl', 
     '$scope',
     'categoryConfig',
     '$http',
-    function ($scope, categoryConfig, $http) {
+    '$resource',
+    function ($scope, categoryConfig, $http, $resource) {
         $scope.categories = angular.copy(categoryConfig);
         $scope.category = $scope.categories[0];
         $scope.sortBy = 'none';
         $scope.sortOrder = 'asc';
+
+        var httpClient = function (query) {
+            return $resource(query, {}, {
+                jsonp_query: {
+                    method: 'JSONP'
+                }
+            });
+        };
 
         $scope.showOptions = [
             { text: 'sku', value: 'sku' },
@@ -37,11 +46,26 @@ angular.module('bby-query-mixer.productSearch').controller('ProductSearchCtrl', 
             return baseUrl + $scope.buildParams();
         };
 
+        $scope.invokeRemixQuery = function () {
+            $scope.remixResults = "Running";
+            var query = $scope.buildRemixQuery();
+            var successFn = function (value) {
+                $scope.remixResults = value;
+            };
+            var errorFn = function (httpResponse) {
+                console.log('invokeRemixQuery failure: ' + JSON.stringify(httpResponse));
+                $scope.remixResults = [
+                    {error: httpResponse}
+                ];
+            }
+            httpClient(query).jsonp_query(successFn, errorFn);
+        };
+
         $scope.buildParams = function () {
             var paramArgs = [];
 
             if ($scope.apiKey) {
-                paramArgs.push('apiKey=' + $scope.apiKey);
+                paramArgs.push('apiKey=' + $scope.apiKey + '&callback=JSON_CALLBACK' );
             }
 
             if ($scope.sortBy && $scope.sortBy != 'none') {

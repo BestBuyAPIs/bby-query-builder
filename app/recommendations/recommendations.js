@@ -53,7 +53,7 @@ angular.module('bby-query-mixer.recommendations').controller('RecommendationsCtr
                 ];
             }
             httpClient(query).jsonp_query(successFn, errorFn);
-        }
+        };
 
         $scope.buildSkuList = function () {
             $scope.skuList = $scope.results.results.map(function (result) {
@@ -63,7 +63,7 @@ angular.module('bby-query-mixer.recommendations').controller('RecommendationsCtr
 
         $scope.isRemixQueryButtonDisabled = function () {
             return ($scope.skuList == recommendationsConfig.skuList);
-        }
+        };
     }
 ])
 ;

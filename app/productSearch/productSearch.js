@@ -82,6 +82,6 @@ angular.module('bby-query-mixer.productSearch').controller('ProductSearchCtrl', 
             }
         };
 
-
+        $scope.pagesize = 10;
     }
 ]);

@@ -20,7 +20,13 @@
                     <!-- <div>results {{ option.showOptions | json}}</div> -->
  
                  <h4>Pagination</h4>
-                <p>Results per page:</h4>
+                <p>
+                    <form name="pagesizeform">
+                    Results per page: <input id="pagination" ng-model="pagesize" type="number" min="1" max="100" required>
+                    <span class="error" ng-show="pagesizeform.input.$error.number">Not valid number!</span>
+                    </form>
+
+                </p>
                 <br>
             <div class="row">
                 <div class="col-md-6">
@@ -50,16 +56,16 @@
     </div>
     <div id="right-side-container" class="query-container">
         <h4 class="container">URL Breakdown</h4>
-        <div id="exampleUrlJson"><!--   var exampleUrlJSON = { -->
-        baseURL : 'https://api.remix.bestbuy.com/v1/products',
-        categoryId : '(categoryPath.id=<span ng-bind="category.value"></span>)',
-        apiKey : '?apiKey=<span ng-bind="apiKey"></span>',<span ng-show="sortBy != 'none'">
-        sortOptions : '&sort=<span ng-bind="sortBy"></span>.<span ng-bind="sortOrder"></span>',</span>
-        showOptions : '&show=<span ng-bind="option.showOptions.join(',')"></span>
-        responseFormat : '&format=json'
+        <div id="exampleUrlJson" class="container"><!--   var exampleUrlJSON = { -->
+        baseURL : https://api.remix.bestbuy.com/v1/products
+        categoryId : (categoryPath.id=<span ng-bind="category.value"></span>)
+        apiKey : ?apiKey=<span ng-bind="apiKey"></span><span ng-show="sortBy != 'none'">
+        sortOptions : &sort=<span ng-bind="sortBy"></span>.<span ng-bind="sortOrder"></span>'</span>
+        showOptions : &show=<span ng-bind="option.showOptions.join(',')"></span>
+        responseFormat : &format=json
     <!-- } --></div>
+        <h4 class="container">Completed URL</h4>
         <div class="content-container" id="response-content">
-            <h4 class="">Completed URL</h4>
             <p>#request:
                 <button id="copy-button" class="copy-button" type="button" clip-copy="buildRemixQuery()">
                     <img src="assets/clipboard_white.png" width="20" height="20" alt="copy"/></button>

@@ -9,6 +9,11 @@ module.exports = function (config) {
             'app/bower_components/angular-mocks/angular-mocks.js',
             'app/**/*.js',
             {pattern: 'app/bower_components/**/*.js', watched: false, included: false, served: true}
+
+        ],
+        exclude: [
+            'app/bower_components/bootstrap/**',
+            'app/bower_components/jquery/**',
         ],
         autoWatch: true,
         frameworks: [

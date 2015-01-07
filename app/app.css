@@ -212,6 +212,7 @@ label { display: block; }
 }
 
 .showOptionsCheckbox {
+    background-color:white;
     border:2px solid #032741; 
     width:500px; 
     height: 150px; 

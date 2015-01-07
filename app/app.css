@@ -210,3 +210,18 @@ label { display: block; }
     font-family: monospace;
     white-space: pre;
 }
+
+.showOptionsCheckbox {
+    border:2px solid #032741; 
+    width:500px; 
+    height: 150px; 
+    overflow-y: scroll; 
+    padding-left:30px; 
+    margin-left:5%;
+    width:75%
+}
+
+#product-query-result {
+    color:black; 
+    height:400px
+}

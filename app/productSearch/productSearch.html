@@ -11,7 +11,7 @@
 
                 <h4>Specify what information to return:</h4>
 
-                <div class="container" style="border:2px solid #032741; width:500px; height: 150px; overflow-y: scroll; padding-left:30px; margin-left:5%;width:75%">
+                <div class="container showOptionsCheckbox">
                     <label ng-repeat="opt in showOptions">
                         <input type="checkbox" checklist-model="option.showOptions" checklist-value="opt.text">
                         {{opt.text}}
@@ -67,9 +67,9 @@
                     <img src="assets/clipboard_white.png" width="20" height="20" alt="copy"/></button>
             </p>
             <h5><span id="remix-query" class="query-text" ng-bind="buildRemixQuery()"></span></h5>
-            <div style="">
+            <div>
                 <p>#response:</p>
-                <textarea style="color:black; height:400px;" class="query-result" id="remix-query-result">{{ remixResults | json }}</textarea>
+                <textarea class="query-result" id="product-query-result">{{ remixResults | json }}</textarea>
 
             </div>
         </div>

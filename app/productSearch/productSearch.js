@@ -30,7 +30,8 @@ angular.module('bby-query-mixer.productSearch').controller('ProductSearchCtrl', 
             { text: 'shortDescription', value: 'shortDescription' },
             { text: 'weight', value: 'weight' },
             { text: 'height', value: 'height' },
-            { text: 'longDescription', value: 'longDescription' }
+            { text: 'longDescription', value: 'longDescription' },
+            { text: 'platform', value: 'platform'}
         ];
 
         $scope.option = {
@@ -44,7 +45,7 @@ angular.module('bby-query-mixer.productSearch').controller('ProductSearchCtrl', 
             {text:"Greater than: >", value:">"},
             {text:"Less than: <", value:"<"},
             {text:"Greater than or equal to: >=", value:">="},
-            {text:"Less than or equal to: =<", value:"=<"}
+            {text:"Less than or equal to: <=", value:"<="}
 
         ];
         $scope.operatorOption = $scope.operatorOptions[0];

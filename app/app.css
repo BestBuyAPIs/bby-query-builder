@@ -204,13 +204,6 @@ textarea {
 }
 label { display: block; }
 
-#exampleUrlJson {
-    /*display: block;*/
-    unicode-bidi: embed;
-    font-family: monospace;
-    /*white-space: pre;*/
-}
-
 .showOptionsCheckbox {
     background-color:white;
     border:2px solid #032741; 

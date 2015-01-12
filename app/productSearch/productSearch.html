@@ -8,7 +8,14 @@
                     <select id="category" ng-model="category"
                             ng-options="opt as opt.label for opt in categories"></select>
                 </p>
-
+                <div id="complexSearch">
+                    <form>
+                        Attr:<input ng-model="complexAttr" type="text">
+                        Operator:<select id="operator" ng-model="operatorOption"
+                                ng-options="opt as opt.value for opt in operatorOptions"></select>
+                        Value:<input type="text" ng-model="complexVal">
+                    </form>
+                </div>
                 <h4>Specify what information to return:</h4>
 
                 <div class="container showOptionsCheckbox">
@@ -22,8 +29,10 @@
                  <h4>Pagination</h4>
                 <p>
                     <form name="pagesizeform">
+                    <p>If left out of the query, results per page defaults to 10 and Remix will return the first page of results</p>
                     Results per page: <input id="pagination" ng-model="pagesize" type="number" min="1" max="100" required>
                     <span class="error" ng-show="pagesizeform.input.$error.number">Not valid number!</span>
+                    Return page: <input id="whichPage" ng-model="whichPage" type="number" min="1" max="900" required>
                     </form>
 
                 </p>
@@ -56,14 +65,14 @@
     </div>
     <div id="right-side-container" class="query-container">
         <h4 class="container">URL Breakdown</h4>
-        <div id="exampleUrlJson" class="container"><!--   var exampleUrlJSON = { -->
-        baseURL : https://api.remix.bestbuy.com/v1/products
-        categoryId : (categoryPath.id=<span ng-bind="category.value"></span>)
-        apiKey : ?apiKey=<span ng-bind="apiKey"></span><span ng-show="sortBy != 'none'">
-        sortOptions : &sort=<span ng-bind="sortBy"></span>.<span ng-bind="sortOrder"></span>'</span>
-        showOptions : &show=<span ng-bind="option.showOptions.join(',')"></span>
-        responseFormat : &format=json
-    <!-- } --></div>
+        <div id="exampleUrl" class="container">
+            <p>baseURL : https://api.remix.bestbuy.com/v1/products</p>
+            <p>categoryId : (categoryPath.id=<span ng-bind="category.value"></span>)</p>
+            <p>apiKey : ?apiKey=<span ng-bind="apiKey"></span><span ng-show="sortBy != 'none'"></p>
+            <p>sortOptions : &sort=<span ng-bind="sortBy"></span>.<span ng-bind="sortOrder"></span>'</span></p>
+            <p>showOptions : &show=<span ng-bind="option.showOptions.join(',')"></span></p>
+            <p>responseFormat : &format=json</p>
+        </div>
         <h4 class="container">Completed URL</h4>
         <div class="content-container" id="response-content">
             <p>#request:

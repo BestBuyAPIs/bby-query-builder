@@ -10,6 +10,10 @@ angular.module('bby-query-mixer.productSearch').controller('ProductSearchCtrl', 
         $scope.category = $scope.categories[0];
         $scope.sortBy = 'none';
         $scope.sortOrder = 'asc';
+        $scope.pagination = 'none';
+        $scope.pagesize = 10;
+        $scope.whichPage = 1;
+
 
         var httpClient = function (query) {
             return $resource(query, {}, {
@@ -33,6 +37,18 @@ angular.module('bby-query-mixer.productSearch').controller('ProductSearchCtrl', 
             showOptions: ['sku', 'name']
         };
 
+        $scope.operatorOptions = [
+            {text:"Ampersand: And", value:"&"},
+            {text: "Pipe : Any", value:"|"},
+            {text: "Equals : equals", value:"="},
+            {text:"Greater than: >", value:">"},
+            {text:"Less than: <", value:"<"},
+            {text:"Greater than or equal to: >=", value:">="},
+            {text:"Less than or equal to: =<", value:"=<"}
+
+        ];
+        $scope.operatorOption = $scope.operatorOptions[0];
+
         $scope.showMyOptions = $scope.option.showOptions.join(',');
 
 
@@ -41,7 +57,8 @@ angular.module('bby-query-mixer.productSearch').controller('ProductSearchCtrl', 
         };
 
         $scope.buildRemixQuery = function () {
-            var baseUrl = 'https://api.remix.bestbuy.com/v1/products' + ($scope.category.value ? '(categoryPath.id=' + $scope.category.value + ')' : '');
+            var complexQuery = $scope.complexAttr ? '&('+ $scope.complexAttr + $scope.operatorOption.value + $scope.complexVal + ')' : '';
+            var baseUrl = 'https://api.remix.bestbuy.com/v1/products' + ($scope.category.value ? '(categoryPath.id=' + $scope.category.value + complexQuery +')' : '');
             return baseUrl + $scope.buildParams();
         };
 
@@ -73,6 +90,8 @@ angular.module('bby-query-mixer.productSearch').controller('ProductSearchCtrl', 
 
             paramArgs.push('show=' + $scope.option.showOptions.join(','));
 
+            paramArgs.push('pageSize='+$scope.pagesize + '&page='+$scope.whichPage);
+
             paramArgs.push('format=json');
 
             if (paramArgs.length > 0) {
@@ -81,7 +100,5 @@ angular.module('bby-query-mixer.productSearch').controller('ProductSearchCtrl', 
                 return '';
             }
         };
-
-        $scope.pagesize = 10;
     }
 ]);

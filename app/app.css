@@ -205,10 +205,10 @@ textarea {
 label { display: block; }
 
 #exampleUrlJson {
-    display: block;
+    /*display: block;*/
     unicode-bidi: embed;
     font-family: monospace;
-    white-space: pre;
+    /*white-space: pre;*/
 }
 
 .showOptionsCheckbox {

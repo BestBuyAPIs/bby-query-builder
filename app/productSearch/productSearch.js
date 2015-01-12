@@ -39,9 +39,8 @@ angular.module('bby-query-mixer.productSearch').controller('ProductSearchCtrl', 
         };
 
         $scope.operatorOptions = [
-            {text:"Ampersand: And", value:"&"},
-            {text: "Pipe : Any", value:"|"},
             {text: "Equals : equals", value:"="},
+            {text: "Pipe : Any", value:"|"},
             {text:"Greater than: >", value:">"},
             {text:"Less than: <", value:"<"},
             {text:"Greater than or equal to: >=", value:">="},

@@ -33,20 +33,20 @@ describe('bby-query-mixer.productSearch module', function () {
 
             it('should return a url when apikey passed in', function () {
                 scope.apiKey = "youreAnApiKey";
-                expect(scope.buildRemixQuery()).toEqual("https://api.remix.bestbuy.com/v1/products(categoryPath.id=pcmcat209400050001)?apiKey=youreAnApiKey&callback=JSON_CALLBACK&show=sku,name&pageSize=10&page=1&format=json");
+                expect(scope.buildRemixQuery()).toEqual("https://api.remix.bestbuy.com/v1/products(categoryPath.id=pcmcat209400050001)?apiKey=youreAnApiKey&callback=JSON_CALLBACK&sort=customerTopRated.asc&show=sku,name&pageSize=10&page=1&format=json");
             });
 
             it('should return a query string with no apiKey parameter when no key provided', function () {
-                expect(scope.buildRemixQuery()).toEqual("https://api.remix.bestbuy.com/v1/products(categoryPath.id=pcmcat209400050001)?show=sku,name&pageSize=10&page=1&format=json");
+                expect(scope.buildRemixQuery()).toEqual("https://api.remix.bestbuy.com/v1/products(categoryPath.id=pcmcat209400050001)?sort=customerTopRated.asc&show=sku,name&pageSize=10&page=1&format=json");
             });
 
             it('should update the category id value when category is changed', function () {
                 scope.category = {
                     value: "abcat33"
                 };
-                expect(scope.buildRemixQuery()).toEqual("https://api.remix.bestbuy.com/v1/products(categoryPath.id=abcat33)?show=sku,name&pageSize=10&page=1&format=json");
+                expect(scope.buildRemixQuery()).toEqual("https://api.remix.bestbuy.com/v1/products(categoryPath.id=abcat33)?sort=customerTopRated.asc&show=sku,name&pageSize=10&page=1&format=json");
                 scope.category.value = "abcat34";
-                expect(scope.buildRemixQuery()).toEqual("https://api.remix.bestbuy.com/v1/products(categoryPath.id=abcat34)?show=sku,name&pageSize=10&page=1&format=json");
+                expect(scope.buildRemixQuery()).toEqual("https://api.remix.bestbuy.com/v1/products(categoryPath.id=abcat34)?sort=customerTopRated.asc&show=sku,name&pageSize=10&page=1&format=json");
             });
 
             it('should return a query string with a sort filter and sortOrder when specified', function () {

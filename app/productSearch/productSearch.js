@@ -8,7 +8,7 @@ angular.module('bby-query-mixer.productSearch').controller('ProductSearchCtrl', 
     function ($scope, categoryConfig, $http, $resource) {
         $scope.categories = angular.copy(categoryConfig);
         $scope.category = $scope.categories[0];
-        $scope.sortBy = 'none';
+        $scope.sortBy = 'customerTopRated';
         $scope.sortOrder = 'asc';
         $scope.pagination = 'none';
         $scope.pagesize = 10;

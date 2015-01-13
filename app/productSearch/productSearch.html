@@ -2,9 +2,10 @@
     <div id="left-side-container" class="query-container">
         <div class="content-container" id="builder-content">
             <div class="query-information">
-                <p><h1>Products API</h1><a href="https://developer.bestbuy.com/documentation/products-api">Learn more with our full documentation</a></p>
+                <p><h1 href="https://developer.bestbuy.com/documentation/products-api">Products API</h1></p>
+                <h4>Products Search</h4>
                 <p>
-                    <label for="category">Select a category:</label>
+                    <span for="category">Select a category:</span>
                     <select id="category" ng-model="category"
                             ng-options="opt as opt.label for opt in categories"></select>
                 </p>
@@ -26,21 +27,10 @@
                 </div>
                     <!-- <div>results {{ option.showOptions | json}}</div> -->
  
-                 <h4>Pagination</h4>
-                <div class="content-container">
-                    <form name="pagesizeform">
-                    <p>If left out of the query, results per page defaults to 10 and Remix will return the first page of results</p>
-                    Results per page: <input id="pagination" ng-model="pagesize" type="number" min="1" max="100" required>
-                    <span class="error" ng-show="pagesizeform.input.$error.number">Not valid number!</span>
-                    Return page: <input id="whichPage" ng-model="whichPage" type="number" min="1" max="900" required>
-                    </form>
-
-                </div>
-                <br>
             <div class="row">
                 <div class="col-md-6">
                     <p>
-                        <label>Sort by</label>
+                        <span>Sort by</span>
                             <div class="content-container">
                                 <input id="sort-by-none" type="radio" name="sortBy" ng-model="sortBy" value="none">(none)</input>
                                 <br/>
@@ -53,7 +43,7 @@
                 </div>
                 <div class="col-md-6">
                     <p>
-                        <label>Sort order</label>
+                        <span>Sort order</span>
                         <div class="content-container">
                             <input id="sort-order-asc" type="radio" name="sortOrder" ng-model="sortOrder" ng-checked="true"
                                    value="asc">Ascending</input>
@@ -63,6 +53,18 @@
                     </p>
                 </div>
             </div>
+
+             <h4>Pagination</h4>
+            <div class="content-container">
+                <form name="pagesizeform">
+                <p>If left out of the query, results per page defaults to 10 and Remix will return the first page of results</p>
+                Results per page: <input id="pagination" ng-model="pagesize" type="number" min="1" max="100" required>
+                <span class="error" ng-show="pagesizeform.input.$error.number">Not valid number!</span>
+                Return page: <input id="whichPage" ng-model="whichPage" type="number" min="1" max="900" required>
+                </form>
+
+            </div>
+
                 <button class="query-button" ng-click="invokeRemixQuery()">RUN query</button>
             </div>
         </div>

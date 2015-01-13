@@ -5,7 +5,8 @@ angular.module('bby-query-mixer.productSearch').controller('ProductSearchCtrl', 
     'categoryConfig',
     '$http',
     '$resource',
-    function ($scope, categoryConfig, $http, $resource) {
+    'operatorOptionsConfig',
+    function ($scope, categoryConfig, $http, $resource, operatorOptionsConfig) {
         $scope.categories = angular.copy(categoryConfig);
         $scope.category = $scope.categories[0];
         $scope.sortBy = 'customerTopRated';
@@ -13,7 +14,8 @@ angular.module('bby-query-mixer.productSearch').controller('ProductSearchCtrl', 
         $scope.pagination = 'none';
         $scope.pagesize = 10;
         $scope.whichPage = 1;
-
+        $scope.operatorOptions = angular.copy(operatorOptionsConfig);
+        $scope.operatorOption = $scope.operatorOptions[0];
 
         var httpClient = function (query) {
             return $resource(query, {}, {
@@ -37,18 +39,6 @@ angular.module('bby-query-mixer.productSearch').controller('ProductSearchCtrl', 
         $scope.option = {
             showOptions: ['sku', 'name']
         };
-
-        $scope.operatorOptions = [
-            {text: "Equals : equals", value:"="},
-            {text: "Pipe : Any", value:"|"},
-            {text:"Greater than: >", value:">"},
-            {text:"Less than: <", value:"<"},
-            {text:"Greater than or equal to: >=", value:">="},
-            {text:"Less than or equal to: <=", value:"<="},
-            {text:"In", value:" in "}
-
-        ];
-        $scope.operatorOption = $scope.operatorOptions[0];
 
         $scope.showMyOptions = $scope.option.showOptions.join(',');
 

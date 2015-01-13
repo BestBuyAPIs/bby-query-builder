@@ -2,10 +2,11 @@
     <div id="left-side-container" class="query-container">
         <div class="content-container" id="builder-content">
             <div class="query-information">
-                <p><h1 href="https://developer.bestbuy.com/documentation/products-api">Products API</h1></p>
-                <h4>Products Search</h4>
+                <h1><a href="https://developer.bestbuy.com/documentation/products-api">Products API</a></h1>
+                <p>Our Products API allows you to query for Best Buy products sorted by specific attributes.</p>
+                <h4>Search for Products</h4>
                 <p>
-                    <span for="category">Select a category:</span>
+                    <span for="category">Select a category, keyword or other attribute:</span>
                     <select id="category" ng-model="category"
                             ng-options="opt as opt.label for opt in categories"></select>
                 </p>
@@ -17,7 +18,7 @@
                         Value:<input type="text" ng-model="complexVal">
                     </form>
                 </div>
-                <h4>Specify what information to return:</h4>
+                <h4>What product information do you want to show in your results?</h4>
 
                 <div class="container showOptionsCheckbox">
                     <label ng-repeat="opt in showOptions">
@@ -25,7 +26,6 @@
                         {{opt.text}}
                     </label>
                 </div>
-                    <!-- <div>results {{ option.showOptions | json}}</div> -->
  
             <div class="row">
                 <div class="col-md-6">
@@ -56,7 +56,7 @@
              <h4>Pagination</h4>
             <div class="content-container">
                 <form name="pagesizeform">
-                <p>If left out of the query, results per page defaults to 10 and Remix will return the first page of results</p>
+                <p>Select a number of results you want to return, or leave blank for a default of 10 results.</p>
                 Results per page: <input id="pagination" ng-model="pagesize" type="number" min="1" max="100" required>
                 <span class="error" ng-show="pagesizeform.input.$error.number">Not valid number!</span>
                 Return page: <input id="whichPage" ng-model="whichPage" type="number" min="1" max="900" required>
@@ -70,13 +70,15 @@
     </div>
     <div id="right-side-container" class="query-container">
         <h4 class="container">URL Breakdown</h4>
-        <div id="exampleUrl" class="content-container">
-            <p>baseURL : https://api.remix.bestbuy.com/v1/products</p>
-            <p>categoryId : (categoryPath.id=<span ng-bind="category.value"></span>)</p>
-            <p>apiKey : ?apiKey=<span ng-bind="apiKey"></span><span ng-show="sortBy != 'none'"></p>
-            <p>sortOptions : &sort=<span ng-bind="sortBy"></span>.<span ng-bind="sortOrder"></span>'</span></p>
-            <p>showOptions : &show=<span ng-bind="option.showOptions.join(',')"></span></p>
-            <p>responseFormat : &format=json</p>
+        <div class="content-container"><label>This is the anatomy of your request, showing all of the "pieces" that make up your completed URL.</label>
+            <div id="exampleUrl" class="content-container">
+                <p>baseURL : https://api.remix.bestbuy.com/v1/products</p>
+                <p>categoryId : (categoryPath.id=<span ng-bind="category.value"></span>)</p>
+                <p>apiKey : ?apiKey=<span ng-bind="apiKey"></span><span ng-show="sortBy != 'none'"></p>
+                <p>sortOptions : &sort=<span ng-bind="sortBy"></span>.<span ng-bind="sortOrder"></span>'</span></p>
+                <p>showOptions : &show=<span ng-bind="option.showOptions.join(',')"></span></p>
+                <p>responseFormat : &format=json</p>
+            </div>
         </div>
         <h4 class="container">Completed URL</h4>
         <div class="content-container" id="response-content">

@@ -6,7 +6,8 @@ angular.module('bby-query-mixer.productSearch').controller('ProductSearchCtrl', 
     '$http',
     '$resource',
     'operatorOptionsConfig',
-    function ($scope, categoryConfig, $http, $resource, operatorOptionsConfig) {
+    'showOptionsConfig',
+    function ($scope, categoryConfig, $http, $resource, operatorOptionsConfig, showOptionsConfig) {
         $scope.categories = angular.copy(categoryConfig);
         $scope.category = $scope.categories[0];
         $scope.sortBy = 'customerTopRated';
@@ -16,6 +17,7 @@ angular.module('bby-query-mixer.productSearch').controller('ProductSearchCtrl', 
         $scope.whichPage = 1;
         $scope.operatorOptions = angular.copy(operatorOptionsConfig);
         $scope.operatorOption = $scope.operatorOptions[0];
+        $scope.showOptions = angular.copy(showOptionsConfig);
 
         var httpClient = function (query) {
             return $resource(query, {}, {
@@ -24,17 +26,6 @@ angular.module('bby-query-mixer.productSearch').controller('ProductSearchCtrl', 
                 }
             });
         };
-
-        $scope.showOptions = [
-            { text: 'sku', value: 'sku' },
-            { text: 'name', value: 'name' },
-            { text: 'regularPrice', value: 'regularPrice' },
-            { text: 'shortDescription', value: 'shortDescription' },
-            { text: 'weight', value: 'weight' },
-            { text: 'height', value: 'height' },
-            { text: 'longDescription', value: 'longDescription' },
-            { text: 'platform', value: 'platform'}
-        ];
 
         $scope.option = {
             showOptions: ['sku', 'name']

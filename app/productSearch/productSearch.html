@@ -6,16 +6,17 @@
                 <p>Our Products API allows you to query for Best Buy products sorted by specific attributes.</p>
                 <h4>Search for Products</h4>
                 <p>
-                    <span for="category">Select a category, keyword or other attribute:</span>
-                    <select id="category" ng-model="category"
+                    <p for="category">Select a category, keyword or other attribute:</p>
+                    Category:<select id="category" ng-model="category"
                             ng-options="opt as opt.label for opt in categories"></select>
                 </p>
                 <div id="complexSearch">
                     <form>
-                        Attr:<input ng-model="complexAttr" type="text">
+                        Attr:<select id="attribute" ng-model="attributeOption"
+                                ng-options="attr as attr.value for attr in attributeOptions"></select>
                         Operator:<select id="operator" ng-model="operatorOption"
                                 ng-options="opt as opt.value for opt in operatorOptions"></select>
-                        Value:<input type="text" ng-model="complexVal">
+                        Value:<input type="text" ng-model="complexVal" placeholder="{{attributeOption.placeholder}}">
                     </form>
                 </div>
                 <h4>What product information do you want to show in your results?</h4>
@@ -65,6 +66,7 @@
             </div>
 
                 <button class="query-button" ng-click="invokeRemixQuery()">RUN query</button>
+                <button class="query-button" ng-click="resetParams()">RESET query</button>
             </div>
         </div>
     </div>

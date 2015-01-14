@@ -7,7 +7,8 @@ angular.module('bby-query-mixer.productSearch').controller('ProductSearchCtrl', 
     '$resource',
     'operatorOptionsConfig',
     'showOptionsConfig',
-    function ($scope, categoryConfig, $http, $resource, operatorOptionsConfig, showOptionsConfig) {
+    'attributeOptionsConfig',
+    function ($scope, categoryConfig, $http, $resource, operatorOptionsConfig, showOptionsConfig, attributeOptionsConfig) {
         $scope.categories = angular.copy(categoryConfig);
         $scope.category = $scope.categories[0];
         $scope.sortBy = 'customerTopRated';
@@ -18,6 +19,8 @@ angular.module('bby-query-mixer.productSearch').controller('ProductSearchCtrl', 
         $scope.operatorOptions = angular.copy(operatorOptionsConfig);
         $scope.operatorOption = $scope.operatorOptions[0];
         $scope.showOptions = angular.copy(showOptionsConfig);
+        $scope.attributeOptions = angular.copy(attributeOptionsConfig);
+        $scope.attributeOption = $scope.attributeOptions[0];
 
         var httpClient = function (query) {
             return $resource(query, {}, {
@@ -39,7 +42,7 @@ angular.module('bby-query-mixer.productSearch').controller('ProductSearchCtrl', 
         };
 
         $scope.buildRemixQuery = function () {
-            var complexQuery = $scope.complexAttr ? '&('+ $scope.complexAttr + $scope.operatorOption.value + $scope.complexVal + ')' : '';
+            var complexQuery = $scope.attributeOption.value ? '&('+ $scope.attributeOption.value + $scope.operatorOption.value + $scope.complexVal + ')' : '';
             var baseUrl = 'https://api.remix.bestbuy.com/v1/products' + ($scope.category.value ? '(categoryPath.id=' + $scope.category.value + complexQuery +')' : '');
             return baseUrl + $scope.buildParams();
         };
@@ -82,5 +85,22 @@ angular.module('bby-query-mixer.productSearch').controller('ProductSearchCtrl', 
                 return '';
             }
         };
+
+        $scope.resetParams = function () {
+            $scope.category = $scope.categories[0];
+            $scope.operatorOption = $scope.operatorOptions[0];
+            $scope.option = {
+                showOptions: ['sku', 'name']
+            };
+            $scope.push = 10;
+            $scope.whichPage = 1;
+            $scope.sortBy = 'customerTopRated';
+            $scope.sortOrder = 'asc';
+            $scope.complexAttr = '';
+            $scope.complexVal = '';
+            $scope.pagesize =  10;
+
+        };
+
     }
 ]);

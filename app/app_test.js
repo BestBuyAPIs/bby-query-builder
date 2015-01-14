@@ -20,4 +20,16 @@ describe('bby-query-mixer', function () {
             expect($route.routes['/recommendations'].controller).toEqual('RecommendationsCtrl');
         });
     });
+    describe('default view controller', function () {
+        var ctrl, scope;
+        beforeEach(inject(function ($controller, $rootScope) {
+            scope = $rootScope.$new();
+            ctrl = $controller('pageController', {
+                $scope: scope
+            });
+        }));
+        it('should have apiKey', function () {
+            expect(scope.apiKey).toBeDefined();
+        });
+    });
 });

@@ -15,6 +15,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="bower_components/html5-boilerplate/css/normalize.css">
     <link rel="stylesheet" href="bower_components/html5-boilerplate/css/main.css">
+    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css">
     <link rel="stylesheet" href="app.css">
     <script src="bower_components/html5-boilerplate/js/vendor/modernizr-2.6.2.min.js"></script>
 </head>
@@ -24,29 +25,54 @@
 <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade
     your browser</a> to improve your experience.</p>
 <![endif]-->
-
-<div id="logo-wrapper">
-    <div class="content-container">
-        <a href="https://developer.bestbuy.com" id="portal-link"><img src="assets/logo.png"/></a>
+<div ng-controller="pageController">
+    <div id="logo-wrapper">
+        <div class="content-container">
+            <a href="https://developer.bestbuy.com" id="portal-link"><img src="assets/logo.png"/></a>
+        </div>
+    </div>
+    <div class='row'>
+        <div class="col-sm-8">
+            <ul class="nav nav-tabs menu" ng-controller="menuController">
+                <li ng-class="{active:isActive('/productSearch')}"><a href="#/productSearch">product Search</a></li>
+                <li ng-class="{active:isActive('/recommendations')}"><a href="#/recommendations">recommendations</a></li>
+                <li style="display:none" ng-class="{active:isActive('/openbox')}"><a>open box</a></li>
+                <li style="display:none" ng-class="{active:isActive('/stores')}"><a>stores</a></li>
+                <li style="display:none" ng-class="{active:isActive('/category')}"><a>category</a></li>
+            </ul>
+        </div>
+        <div class="col-sm-4">
+            <div id="apikeyinput">
+            <p>
+                <span for="api-key" id="api-key-label">API key:</span>
+                <input id="api-key" type="text" ng-model="apiKey">
+            </p>
+            </div>
+        </div>
+    </div>
+    <div ng-view>
     </div>
 </div>
-<div ng-view>
-</div>
-
 <!-- In production use:
 <script src="//ajax.googleapis.com/ajax/libs/angularjs/x.x.x/angular.min.js"></script>
 -->
+<script src="bower_components/jquery/dist/jquery.min.js"></script>
 <script src="bower_components/angular/angular.js"></script>
 <script src="bower_components/angular-route/angular-route.js"></script>
 <script src="bower_components/angular-resource/angular-resource.js"></script>
 <script src="bower_components/zeroclipboard/dist/ZeroClipboard.js"></script>
 <script src="bower_components/ng-clip/src/ngClip.js"></script>
+<script src="bower_components/checklist-model/checklist-model.js"></script>
 <script src="app.js"></script>
 <script src="productSearch/00-module.js"></script>
 <script src="productSearch/categoryConfig.js"></script>
+<script src="productSearch/operatorOptionsConfig.js"></script>
+<script src="productSearch/showOptionsConfig.js"></script>
+<script src="productSearch/attributeOptionsConfig.js"></script>
 <script src="productSearch/productSearch.js"></script>
 <script src="recommendations/00-module.js"></script>
 <script src="recommendations/recommendationsConfig.js"></script>
 <script src="recommendations/recommendations.js"></script>
+
 </body>
 </html>

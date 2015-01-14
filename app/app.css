@@ -23,7 +23,7 @@ label:after {
     white-space: pre;
 }
 
-.menu {
+/*.menu {
     list-style: none;
     margin-bottom: 2em;
     padding: 0 0 0.5em;
@@ -49,7 +49,7 @@ label:after {
 .menu > li:nth-child(1):before {
     content: "";
     padding: 0;
-}
+}*/
 
 .menu a {
     text-decoration: none;
@@ -57,7 +57,7 @@ label:after {
     cursor: pointer;
 }
 
-.selected-option {
+.selectedOption {
     border-bottom-width: 5px;
     border-bottom-color: #c0c0c0;
     border-bottom-style: solid;
@@ -194,4 +194,28 @@ label:after {
     text-decoration: none;
     border: none;
     outline: none;
+}
+#apikeyinput {
+    text-align: right;
+}
+textarea {
+    overflow: visible;
+    height: 70px;
+}
+label { display: block; }
+
+.showOptionsCheckbox {
+    background-color:white;
+    border:2px solid #032741; 
+    width:500px; 
+    height: 150px; 
+    overflow-y: scroll; 
+    padding-left:30px; 
+    margin-left:5%;
+    width:75%
+}
+
+#product-query-result {
+    color:black; 
+    height:400px
 }

@@ -2,7 +2,7 @@
 
 angular.module('bby-query-mixer.productSearch').constant('operatorOptionsConfig', [
 	        {text: "Equals : equals", value:"="},
-            {text: "Pipe : Any", value:"|"},
+            {text: "Not equals : !=", value:"!="},
             {text:"Greater than: >", value:">"},
             {text:"Less than: <", value:"<"},
             {text:"Greater than or equal to: >=", value:">="},

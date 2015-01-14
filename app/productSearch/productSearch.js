@@ -21,6 +21,7 @@ angular.module('bby-query-mixer.productSearch').controller('ProductSearchCtrl', 
         $scope.showOptions = angular.copy(showOptionsConfig);
         $scope.attributeOptions = angular.copy(attributeOptionsConfig);
         $scope.attributeOption = $scope.attributeOptions[0];
+        $scope.operator = $scope.attributeOption.operator[0]; 
 
         var httpClient = function (query) {
             return $resource(query, {}, {
@@ -42,7 +43,7 @@ angular.module('bby-query-mixer.productSearch').controller('ProductSearchCtrl', 
         };
 
         $scope.buildRemixQuery = function () {
-            var complexQuery = $scope.attributeOption.value ? '&('+ $scope.attributeOption.value + $scope.operatorOption.value + $scope.complexVal + ')' : '';
+            var complexQuery = $scope.attributeOption.value ? '&('+ $scope.attributeOption.value + $scope.operator.value + $scope.complexVal + ')' : '';
             var baseUrl = 'https://api.remix.bestbuy.com/v1/products' + ($scope.category.value ? '(categoryPath.id=' + $scope.category.value + complexQuery +')' : '');
             return baseUrl + $scope.buildParams();
         };

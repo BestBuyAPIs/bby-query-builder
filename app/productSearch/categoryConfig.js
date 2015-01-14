@@ -2,6 +2,10 @@
 
 angular.module('bby-query-mixer.productSearch').constant('categoryConfig', [
     {
+        value: false,
+        label: 'None'
+    },
+    {
         value: 'pcmcat209400050001',
         label: 'All Cell Phones with Plans'
     },

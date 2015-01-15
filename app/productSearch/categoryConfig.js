@@ -3,7 +3,7 @@
 angular.module('bby-query-mixer.productSearch').constant('categoryConfig', [
     {
         value: false,
-        label: 'None'
+        label: 'Choose Category'
     },
     {
         value: 'pcmcat209400050001',

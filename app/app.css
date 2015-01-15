@@ -23,6 +23,10 @@ label:after {
     white-space: pre;
 }
 
+.content-container > p {
+     margin: 0 0 2px;
+}
+
 /*.menu {
     list-style: none;
     margin-bottom: 2em;
@@ -206,7 +210,7 @@ label { display: block; }
 
 .showOptionsCheckbox {
     background-color:white;
-    border:2px solid #032741; 
+    border:1px solid #032741; 
     width:500px; 
     height: 150px; 
     overflow-y: scroll; 

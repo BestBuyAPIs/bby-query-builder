@@ -2,28 +2,27 @@
     <div id="left-side-container" class="query-container">
         <div class="content-container" id="builder-content">
             <div class="query-information">
-                <h1><a href="https://developer.bestbuy.com/documentation/products-api">Products API</a></h1>
-                <p>Our Products API allows you to query for Best Buy products sorted by specific attributes.</p>
+                <h3>Products API</h3>
+                <p>The <a href="https://developer.bestbuy.com/documentation/products-api">Products API</a> gives you access to the full Best Buy catalog. The query builder provides a subset of the product attributes to create sample requests and response documents.</p>
                 <h4>Search for Products</h4>
-                <p>
-                    <p for="category">Select a category, keyword or other attribute:</p>
-                    Category:<select id="category" ng-model="category"
+                    <p for="category">You can search by one of our most popular categories, one or more attribute values, a keyword search or any combination of these:</p>
+                    <select id="category" ng-model="category"
                             ng-options="opt as opt.label for opt in categories"></select>
                 </p>
                 <div id="complexSearch">
                     <form>
-                        Attr:<select id="attribute" ng-model="attributeOption"
-                                ng-options="attr as attr.value for attr in attributeOptions"></select>
+                        <select id="attribute" ng-model="attributeOption"
+                                ng-options="attr as attr.text for attr in attributeOptions"></select>
 <!--                         Operator:<select id="operator" ng-model="operatorOption"
                                 ng-options="opt as opt.value for opt in operatorOptions"></select> -->
-                        Operator:<select id="operator" ng-model="operator"
+                        <select id="operator" ng-model="operator"
                                 ng-options="opt as opt.value for opt in attributeOption.operator"></select>
-                        Value:<input type="text" ng-model="complexVal" placeholder="{{attributeOption.placeholder}}">
+                        <input type="text" ng-model="complexVal" placeholder="{{attributeOption.placeholder}}">
                     </form>
                 </div>
                 <br/>
-                <h4>What product information do you want to show in your results?</h4>
-
+                <h4>Build Your Response</h4>
+                    <p for="category">Select the attributes and sorting criteria for the response:</p>
                 <div class="container showOptionsCheckbox">
                     <label ng-repeat="opt in showOptions">
                         <input type="checkbox" checklist-model="option.showOptions" checklist-value="opt.text">
@@ -34,7 +33,7 @@
             <div class="row">
                 <div class="col-md-6">
                     <p>
-                        <span>Sort by</span>
+                        <span>Sort By</span>
                             <div class="content-container">
                                 <input id="sort-by-customerTopRated" type="radio" name="sortBy" ng-model="sortBy" value="customerTopRated">Customer Top Rated</input><br/>
                                 <input id="sort-by-sku" type="radio" name="sortBy" ng-model="sortBy" value="sku">SKU</input>
@@ -46,7 +45,7 @@
                 </div>
                 <div class="col-md-6">
                     <p>
-                        <span>Sort order</span>
+                        <span>Sort Order</span>
                         <div class="content-container">
                             <input id="sort-order-asc" type="radio" name="sortOrder" ng-model="sortOrder" ng-checked="true"
                                    value="asc">Ascending</input>
@@ -60,10 +59,10 @@
              <h4>Pagination</h4>
             <div class="content-container">
                 <form name="pagesizeform">
-                <p>Select a number of results you want to return, or leave blank for a default of 10 results.</p>
-                Results per page: <input id="pagination" ng-model="pagesize" type="number" min="1" max="100" required>
+                <p>Specify additional results per page or return subsequent pages by updating the Results Per Page and Page values:</p>
+                Results Per Page: <input id="pagination" ng-model="pagesize" type="number" min="1" max="100" required>
                 <span class="error" ng-show="pagesizeform.input.$error.number">Not valid number!</span>
-                Return page: <input id="whichPage" ng-model="whichPage" type="number" min="1" max="900" required>
+                Page: <input id="whichPage" ng-model="whichPage" type="number" min="1" max="900" required>
                 </form>
 
             </div>
@@ -75,7 +74,7 @@
     </div>
     <div id="right-side-container" class="query-container">
         <h4 class="container">URL Breakdown</h4>
-        <div class="content-container"><label>This is the anatomy of your request, showing all of the "pieces" that make up your completed URL:</label>
+        <div class="content-container"><label>Here is an anatomy of your request, showing all of the "pieces" that make up your complete URL:</label>
             <div id="exampleUrl" class="content-container">
                 <p>baseURL : https://api.remix.bestbuy.com/v1/products</p>
                 <p ng-show="category.value">categoryId : (categoryPath.id=<span ng-bind="category.value"></span>)</p>
@@ -85,7 +84,7 @@
                 <p>responseFormat : &format=json</p>
             </div>
         </div>
-        <h4 class="container">Completed URL</h4>
+        <h4 class="container">Complete URL</h4>
         <div class="content-container" id="response-content">
             <p>#request:
                 <button id="copy-button" class="copy-button" type="button" clip-copy="buildRemixQuery()">

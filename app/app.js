@@ -7,6 +7,7 @@ angular.module('bby-query-mixer', [
     'bby-query-mixer.recommendations',
     'ngClipboard',
     'checklist-model',
+    'ui.bootstrap',
     ])
     .config(['$routeProvider', 'ngClipProvider', function ($routeProvider, ngClipProvider) {
         $routeProvider.otherwise({redirectTo: '/productSearch'});

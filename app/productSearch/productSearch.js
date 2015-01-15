@@ -11,8 +11,6 @@ angular.module('bby-query-mixer.productSearch').controller('ProductSearchCtrl', 
     function ($scope, categoryConfig, $http, $resource, operatorOptionsConfig, showOptionsConfig, attributeOptionsConfig) {
         $scope.categories = angular.copy(categoryConfig);
         $scope.category = $scope.categories[0];
-        $scope.sortBy = 'customerTopRated';
-        $scope.sortOrder = 'asc';
         $scope.pagination = 'none';
         $scope.pagesize = 10;
         $scope.whichPage = 1;
@@ -31,6 +29,20 @@ angular.module('bby-query-mixer.productSearch').controller('ProductSearchCtrl', 
             });
         };
 
+        $scope.sortByOptions = [
+            {text:"Customer Top Rated", value:"customerTopRated"},
+            {text:"SKU", value:"SKU"},
+            {text:"Sale Price", value:"salePrice" }
+        ];
+        $scope.sortBy = $scope.sortByOptions[0];
+
+        $scope.sortOrderOptions = [
+            {text:"Ascending", value:"asc"},
+            {text:"descending", value:"desc"}
+        ];
+
+        $scope.sortOrder = $scope.sortOrderOptions[0];
+
         $scope.option = {
             showOptions: ['sku', 'name']
         };
@@ -44,7 +56,8 @@ angular.module('bby-query-mixer.productSearch').controller('ProductSearchCtrl', 
 
         $scope.buildRemixQuery = function () {
             var complexQuery = $scope.attributeOption.value ? '&('+ $scope.attributeOption.value + $scope.operator.value + $scope.complexVal + ')' : '';
-            var baseUrl = 'https://api.remix.bestbuy.com/v1/products' + ($scope.category.value ? '(categoryPath.id=' + $scope.category.value + complexQuery +')' : '');
+            var attributeOnlyQuery = $scope.attributeOption.value ? '('+ $scope.attributeOption.value + $scope.operator.value + $scope.complexVal + ')' : '';
+            var baseUrl = 'https://api.remix.bestbuy.com/v1/products' + ($scope.category.value ? '(categoryPath.id=' + $scope.category.value + complexQuery +')' : attributeOnlyQuery) ;
             return baseUrl + $scope.buildParams();
         };
 
@@ -70,8 +83,8 @@ angular.module('bby-query-mixer.productSearch').controller('ProductSearchCtrl', 
                 paramArgs.push('apiKey=' + $scope.apiKey + '&callback=JSON_CALLBACK' );
             }
 
-            if ($scope.sortBy && $scope.sortBy != 'none') {
-                paramArgs.push('sort=' + $scope.sortBy + '.' + $scope.sortOrder);
+            if ($scope.sortBy.value && $scope.sortBy.value != 'none') {
+                paramArgs.push('sort=' + $scope.sortBy.value + '.' + $scope.sortOrder.value);
             }
 
             paramArgs.push('show=' + $scope.option.showOptions.join(','));
@@ -87,6 +100,8 @@ angular.module('bby-query-mixer.productSearch').controller('ProductSearchCtrl', 
             }
         };
 
+
+
         $scope.resetParams = function () {
             $scope.category = $scope.categories[0];
             $scope.operatorOption = $scope.operatorOptions[0];
@@ -100,6 +115,10 @@ angular.module('bby-query-mixer.productSearch').controller('ProductSearchCtrl', 
             $scope.complexAttr = '';
             $scope.complexVal = '';
             $scope.pagesize =  10;
+            $scope.attributeOption = $scope.attributeOptions[0];
+            $scope.sortBy = $scope.sortByOptions[0];
+            $scope.sortOrder = $scope.sortOrderOptions[0];
+
 
         };
 

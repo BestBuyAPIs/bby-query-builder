@@ -214,12 +214,13 @@ label { display: block; }
     width:500px; 
     height: 150px; 
     overflow-y: scroll; 
-    padding-left:30px; 
-    margin-left:5%;
     width:75%
 }
 
 #product-query-result {
     color:black; 
     height:400px
+}
+.showOptionsCheckbox label {
+    padding-left: 7px;
 }

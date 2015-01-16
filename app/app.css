@@ -225,7 +225,7 @@ label { display: block; }
     padding-left: 7px;
 }
 .breakdownLabel {
-    color: yellow;
+    color: #ffd500;
 }
 
 .urlBreakdown {

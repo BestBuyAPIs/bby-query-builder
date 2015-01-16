@@ -48,15 +48,15 @@
             <div>
                 <form name="pagesizeform">
                 <p>Specify additional results per page or return subsequent pages by updating the Results Per Page and Page values:</p>
-                Results Per Page: <input id="pagination" ng-model="pagesize" type="number" min="1" max="100" required>
+                Results Per Page: <input class="rounded" id="pagination" ng-model="pagesize" type="number" min="1" max="100" required>
                 <span class="error" ng-show="pagesizeform.input.$error.number">Not valid number!</span>
-                Page: <input id="whichPage" ng-model="whichPage" type="number" min="1" max="900" required>
+                Page: <input class="rounded" id="whichPage" ng-model="whichPage" type="number" min="1" max="900" required>
                 </form>
 
             </div>
             <br/>
-                <button class="query-button" ng-click="invokeRemixQuery()">RUN query</button>
-                <button class="query-button" ng-click="resetParams()">RESET query</button>
+                <button class="query-button" ng-click="resetParams()">RESET Query</button>
+                <button class="query-button" ng-click="invokeRemixQuery()">RUN Query</button>
             </div>
         </div>
     </div>

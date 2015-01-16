@@ -38,7 +38,7 @@ angular.module('bby-query-mixer.productSearch').controller('ProductSearchCtrl', 
 
         $scope.sortOrderOptions = [
             {text:"Ascending", value:"asc"},
-            {text:"descending", value:"desc"}
+            {text:"Descending", value:"desc"}
         ];
 
         $scope.sortOrder = $scope.sortOrderOptions[0];
@@ -118,6 +118,7 @@ angular.module('bby-query-mixer.productSearch').controller('ProductSearchCtrl', 
             $scope.attributeOption = $scope.attributeOptions[0];
             $scope.sortBy = $scope.sortByOptions[0];
             $scope.sortOrder = $scope.sortOrderOptions[0];
+            $scope.remixResults = {};
 
 
         };

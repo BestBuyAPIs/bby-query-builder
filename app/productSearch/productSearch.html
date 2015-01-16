@@ -60,15 +60,15 @@
         </div>
     </div>
     <div id="right-side-container" class="query-container">
-        <h4 class="container">URL Breakdown</h4>
+        <h4 class="container urlBreakdown">URL Breakdown</h4>
         <div class="content-container"><label>Here is an anatomy of your request, showing all of the "pieces" that make up your complete URL:</label>
             <div id="exampleUrl" class="content-container">
-                <p>baseURL : https://api.remix.bestbuy.com/v1/products</p>
-                <p ng-show="category.value">categoryId : (categoryPath.id=<span ng-bind="category.value"></span>)</p>
-                <p>apiKey : ?apiKey=<span ng-bind="apiKey"></span><span ng-show="sortBy != 'none'"></p>
-                <p>sortOptions : &sort=<span ng-bind="sortBy.value"></span>.<span ng-bind="sortOrder.value"></span>'</span></p>
-                <p>showOptions : &show=<span ng-bind="option.showOptions.join(',')"></span></p>
-                <p>responseFormat : &format=json</p>
+                <p><span class="breakdownLabel">baseURL</span> : https://api.remix.bestbuy.com/v1/products</p>
+                <p ng-show="category.value"><span class="breakdownLabel">categoryId</span> : (categoryPath.id=<span ng-bind="category.value"></span>)</p>
+                <p><span class="breakdownLabel">apiKey</span> : ?apiKey=<span ng-bind="apiKey"></span><span ng-show="sortBy != 'none'"></p>
+                <p><span class="breakdownLabel">sortOptions</span> : &sort=<span ng-bind="sortBy.value"></span>.<span ng-bind="sortOrder.value"></span>'</span></p>
+                <p><span class="breakdownLabel">showOptions</span> : &show=<span ng-bind="option.showOptions.join(',')"></span></p>
+                <p><span class="breakdownLabel">responseFormat</span> : &format=json</p>
             </div>
         </div>
         <h4 class="container">Complete URL</h4>

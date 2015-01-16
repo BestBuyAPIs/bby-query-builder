@@ -214,12 +214,32 @@ label { display: block; }
     width:500px; 
     height: 150px; 
     overflow-y: scroll; 
-    padding-left:30px; 
-    margin-left:5%;
     width:75%
 }
 
 #product-query-result {
     color:black; 
     height:400px
+}
+.showOptionsCheckbox label {
+    padding-left: 7px;
+}
+.breakdownLabel {
+    color: yellow;
+}
+
+.urlBreakdown {
+    font-family: 'Avenir Next', Avenir, 'Proxima Nova', proxima-nova, 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}
+#keywordSearchInput {
+    width: 33%;
+}
+input.rounded {
+    border: 1px solid #ccc;
+    -moz-border-radius: 7px;
+    -webkit-border-radius: 7px;
+    border-radius: 7px;
+    padding: 4px 7px;
+    outline: 0;
+    -webkit-appearance: none;
 }

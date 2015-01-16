@@ -13,9 +13,9 @@
                     <form>
                         <select id="attribute" ng-model="attributeOption"
                                 ng-options="attr as attr.text for attr in attributeOptions"></select>
-                        <select id="operator" ng-model="operator"
+                        <select ng-show="attributeOption.value" id="operator" ng-model="operator"
                                 ng-options="opt as opt.value for opt in attributeOption.operator"></select>
-                        <input type="text" ng-model="complexVal" placeholder="{{attributeOption.placeholder}}">
+                        <input ng-show="attributeOption.value" type="text" ng-model="complexVal" placeholder="{{attributeOption.placeholder}}">
                     </form>
                 </div>
                 <input type="text" id="keywordSearchInput" class="rounded" placeholder="Choose Keyword" ng-model="keywordSearch"></input>

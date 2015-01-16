@@ -55,9 +55,11 @@ angular.module('bby-query-mixer.productSearch').controller('ProductSearchCtrl', 
         };
 
         $scope.buildRemixQuery = function () {
-            var complexQuery = $scope.attributeOption.value ? '&('+ $scope.attributeOption.value + $scope.operator.value + $scope.complexVal + ')' : '';
-            var attributeOnlyQuery = $scope.attributeOption.value ? '('+ $scope.attributeOption.value + $scope.operator.value + $scope.complexVal + ')' : '';
-            var baseUrl = 'https://api.remix.bestbuy.com/v1/products' + ($scope.category.value ? '(categoryPath.id=' + $scope.category.value + complexQuery +')' : attributeOnlyQuery) ;
+            var searchArgs = [];
+            var keywordQuery = $scope.keywordSearch ? searchArgs.push( '(search=' + $scope.keywordSearch +')' ) :'' ;
+            var attributeQuery = $scope.attributeOption.value ? searchArgs.push( '('+ $scope.attributeOption.value + $scope.operator.value + $scope.complexVal + ')' ): '';
+            var categoryQuery = $scope.category.value ? searchArgs.push('(categoryPath.id=' + $scope.category.value + ')') : '';
+            var baseUrl = 'https://api.remix.bestbuy.com/v1/products' + '(' + searchArgs.join('&') + ')';
             return baseUrl + $scope.buildParams();
         };
 
@@ -119,6 +121,7 @@ angular.module('bby-query-mixer.productSearch').controller('ProductSearchCtrl', 
             $scope.sortBy = $scope.sortByOptions[0];
             $scope.sortOrder = $scope.sortOrderOptions[0];
             $scope.remixResults = {};
+            $scope.keywordSearch = '';
 
 
         };

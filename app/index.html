@@ -16,6 +16,8 @@
     <link rel="stylesheet" href="bower_components/html5-boilerplate/css/normalize.css">
     <link rel="stylesheet" href="bower_components/html5-boilerplate/css/main.css">
     <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css">
+    <link rel="stylesheet" href="bower_components/fontawesome/css/font-awesome.min.css">
+    <link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet">
     <link rel="stylesheet" href="app.css">
     <script src="bower_components/html5-boilerplate/js/vendor/modernizr-2.6.2.min.js"></script>
 </head>
@@ -44,8 +46,8 @@
         <div class="col-sm-4">
             <div id="apikeyinput">
             <p>
-                <span for="api-key" id="api-key-label">API Key:</span>
-                <input class="rounded" id="api-key" type="text" ng-model="apiKey" placeholder="YourAPIGoesHere">
+                <span for="api-key" id="api-key-label" name="apikey">API Key:</span>
+                <input class="rounded" id="api-key" type="text" ng-model="apiKey" placeholder="YourAPIGoesHere" name="apikey" required>
             </p>
             </div>
         </div>

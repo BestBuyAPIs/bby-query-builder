@@ -19,7 +19,9 @@ angular.module('bby-query-mixer.productSearch').controller('ProductSearchCtrl', 
         $scope.showOptions = angular.copy(showOptionsConfig);
         $scope.attributeOptions = angular.copy(attributeOptionsConfig);
         $scope.attributeOption = $scope.attributeOptions[0];
-        $scope.operator = $scope.attributeOption.operator[0]; 
+        $scope.operator = $scope.attributeOption.operator[0];
+        $scope.keywordSearch = '';
+
 
         var httpClient = function (query) {
             return $resource(query, {}, {
@@ -75,7 +77,11 @@ angular.module('bby-query-mixer.productSearch').controller('ProductSearchCtrl', 
                     {error: httpResponse}
                 ];
             }
+            if ($scope.apiKey) {
             httpClient(query).jsonp_query(successFn, errorFn);
+            }else{
+                $scope.remixResults = 'Please enter your API Key';
+            }
         };
 
         $scope.buildParams = function () {
@@ -127,4 +133,27 @@ angular.module('bby-query-mixer.productSearch').controller('ProductSearchCtrl', 
         };
 
     }
-]);
+])
+// angular.module('bby-query-mixer.productSearch').filter('spaceless',function() {
+//     return function(input) {
+//         if (input) {
+//             return input.replace(/\s+/g, '&');    
+//         }
+//     }
+// })
+angular.module('bby-query-mixer.productSearch').directive("spaceless", function(){
+   return {
+      require: 'ngModel',
+      link: function(scope, element, attrs, ngModelController) {
+        ngModelController.$parsers.push(function(data) {
+          //convert data from view format to model format
+          return data.replace(/\s+/g, '&'); //converted
+        });
+    
+        ngModelController.$formatters.push(function(data) {
+          //convert data from model format to view format
+          return data.replace(/\s+/g, '&'); //converted
+        });
+      }
+    };
+});;

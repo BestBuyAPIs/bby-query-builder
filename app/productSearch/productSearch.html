@@ -4,31 +4,40 @@
             <div class="query-information">
                 <h3>Products API</h3>
                 <p>The <a href="https://developer.bestbuy.com/documentation/products-api">Products API</a> gives you access to the full Best Buy catalog. The query builder provides a subset of the product attributes to create sample requests and response documents.</p>
-                <h4>Search for Products</h4>
+                <h4><span class="icon-stack numberIcon">
+                    <i class="icon-circle icon-stack-base"></i>
+                    <span class="icon-fixed-width char-overlay">1</span>
+                    </span> Search for Products</h4>
+                <div class="content-container">  
                     <p for="category">You can <a href="https://developer.bestbuy.com/documentation#advancedSearch-search">search</a> by one of our most popular categories, one or more attribute values, a keyword search or any combination of these:</p>
                     <select id="category" ng-model="category"
-                            ng-options="opt as opt.label for opt in categories"></select>
-                </p>
-                <div id="complexSearch">
-                    <form>
-                        <select id="attribute" ng-model="attributeOption"
-                                ng-options="attr as attr.text for attr in attributeOptions"></select>
-                        <select ng-show="attributeOption.value" id="operator" ng-model="operator"
-                                ng-options="opt as opt.value for opt in attributeOption.operator"></select>
-                        <input ng-show="attributeOption.value" type="text" ng-model="complexVal" placeholder="{{attributeOption.placeholder}}">
-                    </form>
+                                ng-options="opt as opt.label for opt in categories"></select>
+                    </p>
+                    <div id="complexSearch">
+                        <form>
+                            <select id="attribute" ng-model="attributeOption"
+                                    ng-options="attr as attr.text for attr in attributeOptions"></select>
+                            <select ng-show="attributeOption.value" id="operator" ng-model="operator"
+                                    ng-options="opt as opt.value for opt in attributeOption.operator"></select>
+                            <input ng-show="attributeOption.value" type="text" ng-model="complexVal" placeholder="{{attributeOption.placeholder}}">
+                        </form>
+                    </div>
+                    <input spaceless type="text" id="keywordSearchInput" class="rounded" placeholder="Enter Keyword(s)" ng-model="keywordSearch"></input>
+                    <br/>
                 </div>
-                <input type="text" id="keywordSearchInput" class="rounded" placeholder="Choose Keyword" ng-model="keywordSearch"></input>
-                <br/>
-                <h4>Build Your Response</h4>
-                    <p for="category">Select the attributes and sorting criteria for the response:</p>
-                <div class="showOptionsCheckbox">
-                    <label ng-repeat="opt in showOptions">
-                        <input type="checkbox" checklist-model="option.showOptions" checklist-value="opt.value">
-                        {{opt.text}}
-                    </label>
-                </div>
-            <br/>
+                <h4><span class="icon-stack numberIcon">
+                    <i class="icon-circle icon-stack-base"></i>
+                    <span class="icon-fixed-width char-overlay">2</span>
+                    </span> Build Your Response</h4>
+                <div class="content-container">
+                        <p for="category">Select the attributes and sorting criteria for the response:</p>
+                        <div class="showOptionsCheckbox">
+                            <label ng-repeat="opt in showOptions">
+                                <input type="checkbox" checklist-model="option.showOptions" checklist-value="opt.value">
+                                {{opt.text}}
+                            </label>
+                        </div>
+                        <br/>
             <div class="row">
                 <div class="col-md-6">
                     <p>
@@ -43,9 +52,12 @@
                     </p>
                 </div>
             </div>
-
-             <h4>Pagination</h4>
-            <div>
+                </div>
+             <h4><span class="icon-stack numberIcon">
+                    <i class="icon-circle icon-stack-base"></i>
+                    <span class="icon-fixed-width char-overlay">3</span>
+                    </span> Pagination</h4>
+            <div class="content-container">
                 <form name="pagesizeform">
                 <p>Specify additional results per page or return subsequent pages by updating the Results Per Page and Page values:</p>
                 Results Per Page: <input class="rounded" id="pagination" ng-model="pagesize" type="number" min="1" max="100" required>
@@ -65,13 +77,13 @@
         <div class="content-container"><label>Here is an anatomy of your request, showing all of the "pieces" that make up your complete URL:</label>
             <div id="exampleUrl" class="content-container">
                 <p><a class="breakdownLabel" href="https://developer.bestbuy.com/documentation#advancedSearch-search">baseURL</a> : https://api.remix.bestbuy.com/v1/products</p>
-                <p ng-show="category.value"><span class="breakdownLabel">categoryId</span> : (categoryPath.id=<span ng-bind="category.value"></span>)</p>
-                <p><span class="breakdownLabel">apiKey</span> : ?apiKey=<span ng-bind="apiKey"></span><span ng-show="sortBy != 'none'"></p>
-                <p><span class="breakdownLabel">sortOptions</span> : &sort=<span ng-bind="sortBy.value"></span>.<span ng-bind="sortOrder.value"></span>'</span></p>
-                <p><span class="breakdownLabel">showOptions</span> : &show=<span ng-bind="option.showOptions.join(',')"></span></p>
-                <p><span class="breakdownLabel">pagination</span> : pageSize=<span ng-bind="pagesize"></span>&page=<span ng-bind="whichPage"></span></p>
+                <p ng-show="category.value"><a class="breakdownLabel" href="https://developer.bestbuy.com/documentation/products-api#documentation/products-api-categorizations">categoryId</a> : (categoryPath.id=<span ng-bind="category.value"></span>)</p>
+                <p><a class="breakdownLabel" href="https://remix.mashery.com/member/register">apiKey</a> : ?apiKey=<span ng-bind="apiKey"></span><span ng-show="sortBy != 'none'"></p>
+                <p><a class="breakdownLabel" href="https://developer.bestbuy.com/documentation#sort-sort">sortOptions</a> : &sort=<span ng-bind="sortBy.value"></span>.<span ng-bind="sortOrder.value"></span>'</span></p>
+                <p><a class="breakdownLabel" href="https://developer.bestbuy.com/documentation#show-show">showOptions</a> : &show=<span ng-bind="option.showOptions.join(',')"></span></p>
+                <p><a class="breakdownLabel" href="https://developer.bestbuy.com/documentation#pagination-pagination">pagination</a> : pageSize=<span ng-bind="pagesize"></span>&page=<span ng-bind="whichPage"></span></p>
                 <p><a class="breakdownLabel" href="https://developer.bestbuy.com/documentation#responseFormat-response-format">callback</a> : &callback=JSON_CALLBACK</span></p>
-                <p><span class="breakdownLabel">responseFormat</span> : &format=json</p>
+                <p><a class="breakdownLabel" href="https://developer.bestbuy.com/documentation#responseFormat-response-format">responseFormat</a> : &format=json</p>
             </div>
         </div>
         <h4 class="container">Complete URL</h4>

@@ -59,7 +59,7 @@ angular.module('bby-query-mixer.productSearch').controller('ProductSearchCtrl', 
             var keywordQuery = $scope.keywordSearch ? searchArgs.push( '(search=' + $scope.keywordSearch +')' ) :'' ;
             var attributeQuery = $scope.attributeOption.value ? searchArgs.push( '('+ $scope.attributeOption.value + $scope.operator.value + $scope.complexVal + ')' ): '';
             var categoryQuery = $scope.category.value ? searchArgs.push('(categoryPath.id=' + $scope.category.value + ')') : '';
-            var baseUrl = 'https://api.remix.bestbuy.com/v1/products' + '(' + searchArgs.join('&') + ')';
+            var baseUrl = searchArgs.length > 0 ? 'https://api.remix.bestbuy.com/v1/products' + '(' + searchArgs.join('&') + ')' : 'https://api.remix.bestbuy.com/v1/products';
             return baseUrl + $scope.buildParams();
         };
 

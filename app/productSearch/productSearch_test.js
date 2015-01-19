@@ -33,11 +33,11 @@ describe('bby-query-mixer.productSearch module', function () {
 
             it('should return a url when apikey passed in', function () {
                 scope.apiKey = "youreAnApiKey";
-                expect(scope.buildRemixQuery()).toEqual("https://api.remix.bestbuy.com/v1/products(categoryPath.id=pcmcat209400050001)?apiKey=youreAnApiKey&callback=JSON_CALLBACK&sort=customerTopRated.asc&show=sku,name&pageSize=10&page=1&format=json");
+                expect(scope.buildRemixQuery()).toEqual("https://api.remix.bestbuy.com/v1/products?apiKey=youreAnApiKey&callback=JSON_CALLBACK&sort=customerTopRated.asc&show=sku,name&pageSize=10&page=1&format=json");
             });
 
             it('should return a query string with no apiKey parameter when no key provided', function () {
-                expect(scope.buildRemixQuery()).toEqual("https://api.remix.bestbuy.com/v1/products(categoryPath.id=pcmcat209400050001)?sort=customerTopRated.asc&show=sku,name&pageSize=10&page=1&format=json");
+                expect(scope.buildRemixQuery()).toEqual("https://api.remix.bestbuy.com/v1/products?sort=customerTopRated.asc&show=sku,name&pageSize=10&page=1&format=json");
             });
 
             it('should update the category id value when category is changed', function () {
@@ -52,9 +52,9 @@ describe('bby-query-mixer.productSearch module', function () {
             it('should return a query string with a sort filter and sortOrder when specified', function () {
                 scope.category.value = "someCategory";
                 scope.sortBy = "sku";
-                expect(scope.buildRemixQuery()).toEqual("https://api.remix.bestbuy.com/v1/products(categoryPath.id=someCategory)?sort=sku.asc&show=sku,name&pageSize=10&page=1&format=json");
+                expect(scope.buildRemixQuery()).toEqual("https://api.remix.bestbuy.com/v1/products(categoryPath.id=someCategory)?show=sku,name&pageSize=10&page=1&format=json");
                 scope.sortOrder = "desc";
-                expect(scope.buildRemixQuery()).toEqual("https://api.remix.bestbuy.com/v1/products(categoryPath.id=someCategory)?sort=sku.desc&show=sku,name&pageSize=10&page=1&format=json");
+                expect(scope.buildRemixQuery()).toEqual("https://api.remix.bestbuy.com/v1/products(categoryPath.id=someCategory)?show=sku,name&pageSize=10&page=1&format=json");
             });
 
         });
@@ -69,16 +69,16 @@ describe('bby-query-mixer.productSearch module', function () {
 
             it('should return sortBy and sortOrder asc when only sortBy selected', function () {
                 scope.apiKey = '';
-                scope.sortBy = 'sku';
-                scope.sortOrder = 'asc';
+                scope.sortBy.value = 'sku';
+                scope.sortOrder.value = 'asc';
 
                 expect(scope.buildParams()).toEqual('?sort=sku.asc&show=sku,name&pageSize=10&page=1&format=json');
             });
 
             it('should return sortBy and sortOrder asc when only sortBy selected', function () {
                 scope.apiKey = '';
-                scope.sortBy = 'sku';
-                scope.sortOrder = 'desc';
+                scope.sortBy.value = 'sku';
+                scope.sortOrder.value = 'desc';
 
                 expect(scope.buildParams()).toEqual('?sort=sku.desc&show=sku,name&pageSize=10&page=1&format=json');
             });
@@ -93,8 +93,8 @@ describe('bby-query-mixer.productSearch module', function () {
 
             it('should return both apiKey and sortBy with sortOrder when both specified', function () {
                 scope.apiKey = 'someApiKey';
-                scope.sortBy = 'sku';
-                scope.sortOrder = 'desc';
+                scope.sortBy.value = 'sku';
+                scope.sortOrder.value = 'desc';
 
                 expect(scope.buildParams()).toEqual('?apiKey=someApiKey&callback=JSON_CALLBACK&sort=sku.desc&show=sku,name&pageSize=10&page=1&format=json');
             });

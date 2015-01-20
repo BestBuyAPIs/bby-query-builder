@@ -248,6 +248,7 @@ input.rounded {
     color: white;
     /*color: #032741;*/
     font-weight: bold;
+    margin-left: 5%;
 }
 
 .numberIcon {

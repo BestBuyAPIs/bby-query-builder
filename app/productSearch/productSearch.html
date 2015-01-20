@@ -3,13 +3,13 @@
         <div class="content-container" id="builder-content">
             <div class="query-information">
                 <h3>Products API</h3>
-                <p>The <a href="https://developer.bestbuy.com/documentation/products-api">Products API</a> gives you access to the full Best Buy catalog. The query builder provides a subset of the product attributes to create sample requests and response documents.</p>
+                <p>The <a href="https://developer.bestbuy.com/documentation/products-api">Products API</a> gives you access to the full Best Buy catalog. The query builder provides a subset of search functionality and product attributes to create sample requests and responses.</p>
                 <h4><span class="icon-stack numberIcon">
                     <i class="icon-circle icon-stack-base"></i>
                     <span class="icon-fixed-width char-overlay">1</span>
                     </span> Search for Products</h4>
                 <div class="content-container">  
-                    <p for="category">You can <a href="https://developer.bestbuy.com/documentation#advancedSearch-search">search</a> by one of our most popular categories, one or more attribute values, a keyword search or any combination of these:</p>
+                    <p for="category">You can <a href="https://developer.bestbuy.com/documentation#advancedSearch-search">search</a> by a category, an attribute value, a keyword or any combination of these:</p>
                     <select id="category" ng-model="category"
                                 ng-options="opt as opt.label for opt in categories"></select>
                     </p>
@@ -30,7 +30,7 @@
                     <span class="icon-fixed-width char-overlay">2</span>
                     </span> Build Your Response</h4>
                 <div class="content-container">
-                        <p for="category">Select the attributes and sorting criteria for the response:</p>
+                        <p for="category">Select attributes and criteria for response:</p>
                         <div class="showOptionsCheckbox">
                             <label ng-repeat="opt in showOptions">
                                 <input type="checkbox" checklist-model="option.showOptions" checklist-value="opt.value">

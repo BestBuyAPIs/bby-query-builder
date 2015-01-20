@@ -33,6 +33,8 @@ angular.module('bby-query-mixer.productSearch').controller('ProductSearchCtrl', 
 
         $scope.sortByOptions = [
             {text:"Best Selling Rank", value:"bestSellingRank"},
+            {text:"Color", value:"color"},
+            {text:"Name", value:"name"},
             {text:"SKU", value:"SKU"},
             {text:"Sale Price", value:"salePrice" }
         ];
@@ -40,13 +42,13 @@ angular.module('bby-query-mixer.productSearch').controller('ProductSearchCtrl', 
 
         $scope.sortOrderOptions = [
             {text:"Ascending", value:"asc"},
-            {text:"Descending", value:"desc"}
+            {text:"Descending", value:"dsc"}
         ];
 
         $scope.sortOrder = $scope.sortOrderOptions[0];
 
         $scope.option = {
-            showOptions: ['sku', 'name']
+            showOptions: ['sku', 'name','salePrice']
         };
 
         $scope.showMyOptions = $scope.option.showOptions.join(',');
@@ -114,7 +116,7 @@ angular.module('bby-query-mixer.productSearch').controller('ProductSearchCtrl', 
             $scope.category = $scope.categories[0];
             $scope.operatorOption = $scope.operatorOptions[0];
             $scope.option = {
-                showOptions: ['sku', 'name']
+                showOptions: ['sku', 'name','salePrice']
             };
             $scope.push = 10;
             $scope.whichPage = 1;

@@ -147,7 +147,7 @@ angular.module('bby-query-mixer.productSearch').directive("spaceless", function(
       link: function(scope, element, attrs, ngModelController) {
         ngModelController.$parsers.push(function(data) {
           //convert data from view format to model format
-          return data.replace(/\s+/g, '&'); //converted
+          return data.replace(/\s+/g, '&search='); //converted
         });
     
         ngModelController.$formatters.push(function(data) {

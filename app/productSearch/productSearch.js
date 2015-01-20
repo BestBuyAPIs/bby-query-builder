@@ -32,7 +32,7 @@ angular.module('bby-query-mixer.productSearch').controller('ProductSearchCtrl', 
         };
 
         $scope.sortByOptions = [
-            {text:"Customer Top Rated", value:"customerTopRated"},
+            {text:"Best Selling Rank", value:"bestSellingRank"},
             {text:"SKU", value:"SKU"},
             {text:"Sale Price", value:"salePrice" }
         ];

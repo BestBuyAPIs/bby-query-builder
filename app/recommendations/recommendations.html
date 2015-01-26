@@ -13,12 +13,12 @@
 </h4>
                 <div class="row content-container endpointContainer">
                     <span>
-                        <input ng-class="{'selected': (endpoint.selected === 'mostViewed')}" type="button" id="popularRecommendationButton" ng-click="endpoint.selected = 'mostViewed'; mostViewed = !mostViewed;" ng-init="mostViewed = false"></input><i class="fa fa-question-circle recommendationTooltip" tooltip="This returns the overrall top ten products most frequently viewed on BESTBUY.COM" tooltip-placement="right"></i>
+                        <input ng-class="{'selected': (endpoint.selected === 'mostViewed')}" type="button" id="popularRecommendationButton" ng-click="endpoint.selected = 'mostViewed'; mostViewed = !mostViewed;" ng-init="mostViewed = false"></input><i class="fa fa-question-circle recommendationTooltip" tooltip="Returns the top ten most frequently viewed products by rank on BESTBUY.COM." tooltip-placement="right"></i>
                     </span>
                     <span>
                         <input ng-class="{'selected': (endpoint.selected === 'trendingViewed')}" type="button" id="trendingRecommendationButton" ng-click="endpoint.selected = 'trendingViewed'; trendingViewed = !trendingViewed;" 
                         ng-init="trendingViewed = false"
-                        ></input><i class="fa fa-question-circle recommendationTooltip" tooltip="This returns the top ten most frequently viewed products on BESTBUY.COM over a rolling three hour time period." tooltip-placement="right"></i>
+                        ></input><i class="fa fa-question-circle recommendationTooltip" tooltip="Returns top ten most frequently viewed products on the BESTBUY.COM product detail pages over a rolling, three-hour time frame by rank." tooltip-placement="right"></i>
                     </span>
                 </div>
                 <br/>

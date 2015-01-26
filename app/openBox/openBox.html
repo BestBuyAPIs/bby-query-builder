@@ -9,18 +9,13 @@
                     <strong class="char-overlay fa-stack-1x">1</strong>
                     </span> Search for Open Box Offers</h4>
                 <div class="content-container">  
+                    <select ng-model="searchSelection" selected="options[0].text" ng-options="opt as opt.text for opt in options">
+                    </select>
                 </div>
-                <h4><span class="fa-stack fa-3x numberIcon">
-                    <i class="fa fa-circle fa-stack-2x icon-stack-base"></i>
-                    <strong class="char-overlay fa-stack-1x">2</strong>
-                    </span> Build Your Response</h4>
-
-                    <div>
-                    </div>
 
              <h4><span class="fa-stack fa-3x numberIcon">
                     <i class="fa fa-circle fa-stack-2x icon-stack-base"></i>
-                    <strong class="char-overlay fa-stack-1x">3</strong>
+                    <strong class="char-overlay fa-stack-1x">2</strong>
                     </span> Pagination</h4>
             <div class="content-container">
                 <form name="pagesizeform">
@@ -47,7 +42,7 @@
 
                 <p><a class="breakdownLabel" href="https://remix.mashery.com/member/register">apiKey</a> : ?apiKey=<span ng-bind="apiKey"></span><span ng-show="sortBy != 'none'"></p>
 
-                <p><a class="breakdownLabel" href="https://developer.bestbuy.com/documentation#sort-sort">sortOptions</a> : &sort=<span ng-bind="sortBy.value"></span>.<span ng-bind="sortOrder.value"></span></span></p>
+                <p><a class="breakdownLabel" href="https://developer.bestbuy.com/documentation#sort-sort">sortOptions</a> : &sort=<span ng-bind="sortBy.value"></span><span ng-bind="sortOrder.value"></span></span></p>
 
                 <p><a class="breakdownLabel" href="https://developer.bestbuy.com/documentation#show-show">showOptions</a> : &show=<span ng-bind="option.showOptions.join(',')"></span></p>
 

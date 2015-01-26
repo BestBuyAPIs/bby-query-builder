@@ -1,0 +1,78 @@
+<div ng-controller="openBoxCtrl" xmlns="http://www.w3.org/1999/html">
+    <div id="left-side-container" class="query-container">
+        <div class="content-container" id="builder-content">
+            <div class="query-information">
+                <h3>Open Box API</h3>
+                <p>The Open Box API </p>
+                <h4><span class="fa-stack fa-3x numberIcon">
+                    <i class="fa fa-circle fa-stack-2x icon-stack-base"></i>
+                    <strong class="char-overlay fa-stack-1x">1</strong>
+                    </span> Search for Open Box Offers</h4>
+                <div class="content-container">  
+                </div>
+                <h4><span class="fa-stack fa-3x numberIcon">
+                    <i class="fa fa-circle fa-stack-2x icon-stack-base"></i>
+                    <strong class="char-overlay fa-stack-1x">2</strong>
+                    </span> Build Your Response</h4>
+
+                    <div>
+                    </div>
+
+             <h4><span class="fa-stack fa-3x numberIcon">
+                    <i class="fa fa-circle fa-stack-2x icon-stack-base"></i>
+                    <strong class="char-overlay fa-stack-1x">3</strong>
+                    </span> Pagination</h4>
+            <div class="content-container">
+                <form name="pagesizeform">
+                <p>Specify additional results per page or return subsequent pages by updating the Results Per Page and Page values:</p>
+                Results Per Page: <input class="rounded" id="pagination" ng-model="pagesize" type="number" min="1" max="100" required>
+                <span class="error" ng-show="pagesizeform.input.$error.number">Not valid number!</span>
+                Page: <input class="rounded" id="whichPage" ng-model="whichPage" type="number" min="1" max="900" required>
+                </form>
+
+            </div>
+            <br/>
+                <button class="query-button" ng-click="resetParams()">RESET Query</button>
+                <button class="query-button" ng-click="invokeRemixQuery()">RUN Query</button>
+            </div>
+        </div>
+    </div>
+    <div id="right-side-container" class="query-container">
+        <h4 class="container urlBreakdown">URL Breakdown</h4>
+        <div class="content-container"><label>Here is an anatomy of your request, showing all of the "pieces" that make up your complete URL:</label>
+            <div id="exampleUrl" class="content-container">
+                <p><a class="breakdownLabel" href="https://developer.bestbuy.com/documentation#advancedSearch-search">baseURL</a> : https://api.remix.bestbuy.com/v1/products</p>
+
+                <p ng-show="category.value"><a class="breakdownLabel" href="https://developer.bestbuy.com/documentation/products-api#documentation/products-api-categorizations">categoryId</a> : (categoryPath.id=<span ng-bind="category.value"></span>)</p>
+
+                <p><a class="breakdownLabel" href="https://remix.mashery.com/member/register">apiKey</a> : ?apiKey=<span ng-bind="apiKey"></span><span ng-show="sortBy != 'none'"></p>
+
+                <p><a class="breakdownLabel" href="https://developer.bestbuy.com/documentation#sort-sort">sortOptions</a> : &sort=<span ng-bind="sortBy.value"></span>.<span ng-bind="sortOrder.value"></span></span></p>
+
+                <p><a class="breakdownLabel" href="https://developer.bestbuy.com/documentation#show-show">showOptions</a> : &show=<span ng-bind="option.showOptions.join(',')"></span></p>
+
+                <p><a class="breakdownLabel" href="https://developer.bestbuy.com/documentation#pagination-pagination">pagination</a> : pageSize=<span ng-bind="pagesize"></span>&page=<span ng-bind="whichPage"></span></p>
+
+                <p><a class="breakdownLabel" href="https://developer.bestbuy.com/documentation#responseFormat-response-format">callback</a> : &callback=JSON_CALLBACK</span></p>
+
+                <p><a class="breakdownLabel" href="https://developer.bestbuy.com/documentation#responseFormat-response-format">responseFormat</a> : &format=json</p>
+            </div>
+        </div>
+        <h4 class="container">Complete URL</h4>
+        <div class="content-container" id="response-content">
+            <p>#request:
+                <button id="copy-button" class="copy-button" type="button" clip-copy="buildRemixQuery()" tooltip="copy" tooltip-placement="right">
+                    <img src="assets/clipboard_white.png" width="20" height="20" alt="copy"/></button>
+            </p>
+            <h5><span id="remix-query" class="query-text" ng-bind="buildRemixQuery()"></span></h5>
+            <div>
+                <p>#response:
+                    <button id="copy-button" class="copy-button" type="button" clip-copy="remixResults | json" tooltip="copy" tooltip-placement="right">
+                    <img src="assets/clipboard_white.png" width="20" height="20" alt="copy"/></button>
+                </p>
+                <textarea ng-class="{errorResult: errorResult}" class="query-result" id="product-query-result" ng-bind="remixResults | json"></textarea>
+
+            </div>
+        </div>
+    </div>
+</div>

@@ -2,7 +2,7 @@
 
 describe('bby-query-mixer.productSearch module', function () {
 
-    beforeEach(module('bby-query-mixer.productSearch'), function () {
+    beforeEach(module('bby-query-mixer.productSearch', 'appConfig'), function () {
     });
 
     var ctrl, scope;

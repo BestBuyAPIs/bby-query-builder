@@ -16,7 +16,7 @@
     <link rel="stylesheet" href="bower_components/html5-boilerplate/css/normalize.css">
     <link rel="stylesheet" href="bower_components/html5-boilerplate/css/main.css">
     <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css">
-    <link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet">
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
     <link rel="stylesheet" href="app.css">
     <script src="bower_components/html5-boilerplate/js/vendor/modernizr-2.6.2.min.js"></script>
 </head>
@@ -35,7 +35,7 @@
     <div class='row'>
         <div class="col-sm-8">
             <ul class="nav nav-tabs menu" ng-controller="menuController">
-                <li ng-class="{active:isActive('/productSearch')}"><a href="#/productSearch">product Search</a></li>
+                <li ng-class="{active:isActive('/productSearch')}"><a href="#/productSearch">product search</a></li>
                 <li ng-class="{active:isActive('/recommendations')}"><a href="#/recommendations">recommendations</a></li>
                 <li style="display:none" ng-class="{active:isActive('/openbox')}"><a>open box</a></li>
                 <li style="display:none" ng-class="{active:isActive('/stores')}"><a>stores</a></li>
@@ -45,7 +45,11 @@
         <div class="col-sm-4">
             <div id="apikeyinput">
             <p>
+<<<<<<< HEAD
                 <span for="api-key" id="api-key-label" name="apikey"><a href="https://remix.mashery.com/member/register">API Key</a>:</span>
+=======
+                <span for="api-key" id="api-key-label" name="apikey"><a href="https://remix.mashery.com/member/register">API Key:</a></span>
+>>>>>>> recommends
                 <input class="rounded" id="api-key" type="text" ng-model="apiKey" placeholder="YourAPIGoesHere" name="apikey" required>
             </p>
             </div>
@@ -69,7 +73,6 @@
 <script src="app.js"></script>
 <script src="productSearch/00-module.js"></script>
 <script src="productSearch/categoryConfig.js"></script>
-<script src="productSearch/operatorOptionsConfig.js"></script>
 <script src="productSearch/showOptionsConfig.js"></script>
 <script src="productSearch/attributeOptionsConfig.js"></script>
 <script src="productSearch/productSearch.js"></script>

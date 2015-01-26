@@ -99,5 +99,27 @@ describe('bby-query-mixer.productSearch module', function () {
                 expect(scope.buildParams()).toEqual('?apiKey=someApiKey&callback=JSON_CALLBACK&sort=sku.desc&show=sku,name&pageSize=10&page=1&format=json');
             });
         });
+        describe('reset query function', function () {
+            it('should reset all relevant query params', function () {
+                scope.resetParams();
+                expect(scope.category).toEqual(scope.categories[0]);
+                 expect(scope.option).toEqual({showOptions: ['sku', 'name']});
+                 expect(scope.whichPage).toEqual(1);
+                 expect(scope.sortOrder.value).toEqual('asc');
+                 expect(scope.complexAttr).toEqual('');
+                 expect(scope.complexVal).toEqual('');
+                 expect(scope.pagesize).toEqual(10);
+                 expect(scope.attributeOption).toEqual(scope.attributeOptions[0]);
+                 expect(scope.sortBy.value).toEqual(scope.sortByOptions[0].value);
+                 expect(scope.sortOrder).toEqual(scope.sortOrderOptions[0]);
+                 expect(scope.remixResults).toEqual({});
+                 expect(scope.keywordSearch).toEqual('');
+            });
+            it('should leave the apikey as is', function () {
+                scope.apiKey = 'myApiKey';
+                scope.resetParams();
+                expect(scope.apiKey).toEqual('myApiKey');
+            });
+        });
     });
 });

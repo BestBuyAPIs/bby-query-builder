@@ -4,10 +4,10 @@ angular.module('bby-query-mixer.recommendations').controller('RecommendationsCtr
     '$scope',
     '$resource',
     'recommendationsConfig',
-    function ($scope, $resource, recommendationsConfig) {
-        $scope.results = {};
-        $scope.remixResults = {};
-        $scope.skuList = recommendationsConfig.skuList;
+    'categoryConfig',
+    function ($scope, $resource, recommendationsConfig, categoryConfig) {
+        $scope.categories = angular.copy(categoryConfig);
+        $scope.category = $scope.categories[0];
 
         var httpClient = function (query) {
             return $resource(query, {}, {
@@ -18,52 +18,52 @@ angular.module('bby-query-mixer.recommendations').controller('RecommendationsCtr
         };
 
         $scope.buildRecommendationsQuery = function () {
-            return $scope.apiKey ? 'http://api.bestbuy.com/beta/products/trendingViewed?apiKey=' + $scope.apiKey + '&callback=JSON_CALLBACK' : '';
+            var baseUrl = 'http://api.bestbuy.com/beta/products/';
+            var queryArgs = [];
+            var endpointSelection = $scope.endpoint.selected ? baseUrl += ($scope.endpoint.selected) : '';
+            var categoryOption = $scope.category.value ? baseUrl += ('(categoryId='+$scope.category.value+')') : '';
+            var addKey = $scope.apiKey ? baseUrl += ('?apiKey='+$scope.apiKey):'';
+            baseUrl += '&callback=JSON_CALLBACK';
+            return baseUrl;
         };
-        $scope.buildRemixQuery = function () {
-            return ($scope.apiKey !== '') && ($scope.skuList !== '') ? 'http://api.remix.bestbuy.com/v1/products(sku in(' + $scope.skuList + '))?apiKey=' + $scope.apiKey + '&format=json&show=sku,name,description,image,addToCartUrl,salePrice&callback=JSON_CALLBACK' : '';
-        }
 
         $scope.invokeRecommendationsQuery = function () {
-            $scope.skuList = recommendationsConfig.skuList;
             $scope.results = "Running";
-            $scope.remixResults = {};
             var query = $scope.buildRecommendationsQuery();
 
             var successFn = function (value) {
                 $scope.results = value;
-                $scope.buildSkuList();
-            };
+                };
             var errorFn = function (httpResponse) {
                 $scope.results = httpResponse;
             }
-            httpClient(query).jsonp_query(successFn, errorFn);
-        };
 
-        $scope.invokeRemixQuery = function () {
-            $scope.remixResults = "Running";
-            var query = $scope.buildRemixQuery();
-            var successFn = function (value) {
-                $scope.remixResults = value;
+            if (($scope.apiKey !=  "")&($scope.endpoint.selected != "")){
+                $scope.errorResult = false;
+                httpClient(query).jsonp_query(successFn, errorFn);
+            }else if ($scope.apiKey ===  ""){
+                $scope.errorResult = true;
+                $scope.results = "Please enter your API Key";
+            } else{
+                $scope.errorResult = true;
+                $scope.results = "Please pick an endpoint";
             };
-            var errorFn = function (httpResponse) {
-                console.log('invokeRemixQuery failure: ' + JSON.stringify(httpResponse));
-                $scope.remixResults = [
-                    {error: httpResponse}
-                ];
-            }
-            httpClient(query).jsonp_query(successFn, errorFn);
-        };
-
-        $scope.buildSkuList = function () {
-            $scope.skuList = $scope.results.results.map(function (result) {
-                return result.sku;
-            }).join(',');
         };
 
         $scope.isRemixQueryButtonDisabled = function () {
             return ($scope.skuList == recommendationsConfig.skuList);
         };
+
+        $scope.resetRecommendationsQuery = function () {
+            $scope.results = {};
+            $scope.endpoint = {selected:""};
+            $scope.category = $scope.categories[0];
+            $scope.errorResult = false;
+
+        };
+
+        //this loads our default model scopes on page load
+        $scope.resetRecommendationsQuery();
+
     }
-])
-;
+]);

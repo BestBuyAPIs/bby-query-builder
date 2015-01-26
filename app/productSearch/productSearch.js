@@ -5,23 +5,12 @@ angular.module('bby-query-mixer.productSearch').controller('ProductSearchCtrl', 
     'categoryConfig',
     '$http',
     '$resource',
-    'operatorOptionsConfig',
     'showOptionsConfig',
     'attributeOptionsConfig',
-    function ($scope, categoryConfig, $http, $resource, operatorOptionsConfig, showOptionsConfig, attributeOptionsConfig) {
+    function ($scope, categoryConfig, $http, $resource, showOptionsConfig, attributeOptionsConfig) {
         $scope.categories = angular.copy(categoryConfig);
-        $scope.category = $scope.categories[0];
-        $scope.pagination = 'none';
-        $scope.pagesize = 10;
-        $scope.whichPage = 1;
-        $scope.operatorOptions = angular.copy(operatorOptionsConfig);
-        $scope.operatorOption = $scope.operatorOptions[0];
         $scope.showOptions = angular.copy(showOptionsConfig);
         $scope.attributeOptions = angular.copy(attributeOptionsConfig);
-        $scope.attributeOption = $scope.attributeOptions[0];
-        $scope.operator = $scope.attributeOption.operator[0];
-        $scope.keywordSearch = '';
-
 
         var httpClient = function (query) {
             return $resource(query, {}, {
@@ -80,8 +69,10 @@ angular.module('bby-query-mixer.productSearch').controller('ProductSearchCtrl', 
                 ];
             }
             if ($scope.apiKey) {
+                $scope.errorResult = false;
             httpClient(query).jsonp_query(successFn, errorFn);
             }else{
+                $scope.errorResult = true;
                 $scope.remixResults = 'Please enter your API Key';
             }
         };
@@ -110,17 +101,12 @@ angular.module('bby-query-mixer.productSearch').controller('ProductSearchCtrl', 
             }
         };
 
-
-
         $scope.resetParams = function () {
             $scope.category = $scope.categories[0];
-            $scope.operatorOption = $scope.operatorOptions[0];
             $scope.option = {
                 showOptions: ['sku', 'name','salePrice']
             };
-            $scope.push = 10;
             $scope.whichPage = 1;
-            $scope.sortBy = 'customerTopRated';
             $scope.sortOrder = 'asc';
             $scope.complexAttr = '';
             $scope.complexVal = '';
@@ -130,19 +116,19 @@ angular.module('bby-query-mixer.productSearch').controller('ProductSearchCtrl', 
             $scope.sortOrder = $scope.sortOrderOptions[0];
             $scope.remixResults = {};
             $scope.keywordSearch = '';
+            $scope.errorResult = false;
+        };
+        //calling the function here loads the defaults on page load
+        $scope.resetParams();
 
-
+        $scope.preselectOperator = function() {
+            console.log('yo');
+            $scope.attributeOption.operator.value = $scope.attributeOption.operator[0].value
+            // $scope.operator = $scope.attributeOption.operator[0].value
         };
 
     }
 ])
-// angular.module('bby-query-mixer.productSearch').filter('spaceless',function() {
-//     return function(input) {
-//         if (input) {
-//             return input.replace(/\s+/g, '&');    
-//         }
-//     }
-// })
 angular.module('bby-query-mixer.productSearch').directive("spaceless", function(){
    return {
       require: 'ngModel',
@@ -158,4 +144,4 @@ angular.module('bby-query-mixer.productSearch').directive("spaceless", function(
         });
       }
     };
-});;
+});

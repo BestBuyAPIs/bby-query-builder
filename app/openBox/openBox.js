@@ -30,7 +30,7 @@ angular.module('bby-query-mixer.openBox').controller('openBoxCtrl', [
             var skuListQuery = (($scope.searchSelection.value === 'skuList')&&($scope.skuList)) ? baseUrl += '(sku%20in('+$scope.skuList+')':'';
             var singleSkuQuery = (($scope.searchSelection.value === 'singleSku')&&($scope.singleSku)) ? baseUrl = 'http://api.bestbuy.com/beta/products/'+$scope.singleSku +'/openBox' : '';
             var apiKey = $scope.apiKey ? baseUrl += '?apiKey='+$scope.apiKey : '';
-            baseUrl += '&callback=JSON_CALLBACK';
+            baseUrl += '&callback=JSON_CALLBACK' + '&pageSize='+$scope.pageSize+'&page='+$scope.whichPage;
             return baseUrl
         };
 

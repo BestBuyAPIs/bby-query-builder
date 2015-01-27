@@ -77,6 +77,25 @@ describe('bby-query-mixer.recommendations module', function () {
                 $httpBackend.verifyNoOutstandingExpectation();
                 $httpBackend.verifyNoOutstandingRequest();
             });
+
+            describe('invokeRecommendationsQuery function', function () {
+                it('should error if no apikey is present', function () {
+                    scope.apiKey = '';
+                    scope.endpoint.selected = "mostViewed";
+                    scope.invokeRecommendationsQuery();
+                    expect(scope.results).toEqual("Please enter your API Key");
+                    expect(scope.errorResult).toEqual(true);
+                });
+
+                it('should error if no search option is selected', function () {
+                    scope.apiKey = 'myAwesomeApiKey';
+                    scope.endpoint.selected = "";
+                    scope.invokeRecommendationsQuery();
+                    expect(scope.results).toEqual("Please pick an endpoint");
+                    expect(scope.errorResult).toEqual(true);
+                });
+            });
+
         });
 
         describe('resetQuery function', function (){

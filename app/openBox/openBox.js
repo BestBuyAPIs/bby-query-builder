@@ -61,7 +61,7 @@ angular.module('bby-query-mixer.openBox').controller('openBoxCtrl', [
         $scope.resetParams = function () {
             $scope.errorResult = false;
             $scope.results = {};
-        	$scope.pagesize = 10;
+        	$scope.pageSize = 10;
         	$scope.whichPage = 1;
         	$scope.searchSelection = $scope.options[0];
             $scope.skuList = '';

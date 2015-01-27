@@ -114,5 +114,15 @@ describe('bby-query-mixer.productSearch module', function () {
                 expect(scope.apiKey).toEqual('myApiKey');
             });
         });
+
+        describe('invokeRemixQuery function', function () {
+            it('should error if no apikey is present', function () {
+                scope.apiKey = '';
+                scope.invokeRemixQuery();
+                expect(scope.remixResults).toEqual("Please enter your API Key");
+                expect(scope.errorResult).toEqual(true);
+            });
+        });
+
     });
 });

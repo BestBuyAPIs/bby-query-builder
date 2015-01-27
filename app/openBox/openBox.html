@@ -38,10 +38,10 @@
                     <strong class="char-overlay fa-stack-1x">2</strong>
                     </span> Pagination</h4>
             <div class="content-container">
-                <form name="pagesizeform">
+                <form name="pageSizeform">
                 <p>Specify additional results per page or return subsequent pages by updating the Results Per Page and Page values:</p>
-                Results Per Page: <input class="rounded" id="pagination" ng-model="pagesize" type="number" min="1" max="100" required>
-                <span class="error" ng-show="pagesizeform.input.$error.number">Not valid number!</span>
+                Results Per Page: <input class="rounded" id="pagination" ng-model="pageSize" type="number" min="1" max="100" required>
+                <span class="error" ng-show="pageSizeform.input.$error.number">Not valid number!</span>
                 Page: <input class="rounded" id="whichPage" ng-model="whichPage" type="number" min="1" max="900" required>
                 </form>
 
@@ -62,7 +62,7 @@
 
                 <p><a class="breakdownLabel" href="https://remix.mashery.com/member/register">apiKey</a> : ?apiKey=<span ng-bind="apiKey"></span><span ng-show="sortBy != 'none'"></p>
 
-                <p><a class="breakdownLabel" href="https://developer.bestbuy.com/documentation#pagination-pagination">pagination</a> : pageSize=<span ng-bind="pagesize"></span>&page=<span ng-bind="whichPage"></span></p>
+                <p><a class="breakdownLabel" href="https://developer.bestbuy.com/documentation#pagination-pagination">pagination</a> : pageSize=<span ng-bind="pageSize"></span>&page=<span ng-bind="whichPage"></span></p>
 
                 <p><a class="breakdownLabel" href="https://developer.bestbuy.com/documentation#responseFormat-response-format">callback</a> : &callback=JSON_CALLBACK</span></p>
 

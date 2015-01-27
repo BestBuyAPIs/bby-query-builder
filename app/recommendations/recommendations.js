@@ -32,10 +32,10 @@ angular.module('bby-query-mixer.recommendations').controller('RecommendationsCtr
 
             var successFn = function (value) {
                 $scope.results = value;
-                };
+            };
             var errorFn = function (httpResponse) {
                 $scope.results = httpResponse;
-            }
+            };
 
             if (($scope.apiKey !=  "")&($scope.endpoint.selected != "")){
                 $scope.errorResult = false;
@@ -58,7 +58,6 @@ angular.module('bby-query-mixer.recommendations').controller('RecommendationsCtr
             $scope.endpoint = {selected:""};
             $scope.category = $scope.categories[0];
             $scope.errorResult = false;
-
         };
 
         //this loads our default model scopes on page load

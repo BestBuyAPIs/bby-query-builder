@@ -11,6 +11,26 @@
                 <div class="content-container">  
                     <select ng-model="searchSelection" selected="options[0].text" ng-options="opt as opt.text for opt in options">
                     </select>
+                    <div ng-show="searchSelection.value === 1">
+                        <h5>Open Box Offers All SKUs</h5>
+                        <p>The Open Box Offers All SKUs endpoint returns all available Open Box offers across Best Buy.</p>
+                    </div>
+                    <div ng-show="searchSelection.value === 2">
+                        <h5>Open Box Offers by Category</h5>
+                        <p>The Open Box by Category endpoint lets you query for products based on their Category. For additional info</p>
+                        <select class="attributeInputs" id="category" ng-model="category"
+                                ng-options="opt as opt.label for opt in categories"></select>
+                    </div>
+                    <div ng-show="searchSelection.value === 3">
+                        <h5>Open Box Offers by List of SKUs</h5>
+                        <p>The Open Box by list of SKUs lets you query for a list of products using the product identifier(SKU)</p>
+                        <input type="text">
+                    </div>
+                    <div ng-show="searchSelection.value === 4">
+                        <h5>Open Box Offers by SKU</h5>
+                        <p>The Open Box Single SKU endpoint lets you query for a specific product using the product identifier</p>
+                        <input type="text">
+                    </div>    
                 </div>
 
              <h4><span class="fa-stack fa-3x numberIcon">

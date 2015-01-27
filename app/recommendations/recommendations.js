@@ -3,9 +3,8 @@
 angular.module('bby-query-mixer.recommendations').controller('RecommendationsCtrl', [
     '$scope',
     '$resource',
-    'recommendationsConfig',
     'categoryConfig',
-    function ($scope, $resource, recommendationsConfig, categoryConfig) {
+    function ($scope, $resource, categoryConfig) {
         $scope.categories = angular.copy(categoryConfig);
         $scope.category = $scope.categories[0];
 

@@ -2,7 +2,7 @@
 
 describe('bby-query-mixer.recommendations module', function () {
 
-    beforeEach(module('bby-query-mixer.recommendations'));
+    beforeEach(module('bby-query-mixer.recommendations', 'appConfig'));
 
     describe('recommendations controller', function () {
         var ctrl, scope;

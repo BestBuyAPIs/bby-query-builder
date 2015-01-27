@@ -117,14 +117,14 @@ angular.module('bby-query-mixer.productSearch').controller('ProductSearchCtrl', 
             $scope.remixResults = {};
             $scope.keywordSearch = '';
             $scope.errorResult = false;
+            $scope.operator = $scope.attributeOption.operator[0];
         };
         //calling the function here loads the defaults on page load
         $scope.resetParams();
 
+        //this function is fired on a ng-change when attribute is selected. it sets the first operator to be pre-selected
         $scope.preselectOperator = function() {
-            console.log('yo');
-            $scope.attributeOption.operator.value = $scope.attributeOption.operator[0].value
-            // $scope.operator = $scope.attributeOption.operator[0].value
+            $scope.operator = $scope.attributeOption.operator[0]
         };
 
     }

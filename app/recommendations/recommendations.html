@@ -13,19 +13,19 @@
 </h4>
                 <div class="row content-container endpointContainer">
                     <span>
-                        <input ng-class="{'selected': (endpoint.selected === 'mostViewed')}" type="button" id="popularRecommendationButton" ng-click="endpoint.selected = 'mostViewed'; mostViewed = !mostViewed;" ng-init="mostViewed = false"></input><i class="fa fa-question-circle recommendationTooltip" tooltip="This returns the overrall top ten products most frequently viewed on BESTBUY.COM" tooltip-placement="right"></i>
+                        <input ng-class="{'selected': (endpoint.selected === 'mostViewed')}" type="button" id="popularRecommendationButton" ng-click="endpoint.selected = 'mostViewed'; mostViewed = !mostViewed;" ng-init="mostViewed = false"></input><i class="fa fa-question-circle recommendationTooltip" tooltip="Returns the top ten most frequently viewed products by rank on BESTBUY.COM." tooltip-placement="right"></i>
                     </span>
                     <span>
                         <input ng-class="{'selected': (endpoint.selected === 'trendingViewed')}" type="button" id="trendingRecommendationButton" ng-click="endpoint.selected = 'trendingViewed'; trendingViewed = !trendingViewed;" 
                         ng-init="trendingViewed = false"
-                        ></input><i class="fa fa-question-circle recommendationTooltip" tooltip="This returns the top ten most frequently viewed products on BESTBUY.COM over a rolling three hour time period." tooltip-placement="right"></i>
+                        ></input><i class="fa fa-question-circle recommendationTooltip" tooltip="Returns top ten most frequently viewed products on the BESTBUY.COM product detail pages over a rolling, three-hour time frame by rank." tooltip-placement="right"></i>
                     </span>
                 </div>
                 <br/>
                 <h4><span class="fa-stack fa-3x numberIcon">
                     <i class="fa fa-circle fa-stack-2x icon-stack-base"></i>
                     <strong class="char-overlay fa-stack-1x">2</strong>
-                    </span>Select a Category (optional)</h4>
+                    </span> Select a Category (optional)</h4>
                     <div class="content-container">
                         <select id="category" ng-model="category"
                                     ng-options="opt as opt.label for opt in categories"></select><br/><br/>

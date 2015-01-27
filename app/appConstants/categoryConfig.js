@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('bby-query-mixer.recommendations').constant('categoryConfig', [
+angular.module('appConfig').constant('categoryConfig', [
     {
         value: false,
         label: 'Choose Category'

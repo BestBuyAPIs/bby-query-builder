@@ -1,61 +1,77 @@
-<div id="recommendations-div" ng-controller="RecommendationsCtrl">
+<div id="recommendations-div" ng-controller="RecommendationsCtrl as recommendations">
     <div id="left-side-container" class="query-container">
-        <ul class="menu content-container">
-            <li><a href="#/productSearch">product Search</a></li>
-            <li class="selected-option"><a href="#/recommendations">recommendations</a></li>
-        </ul>
         <div class="content-container" id="builder-content">
-            <div>
-                <div class="query-information">
-                    <p>
-                        <label for="api-key" id="api-key-label">Enter your API key:</label>
-                        <input id="api-key" type="text" ng-model="apiKey"/>
-                    </p>
-
-                    <p>
-                        <button id="invoke-query" class="query-button" ng-click="invokeRecommendationsQuery()">RUN
-                            query
-                        </button>
-                    </p>
-
-                    <p>
-                        <button id="get-product-information" class="query-button" ng-click="invokeRemixQuery()" ng-disabled="isRemixQueryButtonDisabled()">
-                            GET product
-                        </button>
-                    </p>
+            <div class="query-information">
+                <h3>Recommendation Endpoints</h3>
+                <div>
+                    <p>The Recommendation Endpoints are a family of endpoints providing access to top trending products, most popular products and similar products based on customer behavior at <a href="http://www.bestbuy.com/">BESTBUY.COM.</a></p>
                 </div>
+                <h4><span class="fa-stack fa-3x numberIcon">
+                    <i class="fa fa-circle fa-stack-2x icon-stack-base"></i>
+                    <strong class="char-overlay fa-stack-1x">1</strong>
+                    </span> Pick Your Endpoint</i>
+</h4>
+                <div class="row content-container endpointContainer">
+                    <span>
+                        <input ng-class="{'selected': (endpoint.selected === 'mostViewed')}" type="button" id="popularRecommendationButton" ng-click="endpoint.selected = 'mostViewed'; mostViewed = !mostViewed;" ng-init="mostViewed = false"></input><i class="fa fa-question-circle recommendationTooltip" tooltip="Returns the top ten most frequently viewed products by rank on BESTBUY.COM." tooltip-placement="right"></i>
+                    </span>
+                    <span>
+                        <input ng-class="{'selected': (endpoint.selected === 'trendingViewed')}" type="button" id="trendingRecommendationButton" ng-click="endpoint.selected = 'trendingViewed'; trendingViewed = !trendingViewed;" 
+                        ng-init="trendingViewed = false"
+                        ></input><i class="fa fa-question-circle recommendationTooltip" tooltip="Returns top ten most frequently viewed products on the BESTBUY.COM product detail pages over a rolling, three-hour time frame by rank." tooltip-placement="right"></i>
+                    </span>
+                </div>
+                <br/>
+                <h4><span class="fa-stack fa-3x numberIcon">
+                    <i class="fa fa-circle fa-stack-2x icon-stack-base"></i>
+                    <strong class="char-overlay fa-stack-1x">2</strong>
+                    </span> Select a Category (optional)</h4>
+                    <div class="content-container">
+                        <select id="category" ng-model="category"
+                                    ng-options="opt as opt.label for opt in categories"></select><br/><br/>
+                    </div>
+                <div>
+                    <button id="invoke-query" class="query-button" ng-click="resetRecommendationsQuery()">RESET
+                        query
+                    </button>
+
+                    <button id="invoke-query" class="query-button" ng-click="invokeRecommendationsQuery()">RUN
+                        query
+                    </button>
+                </div>
+                <br/>
+                <p id="recommendationsFooterNote">Note: The differences between Trending Products and Most Popular Viewed Products is that Trending Products reflects change in velocity of product views while Most Popular Viewed reflects page views only.</p>
             </div>
         </div>
     </div>
     <div id="right-side-container" class="query-container">
-        <div class="content-container" id="response-content">
-            <div>
-                <p>#request:
-                    <button id="recommendations-copy-button" class="copy-button" type="button" clip-copy="buildRecommendationsQuery()">
-                        <img src="assets/clipboard_white.png" width="20" height="20" alt="copy"/>
-                    </button>
-                </p>
-                <span class="query-text" id="recommendations-query" ng-bind="buildRecommendationsQuery()"></span>
+        <h4 class="container urlBreakdown">URL Breakdown</h4>
+        <div class="content-container"><label>Here is an anatomy of your request, showing all of the "pieces" that make up your complete URL:</label>
+            <div id="exampleUrl" class="content-container">
+                    <p><a class="breakdownLabel" href="https://developer.bestbuy.com/documentation#advancedSearch-search">baseURL</a> : https://api.remix.bestbuy.com/v1/products/<span ng-bind="endpoint.selected"><span></p>
+                    <p ng-show="category.value"><a class="breakdownLabel" href="https://developer.bestbuy.com/documentation/products-api#documentation/products-api-categorizations">categoryId</a> : (categoryPath.id=<span ng-bind="category.value"></span>)</p>
+                    <p><a class="breakdownLabel" href="https://remix.mashery.com/member/register">apiKey</a> : ?apiKey=<span ng-bind="apiKey"></span><span ng-show="sortBy != 'none'"></p>
+                    <p><a class="breakdownLabel" href="https://developer.bestbuy.com/documentation#responseFormat-response-format">callback</a> : &callback=JSON_CALLBACK</span></p>
+                </div>
             </div>
-            <div>
-                <p>#response:</p>
+        <h4 class="container">Complete URL</h4>
+            <div class="content-container" id="response-content">
+                <div>
+                    <p>#request:
+                        <button id="recommendations-copy-button" class="copy-button" type="button" clip-copy="buildRecommendationsQuery()" tooltip="copy" tooltip-placement="right">
+                            <img src="assets/clipboard_white.png" width="20" height="20" alt="copy"/>
+                        </button>
+                    </p>
+                    <span class="query-text" id="recommendations-query" ng-bind="buildRecommendationsQuery()"></span>
+                </div>
+                <div>
+                    <p>#response:
+                        <button id="copy-button" class="copy-button" type="button" clip-copy="results | json" tooltip="copy" tooltip-placement="right">
+                    <img src="assets/clipboard_white.png" width="20" height="20" alt="copy"/></button></p>
 
-                <textarea class="query-result" id="recommendations-query-result">{{ results }}</textarea>
+                    <textarea ng-class="{errorResult: errorResult}" class="query-result" id="recommendations-query-result" ng-bind="results | json"></textarea>
 
-                <hr style="width:90%;color:white;margin-left:auto;margin-right:auto;"/>
-                <p>#request:
-                    <button id="remix-copy-button" class="copy-button" type="button" clip-copy="buildRemixQuery()">
-                        <img src="assets/clipboard_white.png" width="20" height="20" alt="copy"/>
-                    </button>
-                </p>
-
-                <p>
-                    <span class="query-text" id="remix-query" ng-bind="buildRemixQuery()"></span>
-                </p>
-
-                <p>#response:</p>
-                <textarea class="query-result" id="remix-query-result">{{ remixResults }}</textarea>
+                </div>
             </div>
-        </div>
     </div>
 </div>

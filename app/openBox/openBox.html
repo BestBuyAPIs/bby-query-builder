@@ -9,27 +9,27 @@
                     <strong class="char-overlay fa-stack-1x">1</strong>
                     </span> Search for Open Box Offers</h4>
                 <div class="content-container">  
-                    <select ng-model="searchSelection" selected="options[0].text" ng-options="opt as opt.text for opt in options">
+                    <select class="attributeInputs" ng-model="searchSelection" selected="options[0].text" ng-options="opt as opt.text for opt in options">
                     </select>
-                    <div ng-show="searchSelection.value === 1">
+                    <div ng-show="searchSelection.value === 'allSkus'">
                         <h5>Open Box Offers All SKUs</h5>
                         <p>The Open Box Offers All SKUs endpoint returns all available Open Box offers across Best Buy.</p>
                     </div>
-                    <div ng-show="searchSelection.value === 2">
+                    <div ng-show="searchSelection.value === 'category'">
                         <h5>Open Box Offers by Category</h5>
                         <p>The Open Box by Category endpoint lets you query for products based on their Category. For additional info</p>
                         <select class="attributeInputs" id="category" ng-model="category"
                                 ng-options="opt as opt.label for opt in categories"></select>
                     </div>
-                    <div ng-show="searchSelection.value === 3">
+                    <div ng-show="searchSelection.value === 'skuList'">
                         <h5>Open Box Offers by List of SKUs</h5>
                         <p>The Open Box by list of SKUs lets you query for a list of products using the product identifier(SKU)</p>
-                        <input type="text">
+                        <input type="text" ng-model="skuList">
                     </div>
-                    <div ng-show="searchSelection.value === 4">
+                    <div ng-show="searchSelection.value === 'singleSku'">
                         <h5>Open Box Offers by SKU</h5>
                         <p>The Open Box Single SKU endpoint lets you query for a specific product using the product identifier</p>
-                        <input type="text">
+                        <input type="text" ng-model="singleSku">
                     </div>    
                 </div>
 
@@ -56,21 +56,16 @@
         <h4 class="container urlBreakdown">URL Breakdown</h4>
         <div class="content-container"><label>Here is an anatomy of your request, showing all of the "pieces" that make up your complete URL:</label>
             <div id="exampleUrl" class="content-container">
-                <p><a class="breakdownLabel" href="https://developer.bestbuy.com/documentation#advancedSearch-search">baseURL</a> : https://api.remix.bestbuy.com/v1/products</p>
+                <p><a class="breakdownLabel" href="https://developer.bestbuy.com/documentation#advancedSearch-search">baseURL</a> : http://api.bestbuy.com/beta/products/openBox</p>
 
                 <p ng-show="category.value"><a class="breakdownLabel" href="https://developer.bestbuy.com/documentation/products-api#documentation/products-api-categorizations">categoryId</a> : (categoryPath.id=<span ng-bind="category.value"></span>)</p>
 
                 <p><a class="breakdownLabel" href="https://remix.mashery.com/member/register">apiKey</a> : ?apiKey=<span ng-bind="apiKey"></span><span ng-show="sortBy != 'none'"></p>
 
-                <p><a class="breakdownLabel" href="https://developer.bestbuy.com/documentation#sort-sort">sortOptions</a> : &sort=<span ng-bind="sortBy.value"></span><span ng-bind="sortOrder.value"></span></span></p>
-
-                <p><a class="breakdownLabel" href="https://developer.bestbuy.com/documentation#show-show">showOptions</a> : &show=<span ng-bind="option.showOptions.join(',')"></span></p>
-
                 <p><a class="breakdownLabel" href="https://developer.bestbuy.com/documentation#pagination-pagination">pagination</a> : pageSize=<span ng-bind="pagesize"></span>&page=<span ng-bind="whichPage"></span></p>
 
                 <p><a class="breakdownLabel" href="https://developer.bestbuy.com/documentation#responseFormat-response-format">callback</a> : &callback=JSON_CALLBACK</span></p>
 
-                <p><a class="breakdownLabel" href="https://developer.bestbuy.com/documentation#responseFormat-response-format">responseFormat</a> : &format=json</p>
             </div>
         </div>
         <h4 class="container">Complete URL</h4>
@@ -85,7 +80,7 @@
                     <button id="copy-button" class="copy-button" type="button" clip-copy="remixResults | json" tooltip="copy" tooltip-placement="right">
                     <img src="assets/clipboard_white.png" width="20" height="20" alt="copy"/></button>
                 </p>
-                <textarea ng-class="{errorResult: errorResult}" class="query-result" id="product-query-result" ng-bind="remixResults | json"></textarea>
+                <textarea ng-class="{errorResult: errorResult}" class="query-result" id="product-query-result" ng-bind="results | json"></textarea>
 
             </div>
         </div>

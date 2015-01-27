@@ -31,7 +31,6 @@
     "test-single-run": "karma start karma.conf.js  --single-run",
     "preupdate-webdriver": "npm install",
     "update-webdriver": "webdriver-manager update",
-    "preprotractor": "npm run update-webdriver",
-    //"protractor": "protractor protractor.conf.js"
+    "preprotractor": "npm run update-webdriver"
   }
 }

@@ -23,7 +23,11 @@ label:after {
     white-space: pre;
 }
 
-.menu {
+.content-container > p {
+     margin: 0 0 2px;
+}
+
+/*.menu {
     list-style: none;
     margin-bottom: 2em;
     padding: 0 0 0.5em;
@@ -49,7 +53,7 @@ label:after {
 .menu > li:nth-child(1):before {
     content: "";
     padding: 0;
-}
+}*/
 
 .menu a {
     text-decoration: none;
@@ -57,7 +61,7 @@ label:after {
     cursor: pointer;
 }
 
-.selected-option {
+.selectedOption {
     border-bottom-width: 5px;
     border-bottom-color: #c0c0c0;
     border-bottom-style: solid;
@@ -170,6 +174,8 @@ label:after {
     width: 100%;
     min-height: 8em;
     font-family: Menlo, Monaco, Consolas, "Courier New", monospace;
+    height: 400px;
+    color: black;
 }
 
 #api-key {
@@ -194,4 +200,130 @@ label:after {
     text-decoration: none;
     border: none;
     outline: none;
+}
+#apikeyinput {
+    text-align: right;
+}
+textarea {
+    overflow: visible;
+    height: 70px;
+}
+label { display: block; }
+
+.showOptionsCheckbox {
+    background-color:white;
+    border:1px solid #032741; 
+    width:500px; 
+    height: 150px; 
+    overflow-y: scroll; 
+    width:75%
+}
+
+.showOptionsCheckbox label {
+    padding-left: 7px;
+}
+.breakdownLabel {
+    color: #ffd500;
+    text-decoration: underline;
+}
+
+.urlBreakdown {
+    font-family: 'Avenir Next', Avenir, 'Proxima Nova', proxima-nova, 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}
+#keywordSearchInput {
+    width: 100%;
+}
+input.rounded {
+    border: 1px solid #ccc;
+    -moz-border-radius: 7px;
+    -webkit-border-radius: 7px;
+    border-radius: 7px;
+    padding: 4px 7px;
+    outline: 0;
+    -webkit-appearance: none;
+}
+.char-overlay {
+    color: white;
+    /*color: #032741;*/
+    font-weight: bold;
+    /*margin-left: 5%;*/
+}
+
+.numberIcon {
+    font-size: 0.75em;
+}
+input.ng-invalid {
+  border: 1px solid red;
+}
+
+.query-button:hover {
+    color: #0099FF;
+    border-color: #0099FF;
+}
+
+#recommendationsFooterNote{
+    font-style: italic;
+    font-size: 1em;
+}
+#popularRecommendationButton {
+    overflow: hidden;
+    background-size: cover;
+    background-position: center;
+    background-image: url(assets/popular.png);
+    height: 100px;
+    width: 100px;
+}
+#popularRecommendationButton:hover{
+    background-image: url(assets/popular_hover.png);
+}
+#popularRecommendationButton.selected {
+    background-image: url(assets/popular_selected.png);
+}
+#trendingRecommendationButton {
+    overflow: hidden;
+    background-size: cover;
+    background-position: center;
+    background-image: url(assets/trending.png);
+    height: 100px;
+    width: 100px;
+}
+#trendingRecommendationButton:hover{
+    background-image: url(assets/trending_hover.png);
+}
+#trendingRecommendationButton.selected {
+    background-image: url(assets/trending_selected.png);
+}
+.endpointContainer{
+    position: relative;
+    display: inline-block;
+    padding-left: 5%;
+}
+.endpointContainer > span {
+    margin-right: 10%;
+}
+.recommendationTooltip {
+    position: absolute;
+    top: 0px;
+}
+.attributeInputs{
+    width: 85%;
+}
+@media (min-width: 1600px) {
+    .attributeInputs{
+        width: 70%;
+}
+}
+#sortOptions{
+    display: block;
+}
+#sortOptions > span{
+    padding-right: 2%;
+}
+.errorResult {
+    color: red;
+}
+.tooltip {
+    font-family: 'Avenir Next', Avenir, 'Proxima Nova', proxima-nova, 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+
 }

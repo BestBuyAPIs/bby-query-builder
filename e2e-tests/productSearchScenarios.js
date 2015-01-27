@@ -1,3 +1,4 @@
+
 /*global browser:true, element:true, by:true*/
 'use strict';
 
@@ -8,8 +9,6 @@ describe('bby-query-mixer', function () {
         });
         it('should render productSearch and defaults are as expected', function () {
             expect(element(by.css('.selected-option')).getText()).toMatch('PRODUCT SEARCH');
-            expect(element.all(by.css('[ng-view] label[for="api-key"]')).getText()).toMatch(/Enter your API key:/);
-            expect(element(by.model('apiKey')).isPresent()).toBe(true);
             expect(element.all(by.css('[ng-view] label[for="category"]')).getText()).toMatch(/Select a category/);
             expect(element(by.model('category')).isPresent()).toBe(true);
 

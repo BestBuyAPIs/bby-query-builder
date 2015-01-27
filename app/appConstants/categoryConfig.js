@@ -1,6 +1,10 @@
 'use strict';
 
-angular.module('bby-query-mixer.productSearch').constant('categoryConfig', [
+angular.module('appConfig').constant('categoryConfig', [
+    {
+        value: false,
+        label: 'Choose Category'
+    },
     {
         value: 'pcmcat209400050001',
         label: 'All Cell Phones with Plans'

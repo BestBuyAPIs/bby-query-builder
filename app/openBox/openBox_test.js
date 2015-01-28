@@ -92,6 +92,7 @@ describe('bby-query-mixer.productSearch module', function () {
             expect(scope.searchSelection).toEqual(scope.options[0]);
             expect(scope.skuList).toEqual('');
             expect(scope.singleSku).toEqual('');
+            expect(scope.category).toEqual(scope.categories[0]);
         });
         
         it('should leave the apikey as is', function () {

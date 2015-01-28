@@ -339,5 +339,7 @@ input.ng-invalid {
     border-top-style: solid;
     border-top-width: 1px;
     box-sizing: border-box;
-  
+}
+.openBoxEndpointDescription {
+    padding-left: 0.5%;
 }

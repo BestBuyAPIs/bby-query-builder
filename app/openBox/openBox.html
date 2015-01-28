@@ -9,24 +9,24 @@
                     <strong class="char-overlay fa-stack-1x">1</strong>
                     </span> Search for Open Box Offers</h4>
                 <div class="content-container">  
-                    <select class="" ng-model="searchSelection" selected="options[0].text" ng-options="opt as opt.text for opt in options">
-                    </select>
-                    <div ng-show="searchSelection.value === 'allSkus'">
-                        <p>The <a href="https://developer.bestbuy.com/documentation/buyingOptions-api#documentation/buyingOptions-api-open-box-all-skus">Open Box Offers All SKUs</a> endpoint returns all available Open Box offers across Best Buy.</p>
-                    </div>
-                    <div ng-show="searchSelection.value === 'category'">
-                        <p>The <a href="https://developer.bestbuy.com/documentation/buyingOptions-api#documentation/buyingOptions-api-open-box-by-category">Open Box Offers by Category</a> endpoint lets you query for products based on their Category. For additional information on Categories please see our <a href="https://developer.bestbuy.com/documentation/categories-api">Categories API</a> documentation.</p>
-                        <select class="" id="category" ng-model="category"
-                                ng-options="opt as opt.label for opt in categories"></select>
-                    </div>
-                    <div ng-show="searchSelection.value === 'skuList'">
-                        <p>The Open Box Offers by List of SKUs let you query for a list of products using the product identifier (SKU). The list must be comma delimited.</p>
-                        <input type="text" ng-model="skuList">
-                    </div>
-                    <div ng-show="searchSelection.value === 'singleSku'">
-                        <p>The <a href="https://developer.bestbuy.com/documentation/buyingOptions-api#documentation/buyingOptions-api-open-box-single-sku">Open Box Offers by SKU</a> endpoint lets you query for a specific product using the product identifier of SKU.</p>
-                        <input type="text" ng-model="singleSku">
-                    </div>    
+                    <p><select class="" ng-model="searchSelection" selected="options[0].text" ng-options="opt as opt.text for opt in options">
+                    </select></p>
+                        <div ng-show="searchSelection.value === 'allSkus'">
+                            <p>The <a href="https://developer.bestbuy.com/documentation/buyingOptions-api#documentation/buyingOptions-api-open-box-all-skus">Open Box Offers All SKUs</a> endpoint returns all available Open Box offers across Best Buy.</p>
+                        </div>
+                        <div ng-show="searchSelection.value === 'category'">
+                            <p>The <a href="https://developer.bestbuy.com/documentation/buyingOptions-api#documentation/buyingOptions-api-open-box-by-category">Open Box Offers by Category</a> endpoint lets you query for products based on their Category. For additional information on Categories please see our <a href="https://developer.bestbuy.com/documentation/categories-api">Categories API</a> documentation.</p>
+                            <select class="" id="category" ng-model="category"
+                                    ng-options="opt as opt.label for opt in categories"></select>
+                        </div>
+                        <div ng-show="searchSelection.value === 'skuList'">
+                            <p>The Open Box Offers by List of SKUs let you query for a list of products using the product identifier (SKU). The list must be comma delimited.</p>
+                            <input type="text" ng-model="skuList">
+                        </div>
+                        <div ng-show="searchSelection.value === 'singleSku'">
+                            <p>The <a href="https://developer.bestbuy.com/documentation/buyingOptions-api#documentation/buyingOptions-api-open-box-single-sku">Open Box Offers by SKU</a> endpoint lets you query for a specific product using the product identifier of SKU.</p>
+                            <input type="text" ng-model="singleSku">
+                        </div> 
                 </div>
 
              <h4><span class="fa-stack fa-3x numberIcon">

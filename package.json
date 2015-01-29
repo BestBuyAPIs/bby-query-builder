@@ -10,7 +10,6 @@
     "grunt": "0.4.x",
     "grunt-http-server": "1.0.x",
     "grunt-karma": "0.9.x",
-    "grunt-protractor-runner": "1.1.x",
     "http-server": "0.6.x",
     "karma": "0.x",
     "karma-cli": "0.0.x",
@@ -18,8 +17,6 @@
     "karma-junit-reporter": "0.2.x",
     "karma-phantomjs-launcher": "0.1.x",
     "phantomjs": "1.9.x",
-    "protractor": "1.1.x",
-    "selenium-webdriver": "2.43.x",
     "shelljs": "0.2.x"
   },
   "scripts": {
@@ -27,12 +24,7 @@
     "prestart": "npm install",
     "start": "http-server -a localhost -p 8000 -c-1",
     "pretest": "npm install",
-    "test": "karma start karma.conf.js",
-    "test-single-run": "karma start karma.conf.js  --single-run",
-    "preupdate-webdriver": "npm install",
-    "update-webdriver": "webdriver-manager update",
-    "start-webdriver": "webdriver-manager start",
-    "preprotractor": "npm run update-webdriver",
-    "protractor": "protractor protractor.conf.js"
+    "test": "karma start karma.conf.js --single-run",
+    "test-watch": "karma start karma.conf.js"
   }
 }

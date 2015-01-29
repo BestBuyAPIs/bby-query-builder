@@ -80,10 +80,10 @@
             <h5><span id="remix-query" class="query-text" ng-bind="buildRemixQuery()"></span></h5>
             <div>
                 <p>#response:
-                    <button id="copy-button" class="copy-button" type="button" clip-copy="remixResults | json" tooltip="copy" tooltip-placement="right">
+                    <button id="copy-results-button" class="copy-button" type="button" clip-copy="results | json" tooltip="copy" tooltip-placement="right">
                     <img src="assets/clipboard_white.png" width="20" height="20" alt="copy"/></button>
                 </p>
-                <textarea ng-class="{errorResult: errorResult}" class="query-result" id="product-query-result" ng-bind="results | json"></textarea>
+                <textarea ng-class="{errorResult: errorResult}" class="query-result" ng-bind="results | json"></textarea>
 
             </div>
         </div>

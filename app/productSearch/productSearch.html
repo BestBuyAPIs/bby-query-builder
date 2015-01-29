@@ -21,10 +21,10 @@
                             <select ng-show="attributeOption.value" id="operator" ng-model="operator"
                                     ng-options="opt as opt.value for opt in attributeOption.operator" sselected="{{attributeOption.operator[0].value}}"></select>
                             
-                            <input ng-show="attributeOption.value && (attributeOption.type != 'radio')" type="{{attributeOption.type}}" ng-model="complexVal" placeholder="{{attributeOption.placeholder}}">
+                            <input class="rounded" ng-show="attributeOption.value && (attributeOption.type != 'radio')" type="{{attributeOption.type}}" ng-model="complexVal" placeholder="{{attributeOption.placeholder}}">
 
-                            <input ng-show="attributeOption.type === 'radio'" type="radio" ng-model="complexVal" value="true"><span ng-show="attributeOption.type === 'radio'">True</span>
-                            <input ng-show="attributeOption.type === 'radio'" type="radio" ng-model="complexVal" value="false"><span ng-show="attributeOption.type === 'radio'">False</span>
+                            <input ng-show="attributeOption.type === 'radio'" type="radio" ng-model="complexVal" value="true"><span ng-show="attributeOption.type === 'radio'"> True </span>
+                            <input ng-show="attributeOption.type === 'radio'" type="radio" ng-model="complexVal" value="false"><span ng-show="attributeOption.type === 'radio'"> False </span>
                         </form>
                     </div>
 <!--                     <div>1{{attributeOption.operator[0]}}</div>
@@ -111,7 +111,7 @@
             <h5><span id="remix-query" class="query-text" ng-bind="buildRemixQuery()"></span></h5>
             <div>
                 <p>#response:
-                    <button id="copy-button" class="copy-button" type="button" clip-copy="remixResults | json" tooltip="copy" tooltip-placement="right">
+                    <button id="copy-results-button" class="copy-button" type="button" clip-copy="remixResults | json" tooltip="copy" tooltip-placement="right">
                     <img src="assets/clipboard_white.png" width="20" height="20" alt="copy"/></button>
                 </p>
                 <textarea ng-class="{errorResult: errorResult}" class="query-result" id="product-query-result" ng-bind="remixResults | json"></textarea>

@@ -266,12 +266,7 @@ input.ng-invalid {
     font-size: 1em;
 }
 #popularRecommendationButton {
-    overflow: hidden;
-    background-size: cover;
-    background-position: center;
     background-image: url(assets/popular.png);
-    height: 100px;
-    width: 100px;
 }
 #popularRecommendationButton:hover{
     background-image: url(assets/popular_hover.png);
@@ -280,12 +275,7 @@ input.ng-invalid {
     background-image: url(assets/popular_selected.png);
 }
 #trendingRecommendationButton {
-    overflow: hidden;
-    background-size: cover;
-    background-position: center;
     background-image: url(assets/trending.png);
-    height: 100px;
-    width: 100px;
 }
 #trendingRecommendationButton:hover{
     background-image: url(assets/trending_hover.png);
@@ -311,7 +301,7 @@ input.ng-invalid {
 @media (min-width: 1600px) {
     .attributeInputs{
         width: 70%;
-}
+    }
 }
 #sortOptions{
     display: block;
@@ -325,5 +315,31 @@ input.ng-invalid {
 .tooltip {
     font-family: 'Avenir Next', Avenir, 'Proxima Nova', proxima-nova, 'Helvetica Neue', Helvetica, Arial, sans-serif;
     -webkit-font-smoothing: antialiased;
-
+}
+.recommendation-endpoint-button{
+    overflow: hidden;
+    background-size: cover;
+    background-position: center;
+    height: 100px;
+    width: 100px;
+    cursor: pointer;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    border-bottom-left-radius: 4px;
+    border-bottom-right-radius: 4px;
+    border-bottom-style: solid;
+    border-bottom-width: 1px;
+    border-left-style: solid;
+    border-left-width: 1px;
+    border-right-style: solid;
+    border-right-width: 1px;
+    border-color: #053f68;
+    border-top-left-radius: 4px;
+    border-top-right-radius: 4px;
+    border-top-style: solid;
+    border-top-width: 1px;
+    box-sizing: border-box;
+}
+.openBoxEndpointDescription {
+    padding-left: 0.5%;
 }

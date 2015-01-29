@@ -37,7 +37,7 @@
             <ul class="nav nav-tabs menu" ng-controller="menuController">
                 <li ng-class="{active:isActive('/productSearch')}"><a href="#/productSearch">product search</a></li>
                 <li ng-class="{active:isActive('/recommendations')}"><a href="#/recommendations">recommendations</a></li>
-                <li style="display:none" ng-class="{active:isActive('/openbox')}"><a href="#/openbox">open box</a></li>
+                <li ng-class="{active:isActive('/openbox')}"><a href="#/openbox">open box</a></li>
                 <li style="display:none" ng-class="{active:isActive('/stores')}"><a>stores</a></li>
                 <li style="display:none" ng-class="{active:isActive('/category')}"><a>category</a></li>
             </ul>
@@ -46,7 +46,7 @@
             <div id="apikeyinput">
             <p>
                 <span for="api-key" id="api-key-label" name="apikey"><a href="https://remix.mashery.com/member/register">API Key:</a></span>
-                <input class="rounded" id="api-key" type="text" ng-model="apiKey" placeholder="YourAPIGoesHere" name="apikey" required>
+                <input class="rounded" id="api-key" type="text" ng-model="apiKey" ng-maxlength="40" placeholder="YourAPIGoesHere" name="apikey" required>
             </p>
             </div>
         </div>
@@ -73,7 +73,6 @@
 <script src="productSearch/attributeOptionsConfig.js"></script>
 <script src="productSearch/productSearch.js"></script>
 <script src="recommendations/00-module.js"></script>
-<script src="recommendations/recommendationsConfig.js"></script>
 <script src="recommendations/recommendations.js"></script>
 <script src="appConstants/00-module.js"></script>
 <script src="appConstants/categoryConfig.js"></script>

@@ -71,7 +71,7 @@ angular.module('bby-query-mixer.openBox').controller('openBoxCtrl', [
             $scope.skuList = '';
             $scope.singleSku = '';
             $scope.category = $scope.categories[0];
-        }
+        };
 
         $scope.resetParams();
 }]);

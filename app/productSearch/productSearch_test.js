@@ -91,6 +91,11 @@ describe('bby-query-mixer.productSearch module', function () {
 
                 expect(scope.buildParams()).toEqual('?apiKey=someApiKey&callback=JSON_CALLBACK&sort=sku.desc&show=sku,name,salePrice&pageSize=10&page=1&format=json');
             });
+            it('should add faceting when it\'s defined', function () {
+                scope.facetAttribute.value = 'manufacturer';
+                scope.facetNumber = '3';
+                expect(scope.buildParams()).toEqual('?sort=bestSellingRank.asc&show=sku,name,salePrice&facet=manufacturer,3&pageSize=10&page=1&format=json');
+            });
         });
         describe('reset query function', function () {
             it('should reset all relevant query params', function () {
@@ -107,6 +112,7 @@ describe('bby-query-mixer.productSearch module', function () {
                  expect(scope.sortOrder).toEqual(scope.sortOrderOptions[0]);
                  expect(scope.remixResults).toEqual({});
                  expect(scope.keywordSearch).toEqual('');
+                 expect(scope.facetAttribute.value).toEqual(false);
             });
             it('should leave the apikey as is', function () {
                 scope.apiKey = 'myApiKey';

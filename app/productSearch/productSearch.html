@@ -45,11 +45,18 @@
                             </label>
                         </div>
                         <br/>
-
-            <div class="" id="sortOptions">
-                <span>Sort By
+            <div id="facetsForm">
+                <a href="https://developer.bestbuy.com/documentation#facets-facets">Facets:</a>
+                <form name='facetInput'>
+                    <select id="attribute" ng-model="facetAttribute" ng-change="facetNumber = ''"
+                                    ng-options="attr as attr.text for attr in attributeOptions"></select>
+                    <input style="width:100px;"class="rounded" type="number" placeholder="number" ng-model="facetNumber" min="1" max="50">
+                </form> 
+            </div>
+            <div id="sortOptions">
+                <span>Sort By:
                 <select ng-model="sortBy" ng-options="opt as opt.text for opt in sortByOptions"></select></span>
-                <span>Sort Order
+                <span>Sort Order:
                 <select ng-model="sortOrder" ng-options="opt as opt.text for opt in sortOrderOptions"></select></span>
             </div>
 
@@ -81,9 +88,9 @@
 
                 <p ng-show="category.value"><a class="breakdownLabel" href="https://developer.bestbuy.com/documentation/products-api#documentation/products-api-categorizations">categoryId</a> : (categoryPath.id=<span ng-bind="category.value"></span>)</p>
 
-                <p ng-show="attributeOption.value != '' "><a class="breakdownLabel" href="https://developer.bestbuy.com/documentation/products-api#documentation/products-api-detail">attribute:</a>(<span ng-bind="attributeOption.value + operator.value + complexVal"></span>)</p>
+                <p ng-show="attributeOption.value != '' "><a class="breakdownLabel" href="https://developer.bestbuy.com/documentation/products-api#documentation/products-api-detail">attribute</a> : (<span ng-bind="attributeOption.value + operator.value + complexVal"></span>)</p>
 
-                <p ng-show="keywordSearch"><a class="breakdownLabel" href="https://developer.bestbuy.com/documentation#advancedSearch-search">keyword:</a>(search=<span ng-bind="keywordSearch"></span>)</p>
+                <p ng-show="keywordSearch"><a class="breakdownLabel" href="https://developer.bestbuy.com/documentation#advancedSearch-search">keyword</a> : (search=<span ng-bind="keywordSearch"></span>)</p>
 
                 <p><a class="breakdownLabel" href="https://remix.mashery.com/member/register">apiKey</a> : ?apiKey=<span ng-bind="apiKey"></span><span ng-show="sortBy != 'none'"></p>
 
@@ -92,6 +99,8 @@
                 <p><a class="breakdownLabel" href="https://developer.bestbuy.com/documentation#show-show">showOptions</a> : &show=<span ng-bind="option.showOptions.join(',')"></span></p>
 
                 <p><a class="breakdownLabel" href="https://developer.bestbuy.com/documentation#pagination-pagination">pagination</a> : pageSize=<span ng-bind="pagesize"></span>&page=<span ng-bind="whichPage"></span></p>
+
+                <p><a class="breakdownLabel" href="https://developer.bestbuy.com/documentation#facets-facets">facets</a> : facet=<span ng-bind="facetAttribute.value"></span>,<span ng-bind="facetNumber"></span></p>
 
                 <p><a class="breakdownLabel" href="https://developer.bestbuy.com/documentation#responseFormat-response-format">callback</a> : &callback=JSON_CALLBACK</span></p>
 

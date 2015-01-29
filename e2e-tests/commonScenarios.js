@@ -1,6 +1,7 @@
 'use strict';
 
 describe('bby-query-mixer', function () {
+    var ptor;
 
     ['index.html#/recommendations', 'index.html#/productSearch'].forEach(function (location) {
         describe(location, function () {

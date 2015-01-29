@@ -123,6 +123,13 @@ describe('bby-query-mixer.productSearch module', function () {
                 expect(scope.errorResult).toEqual(true);
             });
         });
+        describe('preselectOperator function', function () {
+            it('should error if no apikey is present', function () {
+                scope.preselectOperator();
+                expect(scope.operator).toEqual(scope.attributeOption.operator[0]);
+                expect(scope.complexVal).toEqual('');
 
+            });
+        });
     });
 });

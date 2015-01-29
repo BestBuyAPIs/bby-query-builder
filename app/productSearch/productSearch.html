@@ -21,15 +21,11 @@
                             <select ng-show="attributeOption.value" id="operator" ng-model="operator"
                                     ng-options="opt as opt.value for opt in attributeOption.operator" sselected="{{attributeOption.operator[0].value}}"></select>
                             
-                            <input class="rounded" ng-show="attributeOption.value && (attributeOption.type != 'radio')" type="{{attributeOption.type}}" ng-model="complexVal" placeholder="{{attributeOption.placeholder}}">
+                            <input class="rounded" ng-show="attributeOption.value && (attributeOption.type != 'boolean')" type="{{attributeOption.type}}" ng-model="complexVal" placeholder="{{attributeOption.placeholder}}">
 
-                            <input ng-show="attributeOption.type === 'radio'" type="radio" ng-model="complexVal" value="true"><span ng-show="attributeOption.type === 'radio'"> True </span>
-                            <input ng-show="attributeOption.type === 'radio'" type="radio" ng-model="complexVal" value="false"><span ng-show="attributeOption.type === 'radio'"> False </span>
+                            <select ng-show="attributeOption.type === 'boolean'"  ng-model="complexVal" ng-options="opt as opt.value for opt in attributeOption.valueOptions">
                         </form>
                     </div>
-<!--                     <div>1{{attributeOption.operator[0]}}</div>
-                    <div>2{{attributeOption.operator[0].value}}</div>
-                    <div>{{operator}}</div> -->
 
                     <div class="attributeInputs">
                     <input spaceless type="text" id="keywordSearchInput" class="rounded" placeholder="Enter Keyword(s)" ng-model="keywordSearch"></input>

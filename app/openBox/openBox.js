@@ -65,9 +65,13 @@ angular.module('bby-query-mixer.openBox').controller('openBoxCtrl', [
         	$scope.whichPage = 1;
         	$scope.searchSelection = $scope.options[0];
             $scope.skuList = '';
+            $scope.resetSelectionValues();
+        };
+        $scope.resetSelectionValues = function () {
+            $scope.skuList = '';
             $scope.singleSku = '';
             $scope.category = $scope.categories[0];
-        };
+        }
 
         $scope.resetParams();
 }]);

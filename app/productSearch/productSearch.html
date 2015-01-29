@@ -100,7 +100,7 @@
 
                 <p><a class="breakdownLabel" href="https://developer.bestbuy.com/documentation#pagination-pagination">pagination</a> : pageSize=<span ng-bind="pagesize"></span>&page=<span ng-bind="whichPage"></span></p>
 
-                <p><a class="breakdownLabel" href="https://developer.bestbuy.com/documentation#facets-facets">facets</a> : facet=<span ng-bind="facetAttribute.value"></span>,<span ng-bind="facetNumber"></span></p>
+                <p ng-show="facetAttribute.value"><a class="breakdownLabel" href="https://developer.bestbuy.com/documentation#facets-facets">facets</a> : facet=<span ng-bind="facetAttribute.value"></span>,<span ng-bind="facetNumber"></span></p>
 
                 <p><a class="breakdownLabel" href="https://developer.bestbuy.com/documentation#responseFormat-response-format">callback</a> : &callback=JSON_CALLBACK</span></p>
 

@@ -90,15 +90,22 @@ describe('bby-query-mixer.productSearch module', function () {
             expect(scope.pageSize).toEqual(10);
             expect(scope.whichPage).toEqual(1);
             expect(scope.searchSelection).toEqual(scope.options[0]);
-            expect(scope.skuList).toEqual('');
-            expect(scope.singleSku).toEqual('');
-            expect(scope.category).toEqual(scope.categories[0]);
         });
         
         it('should leave the apikey as is', function () {
             scope.apiKey = 'myApiKey';
             scope.resetParams();
             expect(scope.apiKey).toEqual('myApiKey');
+        });
+        it('should reset attribute values if a different selector is chosen', function () {
+            scope.skuList = '123,456,789';
+            scope.category = 'abcdefghij';
+            scope.singleSku = '12345678';
+            scope.resetSelectionValues();
+            expect(scope.singleSku).toEqual('');
+            scope.skuList = '';
+            expect(scope.category).toEqual(scope.categories[0]);
+
         });
     });
     });

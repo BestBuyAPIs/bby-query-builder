@@ -4,17 +4,10 @@ angular.module('bby-query-mixer.openBox').controller('openBoxCtrl', [
     '$scope',
     '$resource',
     'categoryConfig',
-    function ($scope, $resource, categoryConfig) {
+    'HttpClientService',
+    function ($scope, $resource, categoryConfig, HttpClientService) {
         $scope.categories = angular.copy(categoryConfig);
         $scope.category = $scope.categories[0];
-        
-        var httpClient = function (query) {
-            return $resource(query, {}, {
-                jsonp_query: {
-                    method: 'JSONP'
-                }
-            });
-        };
 
         $scope.options = [
             { text: "Select an Open Box Search Option", value: 0 },
@@ -46,7 +39,7 @@ angular.module('bby-query-mixer.openBox').controller('openBoxCtrl', [
 
             if (($scope.apiKey !==  "")&($scope.searchSelection.value !== 0)){
                 $scope.errorResult = false;
-                httpClient(query).jsonp_query(successFn, errorFn);
+                HttpClientService.httpClient(query).jsonp_query(successFn, errorFn);
             }else if ($scope.apiKey ===  ""){
                 $scope.errorResult = true;
                 $scope.results = "Please enter your API Key";

@@ -104,6 +104,9 @@ angular.module('bby-query-mixer.productSearch').controller('ProductSearchCtrl', 
                 return '';
             }
         };
+        $scope.resetFacetNumber = function () {
+            $scope.facetNumber = '';
+        };
 
         $scope.resetParams = function () {
             $scope.category = $scope.categories[0];
@@ -122,7 +125,7 @@ angular.module('bby-query-mixer.productSearch').controller('ProductSearchCtrl', 
             $scope.keywordSearch = '';
             $scope.errorResult = false;
             $scope.operator = $scope.attributeOption.operator[0];
-            $scope.facetNumber = '';
+            $scope.resetFacetNumber();
             $scope.facetAttribute = $scope.attributeOptions[0];
         };
         //calling the function here loads the defaults on page load
@@ -133,6 +136,7 @@ angular.module('bby-query-mixer.productSearch').controller('ProductSearchCtrl', 
             $scope.operator = $scope.attributeOption.operator[0];
             $scope.complexVal = $scope.attributeOption.valueOptions ? $scope.attributeOption.valueOptions[0] : '';
         };
+
 
     }
 ])

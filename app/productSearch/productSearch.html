@@ -48,7 +48,7 @@
             <div id="facetsForm">
                 <a href="https://developer.bestbuy.com/documentation#facets-facets">Facets:</a>
                 <form name='facetInput'>
-                    <select id="attribute" ng-model="facetAttribute" ng-change="facetNumber = ''"
+                    <select id="attribute" ng-model="facetAttribute" ng-change="resetFacetNumber()"
                                     ng-options="attr as attr.text for attr in attributeOptions"></select>
                     <input style="width:100px;"class="rounded" type="number" placeholder="number" ng-model="facetNumber" min="1" max="50">
                 </form> 

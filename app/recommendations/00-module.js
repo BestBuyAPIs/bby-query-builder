@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('bby-query-mixer.recommendations', ['ngRoute', 'ngResource'])
+angular.module('bby-query-mixer.recommendations', ['ngRoute'])
 
     .config(['$routeProvider', function ($routeProvider) {
         $routeProvider.when('/recommendations', {

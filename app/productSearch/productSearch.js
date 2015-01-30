@@ -3,22 +3,13 @@
 angular.module('bby-query-mixer.productSearch').controller('ProductSearchCtrl', [
     '$scope',
     'categoryConfig',
-    '$http',
-    '$resource',
     'showOptionsConfig',
     'attributeOptionsConfig',
-    function ($scope, categoryConfig, $http, $resource, showOptionsConfig, attributeOptionsConfig) {
+    'HttpClientService',
+    function ($scope, categoryConfig, showOptionsConfig, attributeOptionsConfig, HttpClientService) {
         $scope.categories = angular.copy(categoryConfig);
         $scope.showOptions = angular.copy(showOptionsConfig);
         $scope.attributeOptions = angular.copy(attributeOptionsConfig);
-
-        var httpClient = function (query) {
-            return $resource(query, {}, {
-                jsonp_query: {
-                    method: 'JSONP'
-                }
-            });
-        };
 
         $scope.sortByOptions = [
             {text:"Best Selling Rank", value:"bestSellingRank"},
@@ -70,7 +61,7 @@ angular.module('bby-query-mixer.productSearch').controller('ProductSearchCtrl', 
             }
             if ($scope.apiKey) {
                 $scope.errorResult = false;
-            httpClient(query).jsonp_query(successFn, errorFn);
+            HttpClientService.httpClient(query).jsonp_query(successFn, errorFn);
             }else{
                 $scope.errorResult = true;
                 $scope.remixResults = 'Please enter your API Key';

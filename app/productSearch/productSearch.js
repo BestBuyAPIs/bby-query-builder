@@ -3,12 +3,10 @@
 angular.module('bby-query-mixer.productSearch').controller('ProductSearchCtrl', [
     '$scope',
     'categoryConfig',
-    '$http',
-    '$resource',
     'showOptionsConfig',
     'attributeOptionsConfig',
     'HttpClientService',
-    function ($scope, categoryConfig, $http, $resource, showOptionsConfig, attributeOptionsConfig, HttpClientService) {
+    function ($scope, categoryConfig, showOptionsConfig, attributeOptionsConfig, HttpClientService) {
         $scope.categories = angular.copy(categoryConfig);
         $scope.showOptions = angular.copy(showOptionsConfig);
         $scope.attributeOptions = angular.copy(attributeOptionsConfig);

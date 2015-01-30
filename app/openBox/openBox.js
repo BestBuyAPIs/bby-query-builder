@@ -2,10 +2,9 @@
 
 angular.module('bby-query-mixer.openBox').controller('openBoxCtrl', [
     '$scope',
-    '$resource',
     'categoryConfig',
     'HttpClientService',
-    function ($scope, $resource, categoryConfig, HttpClientService) {
+    function ($scope, categoryConfig, HttpClientService) {
         $scope.categories = angular.copy(categoryConfig);
         $scope.category = $scope.categories[0];
 

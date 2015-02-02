@@ -19,9 +19,25 @@ angular.module('bby-query-mixer', [
     .controller('pageController', ['$scope', function($scope){
     	$scope.apiKey = '';
 
+
     }])
     .controller('menuController', ['$scope', '$location', function($scope, $location) {
         $scope.isActive = function(route) {
             return route === $location.path();
         }
-    }]);
+    }])
+    .directive('analytics', ['$rootScope', '$location',
+    function ($rootScope, $location) {
+    return {
+        link: function (scope, elem, attrs, ctrl) {
+            $rootScope.$on('$routeChangeSuccess', function(event, currRoute, prevRoute) {
+                ga('set', 'page', $location.path());
+                ga('send', 'pageview');
+                console.log('user moved within the app');
+                console.log($location.path());
+            });
+            //ga('send', 'event', 'button', 'click');
+
+        }
+    }
+}]);

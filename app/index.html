@@ -6,7 +6,7 @@
 <!--[if IE 8]>
 <html lang="en" ng-app="bby-query-mixer" class="no-js lt-ie9"> <![endif]-->
 <!--[if gt IE 8]><!-->
-<html lang="en" ng-app="bby-query-mixer" class="no-js"> <!--<![endif]-->
+<html lang="en" ng-app="bby-query-mixer" class="no-js" analytics> <!--<![endif]-->
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -25,8 +25,13 @@
   m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
   })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
 
-  ga('create', 'UA-6257094-13', 'auto');
-  ga('send', 'pageview');
+  //for testing in development
+  ga('create', 'UA-6257094-13', {'cookieDomain': 'none'});
+
+  //in production use:
+  //ga('create', 'UA-6257094-13', 'auto');
+  
+  //ga('send', 'pageview');
 
 </script>
 </head>

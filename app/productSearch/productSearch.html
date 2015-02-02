@@ -21,7 +21,7 @@
                             <select ng-show="attributeOption.value" id="operator" ng-model="operator"
                                     ng-options="opt as opt.value for opt in attributeOption.operator" sselected="{{attributeOption.operator[0].value}}"></select>
                             
-                            <input class="rounded" ng-show="attributeOption.value && (attributeOption.type != 'boolean')" type="{{attributeOption.type}}" ng-model="complexVal" placeholder="{{attributeOption.placeholder}}">
+                            <input class="rounded" ng-show="attributeOption.value && (attributeOption.type != 'boolean')" type="{{attributeOption.type}}" ng-model="complexVal" min="0" placeholder="{{attributeOption.placeholder}}">
 
                             <select ng-show="attributeOption.type === 'boolean'"  ng-model="complexVal" ng-options="opt as opt.value for opt in attributeOption.valueOptions">
                         </form>
@@ -55,7 +55,7 @@
                 <i class="fa fa-question-circle" tooltip="Faceting provides an aggregated count of the specified attributes as returned in the results. It will include the number of the aggregated results as specified by number field." tooltip-placement="top"></i>
             </div>
             <div id="sortOptions">
-                <span>Sort By:
+                <span><a href="https://developer.bestbuy.com/documentation#sort-sort">Sort By:</a>
                 <select ng-model="sortBy" ng-options="opt as opt.text for opt in sortByOptions"></select></span>
                 <span>Sort Order:
                 <select ng-model="sortOrder" ng-options="opt as opt.text for opt in sortOrderOptions"></select></span>

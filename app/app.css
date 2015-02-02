@@ -346,6 +346,3 @@ input.ng-invalid {
 #facetsForm > span {
     padding-right: 4px;
 }
-#facetsForm > span > a{
-    color: #053f68;
-}

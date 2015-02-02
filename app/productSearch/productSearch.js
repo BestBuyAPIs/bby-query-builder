@@ -81,7 +81,7 @@ angular.module('bby-query-mixer.productSearch').controller('ProductSearchCtrl', 
 
             paramArgs.push('show=' + $scope.option.showOptions.join(','));
 
-            if (($scope.facetAttribute !== '')&&($scope.facetNumber !== '')){
+            if (($scope.facetAttribute.value)&&($scope.facetNumber !== '')){
                 paramArgs.push('facet=' + $scope.facetAttribute.value + ',' + $scope.facetNumber);
             };
 

@@ -343,6 +343,9 @@ input.ng-invalid {
 .openBoxEndpointDescription {
     padding-left: 0.5%;
 }
-#facetsForm > a {
+#facetsForm > span {
     padding-right: 4px;
+}
+#facetsForm > span > a{
+    color: #053f68;
 }

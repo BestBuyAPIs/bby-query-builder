@@ -46,12 +46,13 @@
                         </div>
                         <br/>
             <div id="facetsForm">
-                <a href="https://developer.bestbuy.com/documentation#facets-facets">Facets:</a>
+                <span><a href="https://developer.bestbuy.com/documentation#facets-facets">Facets:</a></span>
                 <form id="facetInput" name='facetInput'>
-                    <select id="attribute" ng-model="facetAttribute" ng-change="resetFacetNumber()"
+                    <select id="facetAttribute" ng-model="facetAttribute" ng-change="resetFacetNumber()"
                                     ng-options="attr as attr.text for attr in attributeOptions"></select>
-                    <input style="width:100px;"class="rounded" type="number" placeholder="number" ng-model="facetNumber" min="1" max="50">
-                </form> 
+                    <span>Number:</span> <input id="facetNumberInput" class="rounded" type="number" placeholder="0" ng-model="facetNumber" min="1" max="50">
+                </form>
+                <i class="fa fa-question-circle" tooltip="Faceting provides an aggregated count of the specified attributes as returned in the results. It will include the number of the aggregated results as specified by number field." tooltip-placement="top"></i>
             </div>
             <div id="sortOptions">
                 <span>Sort By:
@@ -98,9 +99,9 @@
 
                 <p><a class="breakdownLabel" href="https://developer.bestbuy.com/documentation#show-show">showOptions</a> : &show=<span ng-bind="option.showOptions.join(',')"></span></p>
 
-                <p><a class="breakdownLabel" href="https://developer.bestbuy.com/documentation#pagination-pagination">pagination</a> : pageSize=<span ng-bind="pagesize"></span>&page=<span ng-bind="whichPage"></span></p>
+                <p><a class="breakdownLabel" href="https://developer.bestbuy.com/documentation#pagination-pagination">pagination</a> : &pageSize=<span ng-bind="pagesize"></span>&page=<span ng-bind="whichPage"></span></p>
 
-                <p ng-show="facetAttribute.value"><a class="breakdownLabel" href="https://developer.bestbuy.com/documentation#facets-facets">facets</a> : facet=<span ng-bind="facetAttribute.value"></span>,<span ng-bind="facetNumber"></span></p>
+                <p ng-show="facetAttribute.value"><a class="breakdownLabel" href="https://developer.bestbuy.com/documentation#facets-facets">facets</a> : &facet=<span ng-bind="facetAttribute.value"></span>,<span ng-bind="facetNumber"></span></p>
 
                 <p><a class="breakdownLabel" href="https://developer.bestbuy.com/documentation#responseFormat-response-format">callback</a> : &callback=JSON_CALLBACK</span></p>
 

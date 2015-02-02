@@ -343,3 +343,6 @@ input.ng-invalid {
 .openBoxEndpointDescription {
     padding-left: 0.5%;
 }
+#facetsForm > a {
+    padding-right: 4px;
+}

@@ -34,6 +34,7 @@ angular.module('bby-query-mixer', [
             $rootScope.$on('$routeChangeSuccess', function(event, currRoute, prevRoute) {
                 ga('set', 'page', $location.path());
                 var dimension1Value = '';
+                //'dimension1' was registered as 'api key' in the google analytics admin console
                 ga('set', 'dimension1', dimension1Value);
                 ga('send', 'pageview');
             });

@@ -18,7 +18,13 @@ angular.module('bby-query-mixer', [
     }])
     .controller('pageController', ['$scope', function($scope){
     	$scope.apiKey = '';
-
+        $scope.watchApiKey = function () {
+            //ng-minlength & ng-maxlength sets apikey as undefined unless it is the proper length
+            if ($scope.apiKey){
+                ga('send', 'event', 'user input', 'tried entering an api key', {'dimension1': $scope.apiKey});
+            };
+        };
+        $timeout($scope.watchApiKey, 1000);
 
     }])
     .controller('menuController', ['$scope', '$location', function($scope, $location) {

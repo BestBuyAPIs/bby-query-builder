@@ -24,8 +24,6 @@ angular.module('bby-query-mixer', [
                 ga('send', 'event', 'user input', 'tried entering an api key', {'dimension1': $scope.apiKey});
             };
         };
-        $timeout($scope.watchApiKey, 1000);
-
     }])
     .controller('menuController', ['$scope', '$location', function($scope, $location) {
         $scope.isActive = function(route) {

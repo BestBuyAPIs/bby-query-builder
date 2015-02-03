@@ -32,12 +32,10 @@ angular.module('bby-query-mixer', [
         link: function (scope, elem, attrs, ctrl) {
             $rootScope.$on('$routeChangeSuccess', function(event, currRoute, prevRoute) {
                 ga('set', 'page', $location.path());
+                var dimension1Value = '';
+                ga('set', 'dimension1', dimension1Value);
                 ga('send', 'pageview');
-                console.log('user moved within the app');
-                console.log($location.path());
             });
-            //ga('send', 'event', 'button', 'click');
-
         }
     }
 }]);

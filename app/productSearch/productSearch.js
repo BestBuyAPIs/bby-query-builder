@@ -61,7 +61,8 @@ angular.module('bby-query-mixer.productSearch').controller('ProductSearchCtrl', 
             }
             if ($scope.apiKey) {
                 $scope.errorResult = false;
-            HttpClientService.httpClient(query).jsonp_query(successFn, errorFn);
+                ga('send', 'event', 'button click', 'product search query success', {'dimension1': $scope.apiKey});
+                HttpClientService.httpClient(query).jsonp_query(successFn, errorFn);
             }else{
                 $scope.errorResult = true;
                 $scope.remixResults = 'Please enter your API Key';

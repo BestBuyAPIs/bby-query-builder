@@ -38,6 +38,9 @@ angular.module('bby-query-mixer.openBox').controller('openBoxCtrl', [
 
             if (($scope.apiKey !==  "")&($scope.searchSelection.value !== 0)){
                 $scope.errorResult = false;
+
+                ga('send', 'event', 'button click', 'open box query success', {'dimension1': $scope.apiKey});
+                
                 HttpClientService.httpClient(query).jsonp_query(successFn, errorFn);
             }else if ($scope.apiKey ===  ""){
                 $scope.errorResult = true;

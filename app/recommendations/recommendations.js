@@ -4,7 +4,8 @@ angular.module('bby-query-mixer.recommendations').controller('RecommendationsCtr
     '$scope',
     'categoryConfig',
     'HttpClientService',
-    function ($scope, categoryConfig, HttpClientService) {
+    'GaService',
+    function ($scope, categoryConfig, HttpClientService, GaService) {
         $scope.categories = angular.copy(categoryConfig);
         $scope.category = $scope.categories[0];
 
@@ -31,7 +32,10 @@ angular.module('bby-query-mixer.recommendations').controller('RecommendationsCtr
 
             if (($scope.apiKey !=  "")&($scope.endpoint.selected != "")){
                 $scope.errorResult = false;
-                ga('send', 'event', 'button click', 'recommendation query success', {'dimension1': $scope.apiKey});
+
+                var eventActionName = "recommendation query success";
+                GaService.clickQueryButton(eventActionName, $scope.apiKey);
+
                 HttpClientService.httpClient(query).jsonp_query(successFn, errorFn);
             }else if ($scope.apiKey ===  ""){
                 $scope.errorResult = true;

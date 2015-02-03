@@ -16,13 +16,10 @@ angular.module('bby-query-mixer', [
         $routeProvider.otherwise({redirectTo: '/productSearch'});
         ngClipProvider.setPath("bower_components/zeroclipboard/dist/ZeroClipboard.swf");
     }])
-    .controller('pageController', ['$scope', function($scope){
+    .controller('pageController', ['$scope', 'GaService', function($scope, GaService){
     	$scope.apiKey = '';
-        $scope.watchApiKey = function () {
-            //ng-minlength & ng-maxlength sets apikey as undefined unless it is the proper length
-            if ($scope.apiKey){
-                ga('send', 'event', 'user input', 'tried entering an api key', {'dimension1': $scope.apiKey});
-            };
+        $scope.callWatchApiKey = function(){
+            GaService.watchApiKey($scope.apiKey);
         };
     }])
     .controller('menuController', ['$scope', '$location', function($scope, $location) {

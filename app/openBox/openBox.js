@@ -4,7 +4,8 @@ angular.module('bby-query-mixer.openBox').controller('openBoxCtrl', [
     '$scope',
     'categoryConfig',
     'HttpClientService',
-    function ($scope, categoryConfig, HttpClientService) {
+    'GaService',
+    function ($scope, categoryConfig, HttpClientService, GaService) {
         $scope.categories = angular.copy(categoryConfig);
         $scope.category = $scope.categories[0];
 
@@ -39,8 +40,9 @@ angular.module('bby-query-mixer.openBox').controller('openBoxCtrl', [
             if (($scope.apiKey !==  "")&($scope.searchSelection.value !== 0)){
                 $scope.errorResult = false;
 
-                ga('send', 'event', 'button click', 'open box query success', {'dimension1': $scope.apiKey});
-                
+                var eventActionName = "open box query success";
+                GaService.clickQueryButton(eventActionName, $scope.apiKey);
+
                 HttpClientService.httpClient(query).jsonp_query(successFn, errorFn);
             }else if ($scope.apiKey ===  ""){
                 $scope.errorResult = true;

@@ -6,7 +6,8 @@ angular.module('bby-query-mixer.productSearch').controller('ProductSearchCtrl', 
     'showOptionsConfig',
     'attributeOptionsConfig',
     'HttpClientService',
-    function ($scope, categoryConfig, showOptionsConfig, attributeOptionsConfig, HttpClientService) {
+    'GaService',
+    function ($scope, categoryConfig, showOptionsConfig, attributeOptionsConfig, HttpClientService, GaService) {
         $scope.categories = angular.copy(categoryConfig);
         $scope.showOptions = angular.copy(showOptionsConfig);
         $scope.attributeOptions = angular.copy(attributeOptionsConfig);
@@ -61,7 +62,10 @@ angular.module('bby-query-mixer.productSearch').controller('ProductSearchCtrl', 
             }
             if ($scope.apiKey) {
                 $scope.errorResult = false;
-                ga('send', 'event', 'button click', 'product search query success', {'dimension1': $scope.apiKey});
+
+                var eventActionName = "products query success";
+                GaService.clickQueryButton(eventActionName, $scope.apiKey);
+
                 HttpClientService.httpClient(query).jsonp_query(successFn, errorFn);
             }else{
                 $scope.errorResult = true;

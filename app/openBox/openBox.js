@@ -41,7 +41,7 @@ angular.module('bby-query-mixer.openBox').controller('openBoxCtrl', [
                 $scope.errorResult = false;
 
                 var eventActionName = "open box query success";
-                GaService.clickQueryButton(eventActionName, $scope.apiKey);
+                GaService.clickQueryButtonEvent(eventActionName, $scope.apiKey);
 
                 HttpClientService.httpClient(query).jsonp_query(successFn, errorFn);
             }else if ($scope.apiKey ===  ""){

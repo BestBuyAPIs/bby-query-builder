@@ -64,7 +64,7 @@ angular.module('bby-query-mixer.productSearch').controller('ProductSearchCtrl', 
                 $scope.errorResult = false;
 
                 var eventActionName = "products query success";
-                GaService.clickQueryButton(eventActionName, $scope.apiKey);
+                GaService.clickQueryButtonEvent(eventActionName, $scope.apiKey);
 
                 HttpClientService.httpClient(query).jsonp_query(successFn, errorFn);
             }else{

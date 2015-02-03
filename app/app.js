@@ -19,7 +19,7 @@ angular.module('bby-query-mixer', [
     .controller('pageController', ['$scope', 'GaService', function($scope, GaService){
     	$scope.apiKey = '';
         $scope.callWatchApiKey = function(){
-            GaService.watchApiKey($scope.apiKey);
+            GaService.enterKeyEvent($scope.apiKey);
         };
     }])
     .controller('menuController', ['$scope', '$location', function($scope, $location) {

@@ -34,7 +34,7 @@ angular.module('bby-query-mixer.recommendations').controller('RecommendationsCtr
                 $scope.errorResult = false;
 
                 var eventActionName = "recommendation query success";
-                GaService.clickQueryButton(eventActionName, $scope.apiKey);
+                GaService.clickQueryButtonEvent(eventActionName, $scope.apiKey);
 
                 HttpClientService.httpClient(query).jsonp_query(successFn, errorFn);
             }else if ($scope.apiKey ===  ""){

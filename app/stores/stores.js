@@ -5,7 +5,9 @@ angular.module('bby-query-mixer.stores').controller('storesCtrl', [
     'categoryConfig',
     'HttpClientService',
     'GaService',
-    function ($scope, categoryConfig, HttpClientService, GaService) {
+    'regionsConfig',
+    'storeServicesConfig',
+    function ($scope, categoryConfig, HttpClientService, GaService, regionsConfig, storeServicesConfig) {
         
         $scope.buildRemixQuery = function () {
             var baseUrl = 'http://api.remix.bestbuy.com/v1/stores';
@@ -40,15 +42,20 @@ angular.module('bby-query-mixer.stores').controller('storesCtrl', [
         };
 
         $scope.options = [
-            {text:"By City", value:""},
-            {text:"By Postal Code", value:""},
-            {text:"By Latitude/Longitude", value:""},
-            {text:"By StoreId", value:""},
-            {text:"By Region/State", value:""}
+            {text:"Location Criteria", value:false},
+            {text:"By City", value:"city"},
+            {text:"By Postal Code", value:"postalCode"},
+            {text:"By Latitude/Longitude", value:"latLong"},
+            {text:"By StoreId", value:"storeId"},
+            {text:"By Region/State", value:"region"}
         ];
 
         $scope.resetParams = function () {
             $scope.searchSelection = $scope.options[0];
+            $scope.regionOptions = angular.copy(regionsConfig);
+            $scope.regionOption = $scope.regionOptions[0];
+            $scope.servicesOptions = angular.copy(storeServicesConfig);
+            $scope.servicesOption = $scope.servicesOptions[0];
 
         };
 

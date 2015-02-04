@@ -9,7 +9,37 @@
                     <strong class="char-overlay fa-stack-1x">1</strong>
                     </span> Search for Stores</h4>
                 <div class="content-container">  
-                    <select ng-model="searchSelection" ng-options="opt as opt.text for opt in options">
+                    <select ng-model="searchSelection" ng-options="opt as opt.text for opt in options"></select>
+                        <div ng-show="searchSelection.value ==='city'">
+                            <p>Searching by City returns stores information for all the stores in the city specified.</p>
+                            <input type="text" class="rounded" placeholder="Bloomington, MN"></input>
+                        </div>
+                        <div ng-show="searchSelection.value ==='postalCode'">
+                            <p>Searching by Postal Code returns store information for all the stores in the postal code specified.</p>
+                            <input type="number" class="rounded" placeholder="55423"></input>
+                            Area (miles): <input type="number" class="rounded" placeholder="71.3"></input>
+                        </div>
+                        <div ng-show="searchSelection.value ==='latLong'">
+                            <p>Search by Lat/Long returns all stores</p>
+                            <p><form>Latitude <input type="number" class="rounded" placeholder="71.3"></input>
+                                <input type="radio" ng-model="latCompassDirection" value="north"> N 
+                                <input type="radio" ng-model="latCompassDirection" value="south"> S</form></p>
+                            <p>Longitude <input type="number" class="rounded" placeholder="71.3">
+                                <input type="radio" ng-model="longCompassDirection" value="east"> E 
+                                <input type="radio" ng-model="longCompassDirection" value="west"> W</input></p>
+                            <p>Area (miles): <input type="number" class="rounded" placeholder="71.3"></input>(optional)</p>
+                          
+                        </div>
+                        <div ng-show="searchSelection.value ==='storeId'">
+                            <input type="number" class="rounded" placeholder="281"></input>
+                        </div>
+                        <div ng-show="searchSelection.value ==='region'">
+                            <select ng-model="regionOption" ng-options="opt as opt.text for opt in regionOptions"></select>
+                        <p for="category">Select attributes and criteria for response:</p>
+                        </div>
+                        <div ng-show="searchSelection.value" class="">
+                            <label>More Stores options</label>
+                        </div>
                 </div>
 
              <h4><span class="fa-stack fa-3x numberIcon">

@@ -6,6 +6,7 @@ angular.module('bby-query-mixer', [
     'bby-query-mixer.productSearch',
     'bby-query-mixer.recommendations',
     'bby-query-mixer.openBox',
+    'bby-query-mixer.stores',
     'ngClipboard',
     'checklist-model',
     'ui.bootstrap',

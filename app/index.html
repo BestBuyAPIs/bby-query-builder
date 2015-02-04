@@ -26,10 +26,10 @@
   })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
 
   //for testing in development
-  ga('create', 'UA-6257094-13', {'cookieDomain': 'none'});
+  // ga('create', 'UA-6257094-13', {'cookieDomain': 'none'});
 
   //in production use:
-  //ga('create', 'UA-6257094-13', 'auto');
+  ga('create', 'UA-6257094-13', 'auto');
 
 </script>
 </head>
@@ -51,8 +51,8 @@
                 <li ng-class="{active:isActive('/productSearch')}"><a href="#/productSearch">product search</a></li>
                 <li ng-class="{active:isActive('/recommendations')}"><a href="#/recommendations">recommendations</a></li>
                 <li ng-class="{active:isActive('/openbox')}"><a href="#/openbox">open box</a></li>
-                <li style="display:none" ng-class="{active:isActive('/stores')}"><a>stores</a></li>
-                <li style="display:none" ng-class="{active:isActive('/category')}"><a>category</a></li>
+                <li ng-class="{active:isActive('/stores')}"><a href="#/stores">stores</a></li>
+                <li style="display:none" ng-class="{active:isActive('/category')}"><a href="#/category">category</a></li>
             </ul>
         </div>
         <div class="col-sm-4">
@@ -93,6 +93,8 @@
 <script src="appServices/00-module.js"></script>
 <script src="appServices/httpclientService.js"></script>
 <script src="appServices/analytics.js"></script>
+<script src="stores/00-module.js"></script>
+<script src="stores/stores.js"></script>
 
 
 

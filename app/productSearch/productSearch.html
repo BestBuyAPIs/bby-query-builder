@@ -111,7 +111,7 @@
         <h4 class="container">Complete URL</h4>
         <div class="content-container" id="response-content">
             <p>#request:
-                <button id="copy-button" class="copy-button" type="button" clip-copy="buildRemixQuery()" tooltip="copy" tooltip-placement="right">
+                <button id="copy-button" class="copy-button" type="button" clip-copy="buildRemixQuery()" tooltip="copy" tooltip-placement="right" ng-click="callCopyEvent()">
                     <img src="assets/clipboard_white.png" width="20" height="20" alt="copy"/></button>
             </p>
             <h5><span id="remix-query" class="query-text" ng-bind="buildRemixQuery()"></span></h5>

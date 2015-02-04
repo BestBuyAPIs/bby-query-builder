@@ -5,13 +5,17 @@ describe('bby-query-mixer.recommendations module', function () {
     beforeEach(module('bby-query-mixer.recommendations', 'appConfig'));
 
     describe('recommendations controller', function () {
-        var ctrl, scope;
+        var ctrl, scope, ga;
         beforeEach(inject(function ($controller, $rootScope) {
             scope = $rootScope.$new();
             ctrl = $controller('RecommendationsCtrl', {
                 $scope: scope
             });
-        }));
+            ga = (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+                (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+                    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+                    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+            }));
 
         var successfulRecommendationsResponse = {
             metadata: {},
@@ -69,6 +73,7 @@ describe('bby-query-mixer.recommendations module', function () {
 
                 scope.apiKey = 'inactiveKey';
                 scope.endpoint.selected = 'trendingViewed';
+
                 scope.invokeRecommendationsQuery();
                 $httpBackend.flush();
                 expect(scope.results.data.errorMessage).toEqual("Account Inactive");

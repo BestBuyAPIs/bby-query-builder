@@ -16,12 +16,28 @@ angular.module('bby-query-mixer', [
         $routeProvider.otherwise({redirectTo: '/productSearch'});
         ngClipProvider.setPath("bower_components/zeroclipboard/dist/ZeroClipboard.swf");
     }])
-    .controller('pageController', ['$scope', function($scope){
+    .controller('pageController', ['$scope', 'GaService', function($scope, GaService){
     	$scope.apiKey = '';
-
+        $scope.callWatchApiKey = function(){
+            GaService.enterKeyEvent($scope.apiKey);
+        };
     }])
     .controller('menuController', ['$scope', '$location', function($scope, $location) {
         $scope.isActive = function(route) {
             return route === $location.path();
         }
-    }]);
+    }])
+    .directive('analytics', ['$rootScope', '$location',
+    function ($rootScope, $location) {
+    return {
+        link: function (scope, elem, attrs, ctrl) {
+            $rootScope.$on('$routeChangeSuccess', function(event, currRoute, prevRoute) {
+                ga('set', 'page', $location.path());
+                var dimension1Value = '';
+                //'dimension1' was registered as 'api key' in the google analytics admin console
+                ga('set', 'dimension1', dimension1Value);
+                ga('send', 'pageview');
+            });
+        }
+    }
+}]);

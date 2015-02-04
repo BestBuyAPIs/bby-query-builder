@@ -6,7 +6,8 @@ angular.module('bby-query-mixer.productSearch').controller('ProductSearchCtrl', 
     'showOptionsConfig',
     'attributeOptionsConfig',
     'HttpClientService',
-    function ($scope, categoryConfig, showOptionsConfig, attributeOptionsConfig, HttpClientService) {
+    'GaService',
+    function ($scope, categoryConfig, showOptionsConfig, attributeOptionsConfig, HttpClientService, GaService) {
         $scope.categories = angular.copy(categoryConfig);
         $scope.showOptions = angular.copy(showOptionsConfig);
         $scope.attributeOptions = angular.copy(attributeOptionsConfig);
@@ -61,7 +62,11 @@ angular.module('bby-query-mixer.productSearch').controller('ProductSearchCtrl', 
             }
             if ($scope.apiKey) {
                 $scope.errorResult = false;
-            HttpClientService.httpClient(query).jsonp_query(successFn, errorFn);
+
+                var eventActionName = "products query success";
+                GaService.clickQueryButtonEvent(eventActionName, $scope.apiKey);
+
+                HttpClientService.httpClient(query).jsonp_query(successFn, errorFn);
             }else{
                 $scope.errorResult = true;
                 $scope.remixResults = 'Please enter your API Key';
@@ -128,6 +133,10 @@ angular.module('bby-query-mixer.productSearch').controller('ProductSearchCtrl', 
             $scope.complexVal = $scope.attributeOption.valueOptions ? $scope.attributeOption.valueOptions[0] : '';
         };
 
+        $scope.callCopyEvent = function () {
+            var tab = "products";
+            GaService.copyUrlEvent(tab,$scope.apiKey);
+        };
 
     }
 ])

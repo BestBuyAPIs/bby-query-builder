@@ -4,7 +4,8 @@ angular.module('bby-query-mixer.openBox').controller('openBoxCtrl', [
     '$scope',
     'categoryConfig',
     'HttpClientService',
-    function ($scope, categoryConfig, HttpClientService) {
+    'GaService',
+    function ($scope, categoryConfig, HttpClientService, GaService) {
         $scope.categories = angular.copy(categoryConfig);
         $scope.category = $scope.categories[0];
 
@@ -38,6 +39,10 @@ angular.module('bby-query-mixer.openBox').controller('openBoxCtrl', [
 
             if (($scope.apiKey !==  "")&($scope.searchSelection.value !== 0)){
                 $scope.errorResult = false;
+
+                var eventActionName = "open box query success";
+                GaService.clickQueryButtonEvent(eventActionName, $scope.apiKey);
+
                 HttpClientService.httpClient(query).jsonp_query(successFn, errorFn);
             }else if ($scope.apiKey ===  ""){
                 $scope.errorResult = true;
@@ -66,4 +71,9 @@ angular.module('bby-query-mixer.openBox').controller('openBoxCtrl', [
         };
 
         $scope.resetParams();
+
+        $scope.callCopyEvent = function () {
+            var tab = "open box";
+            GaService.copyUrlEvent(tab,$scope.apiKey);
+        };
 }]);

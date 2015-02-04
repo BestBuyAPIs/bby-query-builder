@@ -2,14 +2,15 @@
 
 describe('appServices module', function () {
     
-    var HttpClientService;
+    var HttpClientService, GaService;
 
     beforeEach(function () {
 
     	module('appServices');
 
-    	inject(function(_HttpClientService_) {
+    	inject(function(_HttpClientService_, _GaService_) {
     		HttpClientService = _HttpClientService_;
+            GaService = _GaService_;
     	});
     });
 
@@ -19,6 +20,16 @@ describe('appServices module', function () {
     		expect(angular.isFunction(HttpClientService.httpClient)).toBe(true);
     	});
     });
-
+    describe('GaService factory', function () {
+        it('should return a clickQueryButton function', function () {
+            expect(angular.isFunction(GaService.clickQueryButtonEvent)).toBe(true);
+        });
+        it('should return an enterKeyEvent function', function () {
+            expect(angular.isFunction(GaService.enterKeyEvent)).toBe(true);
+        });
+        it('should return a copyUrlEvent function', function () {
+            expect(angular.isFunction(GaService.copyUrlEvent)).toBe(true);
+        });
+    });
 
 });

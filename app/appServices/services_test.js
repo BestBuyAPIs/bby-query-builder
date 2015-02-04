@@ -27,6 +27,9 @@ describe('appServices module', function () {
         it('should return an enterKeyEvent function', function () {
             expect(angular.isFunction(GaService.enterKeyEvent)).toBe(true);
         });
+        it('should return a copyUrlEvent function', function () {
+            expect(angular.isFunction(GaService.copyUrlEvent)).toBe(true);
+        });
     });
 
 });

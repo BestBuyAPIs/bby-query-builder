@@ -71,4 +71,9 @@ angular.module('bby-query-mixer.openBox').controller('openBoxCtrl', [
         };
 
         $scope.resetParams();
+
+        $scope.callCopyEvent = function () {
+            var tab = "open box";
+            GaService.copyUrlEvent(tab,$scope.apiKey);
+        };
 }]);

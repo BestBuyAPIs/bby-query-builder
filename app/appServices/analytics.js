@@ -14,8 +14,14 @@ angular.module('appServices').factory('GaService', [ function() {
         };
     };
 
+    var copyUrlEvent = function (tab, apiKey) {
+        ga('send', 'event', 'button click', 'copied a ' + tab + ' complete url', {'dimension1': apiKey});
+
+    };
+
     return {
     	clickQueryButtonEvent : clickQueryButtonEvent,
-    	enterKeyEvent : enterKeyEvent
+    	enterKeyEvent : enterKeyEvent,
+        copyUrlEvent : copyUrlEvent
     }
 }]);

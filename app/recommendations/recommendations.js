@@ -57,6 +57,11 @@ angular.module('bby-query-mixer.recommendations').controller('RecommendationsCtr
             $scope.errorResult = false;
         };
 
+        $scope.callCopyEvent = function () {
+            var tab = "recommendations";
+            GaService.copyUrlEvent(tab,$scope.apiKey);
+        };
+
         //this loads our default model scopes on page load
         $scope.resetRecommendationsQuery();
 

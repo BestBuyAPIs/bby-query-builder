@@ -133,6 +133,10 @@ angular.module('bby-query-mixer.productSearch').controller('ProductSearchCtrl', 
             $scope.complexVal = $scope.attributeOption.valueOptions ? $scope.attributeOption.valueOptions[0] : '';
         };
 
+        $scope.callCopyEvent = function () {
+            var tab = "products";
+            GaService.copyUrlEvent(tab,$scope.apiKey);
+        };
 
     }
 ])

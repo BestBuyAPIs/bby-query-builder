@@ -349,7 +349,7 @@ input.ng-invalid {
 .select2-choices, ul {
     padding: 0;
 }
-.select2-choices{
+.select2-choices, .select2-drop {
     border: 1px solid #ccc !important;
     -moz-border-radius: 7px !important;
     -webkit-border-radius: 7px !important;

@@ -55,6 +55,9 @@ angular.module('bby-query-mixer.stores').controller('storesCtrl', [
             {text:"By StoreId", value:"storeId"},
             {text:"By Region/State", value:"region"}
         ];
+            
+        $scope.servicesOption = {};
+        $scope.storeType = {};
 
         $scope.resetParams = function () {
             $scope.searchSelection = $scope.options[0];
@@ -62,10 +65,10 @@ angular.module('bby-query-mixer.stores').controller('storesCtrl', [
             $scope.regionOption = $scope.regionOptions[0];
             $scope.servicesOptions = angular.copy(storeServicesConfig);
             //$scope.servicesOption = $scope.servicesOptions[0];
-            $scope.servicesOption = [$scope.servicesOptions[0],$scope.servicesOptions[1],$scope.servicesOptions[3]]
+            $scope.servicesOption.list = [$scope.servicesOptions[0].value,$scope.servicesOptions[1].value,$scope.servicesOptions[3].value]
             $scope.whichPage = 1;
             $scope.pageSize = 10;
-            $scope.storeType = [$scope.storeTypes[0]]
+            $scope.storeType.list = [$scope.storeTypes[0].value]
         };
 
 

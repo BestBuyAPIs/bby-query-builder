@@ -25,6 +25,10 @@
     "start": "http-server -a localhost -p 8000 -c-1",
     "pretest": "npm install",
     "test": "karma start karma.conf.js --single-run",
-    "test-watch": "karma start karma.conf.js"
+    "test-watch": "karma start karma.conf.js",
+    "build": "npm install && rm -rf _built && cp -R app _built",
+    "commit-built": "git add _built -A && git commit -m \"_built files at `date`\" -n > /dev/null 2>&1; exit 0",
+    "ghpages": "git subtree split --prefix _built/ -b gh-pages && git push -f origin gh-pages:gh-pages && git branch -D gh-pages",
+    "deploy": "npm run build && npm run commit-built && npm run ghpages"
   }
 }

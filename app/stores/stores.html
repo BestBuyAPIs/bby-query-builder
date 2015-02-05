@@ -44,14 +44,21 @@
                     <strong class="char-overlay fa-stack-1x">2</strong>
                     </span>Build Your Response</h4>
                 <div class="content-container">
-
+                    <p>
+                        <span class="subtitle">Store Services</span>
+                        <button class="btn btn-default btn-xs" ng-click="selectAll('services')">Select All</button> <button class="btn btn-default btn-xs" ng-click="selectAll('noservices')">Unselect All</button>
+                    </p>
                     <ui-select multiple ng-model="servicesOption.list" theme="select2" ng-disabled="disabled">
                         <ui-select-match placeholder="Select store services">{{$item.text}}</ui-select-match>
                         <ui-select-choices repeat="option.value as option in servicesOptions | propsFilter: {text: $select.search}">
                           <div ng-bind-html="option.text | highlight: $select.search"></div>
                         </ui-select-choices>
                     </ui-select>
-                    <label>Store Type</label>
+                    <br/>
+                    <p>
+                        <span class="subtitle">Store Type</span>
+                            <button class="btn btn-default btn-xs" ng-click="selectAll('types')">Select All</button> <button class="btn btn-default btn-xs" ng-click="selectAll('notypes')">Unselect All</button>
+                    </p>
                     
                     <ui-select multiple ng-model="storeType.list" theme="select2" ng-disabled="disabled" style="width:60%;">
                         <ui-select-match placeholder="Select store services">{{$item.text}}</ui-select-match>

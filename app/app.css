@@ -362,3 +362,6 @@ input.ng-invalid {
 .ui-select-container {
     width: 95%;
 }
+.subtitle {
+    font-weight: bold;
+}

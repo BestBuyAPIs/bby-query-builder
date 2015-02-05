@@ -64,7 +64,6 @@ angular.module('bby-query-mixer.stores').controller('storesCtrl', [
             $scope.regionOptions = angular.copy(regionsConfig);
             $scope.regionOption = $scope.regionOptions[0];
             $scope.servicesOptions = angular.copy(storeServicesConfig);
-            //$scope.servicesOption = $scope.servicesOptions[0];
             $scope.servicesOption.list = [$scope.servicesOptions[0].value,$scope.servicesOptions[1].value,$scope.servicesOptions[3].value]
             $scope.whichPage = 1;
             $scope.pageSize = 10;
@@ -79,4 +78,24 @@ angular.module('bby-query-mixer.stores').controller('storesCtrl', [
             GaService.copyUrlEvent(tab,$scope.apiKey);
         };
 
+        //this function lets us 'select' all options in an array of objects, instead of having to hardcode it
+        var addAllOptions = function(optionArray) {
+            var newArray = [];
+            angular.forEach(optionArray, function(i) { this.push(i.value) }, newArray);
+            return newArray;
+        };
+
+
+        $scope.selectAll = function (z) {
+            if (z === 'services') {
+            $scope.servicesOption.list = addAllOptions($scope.servicesOptions);
+            } else if (z === 'noservices') {
+                $scope.servicesOption.list = [];
+            } else if (z === 'types') {
+                $scope.storeType.list = addAllOptions($scope.storeTypes);
+            } else if (z === 'notypes') {
+                $scope.storeType.list = [];
+            }
+            return;
+        };
 }]);

@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>
+<html lang="en" ng-app="bby-query-mixer" class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>
+<html lang="en" ng-app="bby-query-mixer" class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>
+<html lang="en" ng-app="bby-query-mixer" class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!-->
+<html lang="en" ng-app="bby-query-mixer" class="no-js" analytics> <!--<![endif]-->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Best Buy APIs :: Query Builder</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="bower_components/html5-boilerplate/css/normalize.css">
+    <link rel="stylesheet" href="bower_components/html5-boilerplate/css/main.css">
+    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css">
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="app.css">
+    <script src="bower_components/html5-boilerplate/js/vendor/modernizr-2.6.2.min.js"></script>
+    <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  //for testing in development
+  ga('create', 'UA-6257094-13', {'cookieDomain': 'none'});
+
+  //in production use:
+  //ga('create', 'UA-6257094-13', 'auto');
+
+</script>
+</head>
+<body>
+
+<!--[if lt IE 7]>
+<p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade
+    your browser</a> to improve your experience.</p>
+<![endif]-->
+<div ng-controller="pageController">
+    <div id="logo-wrapper">
+        <div class="content-container">
+            <a href="https://developer.bestbuy.com" id="portal-link"><img src="assets/logo.png"/></a>
+        </div>
+    </div>
+    <div class='row'>
+        <div class="col-sm-8">
+            <ul class="nav nav-tabs menu" ng-controller="menuController">
+                <li ng-class="{active:isActive('/productSearch')}"><a href="#/productSearch">product search</a></li>
+                <li ng-class="{active:isActive('/recommendations')}"><a href="#/recommendations">recommendations</a></li>
+                <li ng-class="{active:isActive('/openbox')}"><a href="#/openbox">open box</a></li>
+                <li style="display:none" ng-class="{active:isActive('/stores')}"><a>stores</a></li>
+                <li style="display:none" ng-class="{active:isActive('/category')}"><a>category</a></li>
+            </ul>
+        </div>
+        <div class="col-sm-4">
+            <div id="apikeyinput">
+            <p>
+                <span for="api-key" id="api-key-label" name="apikey"><a href="https://remix.mashery.com/member/register">API Key:</a></span>
+                <input ng-change="callWatchApiKey()" class="rounded" id="api-key" type="text" ng-model="apiKey" ng-maxlength="24" ng-minlength="24" placeholder="YourAPIGoesHere" name="apikey" required>
+            </p>
+            </div>
+        </div>
+    </div>
+    <div ng-view>
+    </div>
+</div>
+<!-- In production use:
+<script src="//ajax.googleapis.com/ajax/libs/angularjs/x.x.x/angular.min.js"></script>
+-->
+<script src="bower_components/jquery/dist/jquery.min.js"></script>
+<script src="bower_components/angular/angular.js"></script>
+<script src="bower_components/angular-route/angular-route.js"></script>
+<script src="bower_components/angular-resource/angular-resource.js"></script>
+<script src="bower_components/zeroclipboard/dist/ZeroClipboard.js"></script>
+<script src="bower_components/ng-clip/src/ngClip.js"></script>
+<script src="bower_components/checklist-model/checklist-model.js"></script>
+<script src="bower_components/angular-bootstrap/ui-bootstrap.js"></script>
+<script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
+<script src="app.js"></script>
+<script src="productSearch/00-module.js"></script>
+<script src="productSearch/showOptionsConfig.js"></script>
+<script src="productSearch/attributeOptionsConfig.js"></script>
+<script src="productSearch/productSearch.js"></script>
+<script src="recommendations/00-module.js"></script>
+<script src="recommendations/recommendations.js"></script>
+<script src="appConstants/00-module.js"></script>
+<script src="appConstants/categoryConfig.js"></script>
+<script src="openBox/00-module.js"></script>
+<script src="openBox/openBox.js"></script>
+<script src="appServices/00-module.js"></script>
+<script src="appServices/httpclientService.js"></script>
+<script src="appServices/analytics.js"></script>
+
+
+
+</body>
+</html>

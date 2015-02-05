@@ -22,11 +22,11 @@
                         <div ng-show="searchSelection.value ==='latLong'">
                             <p>Search by Lat/Long returns all stores</p>
                             <p><form>Latitude <input type="number" class="rounded" placeholder="71.3"></input>
-                                <input type="radio" ng-model="latCompassDirection" value="north"> N 
-                                <input type="radio" ng-model="latCompassDirection" value="south"> S</form></p>
+                                <input type="radio" ng-model="latCompassDirection" value="north"> North 
+                                <input type="radio" ng-model="latCompassDirection" value="south"> South</form></p>
                             <p>Longitude <input type="number" class="rounded" placeholder="71.3">
-                                <input type="radio" ng-model="longCompassDirection" value="east"> E 
-                                <input type="radio" ng-model="longCompassDirection" value="west"> W</input></p>
+                                <input type="radio" ng-model="longCompassDirection" value="east"> East 
+                                <input type="radio" ng-model="longCompassDirection" value="west"> West</input></p>
                             <p>Area (miles): <input type="number" class="rounded" placeholder="71.3"></input>(optional)</p>
                           
                         </div>
@@ -37,11 +37,30 @@
                             <select ng-model="regionOption" ng-options="opt as opt.text for opt in regionOptions"></select>
                         <p for="category">Select attributes and criteria for response:</p>
                         </div>
-                        <div ng-show="searchSelection.value" class="">
-                            <label>More Stores options</label>
-                        </div>
-                </div>
+                    </div>
+                    
+                <h4><span class="fa-stack fa-3x numberIcon">
+                    <i class="fa fa-circle fa-stack-2x icon-stack-base"></i>
+                    <strong class="char-overlay fa-stack-1x">2</strong>
+                    </span>Stores Services</h4>
+                <div class="content-container">
 
+                    <ui-select multiple ng-model="servicesOption" theme="select2" ng-disabled="disabled">
+                        <ui-select-match placeholder="Select store services">{{$item.text}}</ui-select-match>
+                        <ui-select-choices repeat="option in servicesOptions | propsFilter: {text: $select.search}">
+                          <div ng-bind-html="option.text | highlight: $select.search"></div>
+                        </ui-select-choices>
+                    </ui-select>
+                    <label>Store Type</label>
+                    
+                    <ui-select multiple ng-model="storeType" theme="select2" ng-disabled="disabled" style="width:60%;">
+                        <ui-select-match placeholder="Select store services">{{$item.text}}</ui-select-match>
+                        <ui-select-choices repeat="option in storeTypes | propsFilter: {text: $select.search}">
+                          <div ng-bind-html="option.text | highlight: $select.search"></div>
+                        </ui-select-choices>
+                    </ui-select>
+
+                </div>
              <h4><span class="fa-stack fa-3x numberIcon">
                     <i class="fa fa-circle fa-stack-2x icon-stack-base"></i>
                     <strong class="char-overlay fa-stack-1x">2</strong>

@@ -18,7 +18,7 @@ angular.module('bby-query-mixer.stores').constant('storeServicesConfig', [
 	{ text:'Magnolia Home Theater', value: 'magnolia home theater' },
 	{ text:'Pacific Kitchen & Home', value: 'pacific kitchen & home' },
 	{ text:'Pacific Sales Kitchen & Home', value: 'pacific sales kitchen & home' },
-	{ text:'Phone Screen replacement', value: 'phone screen replacement' },
+	{ text:'Phone Screen Replacement', value: 'phone screen replacement' },
 	{ text:'Samsung Experience Shop', value: 'samsung experience shop' },
 	{ text:'Support for Military Families', value: 'support for military families' },
 	{ text:'Walk Out Working', value: 'walk out working' },

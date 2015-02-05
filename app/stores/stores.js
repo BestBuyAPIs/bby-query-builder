@@ -9,6 +9,12 @@ angular.module('bby-query-mixer.stores').controller('storesCtrl', [
     'storeServicesConfig',
     function ($scope, categoryConfig, HttpClientService, GaService, regionsConfig, storeServicesConfig) {
         
+        $scope.storeTypes = [
+            { text:"Big Box", value: "bigbox" },
+            { text: "Mobile", value: "mobile" },
+            { text: "Express", value: "express" }
+        ];
+
         $scope.buildRemixQuery = function () {
             var baseUrl = 'http://api.remix.bestbuy.com/v1/stores';
             return baseUrl
@@ -55,8 +61,11 @@ angular.module('bby-query-mixer.stores').controller('storesCtrl', [
             $scope.regionOptions = angular.copy(regionsConfig);
             $scope.regionOption = $scope.regionOptions[0];
             $scope.servicesOptions = angular.copy(storeServicesConfig);
-            $scope.servicesOption = $scope.servicesOptions[0];
-
+            //$scope.servicesOption = $scope.servicesOptions[0];
+            $scope.servicesOption = [$scope.servicesOptions[0],$scope.servicesOptions[1],$scope.servicesOptions[3]]
+            $scope.whichPage = 1;
+            $scope.pageSize = 10;
+            $scope.storeType = [$scope.storeTypes[0]]
         };
 
 
@@ -66,4 +75,5 @@ angular.module('bby-query-mixer.stores').controller('storesCtrl', [
             var tab = "stores";
             GaService.copyUrlEvent(tab,$scope.apiKey);
         };
+
 }]);

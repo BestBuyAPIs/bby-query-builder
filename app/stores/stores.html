@@ -8,65 +8,92 @@
                     <i class="fa fa-circle fa-stack-2x icon-stack-base"></i>
                     <strong class="char-overlay fa-stack-1x">1</strong>
                     </span> Search for Stores</h4>
-                <div class="content-container">  
+
+                <div class="content-container storesSearchForm">  
                     <select ng-model="searchSelection" ng-options="opt as opt.text for opt in options"></select>
+                        
                         <div ng-show="searchSelection.value ==='city'">
                             <p>Searching by City returns stores information for all the stores in the city specified.</p>
-                            <input type="text" class="rounded" placeholder="Bloomington, MN"></input>
+                            <span class="subtitle">City:</span><input type="text" id="cityInput" class="rounded" ng-model="cityChoice" placeholder="Bloomington" required ng-minlength="0"></input>
                         </div>
+
                         <div ng-show="searchSelection.value ==='postalCode'">
                             <p>Searching by Postal Code returns store information for all the stores in the postal code specified.</p>
-                            <input type="number" class="rounded" placeholder="55423"></input>
-                            Area (miles): <input type="number" class="rounded" placeholder="71.3"></input>
+                            <span class="subtitle">Zip Code:</span><input style="width:80px;" ng-model="zipCode" type="number" class="rounded" placeholder="55423" required ></input>
+                            <span class="subtitle">Area</span> (miles): <input style="width:60px;" ng-model="area" type="number" class="rounded" placeholder="71.3"></input>
                         </div>
-                        <div ng-show="searchSelection.value ==='latLong'">
-                            <p>Search by Lat/Long returns all stores</p>
-                            <p><form>Latitude <input type="number" class="rounded" placeholder="71.3"></input>
-                                <input type="radio" ng-model="latCompassDirection" value="north"> North 
-                                <input type="radio" ng-model="latCompassDirection" value="south"> South</form></p>
-                            <p>Longitude <input type="number" class="rounded" placeholder="71.3">
-                                <input type="radio" ng-model="longCompassDirection" value="east"> East 
-                                <input type="radio" ng-model="longCompassDirection" value="west"> West</input></p>
-                            <p>Area (miles): <input type="number" class="rounded" placeholder="71.3"></input>(optional)</p>
-                          
-                        </div>
-                        <div ng-show="searchSelection.value ==='storeId'">
-                            <input type="number" class="rounded" placeholder="281"></input>
-                        </div>
-                        <div ng-show="searchSelection.value ==='region'">
-                            <select ng-model="regionOption" ng-options="opt as opt.text for opt in regionOptions"></select>
-                        <p for="category">Select attributes and criteria for response:</p>
-                        </div>
-                    </div>
 
-                <h4><span class="fa-stack fa-3x numberIcon">
-                    <i class="fa fa-circle fa-stack-2x icon-stack-base"></i>
-                    <strong class="char-overlay fa-stack-1x">2</strong>
-                    </span>Build Your Response</h4>
+                        <div ng-show="searchSelection.value ==='latLong'">
+                            <p>Searching by Lat/Long returns all stores information for the lat/long specified. An optional area function can be applied to get stores information within the specified area.</p>
+                            <form class="form-horizontal">
+                                <div class="form-group">
+                                    <p class="col-sm-2"><span class="subtitle">Latitude</span></p>
+                                    <div class="col-sm-10"> 
+                                        <input ng-model="latitude" type="number" class="rounded" placeholder="71.3"></input>
+                                        <input type="radio" ng-model="latCompassDirection" value="north"> North 
+                                        <input type="radio" ng-model="latCompassDirection" value="south"> South
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <p class="col-sm-2"><span class="subtitle">Longitude</span></p>
+                                    <div class="col-sm-10">
+                                        <input ng-model="longitude" type="number" class="rounded" placeholder="71.3">
+                                        <input type="radio" ng-model="longCompassDirection" value="east"> East 
+                                        <input type="radio" ng-model="longCompassDirection" value="west"> West</input>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <p class="col-sm-2"><span class="subtitle">Area</span> (miles):</p>
+                                    <div class="col-sm-10"> 
+                                        <input ng-model="latLongArea" type="number" class="rounded" placeholder="71.3"></input>(optional)
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    
+
+                        <div ng-show="searchSelection.value ==='storeId'">
+                            <span class="subtitle">Store ID: </span><input type="number" class="rounded" placeholder="281"></input>
+                        </div>
+
+                        <div ng-show="searchSelection.value ==='region'">
+                           <span class="subtitle">Region/State:</span> <select ng-model="regionOption" ng-options="opt as opt.text for opt in regionOptions"></select>
+                        </div>
+                </div>
+
                 <div class="content-container">
                     <p>
-                        <span class="subtitle">Store Services</span>
-                        <button class="btn btn-default btn-xs" ng-click="selectAll('services')">Select All</button> <button class="btn btn-default btn-xs" ng-click="selectAll('noservices')">Unselect All</button>
+                        <span class="subtitle">Store Services </span><span>(optional)</span>
+                        <button class="btn btn-default btn-xs" ng-click="selectAll('services')">Select All</button> <button class="btn btn-default btn-xs" ng-click="selectAll('noservices')">Select None</button>
                     </p>
-                    <ui-select multiple ng-model="servicesOption.list" theme="select2" ng-disabled="disabled">
-                        <ui-select-match placeholder="Select store services">{{$item.text}}</ui-select-match>
-                        <ui-select-choices repeat="option.value as option in servicesOptions | propsFilter: {text: $select.search}">
-                          <div ng-bind-html="option.text | highlight: $select.search"></div>
-                        </ui-select-choices>
-                    </ui-select>
-                    <br/>
+                    <div class="multiSelectBox">
+                        <ui-select multiple ng-model="servicesOption.list" theme="select2" ng-disabled="disabled">
+                            <ui-select-match placeholder="Select store services">{{$item.text}}</ui-select-match>
+                            <ui-select-choices repeat="option.value as option in servicesOptions | propsFilter: {text: $select.search}">
+                              <div ng-bind-html="option.text | highlight: $select.search"></div>
+                            </ui-select-choices>
+                        </ui-select>
+
+                </div>
                     <p>
-                        <span class="subtitle">Store Type</span>
-                            <button class="btn btn-default btn-xs" ng-click="selectAll('types')">Select All</button> <button class="btn btn-default btn-xs" ng-click="selectAll('notypes')">Unselect All</button>
+                        <span class="subtitle">Store Type</span><span> (optional)</span>
+                            <button class="btn btn-default btn-xs" ng-click="selectAll('types')">Select All</button> <button class="btn btn-default btn-xs" ng-click="selectAll('notypes')">Select None</button>
                     </p>
-                    
-                    <ui-select multiple ng-model="storeType.list" theme="select2" ng-disabled="disabled" style="width:60%;">
-                        <ui-select-match placeholder="Select store services">{{$item.text}}</ui-select-match>
+
+                <div class="multiSelectBox">              
+                    <ui-select multiple ng-model="storeType.list" theme="select2" ng-disabled="disabled">
+                        <ui-select-match placeholder="Select store types">{{$item.text}}</ui-select-match>
                         <ui-select-choices repeat="option.value as option in storeTypes | propsFilter: {text: $select.search}">
                           <div ng-bind-html="option.text | highlight: $select.search"></div>
                         </ui-select-choices>
                     </ui-select>
                 </div>
+            </div>
+            </div>
+            <h4><span class="fa-stack fa-3x numberIcon">
+                    <i class="fa fa-circle fa-stack-2x icon-stack-base"></i>
+                    <strong class="char-overlay fa-stack-1x">2</strong>
+                    </span>Build Your Response</h4>
              <h4><span class="fa-stack fa-3x numberIcon">
                     <i class="fa fa-circle fa-stack-2x icon-stack-base"></i>
                     <strong class="char-overlay fa-stack-1x">3</strong>
@@ -85,19 +112,25 @@
                 <button class="query-button" ng-click="invokeRemixQuery()">RUN Query</button>
             </div>
         </div>
-    </div>
     <div id="right-side-container" class="query-container">
         <h4 class="container urlBreakdown">URL Breakdown</h4>
         <div class="content-container"><label>Here is an anatomy of your request, showing all of the "pieces" that make up your complete URL:</label>
             <div id="exampleUrl" class="content-container">
                 <p><a class="breakdownLabel" href="https://developer.bestbuy.com/documentation#advancedSearch-search">baseURL</a> : http://api.remix.bestbuy.com/v1/stores</p>
 
+                <p ng-show="cityChoice"><a class="breakdownLabel" href="https://developer.bestbuy.com/documentation/stores-api#documentation/stores-api-information">byCity</a> : (city=<span ng-bind="cityChoice"></span>)</p>
 
-                <p><a class="breakdownLabel" href="https://remix.mashery.com/member/register">apiKey</a> : ?apiKey=<span ng-bind="apiKey"></span><span ng-show="sortBy != 'none'"></p>
+                <p ng-show="zipCode"><a class="breakdownLabel" href="https://developer.bestbuy.com/documentation/stores-api#documentation/stores-api-area-function">areaFunction</a> : (area(<span ng-bind="zipCode"></span>,<span ng-bind="area"></span>)) </p>
+
+                <p><a class="breakdownLabel" href="https://developer.bestbuy.com/documentation/stores-api#documentation/stores-api-area-function">byLatLong</a>(area(<span ng-bind="latitude"></span>,<span ng-bind="longitude"></span><span ng-show="latLongArea">,<span ng-bind="latLongArea"></span></span>))</p>
+
+                <p ng-show="regionOption"><a class="breakdownLabel" href="https://developer.bestbuy.com/documentation/stores-api#documentation/stores-api-information">region</a> : (region=<span ng-show="regionOption.value"><span ng-bind="regionOption.value"></span>) </span></p>
+
+                <p><a class="breakdownLabel" href="https://remix.mashery.com/member/register">apiKey</a> : ?apiKey=<span ng-bind="apiKey"></span></p>
 
                 <p><a class="breakdownLabel" href="https://developer.bestbuy.com/documentation#pagination-pagination">pagination</a> : pageSize=<span ng-bind="pageSize"></span>&page=<span ng-bind="whichPage"></span></p>
 
-                <p><a class="breakdownLabel" href="https://developer.bestbuy.com/documentation#responseFormat-response-format">callback</a> : &callback=JSON_CALLBACK</span></p>
+                <p><a class="breakdownLabel" href="https://developer.bestbuy.com/documentation#responseFormat-response-format">callback</a> : &callback=JSON_CALLBACK</p>
 
             </div>
         </div>

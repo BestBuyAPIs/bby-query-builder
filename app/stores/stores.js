@@ -64,10 +64,10 @@ angular.module('bby-query-mixer.stores').controller('storesCtrl', [
             $scope.regionOptions = angular.copy(regionsConfig);
             $scope.regionOption = $scope.regionOptions[0];
             $scope.servicesOptions = angular.copy(storeServicesConfig);
-            $scope.servicesOption.list = [$scope.servicesOptions[0].value,$scope.servicesOptions[1].value,$scope.servicesOptions[3].value]
+            $scope.servicesOption.list = [$scope.servicesOptions[0].value,$scope.servicesOptions[1].value];
             $scope.whichPage = 1;
             $scope.pageSize = 10;
-            $scope.storeType.list = [$scope.storeTypes[0].value]
+            $scope.storeType.list = [$scope.storeTypes[0].value];
         };
 
 

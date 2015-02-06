@@ -360,8 +360,11 @@ input.ng-invalid {
     width: 100%;
 }
 .ui-select-container {
-    width: 95%;
+    width: 75%;
 }
 .subtitle {
     font-weight: bold;
+}
+.storesSearchForm, .multiSelectBox {
+    padding-bottom: 2.5%
 }

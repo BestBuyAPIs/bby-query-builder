@@ -7,7 +7,8 @@ angular.module('bby-query-mixer.stores').controller('storesCtrl', [
     'GaService',
     'regionsConfig',
     'storeServicesConfig',
-    function ($scope, categoryConfig, HttpClientService, GaService, regionsConfig, storeServicesConfig) {
+    'storeResponseConfig',
+    function ($scope, categoryConfig, HttpClientService, GaService, regionsConfig, storeServicesConfig, storeResponseConfig) {
         
         $scope.storeTypes = [
             { text:"Big Box", value: "bigbox" },
@@ -58,6 +59,7 @@ angular.module('bby-query-mixer.stores').controller('storesCtrl', [
             
         $scope.servicesOption = {};
         $scope.storeType = {};
+        $scope.storeResponse = {};
 
         $scope.resetParams = function () {
             $scope.searchSelection = $scope.options[0];
@@ -67,7 +69,9 @@ angular.module('bby-query-mixer.stores').controller('storesCtrl', [
             $scope.servicesOption.list = [$scope.servicesOptions[0].value,$scope.servicesOptions[1].value];
             $scope.whichPage = 1;
             $scope.pageSize = 10;
+            $scope.storeResponses = angular.copy(storeResponseConfig);
             $scope.storeType.list = [$scope.storeTypes[0].value];
+            $scope.storeResponse.list = [$scope.storeResponses[0].value,$scope.storeResponses[1].value,$scope.storeResponses[2].value];
         };
 
 

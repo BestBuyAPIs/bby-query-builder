@@ -25,7 +25,7 @@ angular.module('bby-query-mixer.stores').controller('storesCtrl', [
                 if (($scope.zipCode)&&($scope.area !== '')) {
                    return (baseUrl += '(area('+$scope.zipCode+','+$scope.area+'))') ;
                 } else if ($scope.zipCode) {
-                   return (baseUrl += '(area('+$scope.zipCode+')') ;
+                   return (baseUrl += '(postalCode='+$scope.zipCode+')') ;
                 }
             })();
 
@@ -41,20 +41,28 @@ angular.module('bby-query-mixer.stores').controller('storesCtrl', [
 
             //&( (storeType=mobile) | (storeType=bigbox) )
             //then we need to join it with '|' and add it to the url
-
             var filterStoreType = function (storeTypesArray) {
                 var newArray = [];
                 angular.forEach(storeTypesArray, function(i) {this.push('(storeType='+i+')')}, newArray);
                 return newArray.join('|');
             };
+            var addStoreType = ($scope.storeType.list.length > 0) ? baseUrl+=('&('+filterStoreType($scope.storeType.list)+')') : '';
 
-            var addStoreType = ($scope.storeType.list.length > 0) ? baseUrl+=('&'+filterStoreType($scope.storeType.list)) : '';
+
+            //((services.service=Windows)&(services.service=Apple%20Shop))
+            var filterStoreService = function (storeServiceArray) {
+                var newArray = [];
+                angular.forEach(storeServiceArray, function(i) {this.push('(services.service='+i+')')}, newArray);
+                return newArray.join('&');
+            };
+            var addStoreServices = ($scope.servicesOption.list.length > 0) ? baseUrl += ('&('+filterStoreService($scope.servicesOption.list)+')' ) :'';
+
 
             baseUrl += ')?format=json';
             var addKey = $scope.apiKey ? baseUrl += ('&apiKey='+$scope.apiKey):'';
 
-            //((services.service=Windows)&(services.service=Apple%20Shop))
-            var addStoreServices = ($scope.servicesOption.list.length > 0) ? baseUrl += '&show='+$scope.servicesOption.list:'';
+            var addStoreResponseOptions = ($scope.storeResponse.list.length > 0) ? baseUrl += ('&show=' + $scope.storeResponse.list) : '';
+
 
             baseUrl += '&callback=JSON_CALLBACK';
             return baseUrl
@@ -111,11 +119,11 @@ angular.module('bby-query-mixer.stores').controller('storesCtrl', [
             $scope.pageSize = 10;
             $scope.storeResponses = angular.copy(storeResponseConfig);
 
-            $scope.servicesOption.list = [];
+            $scope.servicesOption.list = [$scope.servicesOptions[0].value];
             //$scope.servicesOption.list = [$scope.servicesOptions[0].value,$scope.servicesOptions[1].value];
 
             // $scope.storeType.list = [];
-            $scope.storeType.list = [$scope.storeTypes[0].value,$scope.storeTypes[1].value];
+            $scope.storeType.list = [];
             
             $scope.storeResponse.list = [];
             //$scope.storeResponse.list = [$scope.storeResponses[0].value,$scope.storeResponses[1].value,$scope.storeResponses[2].value];

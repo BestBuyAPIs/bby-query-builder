@@ -94,9 +94,15 @@
                     <i class="fa fa-circle fa-stack-2x icon-stack-base"></i>
                     <strong class="char-overlay fa-stack-1x">2</strong>
                     </span> Build Your Response</h4>
+                    <div class="content-container">
+                    <p>
+                        <span class="subtitle">Store Attributes</span> (optional)
+                        <button class="btn btn-default btn-xs" ng-click="selectAll('responseAttributes')">Select All</button> <button class="btn btn-default btn-xs" ng-click="selectAll('noResponse')">Select None</button>
+                    </p>
+                    </div>
                     <div class="multiSelectBox content-container">
                         <ui-select multiple ng-model="storeResponse.list" theme="select2" ng-disabled="disabled">
-                            <ui-select-match placeholder="Select response attributes">{{$item.text}}</ui-select-match>
+                            <ui-select-match placeholder="Select store attributes">{{$item.text}}</ui-select-match>
                             <ui-select-choices repeat="option.value as option in storeResponses | propsFilter: {text: $select.search}">
                               <div ng-bind-html="option.text | highlight: $select.search"></div>
                             </ui-select-choices>

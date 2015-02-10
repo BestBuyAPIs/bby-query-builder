@@ -119,7 +119,7 @@ angular.module('bby-query-mixer.stores').controller('storesCtrl', [
             $scope.latitude = '';
             $scope.zipCode = '';
         };
-        
+
         $scope.resetParams = function () {
             $scope.searchSelection = $scope.options[0];
             $scope.regionOptions = angular.copy(regionsConfig);
@@ -158,6 +158,10 @@ angular.module('bby-query-mixer.stores').controller('storesCtrl', [
                 $scope.storeType.list = addAllOptions($scope.storeTypes);
             } else if (z === 'notypes') {
                 $scope.storeType.list = [];
+            } else if (z === 'responseAttributes') {
+                $scope.storeResponse.list = addAllOptions($scope.storeResponses);
+            } else if (z === 'noResponse') {
+                $scope.storeResponse.list = [];
             }
             return;
         };

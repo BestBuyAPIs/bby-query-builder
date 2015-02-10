@@ -96,7 +96,7 @@
                     </span> Build Your Response</h4>
                     <div class="multiSelectBox content-container">
                         <ui-select multiple ng-model="storeResponse.list" theme="select2" ng-disabled="disabled">
-                            <ui-select-match placeholder="Select store services">{{$item.text}}</ui-select-match>
+                            <ui-select-match placeholder="Select response attributes">{{$item.text}}</ui-select-match>
                             <ui-select-choices repeat="option.value as option in storeResponses | propsFilter: {text: $select.search}">
                               <div ng-bind-html="option.text | highlight: $select.search"></div>
                             </ui-select-choices>
@@ -128,9 +128,11 @@
 
                 <p ng-show="cityChoice"><a class="breakdownLabel" href="https://developer.bestbuy.com/documentation/stores-api#documentation/stores-api-information">byCity</a> : (city=<span ng-bind="cityChoice"></span>)</p>
 
-                <p ng-show="zipCode"><a class="breakdownLabel" href="https://developer.bestbuy.com/documentation/stores-api#documentation/stores-api-area-function">areaFunction</a> : (area(<span ng-bind="zipCode"></span>,<span ng-bind="area"></span>)) </p>
+                <p ng-show="zipCode"><a class="breakdownLabel" href="https://developer.bestbuy.com/documentation/stores-api#documentation/stores-api-area-function">areaFunction</a> : (area(<span ng-bind="zipCode"></span>,<span ng-bind="area"></span>))</p>
 
                 <p ng-show="latitude && longitude && latLongArea"><a class="breakdownLabel" href="https://developer.bestbuy.com/documentation/stores-api#documentation/stores-api-area-function">byLatLong</a> : (area(<span ng-bind="latitude"></span>,<span ng-bind="longitude"></span><span ng-show="latLongArea">,<span ng-bind="latLongArea"></span></span>))</p>
+
+                <p ng-show="storeId"><a class="breakdownLabel" href="https://developer.bestbuy.com/documentation/stores-api#csv_213-attribute-storeId">storeId</a> : (storeId=<span ng-bind="storeId"></span>)</p>
 
                 <p ng-show="regionOption.value"><a class="breakdownLabel" href="https://developer.bestbuy.com/documentation/stores-api#documentation/stores-api-information">region</a> : (region=<span ng-show="regionOption.value"><span ng-bind="regionOption.value"></span></span>)</p>
 

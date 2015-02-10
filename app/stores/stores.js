@@ -108,31 +108,7 @@ angular.module('bby-query-mixer.stores').controller('storesCtrl', [
         $scope.servicesOption = {};
         $scope.storeType = {};
         $scope.storeResponse = {};
-
-        $scope.resetParams = function () {
-            $scope.cityChoice = '';
-            $scope.area = '';
-            $scope.searchSelection = $scope.options[0];
-            $scope.regionOptions = angular.copy(regionsConfig);
-            $scope.regionOption = $scope.regionOptions[0];
-            $scope.servicesOptions = angular.copy(storeServicesConfig);
-            $scope.whichPage = 1;
-            $scope.pageSize = 10;
-            $scope.storeResponses = angular.copy(storeResponseConfig);
-
-            $scope.servicesOption.list = [$scope.servicesOptions[0].value];
-            //$scope.servicesOption.list = [$scope.servicesOptions[0].value,$scope.servicesOptions[1].value];
-
-            // $scope.storeType.list = [];
-            $scope.storeType.list = [];
-            
-            $scope.storeResponse.list = [];
-            //$scope.storeResponse.list = [$scope.storeResponses[0].value,$scope.storeResponses[1].value,$scope.storeResponses[2].value];
-        };
-
-
-        $scope.resetParams();
-
+        
         $scope.resetInput = function () {
             $scope.area = '';
             $scope.latLongArea = '';
@@ -143,6 +119,22 @@ angular.module('bby-query-mixer.stores').controller('storesCtrl', [
             $scope.latitude = '';
             $scope.zipCode = '';
         };
+        
+        $scope.resetParams = function () {
+            $scope.searchSelection = $scope.options[0];
+            $scope.regionOptions = angular.copy(regionsConfig);
+            $scope.servicesOptions = angular.copy(storeServicesConfig);
+            $scope.whichPage = 1;
+            $scope.pageSize = 10;
+            $scope.storeResponses = angular.copy(storeResponseConfig);
+            $scope.servicesOption.list = [];
+            $scope.storeType.list = [];
+            $scope.storeResponse.list = [];
+            $scope.resetInput();
+        };
+
+
+        $scope.resetParams();
 
         $scope.callCopyEvent = function () {
             var tab = "stores";

@@ -17,7 +17,49 @@ angular.module('bby-query-mixer.stores').controller('storesCtrl', [
         ];
 
         $scope.buildRemixQuery = function () {
-            var baseUrl = 'http://api.remix.bestbuy.com/v1/stores';
+            var baseUrl = 'http://api.remix.bestbuy.com/v1/stores(';
+            
+            var byCity = ($scope.searchSelection.value === 'city') ? (baseUrl +='(city='+$scope.cityChoice+')'):'';
+            
+            var byPostalCode = (function () {
+                if (($scope.zipCode)&&($scope.area !== '')) {
+                   return (baseUrl += '(area('+$scope.zipCode+','+$scope.area+'))') ;
+                } else if ($scope.zipCode) {
+                   return (baseUrl += '(area('+$scope.zipCode+')') ;
+                }
+            })();
+
+            var lat = ($scope.latCompassDirection === 'south') ? '-'+ $scope.latitude: $scope.latitude;
+            var long = ($scope.longCompassDirection === 'west') ? '-' + $scope.longitude : $scope.longitude;
+            var area = ($scope.latLongArea) ? $scope.latLongArea : '';
+            var byLatLong = (($scope.longitude)&&($scope.latitude)) ? baseUrl += '(area('+lat+','+long+','+area+'))' :'';
+
+            var byStoreId = ($scope.searchSelection.value === 'storeId') ? (baseUrl += '(storeId='+$scope.storeId+')'):'';
+
+            var byRegion = ($scope.searchSelection.value === 'region') ? (baseUrl += '(region='+$scope.regionOption.value+')') : '';
+            
+
+            //&( (storeType=mobile) | (storeType=bigbox) )
+            var filterStoreType = function (storeTypesArray) {
+                var newArray = [];
+                angular.forEach(storeTypesArray, function(i) {this.push('(storeType='+i+')')}, newArray);
+                return newArray;
+            };
+            //then we need to join it with '|' and add it to the url
+
+
+            var testCall = filterStoreType($scope.storeType.list);
+            console.log(testCall);
+
+            var addStoreType = ($scope.storeType.list.length > 0) ? baseUrl+=('&(storeType=' +$scope.storeType.list+')') : '';
+
+            baseUrl += ')?format=json';
+            var addKey = $scope.apiKey ? baseUrl += ('&apiKey='+$scope.apiKey):'';
+
+            //((services.service=Windows)&(services.service=Apple%20Shop))
+            var addStoreServices = ($scope.servicesOption.list.length > 0) ? baseUrl += '&show='+$scope.servicesOption.list:'';
+
+            baseUrl += '&callback=JSON_CALLBACK';
             return baseUrl
         };
 
@@ -42,7 +84,7 @@ angular.module('bby-query-mixer.stores').controller('storesCtrl', [
             }else if ($scope.apiKey ===  ""){
                 $scope.errorResult = true;
                 $scope.results = "Please enter your API Key";
-            } else{
+            } else {
                 $scope.errorResult = true;
                 $scope.results = "Please pick a search option";
             };
@@ -62,20 +104,39 @@ angular.module('bby-query-mixer.stores').controller('storesCtrl', [
         $scope.storeResponse = {};
 
         $scope.resetParams = function () {
+            $scope.cityChoice = '';
+            $scope.area = '';
             $scope.searchSelection = $scope.options[0];
             $scope.regionOptions = angular.copy(regionsConfig);
             $scope.regionOption = $scope.regionOptions[0];
             $scope.servicesOptions = angular.copy(storeServicesConfig);
-            $scope.servicesOption.list = [$scope.servicesOptions[0].value,$scope.servicesOptions[1].value];
             $scope.whichPage = 1;
             $scope.pageSize = 10;
             $scope.storeResponses = angular.copy(storeResponseConfig);
+
+            $scope.servicesOption.list = [];
+            //$scope.servicesOption.list = [$scope.servicesOptions[0].value,$scope.servicesOptions[1].value];
+
+            // $scope.storeType.list = [];
             $scope.storeType.list = [$scope.storeTypes[0].value];
-            $scope.storeResponse.list = [$scope.storeResponses[0].value,$scope.storeResponses[1].value,$scope.storeResponses[2].value];
+            
+            $scope.storeResponse.list = [];
+            //$scope.storeResponse.list = [$scope.storeResponses[0].value,$scope.storeResponses[1].value,$scope.storeResponses[2].value];
         };
 
 
         $scope.resetParams();
+
+        $scope.resetInput = function () {
+            $scope.area = '';
+            $scope.latLongArea = '';
+            $scope.cityChoice = '';
+            $scope.regionOption = $scope.regionOptions[0];
+            $scope.storeId = '';
+            $scope.longitude = '';
+            $scope.latitude = '';
+            $scope.zipCode = '';
+        };
 
         $scope.callCopyEvent = function () {
             var tab = "stores";

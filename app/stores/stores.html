@@ -10,7 +10,7 @@
                     </span> Search for Stores</h4>
 
                 <div class="content-container storesSearchForm">  
-                    <select ng-model="searchSelection" ng-options="opt as opt.text for opt in options"></select>
+                    <select ng-model="searchSelection" ng-options="opt as opt.text for opt in options" ng-change="resetInput()"></select>
                         
                         <div ng-show="searchSelection.value ==='city'">
                             <p>Searching by City returns stores information for all the stores in the city specified.</p>
@@ -29,7 +29,7 @@
                                 <div class="form-group">
                                     <p class="col-sm-2"><span class="subtitle">Latitude</span></p>
                                     <div class="col-sm-10"> 
-                                        <input ng-model="latitude" type="number" class="rounded" placeholder="71.3"></input>
+                                        <input ng-model="latitude" type="number" class="rounded" placeholder="71.3" min="0" max="90"></input>
                                         <input type="radio" ng-model="latCompassDirection" value="north"> North 
                                         <input type="radio" ng-model="latCompassDirection" value="south"> South
                                     </div>
@@ -37,7 +37,7 @@
                                 <div class="form-group">
                                     <p class="col-sm-2"><span class="subtitle">Longitude</span></p>
                                     <div class="col-sm-10">
-                                        <input ng-model="longitude" type="number" class="rounded" placeholder="71.3">
+                                        <input ng-model="longitude" type="number" class="rounded" placeholder="71.3" min="0" max="180">
                                         <input type="radio" ng-model="longCompassDirection" value="east"> East 
                                         <input type="radio" ng-model="longCompassDirection" value="west"> West</input>
                                     </div>
@@ -45,7 +45,7 @@
                                 <div class="form-group">
                                     <p class="col-sm-2"><span class="subtitle">Area</span> (miles):</p>
                                     <div class="col-sm-10"> 
-                                        <input ng-model="latLongArea" type="number" class="rounded" placeholder="71.3"></input>(optional)
+                                        <input ng-model="latLongArea" type="number" class="rounded" placeholder="25" min="0" max="999"></input>(optional)
                                     </div>
                                 </div>
                             </form>
@@ -53,7 +53,7 @@
                     
 
                         <div ng-show="searchSelection.value ==='storeId'">
-                            <span class="subtitle">Store ID: </span><input type="number" class="rounded" placeholder="281"></input>
+                            <span class="subtitle">Store ID: </span><input type="number" class="rounded" placeholder="281" ng-model="storeId"></input>
                         </div>
 
                         <div ng-show="searchSelection.value ==='region'">
@@ -130,7 +130,7 @@
 
                 <p ng-show="zipCode"><a class="breakdownLabel" href="https://developer.bestbuy.com/documentation/stores-api#documentation/stores-api-area-function">areaFunction</a> : (area(<span ng-bind="zipCode"></span>,<span ng-bind="area"></span>)) </p>
 
-                <p><a class="breakdownLabel" href="https://developer.bestbuy.com/documentation/stores-api#documentation/stores-api-area-function">byLatLong</a>(area(<span ng-bind="latitude"></span>,<span ng-bind="longitude"></span><span ng-show="latLongArea">,<span ng-bind="latLongArea"></span></span>))</p>
+                <p><a class="breakdownLabel" href="https://developer.bestbuy.com/documentation/stores-api#documentation/stores-api-area-function">byLatLong</a> : (area(<span ng-bind="latitude"></span>,<span ng-bind="longitude"></span><span ng-show="latLongArea">,<span ng-bind="latLongArea"></span></span>))</p>
 
                 <p ng-show="regionOption"><a class="breakdownLabel" href="https://developer.bestbuy.com/documentation/stores-api#documentation/stores-api-information">region</a> : (region=<span ng-show="regionOption.value"><span ng-bind="regionOption.value"></span>) </span></p>
 

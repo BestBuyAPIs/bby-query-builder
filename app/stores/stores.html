@@ -130,9 +130,9 @@
 
                 <p ng-show="zipCode"><a class="breakdownLabel" href="https://developer.bestbuy.com/documentation/stores-api#documentation/stores-api-area-function">areaFunction</a> : (area(<span ng-bind="zipCode"></span>,<span ng-bind="area"></span>)) </p>
 
-                <p><a class="breakdownLabel" href="https://developer.bestbuy.com/documentation/stores-api#documentation/stores-api-area-function">byLatLong</a> : (area(<span ng-bind="latitude"></span>,<span ng-bind="longitude"></span><span ng-show="latLongArea">,<span ng-bind="latLongArea"></span></span>))</p>
+                <p ng-show="latitude && longitude && latLongArea"><a class="breakdownLabel" href="https://developer.bestbuy.com/documentation/stores-api#documentation/stores-api-area-function">byLatLong</a> : (area(<span ng-bind="latitude"></span>,<span ng-bind="longitude"></span><span ng-show="latLongArea">,<span ng-bind="latLongArea"></span></span>))</p>
 
-                <p ng-show="regionOption"><a class="breakdownLabel" href="https://developer.bestbuy.com/documentation/stores-api#documentation/stores-api-information">region</a> : (region=<span ng-show="regionOption.value"><span ng-bind="regionOption.value"></span> </span>)</p>
+                <p ng-show="regionOption.value"><a class="breakdownLabel" href="https://developer.bestbuy.com/documentation/stores-api#documentation/stores-api-information">region</a> : (region=<span ng-show="regionOption.value"><span ng-bind="regionOption.value"></span></span>)</p>
 
                 <p><a class="breakdownLabel" href="https://developer.bestbuy.com/documentation/stores-api#documentation/stores-api-information">show</a> : &show=<span ng-bind="storeResponse.list"></span></p>
 

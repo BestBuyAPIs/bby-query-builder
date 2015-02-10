@@ -134,7 +134,7 @@
 
                 <p ng-show="regionOption.value"><a class="breakdownLabel" href="https://developer.bestbuy.com/documentation/stores-api#documentation/stores-api-information">region</a> : (region=<span ng-show="regionOption.value"><span ng-bind="regionOption.value"></span></span>)</p>
 
-                <p><a class="breakdownLabel" href="https://developer.bestbuy.com/documentation/stores-api#documentation/stores-api-information">show</a> : &show=<span ng-bind="storeResponse.list"></span></p>
+                <p ng-show="storeResponse.list.length > 0"><a class="breakdownLabel" href="https://developer.bestbuy.com/documentation/stores-api#documentation/stores-api-information">show</a> : &show=<span ng-bind="storeResponse.list"></span></p>
 
                 <p><a class="breakdownLabel" href="https://remix.mashery.com/member/register">apiKey</a> : ?apiKey=<span ng-bind="apiKey"></span></p>
 

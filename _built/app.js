@@ -11,16 +11,19 @@ angular.module('bby-query-mixer', [
     'ui.bootstrap',
     'appConfig',
     'appServices',
+    'ngCookies'
     ])
     .config(['$routeProvider', 'ngClipProvider', function ($routeProvider, ngClipProvider) {
         $routeProvider.otherwise({redirectTo: '/productSearch'});
         ngClipProvider.setPath("bower_components/zeroclipboard/dist/ZeroClipboard.swf");
     }])
-    .controller('pageController', ['$scope', 'GaService', function($scope, GaService){
-    	$scope.apiKey = '';
-        $scope.callWatchApiKey = function(){
-            GaService.enterKeyEvent($scope.apiKey);
-        };
+    .controller('pageController', ['$scope', 'GaService', '$cookies', function($scope, GaService, $cookies){
+    	$scope.apiKey = $cookies.apiKey || '';
+
+        $scope.$watch('apiKey', function (key) {
+            $cookies.apiKey = key;
+            GaService.enterKeyEvent(key);
+        });
     }])
     .controller('menuController', ['$scope', '$location', function($scope, $location) {
         $scope.isActive = function(route) {

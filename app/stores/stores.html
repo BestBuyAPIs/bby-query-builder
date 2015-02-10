@@ -132,11 +132,13 @@
 
                 <p><a class="breakdownLabel" href="https://developer.bestbuy.com/documentation/stores-api#documentation/stores-api-area-function">byLatLong</a> : (area(<span ng-bind="latitude"></span>,<span ng-bind="longitude"></span><span ng-show="latLongArea">,<span ng-bind="latLongArea"></span></span>))</p>
 
-                <p ng-show="regionOption"><a class="breakdownLabel" href="https://developer.bestbuy.com/documentation/stores-api#documentation/stores-api-information">region</a> : (region=<span ng-show="regionOption.value"><span ng-bind="regionOption.value"></span>) </span></p>
+                <p ng-show="regionOption"><a class="breakdownLabel" href="https://developer.bestbuy.com/documentation/stores-api#documentation/stores-api-information">region</a> : (region=<span ng-show="regionOption.value"><span ng-bind="regionOption.value"></span> </span>)</p>
+
+                <p><a class="breakdownLabel" href="https://developer.bestbuy.com/documentation/stores-api#documentation/stores-api-information">show</a> : &show=<span ng-bind="storeResponse.list"></span></p>
 
                 <p><a class="breakdownLabel" href="https://remix.mashery.com/member/register">apiKey</a> : ?apiKey=<span ng-bind="apiKey"></span></p>
 
-                <p><a class="breakdownLabel" href="https://developer.bestbuy.com/documentation#pagination-pagination">pagination</a> : pageSize=<span ng-bind="pageSize"></span>&page=<span ng-bind="whichPage"></span></p>
+                <p ng-show="(pageSize !== 10) || (whichPage !== 1)"><a class="breakdownLabel" href="https://developer.bestbuy.com/documentation#pagination-pagination">pagination</a> : pageSize=<span ng-bind="pageSize"></span>&page=<span ng-bind="whichPage"></span></p>
 
                 <p><a class="breakdownLabel" href="https://developer.bestbuy.com/documentation#responseFormat-response-format">callback</a> : &callback=JSON_CALLBACK</p>
 

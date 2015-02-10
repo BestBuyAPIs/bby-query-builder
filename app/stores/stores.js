@@ -63,6 +63,7 @@ angular.module('bby-query-mixer.stores').controller('storesCtrl', [
 
             var addStoreResponseOptions = ($scope.storeResponse.list.length > 0) ? baseUrl += ('&show=' + $scope.storeResponse.list) : '';
 
+            var addPagination = (($scope.pageSize !== 10) || ($scope.whichPage !== 1)) ? baseUrl+=('&pageSize='+$scope.pageSize+'&page='+$scope.whichPage) :'';
 
             baseUrl += '&callback=JSON_CALLBACK';
             return baseUrl

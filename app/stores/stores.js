@@ -131,6 +131,9 @@ angular.module('bby-query-mixer.stores').controller('storesCtrl', [
             $scope.storeType.list = [];
             $scope.storeResponse.list = [];
             $scope.resetInput();
+            $scope.errorResult = false;
+            $scope.results = {};
+
         };
 
 

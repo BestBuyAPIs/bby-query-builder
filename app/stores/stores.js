@@ -40,18 +40,15 @@ angular.module('bby-query-mixer.stores').controller('storesCtrl', [
             
 
             //&( (storeType=mobile) | (storeType=bigbox) )
+            //then we need to join it with '|' and add it to the url
+
             var filterStoreType = function (storeTypesArray) {
                 var newArray = [];
                 angular.forEach(storeTypesArray, function(i) {this.push('(storeType='+i+')')}, newArray);
-                return newArray;
+                return newArray.join('|');
             };
-            //then we need to join it with '|' and add it to the url
 
-
-            var testCall = filterStoreType($scope.storeType.list);
-            console.log(testCall);
-
-            var addStoreType = ($scope.storeType.list.length > 0) ? baseUrl+=('&(storeType=' +$scope.storeType.list+')') : '';
+            var addStoreType = ($scope.storeType.list.length > 0) ? baseUrl+=('&'+filterStoreType($scope.storeType.list)) : '';
 
             baseUrl += ')?format=json';
             var addKey = $scope.apiKey ? baseUrl += ('&apiKey='+$scope.apiKey):'';
@@ -118,7 +115,7 @@ angular.module('bby-query-mixer.stores').controller('storesCtrl', [
             //$scope.servicesOption.list = [$scope.servicesOptions[0].value,$scope.servicesOptions[1].value];
 
             // $scope.storeType.list = [];
-            $scope.storeType.list = [$scope.storeTypes[0].value];
+            $scope.storeType.list = [$scope.storeTypes[0].value,$scope.storeTypes[1].value];
             
             $scope.storeResponse.list = [];
             //$scope.storeResponse.list = [$scope.storeResponses[0].value,$scope.storeResponses[1].value,$scope.storeResponses[2].value];

@@ -20,7 +20,7 @@ angular.module('bby-query-mixer.openBox').controller('openBoxCtrl', [
         $scope.buildRemixQuery = function () {
             var baseUrl = 'http://api.bestbuy.com/beta/products/openBox'
             var categoryQuery = (($scope.searchSelection.value === 'category')&& $scope.category.value) ? baseUrl += '(categoryId='+$scope.category.value+')' :'';
-            var skuListQuery = (($scope.searchSelection.value === 'skuList')&&($scope.skuList)) ? baseUrl += '(sku%20in('+$scope.skuList+')':'';
+            var skuListQuery = (($scope.searchSelection.value === 'skuList')&&($scope.skuList)) ? baseUrl += '(sku%20in('+$scope.skuList+'))':'';
             var singleSkuQuery = (($scope.searchSelection.value === 'singleSku')&&($scope.singleSku)) ? baseUrl = 'http://api.bestbuy.com/beta/products/'+$scope.singleSku +'/openBox' : '';
             var apiKey = $scope.apiKey ? baseUrl += '?apiKey='+$scope.apiKey : '';
             baseUrl += '&callback=JSON_CALLBACK' + '&pageSize='+$scope.pageSize+'&page='+$scope.whichPage;

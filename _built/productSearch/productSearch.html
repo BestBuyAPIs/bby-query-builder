@@ -67,10 +67,10 @@
                     <strong class="char-overlay fa-stack-1x">3</strong>
                     </span> Pagination</h4>
             <div class="content-container">
-                <form name="pagesizeform">
+                <form name="pageSizeform">
                 <p>Specify additional results per page or return subsequent pages by updating the Results Per Page and Page values:</p>
-                Results Per Page: <input class="rounded" id="pagination" ng-model="pagesize" type="number" min="1" max="100" required>
-                <span class="error" ng-show="pagesizeform.input.$error.number">Not valid number!</span>
+                Results Per Page: <input class="rounded" id="pagination" ng-model="pageSize" type="number" min="1" max="100" required>
+                <span class="error" ng-show="pageSizeform.input.$error.number">Not valid number!</span>
                 Page: <input class="rounded" id="whichPage" ng-model="whichPage" type="number" min="1" max="900" required>
                 </form>
 
@@ -99,7 +99,7 @@
 
                 <p><a class="breakdownLabel" href="https://developer.bestbuy.com/documentation#show-show">showOptions</a> : &show=<span ng-bind="option.showOptions.join(',')"></span></p>
 
-                <p><a class="breakdownLabel" href="https://developer.bestbuy.com/documentation#pagination-pagination">pagination</a> : &pageSize=<span ng-bind="pagesize"></span>&page=<span ng-bind="whichPage"></span></p>
+                <p ng-show="(pageSize !== 10) || (whichPage !== 1)"><a class="breakdownLabel" href="https://developer.bestbuy.com/documentation#pagination-pagination">pagination</a> : pageSize=<span ng-bind="pageSize"></span>&page=<span ng-bind="whichPage"></span></p>
 
                 <p ng-show="facetAttribute.value"><a class="breakdownLabel" href="https://developer.bestbuy.com/documentation#facets-facets">facets</a> : &facet=<span ng-bind="facetAttribute.value"></span>,<span ng-bind="facetNumber"></span></p>
 

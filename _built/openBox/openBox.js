@@ -53,8 +53,6 @@ angular.module('bby-query-mixer.openBox').controller('openBoxCtrl', [
             };
         };
 
-        $scope.searchSelection = $scope.options[0];
-
         $scope.resetParams = function () {
             $scope.errorResult = false;
             $scope.results = {};

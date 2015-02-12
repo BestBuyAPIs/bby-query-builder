@@ -69,7 +69,7 @@
             <div class="content-container">
                 <form name="pageSizeform">
                 <p>Specify additional results per page or return subsequent pages by updating the Results Per Page and Page values:</p>
-                Results Per Page: <input class="rounded" id="pagination" ng-model="pageSize" type="number" min="1" max="100" required>
+                Results Per Page: <input class="rounded" id="pagination" ng-model="pageSize" type="number" style="width:60px;" required>
                 <span class="error" ng-show="pageSizeform.input.$error.number">Not valid number!</span>
                 Page: <input class="rounded" id="whichPage" ng-model="whichPage" type="number" min="1" max="900" required>
                 </form>

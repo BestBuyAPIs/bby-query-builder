@@ -51,7 +51,7 @@ angular.module('appConfig').constant('categoryConfig', [
     },
     {
         value: 'pcmcat310200050004',
-        label: 'Portable Speakers, Docks & Radios'
+        label: 'Portable & Wireless Speakers'
     },
     {
         value: 'pcmcat243400050029',

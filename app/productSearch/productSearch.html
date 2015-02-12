@@ -23,7 +23,7 @@
                             
                             <input class="rounded" ng-show="attributeOption.value && (attributeOption.type != 'boolean')" type="{{attributeOption.type}}" ng-model="complexVal" min="0" placeholder="{{attributeOption.placeholder}}">
 
-                            <select ng-show="attributeOption.type === 'boolean'"  ng-model="complexVal" ng-options="opt as opt.value for opt in attributeOption.valueOptions">
+                            <select ng-show="attributeOption.type === 'boolean'"  ng-model="complexVal" ng-options="opt.value as opt.value for opt in attributeOption.valueOptions">
                         </form>
                     </div>
 

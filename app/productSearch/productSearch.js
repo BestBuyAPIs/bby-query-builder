@@ -132,7 +132,7 @@ angular.module('bby-query-mixer.productSearch').controller('ProductSearchCtrl', 
         //this function is fired on a ng-change when attribute is selected. it sets the first operator to be pre-selected
         $scope.preselectOperator = function() {
             $scope.operator = $scope.attributeOption.operator[0];
-            $scope.complexVal = $scope.attributeOption.valueOptions ? $scope.attributeOption.valueOptions[0] : '';
+            $scope.complexVal = $scope.attributeOption.valueOptions ? $scope.attributeOption.valueOptions[0].value : '';
         };
 
         $scope.callCopyEvent = function () {

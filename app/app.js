@@ -3,12 +3,15 @@
 // Declare app level module which depends on views, and components
 angular.module('bby-query-mixer', [
     'ngRoute',
+    'ngSanitize',
     'bby-query-mixer.productSearch',
     'bby-query-mixer.recommendations',
     'bby-query-mixer.openBox',
+    'bby-query-mixer.stores',
     'ngClipboard',
     'checklist-model',
     'ui.bootstrap',
+    'ui.select',
     'appConfig',
     'appServices',
     'ngCookies'
@@ -43,4 +46,34 @@ angular.module('bby-query-mixer', [
             });
         }
     }
-}]);
+}])
+    .filter('propsFilter', function() {
+      return function(items, props) {
+        var out = [];
+
+        if (angular.isArray(items)) {
+          items.forEach(function(item) {
+            var itemMatches = false;
+
+            var keys = Object.keys(props);
+            for (var i = 0; i < keys.length; i++) {
+              var prop = keys[i];
+              var text = props[prop].toLowerCase();
+              if (item[prop].toString().toLowerCase().indexOf(text) !== -1) {
+                itemMatches = true;
+                break;
+              }
+            }
+
+            if (itemMatches) {
+              out.push(item);
+            }
+          });
+        } else {
+          // Let the output be the input untouched
+          out = items;
+        }
+
+        return out;
+      };
+});

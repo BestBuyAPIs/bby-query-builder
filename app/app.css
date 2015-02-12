@@ -346,3 +346,25 @@ input.ng-invalid {
 #facetsForm > span {
     padding-right: 4px;
 }
+.select2-choices, ul {
+    padding: 0;
+}
+.select2-choices, .select2-drop {
+    border: 1px solid #ccc !important;
+    -moz-border-radius: 7px !important;
+    -webkit-border-radius: 7px !important;
+    border-radius: 7px !important;
+    padding: 4px 7px !important;
+    outline: 0 !important;
+    -webkit-appearance: none ;
+    width: 100%;
+}
+.ui-select-container {
+    width: 75%;
+}
+.subtitle {
+    font-weight: bold;
+}
+.storesSearchForm, .multiSelectBox {
+    padding-bottom: 2.5%
+}

@@ -50,7 +50,7 @@ describe('bby-query-mixer.productSearch module', function () {
             it('should build a query string with the right options', function (){
                 scope.searchSelection.value = "skuList";
                 scope.skuList = '123,321';
-                expect(scope.buildRemixQuery()).toEqual('http://api.bestbuy.com/beta/products/openBox(sku%20in(123,321)&callback=JSON_CALLBACK&pageSize=10&page=1');
+                expect(scope.buildRemixQuery()).toEqual('http://api.bestbuy.com/beta/products/openBox(sku%20in(123,321))&callback=JSON_CALLBACK&pageSize=10&page=1');
             });
             it('should build a query string with the right options', function (){
                 scope.searchSelection.value = "singleSku";

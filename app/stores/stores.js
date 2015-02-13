@@ -55,8 +55,10 @@ angular.module('bby-query-mixer.stores').controller('storesCtrl', [
                 angular.forEach(storeServiceArray, function(i) {this.push('(services.service='+i+')')}, newArray);
                 return newArray.join('&');
             };
-            var addStoreServices = ($scope.servicesOption.list.length > 0) ? baseUrl += ('&('+filterStoreService($scope.servicesOption.list)+')' ) :'';
 
+            //this checks to see if a store location criteria has been selected and adds the ampersand if needed
+            var addStoreServices = ((!$scope.searchSelection.value) && ($scope.servicesOption.list.length > 0)) ? baseUrl += (filterStoreService($scope.servicesOption.list) ) :
+                    (($scope.searchSelection.value) && ($scope.servicesOption.list.length > 0)) ? baseUrl += ('&('+filterStoreService($scope.servicesOption.list)+')' ) : '' ;
 
             baseUrl += ')?format=json';
             var addKey = $scope.apiKey ? baseUrl += ('&apiKey='+$scope.apiKey):'';

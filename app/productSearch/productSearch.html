@@ -18,12 +18,12 @@
                             <select id="attribute" ng-model="attributeOption" ng-change="preselectOperator()"
                                     ng-options="attr as attr.text for attr in attributeOptions"></select>
 
-                            <select ng-show="attributeOption.value" id="operator" ng-model="operator"
+                            <select ng-show="attributeOption.value" id="operator" ng-model="operator" ng-change="skuInParens()"
                                     ng-options="opt as opt.value for opt in attributeOption.operator" sselected="{{attributeOption.operator[0].value}}"></select>
                             
-                            <input class="rounded" ng-show="attributeOption.value && (attributeOption.type != 'boolean')" type="{{attributeOption.type}}" ng-model="complexVal" min="0" placeholder="{{attributeOption.placeholder}}">
+                            <input class="rounded" parenswrap ng-show="attributeOption.value && (attributeOption.type != 'boolean')" ng-model="complexVal" min="0" ng-maxlength="50" placeholder="{{attributeOption.placeholder}}">
 
-                            <select ng-show="attributeOption.type === 'boolean'"  ng-model="complexVal" ng-options="opt as opt.value for opt in attributeOption.valueOptions">
+                            <select ng-show="attributeOption.type === 'boolean'"  ng-model="complexVal" ng-options="opt.value as opt.value for opt in attributeOption.valueOptions">
                         </form>
                     </div>
 
@@ -50,7 +50,7 @@
                 <form id="facetInput" name='facetInput'>
                     <select id="facetAttribute" ng-model="facetAttribute" ng-change="resetFacetNumber()"
                                     ng-options="attr as attr.text for attr in attributeOptions"></select>
-                    <span>Number:</span> <input id="facetNumberInput" class="rounded" type="number" placeholder="0" ng-model="facetNumber" min="1" max="50">
+                    <span>Number:</span> <input id="facetNumberInput" class="rounded" type="number" placeholder="0" ng-model="facetNumber" min="1" max="50" required>
                 </form>
                 <i class="fa fa-question-circle" tooltip="Faceting provides an aggregated count of the specified attributes as returned in the results. It will include the number of the aggregated results as specified by number field." tooltip-placement="top"></i>
             </div>
@@ -69,7 +69,7 @@
             <div class="content-container">
                 <form name="pageSizeform">
                 <p>Specify additional results per page or return subsequent pages by updating the Results Per Page and Page values:</p>
-                Results Per Page: <input class="rounded" id="pagination" ng-model="pageSize" type="number" min="1" max="100" required>
+                Results Per Page: <input class="rounded" id="pagination" ng-model="pageSize" type="number" style="width:60px;" required>
                 <span class="error" ng-show="pageSizeform.input.$error.number">Not valid number!</span>
                 Page: <input class="rounded" id="whichPage" ng-model="whichPage" type="number" min="1" max="900" required>
                 </form>
@@ -89,7 +89,7 @@
 
                 <p ng-show="category.value"><a class="breakdownLabel" href="https://developer.bestbuy.com/documentation/products-api#documentation/products-api-categorizations">categoryId</a> : (categoryPath.id=<span ng-bind="category.value"></span>)</p>
 
-                <p ng-show="attributeOption.value != '' "><a class="breakdownLabel" href="https://developer.bestbuy.com/documentation/products-api#documentation/products-api-detail">attribute</a> : (<span ng-bind="attributeOption.value + operator.value + complexVal"></span>)</p>
+                <p ng-show="attributeOption.value != '' "><a class="breakdownLabel" href="https://developer.bestbuy.com/documentation/products-api#documentation/products-api-detail">attribute</a> : (<span ng-bind="attributeOption.value + operator.value"></span><span ng-show="operator.value === ' in ' ">(</span><span ng-bind="complexVal"></span><span ng-show="operator.value === ' in ' ">)</span>)</p>
 
                 <p ng-show="keywordSearch"><a class="breakdownLabel" href="https://developer.bestbuy.com/documentation#advancedSearch-search">keyword</a> : (search=<span ng-bind="keywordSearch"></span>)</p>
 

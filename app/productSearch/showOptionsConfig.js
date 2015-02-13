@@ -41,5 +41,5 @@ angular.module('bby-query-mixer.productSearch').constant('showOptionsConfig', [
     { text: 'Thumbnail Image', value: 'thumbnailImage' },
     { text: 'Type', value: 'type' },
     { text: 'UPC', value: 'upc' },
-    { text: 'URL', value: 'url' }
+    { text: 'Product Detail URL', value: 'url' }
 ]);

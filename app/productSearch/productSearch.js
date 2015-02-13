@@ -42,7 +42,11 @@ angular.module('bby-query-mixer.productSearch').controller('ProductSearchCtrl', 
         $scope.buildRemixQuery = function () {
             var searchArgs = [];
             var keywordQuery = $scope.keywordSearch ? searchArgs.push( '(search=' + $scope.keywordSearch +')' ) :'' ;
-            var attributeQuery = $scope.attributeOption.value ? searchArgs.push( '('+ $scope.attributeOption.value + $scope.operator.value + $scope.complexVal + ')' ): '';
+
+            var attributeQuery = 
+            (($scope.attributeOption.value)&&($scope.operator.value === ' in ')) ? searchArgs.push( '('+ $scope.attributeOption.value + $scope.operator.value +'('+ $scope.complexVal + '))' ):
+                $scope.attributeOption.value ? searchArgs.push( '('+ $scope.attributeOption.value + $scope.operator.value + $scope.complexVal + ')' ) : '';
+ 
             var categoryQuery = $scope.category.value ? searchArgs.push('(categoryPath.id=' + $scope.category.value + ')') : '';
             var baseUrl = searchArgs.length > 0 ? 'https://api.remix.bestbuy.com/v1/products' + '(' + searchArgs.join('&') + ')' : 'https://api.remix.bestbuy.com/v1/products';
             return baseUrl + $scope.buildParams();
@@ -132,13 +136,16 @@ angular.module('bby-query-mixer.productSearch').controller('ProductSearchCtrl', 
         //this function is fired on a ng-change when attribute is selected. it sets the first operator to be pre-selected
         $scope.preselectOperator = function() {
             $scope.operator = $scope.attributeOption.operator[0];
-            $scope.complexVal = $scope.attributeOption.valueOptions ? $scope.attributeOption.valueOptions[0] : '';
+            $scope.complexVal = $scope.attributeOption.valueOptions ? $scope.attributeOption.valueOptions[0].value : '';
         };
 
         $scope.callCopyEvent = function () {
             var tab = "products";
             GaService.copyUrlEvent(tab,$scope.apiKey);
         };
+
+        var wrapParens = ($scope.operator.value === 'in') ? console.log('yolo') : '';
+
 
     }
 ])

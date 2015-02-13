@@ -33,6 +33,13 @@ describe('bby-query-mixer.stores module', function () {
 	        scope.whichPage = '3';
 	        expect(scope.buildRemixQuery()).toEqual('http://api.remix.bestbuy.com/v1/stores()?format=json&pageSize=12&page=3&callback=JSON_CALLBACK');
 	    });
+	    it('should add an ampersand in front of services list, but only if needed', function (){
+	        scope.searchSelection.value = 'city';
+	        scope.servicesOption.list = ['foo'];
+	        expect(scope.buildRemixQuery()).toEqual('http://api.remix.bestbuy.com/v1/stores((city=)&((services.service=foo)))?format=json&callback=JSON_CALLBACK');
+	        scope.searchSelection.value = false;
+	       	expect(scope.buildRemixQuery()).toEqual('http://api.remix.bestbuy.com/v1/stores((services.service=foo))?format=json&callback=JSON_CALLBACK');
+	    });
     });
 
     describe('reset query function', function () {

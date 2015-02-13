@@ -1,0 +1,370 @@
+/* app css stylesheet */
+
+select, input, button, textarea {
+    outline: none;
+    left-padding: 4px;
+    margin: 2px;
+}
+
+select, textarea {
+    border-radius: 4px;
+    border: none;
+    height: 30px;
+}
+
+button {
+    border-radius: 4px;
+    border: none;
+}
+
+label:after {
+    display: inline;
+    content: "\A";
+    white-space: pre;
+}
+
+.content-container > p {
+     margin: 0 0 2px;
+}
+
+/*.menu {
+    list-style: none;
+    margin-bottom: 2em;
+    padding: 0 0 0.5em;
+}
+
+.menu:before {
+    content: "[";
+}
+
+.menu:after {
+    content: "]";
+}
+
+.menu > li {
+    display: inline;
+}
+
+.menu > li:before {
+    content: "|";
+    padding-right: 0.3em;
+}
+
+.menu > li:nth-child(1):before {
+    content: "";
+    padding: 0;
+}*/
+
+.menu a {
+    text-decoration: none;
+    text-transform: uppercase;
+    cursor: pointer;
+}
+
+.selectedOption {
+    border-bottom-width: 5px;
+    border-bottom-color: #c0c0c0;
+    border-bottom-style: solid;
+    font-weight: bold;
+}
+
+.query-container {
+    float: left;
+    min-height: 100vh;
+    width: 50%;
+    margin-left: 0;
+}
+
+#left-side-container {
+    background-color: #aae0ec;
+    color: #053f68;
+    font-family: 'Avenir Next', Avenir, 'Proxima Nova', proxima-nova, 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+}
+
+#right-side-container {
+    color: white;
+    background-color: #032741;
+    font-family: Menlo, Monaco, Consolas, "Courier New", monospace;
+    font-size: 13px;
+    font-weight: 500;
+    line-height: 19.5px;
+    -webkit-font-smoothing: antialiased;
+}
+
+#response-content {
+    word-wrap: break-word;
+}
+
+.query-text {
+    color: #aae0ec;
+}
+
+.content-container {
+    width: 90%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.query-button {
+    display: inline-block;
+    margin-bottom: 0;
+    font-weight: 500;
+    text-align: center;
+    vertical-align: middle;
+    cursor: pointer;
+    border: 1px solid transparent;
+    white-space: nowrap;
+    position: relative;
+    padding: 6px 12px;
+    font-size: 14px;
+    line-height: 1.5;
+    border-radius: 4px;
+    background-color: transparent;
+    -webkit-user-select: none;
+    user-select: none;
+    border-bottom-left-radius: 4px;
+    border-bottom-right-radius: 4px;
+    border-bottom-style: solid;
+    border-bottom-width: 1px;
+    border-image-outset: 0;
+    border-image-repeat: stretch;
+    border-image-slice: 100%;
+    border-image-source: none;
+    border-image-width: 1;
+    border-left-style: solid;
+    border-left-width: 1px;
+    border-right-style: solid;
+    border-right-width: 1px;
+    border-color: #053f68;
+    border-top-left-radius: 4px;
+    border-top-right-radius: 4px;
+    border-top-style: solid;
+    border-top-width: 1px;
+    box-sizing: border-box;
+    width: 106px;
+}
+
+.query-button:disabled {
+    background-color: cornflowerblue;
+    cursor: not-allowed;
+    opacity: 0.33;
+}
+
+.query-button:active {
+    background-color: lightblue;
+}
+
+#builder-content {
+    overflow: hidden;
+}
+
+#logo-wrapper {
+    width: 50%;
+    margin: 0;
+    padding: 5px 0;
+}
+
+#logo-wrapper img {
+    width: 198px;
+    height: 35px;
+}
+
+.query-result {
+    width: 100%;
+    min-height: 8em;
+    font-family: Menlo, Monaco, Consolas, "Courier New", monospace;
+    height: 400px;
+    color: black;
+}
+
+#api-key {
+    font-family: 'Avenir Next', Avenir, 'Proxima Nova', proxima-nova, 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    width: 250px;
+    padding-left: 4px;
+
+}
+
+.copy-button {
+    display: inline-block;
+    padding: 0;
+    margin: 0;
+    vertical-align: top;
+    background-color: transparent;
+    height: 20px;
+    width: 20px;
+    outline: none;
+}
+
+#portal-link {
+    text-decoration: none;
+    border: none;
+    outline: none;
+}
+#apikeyinput {
+    text-align: right;
+}
+textarea {
+    overflow: visible;
+    height: 70px;
+}
+label { display: block; }
+
+.showOptionsCheckbox {
+    background-color:white;
+    border:1px solid #032741; 
+    width:500px; 
+    height: 150px; 
+    overflow-y: scroll; 
+    width:75%
+}
+
+.showOptionsCheckbox label {
+    padding-left: 7px;
+}
+.breakdownLabel {
+    color: #ffd500;
+    text-decoration: underline;
+}
+
+.urlBreakdown {
+    font-family: 'Avenir Next', Avenir, 'Proxima Nova', proxima-nova, 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}
+#keywordSearchInput {
+    width: 100%;
+}
+input.rounded {
+    border: 1px solid #ccc;
+    -moz-border-radius: 7px;
+    -webkit-border-radius: 7px;
+    border-radius: 7px;
+    padding: 4px 7px;
+    outline: 0;
+    -webkit-appearance: none;
+}
+.char-overlay {
+    color: white;
+    /*color: #032741;*/
+    font-weight: bold;
+    /*margin-left: 5%;*/
+}
+
+.numberIcon {
+    font-size: 0.75em;
+}
+input.ng-invalid {
+  border: 1px solid red;
+}
+
+.query-button:hover {
+    color: #0099FF;
+    border-color: #0099FF;
+}
+
+#recommendationsFooterNote{
+    font-style: italic;
+    font-size: 1em;
+}
+#popularRecommendationButton {
+    background-image: url(assets/popular.png);
+}
+#popularRecommendationButton:hover{
+    background-image: url(assets/popular_hover.png);
+}
+#popularRecommendationButton.selected {
+    background-image: url(assets/popular_selected.png);
+}
+#trendingRecommendationButton {
+    background-image: url(assets/trending.png);
+}
+#trendingRecommendationButton:hover{
+    background-image: url(assets/trending_hover.png);
+}
+#trendingRecommendationButton.selected {
+    background-image: url(assets/trending_selected.png);
+}
+.endpointContainer{
+    position: relative;
+    display: inline-block;
+    padding-left: 5%;
+}
+.endpointContainer > span {
+    margin-right: 10%;
+}
+.recommendationTooltip {
+    position: absolute;
+    top: 0px;
+}
+.attributeInputs{
+    width: 85%;
+}
+@media (min-width: 1600px) {
+    .attributeInputs{
+        width: 70%;
+    }
+}
+#sortOptions{
+    display: block;
+}
+#sortOptions > span{
+    padding-right: 2%;
+}
+.errorResult {
+    color: red;
+}
+.tooltip {
+    font-family: 'Avenir Next', Avenir, 'Proxima Nova', proxima-nova, 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+}
+.recommendation-endpoint-button{
+    overflow: hidden;
+    background-size: cover;
+    background-position: center;
+    height: 100px;
+    width: 100px;
+    cursor: pointer;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    border-bottom-left-radius: 4px;
+    border-bottom-right-radius: 4px;
+    border-bottom-style: solid;
+    border-bottom-width: 1px;
+    border-left-style: solid;
+    border-left-width: 1px;
+    border-right-style: solid;
+    border-right-width: 1px;
+    border-color: #053f68;
+    border-top-left-radius: 4px;
+    border-top-right-radius: 4px;
+    border-top-style: solid;
+    border-top-width: 1px;
+    box-sizing: border-box;
+}
+.openBoxEndpointDescription {
+    padding-left: 0.5%;
+}
+#facetsForm > span {
+    padding-right: 4px;
+}
+.select2-choices, ul {
+    padding: 0;
+}
+.select2-choices, .select2-drop {
+    border: 1px solid #ccc !important;
+    -moz-border-radius: 7px !important;
+    -webkit-border-radius: 7px !important;
+    border-radius: 7px !important;
+    padding: 4px 7px !important;
+    outline: 0 !important;
+    -webkit-appearance: none ;
+    width: 100%;
+}
+.ui-select-container {
+    width: 75%;
+}
+.subtitle {
+    font-weight: bold;
+}
+.storesSearchForm, .multiSelectBox {
+    padding-bottom: 2.5%
+}

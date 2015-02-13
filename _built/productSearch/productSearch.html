@@ -1,0 +1,128 @@
+<div ng-controller="ProductSearchCtrl" xmlns="http://www.w3.org/1999/html">
+    <div id="left-side-container" class="query-container">
+        <div class="content-container" id="builder-content">
+            <div class="query-information">
+                <h3>Products API</h3>
+                <p>The <a href="https://developer.bestbuy.com/documentation/products-api">Products API</a> gives you access to the full Best Buy catalog. The query builder provides a subset of the product attributes to create sample requests and response documents.</p>
+                <h4><span class="fa-stack fa-3x numberIcon">
+                    <i class="fa fa-circle fa-stack-2x icon-stack-base"></i>
+                    <strong class="char-overlay fa-stack-1x">1</strong>
+                    </span> Search for Products</h4>
+                <div class="content-container">  
+                    <p for="category">You can search by one of our more popular <a href="https://developer.bestbuy.com/documentation/categories-api">categories</a>, an <a href="https://developer.bestbuy.com/documentation/products-api#documentation/products-api-detail">attribute</a> value, <a href="https://developer.bestbuy.com/documentation#advancedSearch-search">keyword</a> or any combination of these:</p>
+                    <select class="attributeInputs" id="category" ng-model="category"
+                                ng-options="opt as opt.label for opt in categories"></select>
+                    </p>
+                    <div class="attributeInputs" id="complexSearch">
+                        <form>
+                            <select id="attribute" ng-model="attributeOption" ng-change="preselectOperator()"
+                                    ng-options="attr as attr.text for attr in attributeOptions"></select>
+
+                            <select ng-show="attributeOption.value" id="operator" ng-model="operator" ng-change="skuInParens()"
+                                    ng-options="opt as opt.value for opt in attributeOption.operator" sselected="{{attributeOption.operator[0].value}}"></select>
+                            
+                            <input class="rounded" parenswrap ng-show="attributeOption.value && (attributeOption.type != 'boolean')" ng-model="complexVal" min="0" ng-maxlength="50" placeholder="{{attributeOption.placeholder}}">
+
+                            <select ng-show="attributeOption.type === 'boolean'"  ng-model="complexVal" ng-options="opt.value as opt.value for opt in attributeOption.valueOptions">
+                        </form>
+                    </div>
+
+                    <div class="attributeInputs">
+                    <input spaceless type="text" id="keywordSearchInput" class="rounded" placeholder="Enter Keyword(s)" ng-model="keywordSearch"></input>
+                    <br/>
+                </div>
+                </div>
+                <h4><span class="fa-stack fa-3x numberIcon">
+                    <i class="fa fa-circle fa-stack-2x icon-stack-base"></i>
+                    <strong class="char-overlay fa-stack-1x">2</strong>
+                    </span> Build Your Response</h4>
+                <div class="content-container">
+                        <p for="category">Select attributes and criteria for response:</p>
+                        <div class="showOptionsCheckbox">
+                            <label ng-repeat="opt in showOptions">
+                                <input type="checkbox" checklist-model="option.showOptions" checklist-value="opt.value">
+                                {{opt.text}}
+                            </label>
+                        </div>
+                        <br/>
+            <div id="facetsForm">
+                <span><a href="https://developer.bestbuy.com/documentation#facets-facets">Facets:</a></span>
+                <form id="facetInput" name='facetInput'>
+                    <select id="facetAttribute" ng-model="facetAttribute" ng-change="resetFacetNumber()"
+                                    ng-options="attr as attr.text for attr in attributeOptions"></select>
+                    <span>Number:</span> <input id="facetNumberInput" class="rounded" type="number" placeholder="0" ng-model="facetNumber" min="1" max="50" required>
+                </form>
+                <i class="fa fa-question-circle" tooltip="Faceting provides an aggregated count of the specified attributes as returned in the results. It will include the number of the aggregated results as specified by number field." tooltip-placement="top"></i>
+            </div>
+            <div id="sortOptions">
+                <span><a href="https://developer.bestbuy.com/documentation#sort-sort">Sort By:</a>
+                <select ng-model="sortBy" ng-options="opt as opt.text for opt in sortByOptions"></select></span>
+                <span>Sort Order:
+                <select ng-model="sortOrder" ng-options="opt as opt.text for opt in sortOrderOptions"></select></span>
+            </div>
+
+                </div>
+             <h4><span class="fa-stack fa-3x numberIcon">
+                    <i class="fa fa-circle fa-stack-2x icon-stack-base"></i>
+                    <strong class="char-overlay fa-stack-1x">3</strong>
+                    </span> Pagination</h4>
+            <div class="content-container">
+                <form name="pageSizeform">
+                <p>Specify additional results per page or return subsequent pages by updating the Results Per Page and Page values:</p>
+                Results Per Page: <input class="rounded" id="pagination" ng-model="pageSize" type="number" style="width:60px;" required>
+                <span class="error" ng-show="pageSizeform.input.$error.number">Not valid number!</span>
+                Page: <input class="rounded" id="whichPage" ng-model="whichPage" type="number" min="1" max="900" required>
+                </form>
+
+            </div>
+            <br/>
+                <button class="query-button" ng-click="resetParams()">RESET Query</button>
+                <button class="query-button" ng-click="invokeRemixQuery()">RUN Query</button>
+            </div>
+        </div>
+    </div>
+    <div id="right-side-container" class="query-container">
+        <h4 class="container urlBreakdown">URL Breakdown</h4>
+        <div class="content-container"><label>Here is an anatomy of your request, showing all of the "pieces" that make up your complete URL:</label>
+            <div id="exampleUrl" class="content-container">
+                <p><a class="breakdownLabel" href="https://developer.bestbuy.com/documentation#advancedSearch-search">baseURL</a> : https://api.remix.bestbuy.com/v1/products</p>
+
+                <p ng-show="category.value"><a class="breakdownLabel" href="https://developer.bestbuy.com/documentation/products-api#documentation/products-api-categorizations">categoryId</a> : (categoryPath.id=<span ng-bind="category.value"></span>)</p>
+
+                <p ng-show="attributeOption.value != '' "><a class="breakdownLabel" href="https://developer.bestbuy.com/documentation/products-api#documentation/products-api-detail">attribute</a> : (<span ng-bind="attributeOption.value + operator.value"></span><span ng-show="operator.value === ' in ' ">(</span><span ng-bind="complexVal"></span><span ng-show="operator.value === ' in ' ">)</span>)</p>
+
+                <p ng-show="keywordSearch"><a class="breakdownLabel" href="https://developer.bestbuy.com/documentation#advancedSearch-search">keyword</a> : (search=<span ng-bind="keywordSearch"></span>)</p>
+
+                <p><a class="breakdownLabel" href="https://remix.mashery.com/member/register">apiKey</a> : ?apiKey=<span ng-bind="apiKey"></span><span ng-show="sortBy != 'none'"></p>
+
+                <p><a class="breakdownLabel" href="https://developer.bestbuy.com/documentation#sort-sort">sortOptions</a> : &sort=<span ng-bind="sortBy.value"></span>.<span ng-bind="sortOrder.value"></span></span></p>
+
+                <p><a class="breakdownLabel" href="https://developer.bestbuy.com/documentation#show-show">showOptions</a> : &show=<span ng-bind="option.showOptions.join(',')"></span></p>
+
+                <p ng-show="(pageSize !== 10) || (whichPage !== 1)"><a class="breakdownLabel" href="https://developer.bestbuy.com/documentation#pagination-pagination">pagination</a> : pageSize=<span ng-bind="pageSize"></span>&page=<span ng-bind="whichPage"></span></p>
+
+                <p ng-show="facetAttribute.value"><a class="breakdownLabel" href="https://developer.bestbuy.com/documentation#facets-facets">facets</a> : &facet=<span ng-bind="facetAttribute.value"></span>,<span ng-bind="facetNumber"></span></p>
+
+                <p><a class="breakdownLabel" href="https://developer.bestbuy.com/documentation#responseFormat-response-format">callback</a> : &callback=JSON_CALLBACK</span></p>
+
+                <p><a class="breakdownLabel" href="https://developer.bestbuy.com/documentation#responseFormat-response-format">responseFormat</a> : &format=json</p>
+            </div>
+        </div>
+        <h4 class="container">Complete URL</h4>
+        <div class="content-container" id="response-content">
+            <p>#request:
+                <button id="copy-button" class="copy-button" type="button" clip-copy="buildRemixQuery()" tooltip="copy" tooltip-placement="right" ng-click="callCopyEvent()">
+                    <img src="assets/clipboard_white.png" width="20" height="20" alt="copy"/></button>
+            </p>
+            <h5><span id="remix-query" class="query-text" ng-bind="buildRemixQuery()"></span></h5>
+            <div>
+                <p>#response:
+                    <button id="copy-results-button" class="copy-button" type="button" clip-copy="remixResults | json" tooltip="copy" tooltip-placement="right">
+                    <img src="assets/clipboard_white.png" width="20" height="20" alt="copy"/></button>
+                </p>
+                <textarea ng-class="{errorResult: errorResult}" class="query-result" id="product-query-result" ng-bind="remixResults | json"></textarea>
+
+            </div>
+        </div>
+    </div>
+</div>

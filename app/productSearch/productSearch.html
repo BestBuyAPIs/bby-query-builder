@@ -23,16 +23,37 @@
                         <form>
                             <select id="attribute" ng-model="attributeOption" ng-change="preselectOperator()"
                                     ng-options="attr as attr.text for attr in attributeOptions"></select>
-
                             <select ng-show="attributeOption.value" id="operator" ng-model="operator" ng-change="skuInParens()"
                                     ng-options="opt as opt.value for opt in attributeOption.operator" sselected="{{attributeOption.operator[0].value}}"></select>
-                            
                             <input class="rounded" parenswrap ng-show="attributeOption.value && (attributeOption.type != 'boolean')" ng-model="complexVal" min="0" ng-maxlength="50" placeholder="{{attributeOption.placeholder}}">
-
                             <select ng-show="attributeOption.type === 'boolean'"  ng-model="complexVal" ng-options="opt.value as opt.value for opt in attributeOption.valueOptions"></select>
                         </form>   
-                     
                     </div>
+
+                    <br/>
+
+                    <div class="form-group" ng-repeat="form in dynamicForms track by $index">
+
+                        <div class="attributeInputs" id="complexSearch">
+                            <form>
+                                <select ng-init="dynamicOption.list[form.id] = attributeOption" id="attribute" ng-model="dynamicOption.list[form.id]" ng-change="preselectOperator()"
+                                        ng-options="attr as attr.text for attr in attributeOptions"></select>
+                                <select ng-show="attributeOption.value" id="operator" ng-model="operator" ng-change="skuInParens()"
+                                        ng-options="opt as opt.value for opt in attributeOption.operator" sselected="{{attributeOption.operator[0].value}}"></select>
+                                <input class="rounded" parenswrap ng-show="attributeOption.value && (attributeOption.type != 'boolean')" ng-model="complexVal" min="0" ng-maxlength="50" placeholder="{{attributeOption.placeholder}}">
+                                <select ng-show="attributeOption.type === 'boolean'"  ng-model="complexVal" ng-options="opt.value as opt.value for opt in attributeOption.valueOptions"></select>
+                                <span class="glyphicon glyphicon-plus" ng-show="$last" ng-click="addNewChoice()"></span>
+                                <span class="glyphicon glyphicon-minus" ng-show="!$last" ng-click="removeChoice(form)"></span>
+                            </form>   
+                        </div>
+                        
+                        <!-- <span ng-bind="$index"></span><span ng-bind="form.text"></span> -->
+
+                    </div>
+
+
+
+
                 </div> 
 
                 <div>
@@ -76,7 +97,7 @@
                         </div>
                     </form>
                 </div>
-                
+
             </div>
              <h4><span class="fa-stack fa-3x numberIcon">
                     <i class="fa fa-circle fa-stack-2x icon-stack-base"></i>

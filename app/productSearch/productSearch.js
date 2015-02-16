@@ -132,6 +132,12 @@ angular.module('bby-query-mixer.productSearch').controller('ProductSearchCtrl', 
             $scope.resetFacetNumber();
             $scope.facetAttribute = $scope.attributeOptions[0];
             $scope.showOptions.list = [];
+            
+            $scope.dynamicOption = {};
+            $scope.dynamicOption = {
+                list : []
+            }
+            $scope.dynamicOption = $scope.attributeOption;
         };
         //calling the function here loads the defaults on page load
         $scope.resetParams();
@@ -161,6 +167,26 @@ angular.module('bby-query-mixer.productSearch').controller('ProductSearchCtrl', 
             } 
             return;
         };
+
+        
+        $scope.dynamicForms = [{id: '0', text:"foo", value:""}, {id: '1', text:"bar"}, {id: '2', text:"fizz"}];  
+
+        $scope.addNewChoice = function() {
+            var newItemNo = $scope.dynamicForms.length+1;
+        $scope.dynamicForms.push({'id':''+newItemNo});
+        };
+        $scope.removeChoice = function(form) {
+            var newItemNo = $scope.dynamicForms.length-1;
+            console.log(form)
+            console.log($scope.dynamicForms.indexOf(form))
+            $scope.dynamicForms.splice($scope.dynamicForms.indexOf(form),1);   
+        };
+        $scope.dynamicOption = {};
+        $scope.dynamicOption ={
+            list : []
+        }
+
+
 
     }
 ])

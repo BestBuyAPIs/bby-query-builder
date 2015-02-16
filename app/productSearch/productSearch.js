@@ -110,6 +110,8 @@ angular.module('bby-query-mixer.productSearch').controller('ProductSearchCtrl', 
             $scope.facetNumber = '';
         };
 
+        $scope.showOption = {};
+
         $scope.resetParams = function () {
             $scope.category = $scope.categories[0];
             $scope.option = {
@@ -129,6 +131,7 @@ angular.module('bby-query-mixer.productSearch').controller('ProductSearchCtrl', 
             $scope.operator = $scope.attributeOption.operator[0];
             $scope.resetFacetNumber();
             $scope.facetAttribute = $scope.attributeOptions[0];
+            $scope.showOptions.list = [];
         };
         //calling the function here loads the defaults on page load
         $scope.resetParams();
@@ -144,8 +147,20 @@ angular.module('bby-query-mixer.productSearch').controller('ProductSearchCtrl', 
             GaService.copyUrlEvent(tab,$scope.apiKey);
         };
 
-        var wrapParens = ($scope.operator.value === 'in') ? console.log('yolo') : '';
+        var addAllOptions = function(optionArray) {
+            var newArray = [];
+            angular.forEach(optionArray, function(i) { this.push(i.value) }, newArray);
+            return newArray;
+        };
 
+        $scope.selectAll = function (z) {
+            if (z === 'allproducts') {
+            $scope.showOption.list = addAllOptions($scope.showOptions);
+            } else if (z === 'noproducts') {
+                $scope.showOption.list = [];
+            } 
+            return;
+        };
 
     }
 ])

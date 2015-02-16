@@ -37,20 +37,25 @@
                     <strong class="char-overlay fa-stack-1x">2</strong>
                     </span> Build Your Response</h4>
                 <div class="content-container">
-                        <p for="category">Select attributes and criteria for response:</p>
-                        <div class="showOptionsCheckbox">
-                            <label ng-repeat="opt in showOptions">
-                                <input type="checkbox" checklist-model="option.showOptions" checklist-value="opt.value">
-                                {{opt.text}}
-                            </label>
-                        </div>
-                        <br/>
+                    <p>
+                        <span class="subtitle">Product Attributes </span><span>(optional)</span>
+                        <button class="btn btn-default btn-xs" ng-click="selectAll('allproducts')">Select All</button> <button class="btn btn-default btn-xs" ng-click="selectAll('noproducts')">Select None</button>
+                    </p>
+                    <div class="multiSelectBox">
+                        <ui-select multiple ng-model="showOption.list" theme="select2" ng-disabled="disabled">
+                            <ui-select-match placeholder="Select response options">{{$item.text}}</ui-select-match>
+                            <ui-select-choices repeat="option.value as option in showOptions | propsFilter: {text: $select.search}">
+                              <div ng-bind-html="option.text | highlight: $select.search"></div>
+                            </ui-select-choices>
+                        </ui-select>
+                    </div>
+
             <div id="facetsForm">
                 <span><a href="https://developer.bestbuy.com/documentation#facets-facets" target="_blank">Facets:</a></span>
                 <form id="facetInput" name='facetInput'>
                     <select id="facetAttribute" ng-model="facetAttribute" ng-change="resetFacetNumber()"
                                     ng-options="attr as attr.text for attr in attributeOptions"></select>
-                    <span>Number:</span> <input id="facetNumberInput" class="rounded" type="number" placeholder="0" ng-model="facetNumber" min="1" max="50" required>
+                    <span>Number:</span> <input id="facetNumberInput" class="rounded" type="number" placeholder="0" ng-model="facetNumber" min="1" max="50">
                 </form>
                 <i class="fa fa-question-circle" tooltip="Faceting provides an aggregated count of the specified attributes as returned in the results. It will include the number of the aggregated results as specified by number field." tooltip-placement="top"></i>
             </div>

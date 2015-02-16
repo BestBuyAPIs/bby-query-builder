@@ -169,7 +169,7 @@ angular.module('bby-query-mixer.productSearch').controller('ProductSearchCtrl', 
         };
 
         
-        $scope.dynamicForms = [{id: '0', text:"foo", value:""}, {id: '1', text:"bar"}, {id: '2', text:"fizz"}];  
+        $scope.dynamicForms = [{id: '0', text:"foo", value:""}];  
 
         $scope.addNewChoice = function() {
             var newItemNo = $scope.dynamicForms.length+1;

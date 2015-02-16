@@ -19,7 +19,7 @@
                         <input spaceless type="text" id="keywordSearchInput" class="rounded" placeholder="Enter Keyword(s)" ng-model="keywordSearch"></input>
                     </div>
 
-                    <div class="attributeInputs" id="complexSearch">
+<!--                     <div class="attributeInputs" id="complexSearch">
                         <form>
                             <select id="attribute" ng-model="attributeOption" ng-change="preselectOperator()"
                                     ng-options="attr as attr.text for attr in attributeOptions"></select>
@@ -28,22 +28,20 @@
                             <input class="rounded" parenswrap ng-show="attributeOption.value && (attributeOption.type != 'boolean')" ng-model="complexVal" min="0" ng-maxlength="50" placeholder="{{attributeOption.placeholder}}">
                             <select ng-show="attributeOption.type === 'boolean'"  ng-model="complexVal" ng-options="opt.value as opt.value for opt in attributeOption.valueOptions"></select>
                         </form>   
-                    </div>
-
-                    <br/>
+                    </div> -->
 
                     <div class="form-group" ng-repeat="form in dynamicForms track by $index">
 
-                        <div class="attributeInputs" id="complexSearch">
+                        <div class="" id="complexSearch">
                             <form>
                                 <select ng-init="dynamicOption.list[form.id] = attributeOption" id="attribute" ng-model="dynamicOption.list[form.id]" ng-change="preselectOperator()"
                                         ng-options="attr as attr.text for attr in attributeOptions"></select>
-                                <select ng-show="attributeOption.value" id="operator" ng-model="operator" ng-change="skuInParens()"
-                                        ng-options="opt as opt.value for opt in attributeOption.operator" sselected="{{attributeOption.operator[0].value}}"></select>
-                                <input class="rounded" parenswrap ng-show="attributeOption.value && (attributeOption.type != 'boolean')" ng-model="complexVal" min="0" ng-maxlength="50" placeholder="{{attributeOption.placeholder}}">
-                                <select ng-show="attributeOption.type === 'boolean'"  ng-model="complexVal" ng-options="opt.value as opt.value for opt in attributeOption.valueOptions"></select>
+                                <select ng-show="dynamicOption.list[form.id].value" id="operator" ng-model="operator" ng-change="skuInParens()"
+                                        ng-options="opt as opt.value for opt in dynamicOption.list[form.id].operator" selected="{{dynamicOption.list[form.id].operator[0].value}}"></select>
+                                <input class="rounded" parenswrap ng-show="dynamicOption.list[form.id].value && (dynamicOption.list[form.id].type != 'boolean')" ng-model="complexVal" min="0" ng-maxlength="50" placeholder="{{dynamicOption.list[form.id].placeholder}}">
+                                <select ng-show="dynamicOption.list[form.id].type === 'boolean'"  ng-model="complexVal" ng-options="opt.value as opt.value for opt in dynamicOption.list[form.id].valueOptions"></select>
+                                <span class="glyphicon glyphicon-minus" ng-show="dynamicForms.length > 1" ng-click="removeChoice(form)"></span>                                
                                 <span class="glyphicon glyphicon-plus" ng-show="$last" ng-click="addNewChoice()"></span>
-                                <span class="glyphicon glyphicon-minus" ng-show="!$last" ng-click="removeChoice(form)"></span>
                             </form>   
                         </div>
                         

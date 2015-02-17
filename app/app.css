@@ -376,3 +376,6 @@ input.ng-invalid {
     margin-top: 2px;
     margin-left: 5px;
 }
+.glyphicon-minus {
+    color: red;
+}

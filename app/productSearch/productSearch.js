@@ -143,10 +143,10 @@ angular.module('bby-query-mixer.productSearch').controller('ProductSearchCtrl', 
         $scope.resetParams();
 
         //this function is fired on a ng-change when attribute is selected. it sets the first operator to be pre-selected
-        $scope.preselectOperator = function() {
-            $scope.operator = $scope.attributeOption.operator[0];
-            $scope.complexVal = $scope.attributeOption.valueOptions ? $scope.attributeOption.valueOptions[0].value : '';
-        };
+        // $scope.preselectOperator = function() {
+        //     $scope.operator = $scope.attributeOption.operator[0];
+        //     $scope.complexVal = $scope.attributeOption.valueOptions ? $scope.attributeOption.valueOptions[0].value : '';
+        // };
 
         $scope.callCopyEvent = function () {
             var tab = "products";
@@ -169,7 +169,7 @@ angular.module('bby-query-mixer.productSearch').controller('ProductSearchCtrl', 
         };
 
         
-        $scope.dynamicForms = [{id: '0', text:"foo", value:""}];  
+        $scope.dynamicForms = [{id: '0',value:'',opt:'',complexVal:''}];  
 
         var counter = 0;
         $scope.addNewForm = function() {
@@ -185,12 +185,22 @@ angular.module('bby-query-mixer.productSearch').controller('ProductSearchCtrl', 
             console.log($scope.dynamicForms.indexOf(form))
             $scope.dynamicForms.splice($scope.dynamicForms.indexOf(form),1);   
         };
-        $scope.dynamicOption = {};
-        $scope.dynamicOption ={
-            list : []
-        }
 
+        // $scope.dynamicOption = [
+        //     {value:'',opt:'',complexVal:''}
+        // ]
+ 
 
+        $scope.dynaList = $scope.dynamicOption.list;
+        // console.dir($scope.dynaList);
+
+        $scope.parseDynamicForms = function (array) {
+            var newArray = [];
+            angular.forEach(array, function(i) { this.push('value '+i.value.value + ',  opt '+i.opt.value + ',   val '+ i.complexVal); console.dir(i) }, newArray);
+            console.dir(newArray)
+            return newArray;
+        };
+        // console.dir(parseDynamicForms($scope.dynaList));
 
     }
 ])

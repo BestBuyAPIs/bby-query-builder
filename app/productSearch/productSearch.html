@@ -34,22 +34,29 @@
 
                         <div class="" id="complexSearch">
                             <form>
-                                <select ng-init="dynamicOption.list[form.id] = attributeOption" id="attribute" ng-model="dynamicOption.list[form.id]" ng-change="preselectOperator()"
+                                <select ng-init="form.value = attributeOption" id="attribute" ng-model="form.value" ng-change="preselectOperator()"
                                         ng-options="attr as attr.text for attr in attributeOptions"></select>
-                                <select ng-show="dynamicOption.list[form.id].value" id="operator" ng-model="operator" ng-change="skuInParens()"
-                                        ng-options="opt as opt.value for opt in dynamicOption.list[form.id].operator" selected="{{dynamicOption.list[form.id].operator[0].value}}"></select>
-                                <input class="rounded" parenswrap ng-show="dynamicOption.list[form.id].value && (dynamicOption.list[form.id].type != 'boolean')" ng-model="complexVal" min="0" ng-maxlength="50" placeholder="{{dynamicOption.list[form.id].placeholder}}">
-                                <select ng-show="dynamicOption.list[form.id].type === 'boolean'"  ng-model="complexVal" ng-options="opt.value as opt.value for opt in dynamicOption.list[form.id].valueOptions"></select>
+
+                                <select ng-show="form.value.value" id="operator" ng-model="form.opt" ng-change="skuInParens()"
+                                        ng-options="opt as opt.value for opt in form.value.operator" selected="{{dynamicOption.list[form.id].operator[0].value}}"></select>
+
+                                <input class="rounded" parenswrap ng-show="form.value && (form.value.type != 'boolean')" ng-model="form.complexVal" min="0" ng-maxlength="50" placeholder="{{form.value.placeholder}}">
+                                
+                                <select ng-show="form.value === 'boolean'"  ng-model="form.complexVal" ng-options="opt.value as opt.value for opt in dynamicOption.list[form.id].valueOptions"></select>
+                                
                                 <span class="glyphicon glyphicon-minus" ng-show="dynamicForms.length > 1" ng-click="removeForm(form)"></span>
-                                <span ng-bind="form.id"></span>
+
+                                <!-- <span ng-bind="form.id"></span> -->
                                 <!-- <span class="glyphicon glyphicon-plus" ng-show="$last" ng-click="addNewChoice()"></span> -->
                             </form>
-                            <span id="plus-button" class="glyphicon glyphicon-plus" ng-show="$last && dynamicOption.list[form.id].value" ng-click="addNewForm()"></span>
+                            <span id="plus-button" class="glyphicon glyphicon-plus" ng-show="$last && form.value" ng-click="addNewForm()"></span>
    
                         </div>
                         
                         <!-- <span ng-bind="$index"></span><span ng-bind="form.text"></span> -->
 
+                        <!-- <button ng-click="parseDynamicForms(dynamicForms)">test</button> -->
+                        <!-- <span ng-bind="dynamicOption.list[form.id].complexVal"></span> -->
                     </div>
 
 

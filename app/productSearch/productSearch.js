@@ -171,11 +171,15 @@ angular.module('bby-query-mixer.productSearch').controller('ProductSearchCtrl', 
         
         $scope.dynamicForms = [{id: '0', text:"foo", value:""}];  
 
-        $scope.addNewChoice = function() {
-            var newItemNo = $scope.dynamicForms.length+1;
-        $scope.dynamicForms.push({'id':''+newItemNo});
+        var counter = 0;
+        $scope.addNewForm = function() {
+            counter += 1;
+            $scope.dynamicForms.push({'id':''+(counter)});
+
+            // var newItemNo = $scope.dynamicForms.length+1;
+        // $scope.dynamicForms.push({'id':''+newItemNo});
         };
-        $scope.removeChoice = function(form) {
+        $scope.removeForm = function(form) {
             var newItemNo = $scope.dynamicForms.length-1;
             console.log(form)
             console.log($scope.dynamicForms.indexOf(form))

@@ -368,3 +368,11 @@ input.ng-invalid {
 .storesSearchForm, .multiSelectBox {
     padding-bottom: 2.5%
 }
+
+.form-group  {
+ margin-bottom: 2px;
+}
+#plus-button {
+    margin-top: 2px;
+    margin-left: 5px;
+}

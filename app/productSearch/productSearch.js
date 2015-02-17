@@ -196,7 +196,7 @@ angular.module('bby-query-mixer.productSearch').controller('ProductSearchCtrl', 
 
         $scope.parseDynamicForms = function (array) {
             var newArray = [];
-            angular.forEach(array, function(i) { this.push('value '+i.value.value + ',  opt '+i.opt.value + ',   val '+ i.complexVal); console.dir(i) }, newArray);
+            angular.forEach(array, function(i) { this.push('('+i.value.productAttribute + i.opt.value + i.complexVal+')'); console.dir(i) }, newArray);
             console.dir(newArray)
             return newArray;
         };

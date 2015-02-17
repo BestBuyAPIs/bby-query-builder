@@ -40,7 +40,7 @@
                                 <select ng-show="form.value.productAttribute" id="operator" ng-model="form.opt" ng-change="skuInParens()"
                                         ng-options="opt as opt.value for opt in form.value.operator" selected="{{dynamicOption.list[form.id].operator[0].value}}"></select>
 
-                                <input class="rounded" parenswrap ng-show="form.value && (form.value.type != 'boolean')" ng-model="form.complexVal" min="0" ng-maxlength="50" placeholder="{{form.value.placeholder}}">
+                                <input class="rounded" parenswrap ng-show="form.value.productAttribute && (form.value.type != 'boolean')" ng-model="form.complexVal" min="0" ng-maxlength="50" placeholder="{{form.value.placeholder}}">
                                 
                                 <select ng-show="form.value.type === 'boolean'"  ng-model="form.complexVal" ng-options="opt.value as opt.value for opt in form.value.valueOptions"></select>
                                 
@@ -54,10 +54,9 @@
                         </div>
                         
                         <!-- <span ng-bind="$index"></span><span ng-bind="form.text"></span> -->
-
-                        <button ng-click="parseDynamicForms(dynamicForms)">test</button>
                         <!-- <span ng-bind="dynamicOption.list[form.id].complexVal"></span> -->
                     </div>
+                        <button ng-click="parseDynamicForms(dynamicForms)">test</button>
 
 
 

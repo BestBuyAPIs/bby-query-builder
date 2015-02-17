@@ -47,6 +47,8 @@ angular.module('bby-query-mixer.productSearch').controller('ProductSearchCtrl', 
             (($scope.attributeOption.value)&&($scope.operator.value === ' in ')) ? searchArgs.push( '('+ $scope.attributeOption.value + $scope.operator.value +'('+ $scope.complexVal + '))' ):
                 $scope.attributeOption.value ? searchArgs.push( '('+ $scope.attributeOption.value + $scope.operator.value + $scope.complexVal + ')' ) : '';
  
+            var manyAttributes = $scope.dynamicForms[0].value.productAttribute ? searchArgs.push($scope.parseDynamicForms($scope.dynamicForms)) : '';
+
             var categoryQuery = $scope.category.value ? searchArgs.push('(categoryPath.id=' + $scope.category.value + ')') : '';
             var baseUrl = searchArgs.length > 0 ? 'https://api.remix.bestbuy.com/v1/products' + '(' + searchArgs.join('&') + ')' : 'https://api.remix.bestbuy.com/v1/products';
             return baseUrl + $scope.buildParams();
@@ -191,16 +193,18 @@ angular.module('bby-query-mixer.productSearch').controller('ProductSearchCtrl', 
         // ]
  
 
-        $scope.dynaList = $scope.dynamicOption.list;
+        // $scope.dynaList = $scope.dynamicOption.list;
         // console.dir($scope.dynaList);
 
         $scope.parseDynamicForms = function (array) {
             var newArray = [];
-            angular.forEach(array, function(i) { this.push('('+i.value.productAttribute + i.opt.value + i.complexVal+')'); console.dir(i) }, newArray);
-            console.dir(newArray)
-            return newArray;
+            angular.forEach(array, function(i) { this.push(i.value.productAttribute + i.opt.value + i.complexVal); console.dir(i) }, newArray);
+            // console.dir(newArray)
+            // console.log(newArray.join('&'))
+            return newArray.join('&');
         };
-        // console.dir(parseDynamicForms($scope.dynaList));
+        
+        $scope.parseDynamicForms($scope.dynamicForms);
 
     }
 ])

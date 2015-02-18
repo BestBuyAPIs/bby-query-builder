@@ -23,8 +23,8 @@
                             <span class="subtitle">Distance</span> (miles): <input style="width:60px;" ng-model="area" type="number" class="rounded" placeholder="71.3"></input>
                         </div>
 
-                        <div ng-show="searchSelection.value ==='latLong'">
-                            <p>Searching by Lat/Long returns all stores information for the lat/long specified. An optional area function can be applied to get stores information within the specified area.</p>
+                        <div class="longLatForm" ng-show="searchSelection.value ==='latLong'">
+                                <p>Searching by <a href="https://developer.bestbuy.com/documentation/stores-api#documentation/stores-api-area-function" target="_blank">latitude and longitude</a> returns all stores that are within the specified latitude and longitude. An optional distance function can be used to determine all stores given a latitude and longitude and distance from the center of that latitude and longitude.</p>
                             <form class="form-horizontal">
                                 <div class="form-group">
                                     <p class="col-sm-2"><span class="subtitle">Latitude</span></p>
@@ -43,7 +43,7 @@
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <p class="col-sm-2"><span class="subtitle">Area</span> (miles):</p>
+                                    <p class="col-sm-2"><span class="subtitle">Distance</span> (miles):</p>
                                     <div class="col-sm-10"> 
                                         <input ng-model="latLongArea" type="number" class="rounded longLatInput" placeholder="25" min="0" max="999"></input>
                                     </div>

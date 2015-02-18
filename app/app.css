@@ -384,3 +384,6 @@ input.ng-invalid {
 .longLatInput {
     width: 60px;
 }
+.longLatForm > p{
+    padding-left: 0.5%;
+}

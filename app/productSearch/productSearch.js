@@ -135,7 +135,7 @@ angular.module('bby-query-mixer.productSearch').controller('ProductSearchCtrl', 
             $scope.facetAttribute = $scope.attributeOptions[0];
             $scope.showOptions.list = [];
             
-            $scope.dynamicForms = [{id: '0', value:'Choose Attribute', opt:'',complexVal:''}];
+            $scope.dynamicForms = [{value: $scope.attributeOption}];
         };
         //calling the function here loads the defaults on page load
         $scope.resetParams();

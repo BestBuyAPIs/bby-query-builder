@@ -57,6 +57,7 @@ describe('bby-query-mixer.productSearch module', function () {
                 expect(scope.buildRemixQuery()).toEqual("https://api.remix.bestbuy.com/v1/products((categoryPath.id=someCategory))?sort=sku.desc&show=sku,name,salePrice&format=json");
             });
             it('should return a the right parens when sku in query is made', function () {
+                scope.facetAttribute = '';
                 scope.attributeOption.value = 'sku';
                 scope.operator.value = ' in ';
                 scope.complexVal = '123, 456';
@@ -117,7 +118,7 @@ describe('bby-query-mixer.productSearch module', function () {
                  expect(scope.sortOrder).toEqual(scope.sortOrderOptions[0]);
                  expect(scope.remixResults).toEqual({});
                  expect(scope.keywordSearch).toEqual('');
-                 expect(scope.facetAttribute.value).toEqual(false);
+                 expect(scope.facetAttribute).toEqual(scope.attributeOptions[0]);
             });
             it('should leave the apikey as is', function () {
                 scope.apiKey = 'myApiKey';
@@ -135,12 +136,25 @@ describe('bby-query-mixer.productSearch module', function () {
             });
         });
         describe('preselectOperator function', function () {
-            it('should error if no apikey is present', function () {
-                scope.preselectOperator();
+            it('should reset values when attribute dropdown is changed', function () {
+                var form = {value:{operator:[]}};
+                scope.preselectOperator(form);
                 expect(scope.operator).toEqual(scope.attributeOption.operator[0]);
                 expect(scope.complexVal).toEqual('');
 
             });
         });
+
+        describe('dynamic forms functionality', function () {
+
+            it('should compile the array of forms and add it to the remix query url', function () {
+                scope.dynamicForms= [{value:{productAttribute:'foo'},opt:{value:'='},complexVal:'foo'}]
+                expect(scope.buildRemixQuery()).toEqual("https://api.remix.bestbuy.com/v1/products(foo=foo)?sort=bestSellingRank.asc&show=sku,name,salePrice&format=json");
+            });
+
+        });
+
+
+
     });
 });

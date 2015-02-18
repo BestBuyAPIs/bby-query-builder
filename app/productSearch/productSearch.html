@@ -19,17 +19,6 @@
                         <input spaceless type="text" id="keywordSearchInput" class="rounded" placeholder="Enter Keyword(s)" ng-model="keywordSearch"></input>
                     </div>
 
-<!--                     <div class="attributeInputs" id="complexSearch">
-                        <form>
-                            <select id="attribute" ng-model="attributeOption" ng-change="preselectOperator()"
-                                    ng-options="attr as attr.text for attr in attributeOptions"></select>
-                            <select ng-show="attributeOption.value" id="operator" ng-model="operator" ng-change="skuInParens()"
-                                    ng-options="opt as opt.value for opt in attributeOption.operator" sselected="{{attributeOption.operator[0].value}}"></select>
-                            <input class="rounded" parenswrap ng-show="attributeOption.value && (attributeOption.type != 'boolean')" ng-model="complexVal" min="0" ng-maxlength="50" placeholder="{{attributeOption.placeholder}}">
-                            <select ng-show="attributeOption.type === 'boolean'"  ng-model="complexVal" ng-options="opt.value as opt.value for opt in attributeOption.valueOptions"></select>
-                        </form>   
-                    </div> -->
-
                     <div class="form-group" ng-repeat="form in dynamicForms track by $index">
 
                         <div class="" id="complexSearch">
@@ -46,23 +35,11 @@
                                 
                                 <span class="glyphicon glyphicon-minus" ng-show="dynamicForms.length > 1" ng-click="removeForm(form)"></span>
 
-                                <!-- <span ng-bind="form.id"></span> -->
-                                <!-- <span class="glyphicon glyphicon-plus" ng-show="$last" ng-click="addNewChoice()"></span> -->
                             </form>
                             <span id="plus-button" class="glyphicon glyphicon-plus" ng-show="$last && (form.value.productAttribute)" ng-click="addNewForm()"></span>
-   
                         </div>
-                        
-                        <!-- <span ng-bind="$index"></span><span ng-bind="form.text"></span> -->
-                        <!-- <span ng-bind="dynamicOption.list[form.id].complexVal"></span> -->
                     </div>
-                        <!-- <button ng-click="parseDynamicForms(dynamicForms)">test</button> -->
-
-
-
-
                 </div> 
-
                 <div>
                     <h4><span class="fa-stack fa-3x numberIcon">
                         <i class="fa fa-circle fa-stack-2x icon-stack-base"></i>
@@ -132,7 +109,7 @@
 
                 <p ng-show="category.value"><a class="breakdownLabel" href="https://developer.bestbuy.com/documentation/products-api#documentation/products-api-categorizations" target="_blank">categoryId</a> : (categoryPath.id=<span ng-bind="category.value"></span>)</p>
 
-                <p ng-show="attributeOption.value != '' "><a class="breakdownLabel" href="https://developer.bestbuy.com/documentation/products-api#documentation/products-api-detail" target="_blank">attribute</a> : (<span ng-bind="parseDynamicForms(dynamicForms)"></span><span ng-show="operator.value === ' in ' ">(</span><span ng-bind="complexVal"></span><span ng-show="operator.value === ' in ' ">)</span>)</p>
+                <p ng-show="dynamicForms[0].value.productAttribute"><a class="breakdownLabel" href="https://developer.bestbuy.com/documentation/products-api#documentation/products-api-detail" target="_blank">attribute</a> : (<span ng-bind="parseDynamicForms(dynamicForms)"></span><span ng-show="operator.value === ' in ' ">(</span><span ng-bind="complexVal"></span><span ng-show="operator.value === ' in ' ">)</span>)</p>
 
                 <p ng-show="keywordSearch"><a class="breakdownLabel" href="https://developer.bestbuy.com/documentation#advancedSearch-search" target="_blank">keyword</a> : (search=<span ng-bind="keywordSearch"></span>)</p>
 
@@ -140,7 +117,7 @@
 
                 <p><a class="breakdownLabel" href="https://developer.bestbuy.com/documentation#sort-sort" target="_blank">sortOptions</a> : &sort=<span ng-bind="sortBy.value"></span>.<span ng-bind="sortOrder.value"></span></span></p>
 
-                <p><a class="breakdownLabel" href="https://developer.bestbuy.com/documentation#show-show" target="_blank">showOptions</a> : &show=<span ng-bind="option.showOptions.join(',')"></span></p>
+                <p ng-show="showOption.list"><a class="breakdownLabel" href="https://developer.bestbuy.com/documentation#show-show" target="_blank">showOptions</a> : &show=<span ng-bind="showOption.list"></span></p>
 
                 <p ng-show="(pageSize !== 10) || (whichPage !== 1)"><a class="breakdownLabel" href="https://developer.bestbuy.com/documentation#pagination-pagination" target="_blank">pagination</a> : pageSize=<span ng-bind="pageSize"></span>&page=<span ng-bind="whichPage"></span></p>
 

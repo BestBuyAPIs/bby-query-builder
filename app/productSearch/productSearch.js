@@ -28,13 +28,6 @@ angular.module('bby-query-mixer.productSearch').controller('ProductSearchCtrl', 
 
         $scope.sortOrder = $scope.sortOrderOptions[0];
 
-        $scope.option = {
-            showOptions: ['sku', 'name','salePrice']
-        };
-
-        $scope.showMyOptions = $scope.option.showOptions.join(',');
-
-
         $scope.showOpts = function () {
             console.log($scope.option.showOptions);
         };
@@ -90,8 +83,9 @@ angular.module('bby-query-mixer.productSearch').controller('ProductSearchCtrl', 
                 paramArgs.push('sort=' + $scope.sortBy.value + '.' + $scope.sortOrder.value);
             }
 
-            paramArgs.push('show=' + $scope.option.showOptions.join(','));
-
+            if ($scope.showOption.list.length > 0){
+                paramArgs.push('show=' + $scope.showOption.list);
+            };
             if ($scope.facetAttribute.value){
                 paramArgs.push('facet=' + $scope.facetAttribute.value + ',' + $scope.facetNumber);
             };
@@ -116,9 +110,6 @@ angular.module('bby-query-mixer.productSearch').controller('ProductSearchCtrl', 
 
         $scope.resetParams = function () {
             $scope.category = $scope.categories[0];
-            $scope.option = {
-                showOptions: ['sku', 'name','salePrice']
-            };
             $scope.whichPage = 1;
             $scope.sortOrder = 'asc';
             $scope.complexAttr = '';
@@ -133,7 +124,7 @@ angular.module('bby-query-mixer.productSearch').controller('ProductSearchCtrl', 
             $scope.operator = $scope.attributeOption.operator[0];
             $scope.resetFacetNumber();
             $scope.facetAttribute = $scope.attributeOptions[0];
-            $scope.showOptions.list = [];
+            $scope.showOption.list = [];
             
             $scope.dynamicForms = [{value: $scope.attributeOption}];
         };

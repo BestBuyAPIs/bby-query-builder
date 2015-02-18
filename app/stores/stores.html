@@ -18,9 +18,9 @@
                         </div>
 
                         <div ng-show="searchSelection.value ==='postalCode'">
-                            <p>Searching by Postal Code returns store information for all the stores in the postal code specified.</p>
-                            <span class="subtitle">Zip Code:</span><input style="width:80px;" ng-model="zipCode" type="number" class="rounded" placeholder="55423" required ></input>
-                            <span class="subtitle">Area</span> (miles): <input style="width:60px;" ng-model="area" type="number" class="rounded" placeholder="71.3"></input>
+                            <p>Searching Postal Code returns store information for all stores within the specified postal code. An optional distance function can be used to determine all stores given a postal code and distance from the center of that postal code.</p>
+                            <span class="subtitle">Postal Code:</span><input style="width:80px;" ng-model="zipCode" type="number" class="rounded" placeholder="55423" required ></input>
+                            <span class="subtitle">Distance</span> (miles): <input style="width:60px;" ng-model="area" type="number" class="rounded" placeholder="71.3"></input>
                         </div>
 
                         <div ng-show="searchSelection.value ==='latLong'">

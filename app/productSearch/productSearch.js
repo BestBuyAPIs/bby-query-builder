@@ -28,13 +28,6 @@ angular.module('bby-query-mixer.productSearch').controller('ProductSearchCtrl', 
 
         $scope.sortOrder = $scope.sortOrderOptions[0];
 
-        $scope.option = {
-            showOptions: ['sku', 'name','salePrice']
-        };
-
-        $scope.showMyOptions = $scope.option.showOptions.join(',');
-
-
         $scope.showOpts = function () {
             console.log($scope.option.showOptions);
         };
@@ -47,6 +40,8 @@ angular.module('bby-query-mixer.productSearch').controller('ProductSearchCtrl', 
             (($scope.attributeOption.value)&&($scope.operator.value === ' in ')) ? searchArgs.push( '('+ $scope.attributeOption.value + $scope.operator.value +'('+ $scope.complexVal + '))' ):
                 $scope.attributeOption.value ? searchArgs.push( '('+ $scope.attributeOption.value + $scope.operator.value + $scope.complexVal + ')' ) : '';
  
+            var manyAttributes = $scope.dynamicForms[0].value.productAttribute ? searchArgs.push($scope.parseDynamicForms($scope.dynamicForms)) : '';
+
             var categoryQuery = $scope.category.value ? searchArgs.push('(categoryPath.id=' + $scope.category.value + ')') : '';
             var baseUrl = searchArgs.length > 0 ? 'https://api.remix.bestbuy.com/v1/products' + '(' + searchArgs.join('&') + ')' : 'https://api.remix.bestbuy.com/v1/products';
             return baseUrl + $scope.buildParams();
@@ -88,9 +83,10 @@ angular.module('bby-query-mixer.productSearch').controller('ProductSearchCtrl', 
                 paramArgs.push('sort=' + $scope.sortBy.value + '.' + $scope.sortOrder.value);
             }
 
-            paramArgs.push('show=' + $scope.option.showOptions.join(','));
-
-            if (($scope.facetAttribute.value)&&($scope.facetNumber !== '')){
+            if ($scope.showOption.list.length > 0){
+                paramArgs.push('show=' + $scope.showOption.list);
+            };
+            if ($scope.facetAttribute.value){
                 paramArgs.push('facet=' + $scope.facetAttribute.value + ',' + $scope.facetNumber);
             };
 
@@ -107,14 +103,13 @@ angular.module('bby-query-mixer.productSearch').controller('ProductSearchCtrl', 
             }
         };
         $scope.resetFacetNumber = function () {
-            $scope.facetNumber = '';
+            $scope.facetNumber = 10;
         };
+
+        $scope.showOption = {};
 
         $scope.resetParams = function () {
             $scope.category = $scope.categories[0];
-            $scope.option = {
-                showOptions: ['sku', 'name','salePrice']
-            };
             $scope.whichPage = 1;
             $scope.sortOrder = 'asc';
             $scope.complexAttr = '';
@@ -129,14 +124,17 @@ angular.module('bby-query-mixer.productSearch').controller('ProductSearchCtrl', 
             $scope.operator = $scope.attributeOption.operator[0];
             $scope.resetFacetNumber();
             $scope.facetAttribute = $scope.attributeOptions[0];
+            $scope.showOption.list = [];
+            
+            $scope.dynamicForms = [{value: $scope.attributeOption}];
         };
         //calling the function here loads the defaults on page load
         $scope.resetParams();
 
         //this function is fired on a ng-change when attribute is selected. it sets the first operator to be pre-selected
-        $scope.preselectOperator = function() {
-            $scope.operator = $scope.attributeOption.operator[0];
-            $scope.complexVal = $scope.attributeOption.valueOptions ? $scope.attributeOption.valueOptions[0].value : '';
+        $scope.preselectOperator = function(form) {
+            form.opt = form.value.operator[0];
+            form.complexVal = form.value.valueOptions ? form.value.valueOptions[0].value : '';
         };
 
         $scope.callCopyEvent = function () {
@@ -144,8 +142,50 @@ angular.module('bby-query-mixer.productSearch').controller('ProductSearchCtrl', 
             GaService.copyUrlEvent(tab,$scope.apiKey);
         };
 
-        var wrapParens = ($scope.operator.value === 'in') ? console.log('yolo') : '';
+        var addAllOptions = function(optionArray) {
+            var newArray = [];
+            angular.forEach(optionArray, function(i) { this.push(i.value) }, newArray);
+            return newArray;
+        };
 
+        $scope.selectAll = function (z) {
+            if (z === 'allproducts') {
+            $scope.showOption.list = addAllOptions($scope.showOptions);
+            } else if (z === 'noproducts') {
+                $scope.showOption.list = [];
+            } 
+            return;
+        };
+
+        
+        $scope.dynamicForms = [{id: '0',value:'',opt:'',complexVal:''}];  
+
+        var counter = 0;
+        $scope.addNewForm = function() {
+            counter += 1;
+            $scope.dynamicForms.push({'id':''+(counter)});
+
+        };
+        $scope.removeForm = function(form) {
+            var newItemNo = $scope.dynamicForms.length-1;
+            console.log(form)
+            console.log($scope.dynamicForms.indexOf(form))
+            $scope.dynamicForms.splice($scope.dynamicForms.indexOf(form),1);   
+        };
+
+        $scope.parseDynamicForms = function (array) {
+            var newArray = [];
+            angular.forEach(array, function(i) { 
+                if (i.value.productAttribute && i.opt.value && i.complexVal)
+                this.push(i.value.productAttribute + i.opt.value + i.complexVal); 
+                // console.dir(i) 
+
+            }, newArray);
+
+            return newArray.join('&');
+        };
+        
+        $scope.parseDynamicForms($scope.dynamicForms);
 
     }
 ])

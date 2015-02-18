@@ -10,7 +10,7 @@ angular.module('bby-query-mixer.productSearch').constant('attributeOptionsConfig
 	{text:'Description', productAttribute:'description', operator:[{value:'='},{value:'!='}], placeholder:'text', type:'text'},
 	{text:'Dollar Savings', productAttribute:'dollarSavings', operator:[{value:'='},{value:'>'},{value:'<'},{value:'<='},{value:'>='}], placeholder:'10.99', type:'number'},
 	{text:'Free Shipping', productAttribute:'freeShipping', operator:[{value:'='}], placeholder:true, type:"boolean", valueOptions:[{value:true},{value:false},{value:'*'}] },
-	{text:'In Store Availability', value:'inStoreAvailability', operator:[{value:'='}], placeholder:true, type:"boolean", valueOptions:[{value:true},{value:false},{value:'*'}] },
+	{text:'In Store Availability', productAttribute:'inStoreAvailability', operator:[{value:'='}], placeholder:true, type:"boolean", valueOptions:[{value:true},{value:false},{value:'*'}] },
 	{text:'Manufacturer', productAttribute:'manufacturer', operator:[{value:'='},{value:'!='}], placeholder:"canon", type:"text"},
 	{text:'Model Number', productAttribute:'modelNumber', operator:[{value:'='},{value:'!='}], placeholder:"4460B004", type:"text"},
 	{text:'Name', productAttribute:'name', operator:[{value:'='},{value:'!='}], placeholder:"Canon - EOS 60D DSLR Camera", type:"text"},

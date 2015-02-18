@@ -135,20 +135,16 @@ angular.module('bby-query-mixer.productSearch').controller('ProductSearchCtrl', 
             $scope.facetAttribute = $scope.attributeOptions[0];
             $scope.showOptions.list = [];
             
-            $scope.dynamicOption = {};
-            $scope.dynamicOption = {
-                list : []
-            }
-            $scope.dynamicOption = $scope.attributeOption;
+            $scope.dynamicForms = [{id: '0', value:'Choose Attribute', opt:'',complexVal:''}];
         };
         //calling the function here loads the defaults on page load
         $scope.resetParams();
 
         //this function is fired on a ng-change when attribute is selected. it sets the first operator to be pre-selected
-        // $scope.preselectOperator = function() {
-        //     $scope.operator = $scope.attributeOption.operator[0];
-        //     $scope.complexVal = $scope.attributeOption.valueOptions ? $scope.attributeOption.valueOptions[0].value : '';
-        // };
+        $scope.preselectOperator = function(form) {
+            form.opt = form.value.operator[0];
+            form.complexVal = form.value.valueOptions ? form.value.valueOptions[0].value : '';
+        };
 
         $scope.callCopyEvent = function () {
             var tab = "products";
@@ -178,8 +174,6 @@ angular.module('bby-query-mixer.productSearch').controller('ProductSearchCtrl', 
             counter += 1;
             $scope.dynamicForms.push({'id':''+(counter)});
 
-            // var newItemNo = $scope.dynamicForms.length+1;
-        // $scope.dynamicForms.push({'id':''+newItemNo});
         };
         $scope.removeForm = function(form) {
             var newItemNo = $scope.dynamicForms.length-1;
@@ -188,19 +182,15 @@ angular.module('bby-query-mixer.productSearch').controller('ProductSearchCtrl', 
             $scope.dynamicForms.splice($scope.dynamicForms.indexOf(form),1);   
         };
 
-        // $scope.dynamicOption = [
-        //     {value:'',opt:'',complexVal:''}
-        // ]
- 
-
-        // $scope.dynaList = $scope.dynamicOption.list;
-        // console.dir($scope.dynaList);
-
         $scope.parseDynamicForms = function (array) {
             var newArray = [];
-            angular.forEach(array, function(i) { this.push(i.value.productAttribute + i.opt.value + i.complexVal); console.dir(i) }, newArray);
-            // console.dir(newArray)
-            // console.log(newArray.join('&'))
+            angular.forEach(array, function(i) { 
+                if (i.value.productAttribute && i.opt.value && i.complexVal)
+                this.push(i.value.productAttribute + i.opt.value + i.complexVal); 
+                // console.dir(i) 
+
+            }, newArray);
+
             return newArray.join('&');
         };
         

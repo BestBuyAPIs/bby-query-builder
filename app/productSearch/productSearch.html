@@ -34,10 +34,10 @@
 
                         <div class="" id="complexSearch">
                             <form>
-                                <select ng-init="form.value = attributeOption" id="attribute" ng-model="form.value" ng-change="preselectOperator()"
+                                <select ng-init="form.value = attributeOption" id="attribute" ng-model="form.value" ng-change="preselectOperator(form)"
                                         ng-options="attr as attr.text for attr in attributeOptions"></select>
 
-                                <select ng-show="form.value.productAttribute" id="operator" ng-model="form.opt" ng-change="skuInParens()"
+                                <select class="optDropdown" ng-show="form.value.productAttribute" id="operator" ng-model="form.opt" ng-change="skuInParens()"
                                         ng-options="opt as opt.value for opt in form.value.operator" selected="{{dynamicOption.list[form.id].operator[0].value}}"></select>
 
                                 <input class="rounded" parenswrap ng-show="form.value.productAttribute && (form.value.type != 'boolean')" ng-model="form.complexVal" min="0" ng-maxlength="50" placeholder="{{form.value.placeholder}}">
@@ -56,7 +56,7 @@
                         <!-- <span ng-bind="$index"></span><span ng-bind="form.text"></span> -->
                         <!-- <span ng-bind="dynamicOption.list[form.id].complexVal"></span> -->
                     </div>
-                        <button ng-click="parseDynamicForms(dynamicForms)">test</button>
+                        <!-- <button ng-click="parseDynamicForms(dynamicForms)">test</button> -->
 
 
 
@@ -132,7 +132,7 @@
 
                 <p ng-show="category.value"><a class="breakdownLabel" href="https://developer.bestbuy.com/documentation/products-api#documentation/products-api-categorizations" target="_blank">categoryId</a> : (categoryPath.id=<span ng-bind="category.value"></span>)</p>
 
-                <p ng-show="attributeOption.value != '' "><a class="breakdownLabel" href="https://developer.bestbuy.com/documentation/products-api#documentation/products-api-detail" target="_blank">attribute</a> : (<span ng-bind="attributeOption.value + operator.value"></span><span ng-show="operator.value === ' in ' ">(</span><span ng-bind="complexVal"></span><span ng-show="operator.value === ' in ' ">)</span>)</p>
+                <p ng-show="attributeOption.value != '' "><a class="breakdownLabel" href="https://developer.bestbuy.com/documentation/products-api#documentation/products-api-detail" target="_blank">attribute</a> : (<span ng-bind="parseDynamicForms(dynamicForms)"></span><span ng-show="operator.value === ' in ' ">(</span><span ng-bind="complexVal"></span><span ng-show="operator.value === ' in ' ">)</span>)</p>
 
                 <p ng-show="keywordSearch"><a class="breakdownLabel" href="https://developer.bestbuy.com/documentation#advancedSearch-search" target="_blank">keyword</a> : (search=<span ng-bind="keywordSearch"></span>)</p>
 

@@ -377,5 +377,8 @@ input.ng-invalid {
     margin-left: 5px;
 }
 .glyphicon-minus {
-    color: red;
+    /*color: red;*/
+}
+.optDropdown {
+    width: 50px;
 }

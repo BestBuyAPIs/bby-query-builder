@@ -381,3 +381,6 @@ input.ng-invalid {
 .optDropdown {
     width: 50px;
 }
+.longLatInput {
+    width: 60px;
+}

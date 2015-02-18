@@ -29,7 +29,7 @@
                                 <div class="form-group">
                                     <p class="col-sm-2"><span class="subtitle">Latitude</span></p>
                                     <div class="col-sm-10"> 
-                                        <input ng-model="latitude" type="number" class="rounded" placeholder="71.3" min="0" max="90"></input>
+                                        <input ng-model="latitude" type="number" class="rounded longLatInput" placeholder="71.3" min="0"></input>
                                         <input type="radio" ng-model="latCompassDirection" value="north"> North 
                                         <input type="radio" ng-model="latCompassDirection" value="south"> South
                                     </div>
@@ -37,7 +37,7 @@
                                 <div class="form-group">
                                     <p class="col-sm-2"><span class="subtitle">Longitude</span></p>
                                     <div class="col-sm-10">
-                                        <input ng-model="longitude" type="number" class="rounded" placeholder="71.3" min="0" max="180">
+                                        <input ng-model="longitude" type="number" class="rounded longLatInput" placeholder="71.3">
                                         <input type="radio" ng-model="longCompassDirection" value="east"> East 
                                         <input type="radio" ng-model="longCompassDirection" value="west"> West</input>
                                     </div>
@@ -45,7 +45,7 @@
                                 <div class="form-group">
                                     <p class="col-sm-2"><span class="subtitle">Area</span> (miles):</p>
                                     <div class="col-sm-10"> 
-                                        <input ng-model="latLongArea" type="number" class="rounded" placeholder="25" min="0" max="999"></input>(optional)
+                                        <input ng-model="latLongArea" type="number" class="rounded longLatInput" placeholder="25" min="0" max="999"></input>
                                     </div>
                                 </div>
                             </form>
@@ -136,7 +136,7 @@
 
                 <p ng-show="zipCode"><a class="breakdownLabel" href="https://developer.bestbuy.com/documentation/stores-api#documentation/stores-api-area-function" target="_blank">areaFunction</a> : (area(<span ng-bind="zipCode"></span>,<span ng-bind="area"></span>))</p>
 
-                <p ng-show="latitude && longitude && latLongArea"><a class="breakdownLabel" href="https://developer.bestbuy.com/documentation/stores-api#documentation/stores-api-area-function" target="_blank">byLatLong</a> : (area(<span ng-bind="latitude"></span>,<span ng-bind="longitude"></span><span ng-show="latLongArea">,<span ng-bind="latLongArea"></span></span>))</p>
+                <p ng-show="latitude && longitude && latLongArea"><a class="breakdownLabel" href="https://developer.bestbuy.com/documentation/stores-api#documentation/stores-api-area-function" target="_blank">byLatLong</a> : (area(<span ng-show="latCompassDirection === 'south'">-</span><span ng-bind="latitude"></span>,<span ng-show="longCompassDirection === 'west'">-</span><span ng-bind="longitude"></span><span ng-show="latLongArea">,<span ng-bind="latLongArea"></span></span>))</p>
 
                 <p ng-show="storeId"><a class="breakdownLabel" href="https://developer.bestbuy.com/documentation/stores-api#csv_213-attribute-storeId" target="_blank">storeId</a> : (storeId=<span ng-bind="storeId"></span>)</p>
 

@@ -135,6 +135,8 @@ angular.module('bby-query-mixer.stores').controller('storesCtrl', [
             $scope.resetInput();
             $scope.errorResult = false;
             $scope.results = {};
+            $scope.latCompassDirection = 'north';
+            $scope.longCompassDirection = 'east';
 
         };
 

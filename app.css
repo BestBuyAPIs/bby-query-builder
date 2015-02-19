@@ -88,7 +88,6 @@ label:after {
     font-family: Menlo, Monaco, Consolas, "Courier New", monospace;
     font-size: 13px;
     font-weight: 500;
-    line-height: 19.5px;
     -webkit-font-smoothing: antialiased;
 }
 
@@ -381,4 +380,10 @@ input.ng-invalid {
 }
 .optDropdown {
     width: 50px;
+}
+.longLatInput {
+    width: 60px;
+}
+.longLatForm > p{
+    padding-left: 0.5%;
 }

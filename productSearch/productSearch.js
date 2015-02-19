@@ -36,10 +36,6 @@ angular.module('bby-query-mixer.productSearch').controller('ProductSearchCtrl', 
             var searchArgs = [];
             var keywordQuery = $scope.keywordSearch ? searchArgs.push( '(search=' + $scope.keywordSearch +')' ) :'' ;
 
-            var attributeQuery = 
-            (($scope.attributeOption.value)&&($scope.operator.value === ' in ')) ? searchArgs.push( '('+ $scope.attributeOption.value + $scope.operator.value +'('+ $scope.complexVal + '))' ):
-                $scope.attributeOption.value ? searchArgs.push( '('+ $scope.attributeOption.value + $scope.operator.value + $scope.complexVal + ')' ) : '';
- 
             var manyAttributes = $scope.dynamicForms[0].value.productAttribute ? searchArgs.push($scope.parseDynamicForms($scope.dynamicForms)) : '';
 
             var categoryQuery = $scope.category.value ? searchArgs.push('(categoryPath.id=' + $scope.category.value + ')') : '';
@@ -176,10 +172,14 @@ angular.module('bby-query-mixer.productSearch').controller('ProductSearchCtrl', 
         $scope.parseDynamicForms = function (array) {
             var newArray = [];
             angular.forEach(array, function(i) { 
-                if (i.value.productAttribute && i.opt.value && i.complexVal)
+                if (i.value.productAttribute && i.opt.value && i.complexVal){
+                    if (i.opt.value === ' in ') {
+                        this.push(i.value.productAttribute + i.opt.value +'('+ i.complexVal+')'); 
+                    }else {
                 this.push(i.value.productAttribute + i.opt.value + i.complexVal); 
                 // console.dir(i) 
-
+                    }
+                }
             }, newArray);
 
             return newArray.join('&');

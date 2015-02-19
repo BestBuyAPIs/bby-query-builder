@@ -64,6 +64,11 @@ describe('bby-query-mixer.productSearch module', function () {
                 scope.complexVal = '123, 456';
                 expect(scope.buildRemixQuery()).toEqual("https://api.remix.bestbuy.com/v1/products(sku in (123, 456))?sort=bestSellingRank.asc&format=json");
             });
+            it('should return add faceting when specified', function () {
+                scope.facetAttribute.productAttribute = 'color';
+                scope.facetNumber = 11;
+                expect(scope.buildRemixQuery()).toEqual("https://api.remix.bestbuy.com/v1/products?sort=bestSellingRank.asc&facet=color,11&format=json");
+            });
         });
 
         describe('buildParams function', function () {
@@ -99,7 +104,7 @@ describe('bby-query-mixer.productSearch module', function () {
                 expect(scope.buildParams()).toEqual('?apiKey=someApiKey&callback=JSON_CALLBACK&sort=sku.desc&format=json');
             });
             it('should add faceting when it\'s defined', function () {
-                scope.facetAttribute.value = 'manufacturer';
+                scope.facetAttribute.productAttribute = 'manufacturer';
                 scope.facetNumber = '3';
                 expect(scope.buildParams()).toEqual('?sort=bestSellingRank.asc&facet=manufacturer,3&format=json');
             });

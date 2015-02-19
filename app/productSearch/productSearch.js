@@ -82,8 +82,10 @@ angular.module('bby-query-mixer.productSearch').controller('ProductSearchCtrl', 
             if ($scope.showOption.list.length > 0){
                 paramArgs.push('show=' + $scope.showOption.list);
             };
-            if ($scope.facetAttribute.productAttribute){
+            if (($scope.facetAttribute.productAttribute)&&($scope.facetNumber)){
                 paramArgs.push('facet=' + $scope.facetAttribute.productAttribute + ',' + $scope.facetNumber);
+            } else if($scope.facetAttribute.productAttribute){
+                paramArgs.push('facet=' + $scope.facetAttribute.productAttribute);
             };
 
             if(($scope.pageSize !== 10) || ($scope.whichPage !== 1)){
@@ -99,7 +101,7 @@ angular.module('bby-query-mixer.productSearch').controller('ProductSearchCtrl', 
             }
         };
         $scope.resetFacetNumber = function () {
-            $scope.facetNumber = 10;
+            $scope.facetNumber = '';
         };
 
         $scope.showOption = {};

@@ -142,6 +142,14 @@
 
                 <p ng-show="regionOption.value"><a class="breakdownLabel" href="https://developer.bestbuy.com/documentation/stores-api#documentation/stores-api-information" target="_blank">region</a> : (region=<span ng-show="regionOption.value"><span ng-bind="regionOption.value"></span></span>)</p>
 
+
+
+
+                 <p ng-show="servicesOption.list.length > 0"><a href="https://developer.bestbuy.com/documentation/stores-api#documentation/stores-api-services-offered" class="breakdownLabel" target="_blank">storeServices</a> : <span ng-bind="filterStoreService(servicesOption.list)"></span></p>
+
+                <p ng-show="storeType.list.length > 0"><a href="https://developer.bestbuy.com/documentation/stores-api#csv_213-attribute-storeType" class="breakdownLabel" target="_blank">storeTypes</a> : <span ng-bind="filterStoreType(storeType.list)"></span></p>
+
+
                 <p ng-show="storeResponse.list.length > 0"><a class="breakdownLabel" href="https://developer.bestbuy.com/documentation/stores-api#documentation/stores-api-information" target="_blank">show</a> : &show=<span ng-bind="storeResponse.list"></span></p>
 
                 <p><a class="breakdownLabel" href="https://remix.mashery.com/member/register" target="_blank">apiKey</a> : ?apiKey=<span ng-bind="apiKey"></span></p>

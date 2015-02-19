@@ -16,10 +16,22 @@ angular.module('bby-query-mixer.stores').controller('storesCtrl', [
             { text: "Express", value: "express" }
         ];
 
+        $scope.filterStoreType = function (storeTypesArray) {
+            var newArray = [];
+            angular.forEach(storeTypesArray, function(i) {this.push('(storeType='+i+')')}, newArray);
+            return newArray.join('|');
+        };
+
+        $scope.filterStoreService = function (storeServiceArray) {
+            var newArray = [];
+            angular.forEach(storeServiceArray, function(i) {this.push('(services.service='+i+')')}, newArray);
+            return newArray.join('&');
+        };
+
         $scope.buildRemixQuery = function () {
             var baseUrl = 'http://api.remix.bestbuy.com/v1/stores';
             
-            //the optional search arguments like store type, store services, region, etc
+            //searchArgs = optional search arguments like store type, store services, region, etc
             var searchArgs = [];
             var byCity = ($scope.searchSelection.value === 'city') ? (searchArgs.push('(city='+$scope.cityChoice+')')):'';
             var byPostalCode = (function () {
@@ -35,25 +47,11 @@ angular.module('bby-query-mixer.stores').controller('storesCtrl', [
             var byLatLong = (($scope.longitude)&&($scope.latitude)) ? searchArgs.push('(area('+lat+','+long+','+area+'))') :'';
             var byStoreId = ($scope.searchSelection.value === 'storeId') ? (searchArgs.push('(storeId='+$scope.storeId+')')):'';
             var byRegion = ($scope.searchSelection.value === 'region') ? (searchArgs.push('(region='+$scope.regionOption.value+')')) : '';
-            //&( (storeType=mobile) | (storeType=bigbox) )
-            //then we need to join it with '|' and add it to the url
-            var filterStoreType = function (storeTypesArray) {
-                var newArray = [];
-                angular.forEach(storeTypesArray, function(i) {this.push('(storeType='+i+')')}, newArray);
-                return newArray.join('|');
-            };
-            var addStoreType = ($scope.storeType.list.length > 0) ? searchArgs.push(('('+filterStoreType($scope.storeType.list)+')')) : '';
-            //((services.service=Windows)&(services.service=Apple%20Shop))
-            var filterStoreService = function (storeServiceArray) {
-                var newArray = [];
-                angular.forEach(storeServiceArray, function(i) {this.push('(services.service='+i+')')}, newArray);
-                return newArray.join('&');
-            };
-            //this checks to see if a store location criteria has been selected and adds the ampersand if needed
-            var addStoreServices = ((!$scope.searchSelection.value) && ($scope.servicesOption.list.length > 0)) ? searchArgs.push((filterStoreService($scope.servicesOption.list) )) :
-                    (($scope.searchSelection.value) && ($scope.servicesOption.list.length > 0)) ? searchArgs.push('('+filterStoreService($scope.servicesOption.list)+')' ) : '' ;
+            
+            var addStoreType = ($scope.storeType.list.length > 0) ? searchArgs.push(('('+$scope.filterStoreType($scope.storeType.list)+')')) : '';
 
-
+            var addStoreServices = ((!$scope.searchSelection.value) && ($scope.servicesOption.list.length > 0)) ? searchArgs.push(($scope.filterStoreService($scope.servicesOption.list) )) :
+                    (($scope.searchSelection.value) && ($scope.servicesOption.list.length > 0)) ? searchArgs.push('('+$scope.filterStoreService($scope.servicesOption.list)+')' ) : '' ;
 
             //queryParams are things like apikey, format, etc
             var queryParams = [];

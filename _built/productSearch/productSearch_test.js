@@ -57,11 +57,12 @@ describe('bby-query-mixer.productSearch module', function () {
                 expect(scope.buildRemixQuery()).toEqual("https://api.remix.bestbuy.com/v1/products((categoryPath.id=someCategory))?sort=sku.desc&format=json");
             });
             it('should return a the right parens when sku in query is made', function () {
+                scope.dynamicForms= [{value:{productAttribute:'sku'},opt:{value:' in '},complexVal:'123, 456'}]
                 scope.facetAttribute = '';
                 scope.attributeOption.value = 'sku';
                 scope.operator.value = ' in ';
                 scope.complexVal = '123, 456';
-                expect(scope.buildRemixQuery()).toEqual("https://api.remix.bestbuy.com/v1/products((sku in (123, 456)))?sort=bestSellingRank.asc&format=json");
+                expect(scope.buildRemixQuery()).toEqual("https://api.remix.bestbuy.com/v1/products(sku in (123, 456))?sort=bestSellingRank.asc&format=json");
             });
         });
 

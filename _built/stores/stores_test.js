@@ -26,12 +26,12 @@ describe('bby-query-mixer.stores module', function () {
 	        expect(scope.buildRemixQuery).toBeDefined();
 	    });
 	    it('should build a query string', function (){
-	        expect(scope.buildRemixQuery()).toEqual('http://api.remix.bestbuy.com/v1/stores()?format=json&callback=JSON_CALLBACK');
+	        expect(scope.buildRemixQuery()).toEqual('http://api.remix.bestbuy.com/v1/stores?format=json&callback=JSON_CALLBACK');
 	    });
 	    it('should update pagination in the query string', function (){
 	        scope.pageSize = '12';
 	        scope.whichPage = '3';
-	        expect(scope.buildRemixQuery()).toEqual('http://api.remix.bestbuy.com/v1/stores()?format=json&pageSize=12&page=3&callback=JSON_CALLBACK');
+	        expect(scope.buildRemixQuery()).toEqual('http://api.remix.bestbuy.com/v1/stores?format=json&pageSize=12&page=3&callback=JSON_CALLBACK');
 	    });
 	    it('should add an ampersand in front of services list, but only if needed', function (){
 	        scope.searchSelection.value = 'city';

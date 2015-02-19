@@ -17,28 +17,24 @@ angular.module('bby-query-mixer.stores').controller('storesCtrl', [
         ];
 
         $scope.buildRemixQuery = function () {
-            var baseUrl = 'http://api.remix.bestbuy.com/v1/stores(';
+            var baseUrl = 'http://api.remix.bestbuy.com/v1/stores';
             
-            var byCity = ($scope.searchSelection.value === 'city') ? (baseUrl +='(city='+$scope.cityChoice+')'):'';
-            
+            //the optional search arguments like store type, store services, region, etc
+            var searchArgs = [];
+            var byCity = ($scope.searchSelection.value === 'city') ? (searchArgs.push('(city='+$scope.cityChoice+')')):'';
             var byPostalCode = (function () {
                 if (($scope.zipCode)&&($scope.area !== '')) {
-                   return (baseUrl += '(area('+$scope.zipCode+','+$scope.area+'))') ;
+                   return (searchArgs.push('(area('+$scope.zipCode+','+$scope.area+'))')) ;
                 } else if ($scope.zipCode) {
-                   return (baseUrl += '(postalCode='+$scope.zipCode+')') ;
+                   return (searchArgs.push('(postalCode='+$scope.zipCode+')')) ;
                 }
             })();
-
             var lat = ($scope.latCompassDirection === 'south') ? '-'+ $scope.latitude: $scope.latitude;
             var long = ($scope.longCompassDirection === 'west') ? '-' + $scope.longitude : $scope.longitude;
             var area = ($scope.latLongArea) ? $scope.latLongArea : '';
-            var byLatLong = (($scope.longitude)&&($scope.latitude)) ? baseUrl += '(area('+lat+','+long+','+area+'))' :'';
-
-            var byStoreId = ($scope.searchSelection.value === 'storeId') ? (baseUrl += '(storeId='+$scope.storeId+')'):'';
-
-            var byRegion = ($scope.searchSelection.value === 'region') ? (baseUrl += '(region='+$scope.regionOption.value+')') : '';
-            
-
+            var byLatLong = (($scope.longitude)&&($scope.latitude)) ? searchArgs.push('(area('+lat+','+long+','+area+'))') :'';
+            var byStoreId = ($scope.searchSelection.value === 'storeId') ? (searchArgs.push('(storeId='+$scope.storeId+')')):'';
+            var byRegion = ($scope.searchSelection.value === 'region') ? (searchArgs.push('(region='+$scope.regionOption.value+')')) : '';
             //&( (storeType=mobile) | (storeType=bigbox) )
             //then we need to join it with '|' and add it to the url
             var filterStoreType = function (storeTypesArray) {
@@ -46,28 +42,29 @@ angular.module('bby-query-mixer.stores').controller('storesCtrl', [
                 angular.forEach(storeTypesArray, function(i) {this.push('(storeType='+i+')')}, newArray);
                 return newArray.join('|');
             };
-            var addStoreType = ($scope.storeType.list.length > 0) ? baseUrl+=('&('+filterStoreType($scope.storeType.list)+')') : '';
-
-
+            var addStoreType = ($scope.storeType.list.length > 0) ? searchArgs.push(('('+filterStoreType($scope.storeType.list)+')')) : '';
             //((services.service=Windows)&(services.service=Apple%20Shop))
             var filterStoreService = function (storeServiceArray) {
                 var newArray = [];
                 angular.forEach(storeServiceArray, function(i) {this.push('(services.service='+i+')')}, newArray);
                 return newArray.join('&');
             };
-
             //this checks to see if a store location criteria has been selected and adds the ampersand if needed
-            var addStoreServices = ((!$scope.searchSelection.value) && ($scope.servicesOption.list.length > 0)) ? baseUrl += (filterStoreService($scope.servicesOption.list) ) :
-                    (($scope.searchSelection.value) && ($scope.servicesOption.list.length > 0)) ? baseUrl += ('&('+filterStoreService($scope.servicesOption.list)+')' ) : '' ;
+            var addStoreServices = ((!$scope.searchSelection.value) && ($scope.servicesOption.list.length > 0)) ? searchArgs.push((filterStoreService($scope.servicesOption.list) )) :
+                    (($scope.searchSelection.value) && ($scope.servicesOption.list.length > 0)) ? searchArgs.push('('+filterStoreService($scope.servicesOption.list)+')' ) : '' ;
 
-            baseUrl += ')?format=json';
-            var addKey = $scope.apiKey ? baseUrl += ('&apiKey='+$scope.apiKey):'';
 
-            var addStoreResponseOptions = ($scope.storeResponse.list.length > 0) ? baseUrl += ('&show=' + $scope.storeResponse.list) : '';
 
-            var addPagination = (($scope.pageSize !== 10) || ($scope.whichPage !== 1)) ? baseUrl+=('&pageSize='+$scope.pageSize+'&page='+$scope.whichPage) :'';
+            //queryParams are things like apikey, format, etc
+            var queryParams = [];
+            queryParams.push('?format=json');
+            var addKey = $scope.apiKey ? queryParams.push(('&apiKey='+$scope.apiKey)):'';
+            var addStoreResponseOptions = ($scope.storeResponse.list.length > 0) ? queryParams.push(('&show=' + $scope.storeResponse.list)) : '';
+            var addPagination = (($scope.pageSize !== 10) || ($scope.whichPage !== 1)) ? queryParams.push(('&pageSize='+$scope.pageSize+'&page='+$scope.whichPage)) :'';
 
-            baseUrl += '&callback=JSON_CALLBACK';
+            queryParams.push('&callback=JSON_CALLBACK');
+            var parensCheck = searchArgs.length === 0 ? baseUrl += (searchArgs.join('')) : baseUrl += ('('+searchArgs.join('&')+')');
+            baseUrl += queryParams.join('');
             return baseUrl
         };
 
@@ -135,6 +132,8 @@ angular.module('bby-query-mixer.stores').controller('storesCtrl', [
             $scope.resetInput();
             $scope.errorResult = false;
             $scope.results = {};
+            $scope.latCompassDirection = 'north';
+            $scope.longCompassDirection = 'east';
 
         };
 

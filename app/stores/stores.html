@@ -108,9 +108,19 @@
                             </ui-select-choices>
                         </ui-select>
                     </div>
+          <h4><span class="fa-stack fa-3x numberIcon">
+                <i class="fa fa-circle fa-stack-2x icon-stack-base"></i>
+                <strong class="char-overlay fa-stack-1x">3</strong>
+                </span> Product Availability Search (optional)</h4>
+        <div class="content-container">
+            <form name="pageSizeform">
+            <p>Enter SKUs to search for <a href="https://developer.bestbuy.com/documentation/stores-api#documentation/stores-api-in-store-availability" target="_blank">In-Store Availability</a>:</p>
+            List of SKUs: <input class="rounded" id="pagination" ng-model="skuList" type="text" placeholder="6461052,5909042">
+            </form>
+        </div>                        
              <h4><span class="fa-stack fa-3x numberIcon">
                     <i class="fa fa-circle fa-stack-2x icon-stack-base"></i>
-                    <strong class="char-overlay fa-stack-1x">3</strong>
+                    <strong class="char-overlay fa-stack-1x">4</strong>
                     </span> Pagination</h4>
             <div class="content-container">
                 <form name="pageSizeform">
@@ -119,8 +129,7 @@
                 <span class="error" ng-show="pageSizeform.input.$error.number">Not valid number!</span>
                 Page: <input class="rounded" id="whichPage" ng-model="whichPage" type="number" min="1" max="900" required>
                 </form>
-
-            </div>
+            </div>       
             <br/>
                 <button class="query-button" ng-click="resetParams()">RESET Query</button>
                 <button class="query-button" ng-click="invokeRemixQuery()">RUN Query</button>
@@ -142,7 +151,10 @@
 
                 <p ng-show="regionOption.value"><a class="breakdownLabel" href="https://developer.bestbuy.com/documentation/stores-api#documentation/stores-api-information" target="_blank">region</a> : (region=<span ng-show="regionOption.value"><span ng-bind="regionOption.value"></span></span>)</p>
 
-                 <p ng-show="servicesOption.list.length > 0"><a href="https://developer.bestbuy.com/documentation/stores-api#documentation/stores-api-services-offered" class="breakdownLabel" target="_blank">storeServices</a> : <span ng-bind="filterStoreService(servicesOption.list)"></span></p>
+                <p ng-show="skuList !== ''"><a class="breakdownLabel" href="https://developer.bestbuy.com/documentation/stores-api#documentation/stores-api-in-store-availability" target="_blank">inStoreAvailability</a> : +products(sku%20in%20(<span ng-show="skuList"><span ng-bind="skuList"></span></span>)</p>
+
+
+                <p ng-show="servicesOption.list.length > 0"><a href="https://developer.bestbuy.com/documentation/stores-api#documentation/stores-api-services-offered" class="breakdownLabel" target="_blank">storeServices</a> : <span ng-bind="filterStoreService(servicesOption.list)"></span></p>
 
                 <p ng-show="storeType.list.length > 0"><a href="https://developer.bestbuy.com/documentation/stores-api#csv_213-attribute-storeType" class="breakdownLabel" target="_blank">storeTypes</a> : <span ng-bind="filterStoreType(storeType.list)"></span></p>
 

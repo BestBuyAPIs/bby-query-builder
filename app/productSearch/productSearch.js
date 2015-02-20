@@ -12,21 +12,10 @@ angular.module('bby-query-mixer.productSearch').controller('ProductSearchCtrl', 
         $scope.showOptions = angular.copy(showOptionsConfig);
         $scope.attributeOptions = angular.copy(attributeOptionsConfig);
 
-        $scope.sortByOptions = [
-            {text:"Best Selling Rank", value:"bestSellingRank"},
-            {text:"Color", value:"color"},
-            {text:"Name", value:"name"},
-            {text:"SKU", value:"SKU"},
-            {text:"Sale Price", value:"salePrice" }
-        ];
-        $scope.sortBy = $scope.sortByOptions[0];
-
         $scope.sortOrderOptions = [
             {text:"Ascending", value:"asc"},
             {text:"Descending", value:"dsc"}
         ];
-
-        $scope.sortOrder = $scope.sortOrderOptions[0];
 
         $scope.showOpts = function () {
             console.log($scope.option.showOptions);
@@ -75,12 +64,12 @@ angular.module('bby-query-mixer.productSearch').controller('ProductSearchCtrl', 
                 paramArgs.push('apiKey=' + $scope.apiKey + '&callback=JSON_CALLBACK' );
             }
 
-            if ($scope.sortBy.value && $scope.sortBy.value != 'none') {
+            if ($scope.sortBy && $scope.sortBy != 'none') {
                 paramArgs.push('sort=' + $scope.sortBy.value + '.' + $scope.sortOrder.value);
             }
 
             if ($scope.showOption.list.length > 0){
-                paramArgs.push('show=' + $scope.showOption.list);
+                paramArgs.push('show=' + addAllOptionValues($scope.showOption.list));
             };
             if (($scope.facetAttribute.productAttribute)&&($scope.facetNumber)){
                 paramArgs.push('facet=' + $scope.facetAttribute.productAttribute + ',' + $scope.facetNumber);
@@ -114,7 +103,6 @@ angular.module('bby-query-mixer.productSearch').controller('ProductSearchCtrl', 
             $scope.complexVal = '';
             $scope.pageSize =  10;
             $scope.attributeOption = $scope.attributeOptions[0];
-            $scope.sortBy = $scope.sortByOptions[0];
             $scope.sortOrder = $scope.sortOrderOptions[0];
             $scope.remixResults = {};
             $scope.keywordSearch = '';
@@ -123,11 +111,13 @@ angular.module('bby-query-mixer.productSearch').controller('ProductSearchCtrl', 
             $scope.resetFacetNumber();
             $scope.facetAttribute = $scope.attributeOptions[0];
             $scope.showOption.list = [];
-            
             $scope.dynamicForms = [{value: $scope.attributeOption}];
         };
         //calling the function here loads the defaults on page load
         $scope.resetParams();
+
+
+        // $scope.sortBy = $scope.showOption.list[0];
 
         //this function is fired on a ng-change when attribute is selected. it sets the first operator to be pre-selected
         $scope.preselectOperator = function(form) {
@@ -142,19 +132,27 @@ angular.module('bby-query-mixer.productSearch').controller('ProductSearchCtrl', 
 
         var addAllOptions = function(optionArray) {
             var newArray = [];
+            angular.forEach(optionArray, function(i) { this.push(i) }, newArray);
+            return newArray;
+        };
+        var addAllOptionValues = function(optionArray) {
+            var newArray = [];
             angular.forEach(optionArray, function(i) { this.push(i.value) }, newArray);
             return newArray;
         };
-
+        $scope.addAllShowOptions = function(optionArray) {
+            var newArray = [];
+            angular.forEach(optionArray, function(i) { this.push(i.value) }, newArray);
+            return newArray.join(',');
+        };
         $scope.selectAll = function (z) {
             if (z === 'allproducts') {
-            $scope.showOption.list = addAllOptions($scope.showOptions);
+                $scope.showOption.list = addAllOptions($scope.showOptions);
             } else if (z === 'noproducts') {
                 $scope.showOption.list = [];
             } 
             return;
         };
-
         
         $scope.dynamicForms = [{id: '0',value:'',opt:'',complexVal:''}];  
 
@@ -186,8 +184,11 @@ angular.module('bby-query-mixer.productSearch').controller('ProductSearchCtrl', 
 
             return newArray.join('&');
         };
-        
-        $scope.parseDynamicForms($scope.dynamicForms);
+
+        $scope.clearBlankSelect = function () {
+            $scope.sortBy = $scope.showOption.list[0];
+            // console.dir($scope.showOption.list)
+        };
 
     }
 ])

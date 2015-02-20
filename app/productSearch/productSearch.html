@@ -53,9 +53,9 @@
                         <button class="btn btn-default btn-xs" ng-click="selectAll('allproducts')">Select All</button> <button class="btn btn-default btn-xs" ng-click="selectAll('noproducts')">Select None</button>
                     </p>
                     <div class="multiSelectBox">
-                        <ui-select multiple ng-model="showOption.list" theme="select2" ng-disabled="disabled">
+                        <ui-select ng-change="clearBlankSelect()" multiple ng-model="showOption.list" theme="select2" ng-disabled="disabled">
                             <ui-select-match placeholder="Select response options">{{$item.text}}</ui-select-match>
-                            <ui-select-choices repeat="option.value as option in showOptions | propsFilter: {text: $select.search}">
+                            <ui-select-choices repeat="option as option in showOptions | propsFilter: {text: $select.search}">
                               <div ng-bind-html="option.text | highlight: $select.search"></div>
                             </ui-select-choices>
                         </ui-select>
@@ -71,14 +71,16 @@
                                 <i class="fa fa-question-circle" tooltip="Faceting provides an aggregated count of the specified attributes as returned in the results. It will include the number of the aggregated results as specified by number field." tooltip-placement="top"></i>
                             </div>
                         </div>
-                        <div class="form-group">
+
+                        <div class="form-group" ng-show="showOption.list.length > 0">
                             <label class="col-sm-2 control-label"><a href="https://developer.bestbuy.com/documentation#sort-sort" target="_blank">Sort By:</a></label>
                             <div class="col-sm-10">
-                                <select ng-model="sortBy" ng-options="opt as opt.text for opt in sortByOptions"></select></span>
+                                <select ng-init="showOption.list[0]" selected="Choose Sort Option" ng-model="sortBy" ng-options="opt as opt.text for opt in showOption.list"></select></span>
                                 <span>Sort Order:
                                 <select ng-model="sortOrder" ng-options="opt as opt.text for opt in sortOrderOptions"></select>
                             </div>
                         </div>
+
                     </form>
                 </div>
 
@@ -117,7 +119,9 @@
 
                 <p><a class="breakdownLabel" href="https://developer.bestbuy.com/documentation#sort-sort" target="_blank">sortOptions</a> : &sort=<span ng-bind="sortBy.value"></span>.<span ng-bind="sortOrder.value"></span></span></p>
 
-                <p ng-show="showOption.list"><a class="breakdownLabel" href="https://developer.bestbuy.com/documentation#show-show" target="_blank">showOptions</a> : &show=<span ng-bind="showOption.list"></span></p>
+
+                <p ng-show="showOption.list"><a class="breakdownLabel" href="https://developer.bestbuy.com/documentation#show-show" target="_blank">showOptions</a> : &show=<span ng-bind="addAllShowOptions(showOption.list)"></span></p>
+
 
                 <p ng-show="(pageSize !== 10) || (whichPage !== 1)"><a class="breakdownLabel" href="https://developer.bestbuy.com/documentation#pagination-pagination" target="_blank">pagination</a> : pageSize=<span ng-bind="pageSize"></span>&page=<span ng-bind="whichPage"></span></p>
 

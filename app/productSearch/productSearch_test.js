@@ -55,8 +55,9 @@ describe('bby-query-mixer.productSearch module', function () {
                 scope.sortOrder.value = "desc";
                 expect(scope.buildRemixQuery()).toEqual("https://api.remix.bestbuy.com/v1/products((categoryPath.id=someCategory))?format=json");
             });
-            it('should return a the right parens when sku in query is made', function () {
+            it('should return the right parens when sku in query is made', function () {
                 scope.dynamicForms= [{value:{productAttribute:'sku'},opt:{value:' in '},complexVal:'123, 456'}]
+                var form = {value:{operator:[{value:'='}]}}
                 scope.facetAttribute = '';
                 scope.attributeOption.value = 'sku';
                 scope.operator.value = ' in ';
@@ -68,6 +69,10 @@ describe('bby-query-mixer.productSearch module', function () {
                 scope.facetNumber = 11;
                 expect(scope.buildRemixQuery()).toEqual("https://api.remix.bestbuy.com/v1/products?facet=color,11&format=json");
             });
+            it('should add bad values to query so that remix returns the proper error status', function () {
+                scope.dynamicForms= [{value:{productAttribute:'bestSellingRank'},opt:{value:'='},complexVal:'wwwwwwwwww'}]
+                expect(scope.buildRemixQuery()).toEqual("https://api.remix.bestbuy.com/v1/products(bestSellingRank=wwwwwwwwww)?format=json");
+            });            
         });
 
         describe('buildParams function', function () {
@@ -141,7 +146,6 @@ describe('bby-query-mixer.productSearch module', function () {
                 scope.preselectOperator(form);
                 expect(scope.operator).toEqual(scope.attributeOption.operator[0]);
                 expect(scope.complexVal).toEqual('');
-
             });
         });
 
@@ -150,6 +154,14 @@ describe('bby-query-mixer.productSearch module', function () {
                 scope.dynamicForms= [{value:{productAttribute:'foo'},opt:{value:'='},complexVal:'foo'}]
                 expect(scope.buildRemixQuery()).toEqual("https://api.remix.bestbuy.com/v1/products(foo=foo)?format=json");
             });
+             it('should add/delete forms from the dynamic attributes list', function () {
+                scope.dynamicForms = [{value:{productAttribute:'foo'},opt:{value:'='},complexVal:'foo'}]
+                expect(scope.dynamicForms.length).toEqual(1);
+                scope.addNewForm();
+                expect(scope.dynamicForms.length).toEqual(2);
+                scope.removeForm();
+                expect(scope.dynamicForms.length).toEqual(1);
+            });           
         });
         describe('sort by form function', function () {
             it('should populate the sort by list depending on what is in the product attributes', function () {
@@ -163,7 +175,16 @@ describe('bby-query-mixer.productSearch module', function () {
             });
 
         });
-
+        describe('select all button', function () {
+            it('should select all', function () {
+                scope.selectAll('allproducts')
+                expect(scope.showOption.list.length).toEqual(41);
+            });
+            it('should select none', function () {
+                scope.selectAll('none')
+                expect(scope.showOption.list.length).toEqual(0);
+            });
+        });
 
     });
 });

@@ -13,7 +13,7 @@ angular.module('bby-query-mixer.stores').controller('storesCtrl', [
         $scope.storeTypes = [
             { text:"Big Box", value: "bigbox" },
             { text: "Mobile", value: "mobile" },
-            { text: "Express", value: "express" }
+            { text: "Express (Kiosk)", value: "express" }
         ];
 
         $scope.filterStoreType = function (storeTypesArray) {

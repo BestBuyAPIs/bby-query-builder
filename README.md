@@ -11,7 +11,7 @@ Included in this app are queries for fetching products:
 
 ## Getting Started
 
-The rest of this page explains how to get the code and run it. If you want to use the application, go [here](http://bestbuyapis.github.io/bby-query-mixer).
+The rest of this page explains how to get the code and run it. If you want to use the application, go [here](http://bestbuyapis.github.io/bby-query-builder).
 
 ## Working with the code
 ### Prerequisites

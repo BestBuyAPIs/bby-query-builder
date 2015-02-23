@@ -117,7 +117,19 @@
             <p>Enter a comma separated <a href="https://developer.bestbuy.com/documentation/stores-api#documentation/stores-api-in-store-availability" target="_blank">list of SKUs</a> to determine if those products are available in any of the stores in Step 1. </p>
             List of SKUs <input class="rounded" id="pagination" ng-model="skuList" type="text" placeholder="6461052,5909042">
             </form>
-        </div>                        
+        </div>  
+        <p>
+            <span class="subtitle">Product Attributes </span><span>(optional)</span>
+            <button class="btn btn-default btn-xs" ng-click="selectAll('products')">Select All</button> <button class="btn btn-default btn-xs" ng-click="selectAll('noproducts')">Select None</button>
+        </p>
+        <div class="multiSelectBox">
+            <ui-select multiple ng-model="productOption.list" theme="select2" ng-disabled="disabled">
+                <ui-select-match placeholder="Select product attributes">{{$item.text}}</ui-select-match>
+                <ui-select-choices repeat="option.value as option in productOptions | propsFilter: {text: $select.search}">
+                  <div ng-bind-html="option.text | highlight: $select.search"></div>
+                </ui-select-choices>
+            </ui-select>
+        </div>                      
              <h4><span class="fa-stack fa-3x numberIcon">
                     <i class="fa fa-circle fa-stack-2x icon-stack-base"></i>
                     <strong class="char-overlay fa-stack-1x">4</strong>

@@ -72,7 +72,15 @@ describe('bby-query-mixer.productSearch module', function () {
             it('should add bad values to query so that remix returns the proper error status', function () {
                 scope.dynamicForms= [{value:{productAttribute:'bestSellingRank'},opt:{value:'='},complexVal:'wwwwwwwwww'}]
                 expect(scope.buildRemixQuery()).toEqual("https://api.remix.bestbuy.com/v1/products(bestSellingRank=wwwwwwwwww)?format=json");
-            });            
+            });
+            it('should add the star value to the query when selected', function () {
+                scope.dynamicForms= [{value:{productAttribute:'onSale'},opt:{value:'='},complexVal:'*'}];
+                expect(scope.buildRemixQuery()).toEqual("https://api.remix.bestbuy.com/v1/products(onSale=*)?format=json");
+            });
+            it('should allow invalid page sizes so remix can return the real error message', function () {
+                scope.pageSize = 111;
+                expect(scope.buildRemixQuery()).toEqual("https://api.remix.bestbuy.com/v1/products?pageSize=111&page=1&format=json");
+            });              
         });
 
         describe('buildParams function', function () {

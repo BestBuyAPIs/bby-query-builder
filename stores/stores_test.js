@@ -40,6 +40,10 @@ describe('bby-query-mixer.stores module', function () {
 	        scope.searchSelection.value = false;
 	       	expect(scope.buildRemixQuery()).toEqual('http://api.remix.bestbuy.com/v1/stores((services.service=foo))?format=json&callback=JSON_CALLBACK');
 	    });
+	   	it('should add list of SKUs to the url', function (){
+	        scope.skuList = '6461052,5909042';
+	        expect(scope.buildRemixQuery()).toEqual('http://api.remix.bestbuy.com/v1/stores+products(sku%20in%20(6461052,5909042))?format=json&callback=JSON_CALLBACK');
+	    });
     });
 
     describe('reset query function', function () {

@@ -134,13 +134,16 @@ label:after {
     width: 50%;
     margin: 0;
     padding: 5px 0;
-    font-size: 24pt;
+    font-size: 24px;
+
 }
 #logo-wrapper img {
     width: 50px;
     height: 35px;
 }
-
+#header-title{
+    vertical-align: middle;
+}
 .query-result {
     width: 100%;
     min-height: 8em;

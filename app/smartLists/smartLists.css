@@ -20,3 +20,7 @@
 #connectedHomeButton.selected {
     background-image: url(../assets/conHome_selected.png);
 }
+
+#button-container {
+	padding-top: 2%;
+}

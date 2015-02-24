@@ -13,10 +13,10 @@
 </h4>
                 <div class="row content-container endpointContainer">
                     <span>
-                        <input class="endpoint-button" ng-class="{'selected': (endpoint.selected === 'activeAdventurer')}" type="button" id="activeAdventurerButton" ng-click="endpoint.selected = 'activeAdventurer'; activeAdventurer = !activeAdventurer;" ng-init="activeAdventurer = false"></input>
+                        <input class="endpoint-button" ng-class="{'selected': (endpoint.selected === 'activeAdventurer')}" type="button" id="activeAdventurerButton" ng-click="endpoint.selected = 'activeAdventurer'; activeAdventurer = !activeAdventurer;" ng-init="activeAdventurer = false"></input><i class="fa fa-question-circle recommendationTooltip" tooltip="The Active Adventurer Smart List identifies top-rated products for devices used during sporting activities such as watersports, walking, running and golfing to name a few." tooltip-placement="right"></i>
                     </span>
                     <span>
-                        <input class="endpoint-button" ng-class="{'selected': (endpoint.selected === 'connectedHome')}" type="button" id="connectedHomeButton" ng-click="endpoint.selected = 'connectedHome'; connectedHome = !connectedHome;" ng-init="connectedHome = false"></input>
+                        <input class="endpoint-button" ng-class="{'selected': (endpoint.selected === 'connectedHome')}" type="button" id="connectedHomeButton" ng-click="endpoint.selected = 'connectedHome'; connectedHome = !connectedHome;" ng-init="connectedHome = false"></input><i class="fa fa-question-circle recommendationTooltip" tooltip="The Connected Home Smart List identifies top-rated products for automating and securing your home." tooltip-placement="right"></i>
                     </span>
 <!--                     <span>
                         <input class="endpoint-button" ng-class="{'selected': (endpoint.selected === ' ')}" type="button" id="  Button" ng-click="endpoint.selected = '  ';   = ! ;" ng-init="  = false"></input>
@@ -25,7 +25,7 @@
                 <br/>
 
 
-                <div>
+                <div id="button-container">
                     <button id="reset-query" class="query-button" ng-click="resetSmartListsQuery()">RESET
                         query
                     </button>

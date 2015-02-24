@@ -335,3 +335,6 @@ input.ng-invalid {
 .longLatForm > p{
     padding-left: 0.5%;
 }
+p{
+    overflow: auto;
+}

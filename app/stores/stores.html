@@ -130,7 +130,7 @@
                 </ui-select>
             </div>  
         </div>  
-                    
+
              <h4><span class="fa-stack fa-3x numberIcon">
                     <i class="fa fa-circle fa-stack-2x icon-stack-base"></i>
                     <strong class="char-overlay fa-stack-1x">4</strong>
@@ -172,7 +172,7 @@
                 <p ng-show="storeType.list.length > 0"><a href="https://developer.bestbuy.com/documentation/stores-api#csv_213-attribute-storeType" class="breakdownLabel" target="_blank">storeTypes</a> : <span ng-bind="filterStoreType(storeType.list)"></span></p>
 
 
-                <p ng-show="storeResponse.list.length > 0"><a class="breakdownLabel" href="https://developer.bestbuy.com/documentation/stores-api#documentation/stores-api-information" target="_blank">show</a> : &show=<span ng-bind="storeResponse.list"></span></p>
+                <p ng-show="storeResponse.list.length > 0 || productOption.list.length > 0"><a class="breakdownLabel" href="https://developer.bestbuy.com/documentation/stores-api#documentation/stores-api-information" target="_blank">show</a> : &show=<span ng-bind="storeResponse.list"></span><span ng-show="storeResponse.list.length > 0">,</span><span ng-bind="productOption.list"></span></p>
 
                 <p><a class="breakdownLabel" href="https://remix.mashery.com/member/register" target="_blank">apiKey</a> : ?apiKey=<span ng-bind="apiKey"></span></p>
 

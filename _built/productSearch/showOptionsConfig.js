@@ -28,7 +28,7 @@ angular.module('bby-query-mixer.productSearch').constant('showOptionsConfig', [
 	{ text: 'Name', value: 'name' },
 	{ text: 'Online Availability', value: 'onlineAvailability' },
 	{ text: 'Online Availability Text', value: 'onlineAvailabilityText' },
-	{ text: 'On Sale?', value: 'onSale' },
+	{ text: 'On Sale', value: 'onSale' },
 	{ text: 'Percent Savings', value: 'percentSavings' },
 	{ text: 'Preowned?', value: 'preowned' },
 	{ text: 'Regular Price', value: 'regularPrice' },
@@ -41,5 +41,5 @@ angular.module('bby-query-mixer.productSearch').constant('showOptionsConfig', [
     { text: 'Thumbnail Image', value: 'thumbnailImage' },
     { text: 'Type', value: 'type' },
     { text: 'UPC', value: 'upc' },
-    { text: 'Product Detail URL', value: 'url' }
+    { text: 'URL', value: 'url' }
 ]);

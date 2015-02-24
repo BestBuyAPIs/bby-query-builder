@@ -1,10 +1,10 @@
-<div id="recommendations-div" ng-controller="RecommendationsCtrl as recommendations">
+<div id="smartLists-div" ng-controller="SmartListsCtrl">
     <div id="left-side-container" class="query-container">
         <div class="content-container" id="builder-content">
             <div class="query-information">
-                <h3>Recommendations API</h3>
+                <h3>Smart Lists API</h3>
                 <div>
-                    <p>The <a href="https://developer.bestbuy.com/documentation/recommendations-api" target="_blank">Recommendations API</a> is a family of endpoints providing access to top trending products and most popular products based on customer behavior at <a href="http://www.bestbuy.com/" target="_blank">BESTBUY.COM.</a></p>
+                    <p></p>
                 </div>
                 <h4><span class="fa-stack fa-3x numberIcon">
                     <i class="fa fa-circle fa-stack-2x icon-stack-base"></i>
@@ -13,29 +13,24 @@
 </h4>
                 <div class="row content-container endpointContainer">
                     <span>
-                        <input class="endpoint-button" ng-class="{'selected': (endpoint.selected === 'mostViewed')}" type="button" id="popularRecommendationButton" ng-click="endpoint.selected = 'mostViewed'; mostViewed = !mostViewed;" ng-init="mostViewed = false"></input><i class="fa fa-question-circle recommendationTooltip" tooltip="Returns the top ten most frequently viewed products by rank on BESTBUY.COM." tooltip-placement="right"></i>
+                        <input class="endpoint-button" ng-class="{'selected': (endpoint.selected === 'activeAdventurer')}" type="button" id="activeAdventurerButton" ng-click="endpoint.selected = 'activeAdventurer'; activeAdventurer = !activeAdventurer;" ng-init="activeAdventurer = false"></input>
                     </span>
                     <span>
-                        <input class="endpoint-button" ng-class="{'selected': (endpoint.selected === 'trendingViewed')}" type="button" id="trendingRecommendationButton" ng-click="endpoint.selected = 'trendingViewed'; trendingViewed = !trendingViewed;" 
-                        ng-init="trendingViewed = false"
-                        ></input><i class="fa fa-question-circle recommendationTooltip" tooltip="Returns top ten most frequently viewed products on the BESTBUY.COM product detail pages over a rolling, three-hour time frame by rank." tooltip-placement="right"></i>
+                        <input class="endpoint-button" ng-class="{'selected': (endpoint.selected === 'conHome')}" type="button" id="conHomeButton" ng-click="endpoint.selected = 'conHome'; conHome = !conHome;" ng-init="conHome = false"></input>
                     </span>
+<!--                     <span>
+                        <input class="endpoint-button" ng-class="{'selected': (endpoint.selected === ' ')}" type="button" id="  Button" ng-click="endpoint.selected = '  ';   = ! ;" ng-init="  = false"></input>
+                    </span>   -->                                      
                 </div>
                 <br/>
-                <h4><span class="fa-stack fa-3x numberIcon">
-                    <i class="fa fa-circle fa-stack-2x icon-stack-base"></i>
-                    <strong class="char-overlay fa-stack-1x">2</strong>
-                    </span> Select a Category (optional)</h4>
-                    <div class="content-container">
-                        <select id="category" ng-model="category"
-                                    ng-options="opt as opt.label for opt in categories"></select><br/><br/>
-                    </div>
+
+
                 <div>
-                    <button id="invoke-query" class="query-button" ng-click="resetRecommendationsQuery()">RESET
+                    <button id="invoke-query" class="query-button" ng-click="smartListsQuery()">RESET
                         query
                     </button>
 
-                    <button id="invoke-query" class="query-button" ng-click="invokeRecommendationsQuery()">RUN
+                    <button id="invoke-query" class="query-button" ng-click="smartListsQuery()">RUN
                         query
                     </button>
                 </div>

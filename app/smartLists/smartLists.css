@@ -1,0 +1,31 @@
+#recommendationsFooterNote{
+    font-style: italic;
+    font-size: 1em;
+}
+#activeAdventurerButton {
+    background-image: url(../assets/active.png);
+}
+#activeAdventurerButton:hover{
+    background-image: url(../assets/active_hover.png);
+}
+#activeAdventurerButton.selected {
+    background-image: url(../assets/active_selected.png);
+}
+#conHomeButton {
+    background-image: url(../assets/conHome.png);
+}
+#conHomeButton:hover{
+    background-image: url(../assets/conHome_hover.png);
+}
+#conHomeButton.selected {
+    background-image: url(../assets/conHome_selected.png);
+}
+#conHomeButton {
+    background-image: url(../assets/conHome.png);
+}
+#conHomeButton:hover{
+    background-image: url(../assets/conHome_hover.png);
+}
+#conHomeButton.selected {
+    background-image: url(../assets/conHome_selected.png);
+}

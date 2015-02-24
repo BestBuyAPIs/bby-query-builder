@@ -8,12 +8,13 @@ angular.module('bby-query-mixer.stores').controller('storesCtrl', [
     'regionsConfig',
     'storeServicesConfig',
     'storeResponseConfig',
-    function ($scope, categoryConfig, HttpClientService, GaService, regionsConfig, storeServicesConfig, storeResponseConfig) {
+    'productAttributesConfig',
+    function ($scope, categoryConfig, HttpClientService, GaService, regionsConfig, storeServicesConfig, storeResponseConfig, productAttributesConfig) {
         
         $scope.storeTypes = [
             { text:"Big Box", value: "bigbox" },
             { text: "Mobile", value: "mobile" },
-            { text: "Express", value: "express" }
+            { text: "Express (Kiosk)", value: "express" }
         ];
 
         $scope.filterStoreType = function (storeTypesArray) {
@@ -56,11 +57,16 @@ angular.module('bby-query-mixer.stores').controller('storesCtrl', [
             //queryParams are things like apikey, format, etc
             var queryParams = [];
             var skuListOption = $scope.skuList !== '' ? queryParams.push('+products(sku%20in%20('+$scope.skuList+'))') : '';
+
             queryParams.push('?format=json');
             var addKey = $scope.apiKey ? queryParams.push(('&apiKey='+$scope.apiKey)):'';
-            var addStoreResponseOptions = ($scope.storeResponse.list.length > 0) ? queryParams.push(('&show=' + $scope.storeResponse.list)) : '';
-            var addPagination = (($scope.pageSize !== 10) || ($scope.whichPage !== 1)) ? queryParams.push(('&pageSize='+$scope.pageSize+'&page='+$scope.whichPage)) :'';
 
+            var showParams = [];
+            var productShowOptions = (($scope.productOption.list.length > 0)&&($scope.skuList !== '')) ? showParams.push($scope.productOption.list):'';
+            var addStoreResponseOptions = ($scope.storeResponse.list.length > 0) ? showParams.push($scope.storeResponse.list) : '';
+            var addShowParams = showParams.length > 0 ? queryParams.push('&show='+showParams):'';
+
+            var addPagination = (($scope.pageSize !== 10) || ($scope.whichPage !== 1)) ? queryParams.push(('&pageSize='+$scope.pageSize+'&page='+$scope.whichPage)) :'';
             queryParams.push('&callback=JSON_CALLBACK');
             var parensCheck = searchArgs.length === 0 ? baseUrl += (searchArgs.join('')) : baseUrl += ('('+searchArgs.join('&')+')');
             baseUrl += queryParams.join('');
@@ -106,6 +112,7 @@ angular.module('bby-query-mixer.stores').controller('storesCtrl', [
         $scope.servicesOption = {};
         $scope.storeType = {};
         $scope.storeResponse = {};
+        $scope.productOption = {};
         
         $scope.resetInput = function () {
             $scope.area = '';
@@ -122,12 +129,14 @@ angular.module('bby-query-mixer.stores').controller('storesCtrl', [
             $scope.searchSelection = $scope.options[0];
             $scope.regionOptions = angular.copy(regionsConfig);
             $scope.servicesOptions = angular.copy(storeServicesConfig);
+            $scope.servicesOption.list = [];
+            $scope.productOptions = angular.copy(productAttributesConfig);
+            $scope.productOption.list = [];
             $scope.whichPage = 1;
             $scope.pageSize = 10;
             $scope.storeResponses = angular.copy(storeResponseConfig);
-            $scope.servicesOption.list = [];
-            $scope.storeType.list = [];
             $scope.storeResponse.list = [];
+            $scope.storeType.list = [];
             $scope.resetInput();
             $scope.errorResult = false;
             $scope.results = {};
@@ -154,7 +163,7 @@ angular.module('bby-query-mixer.stores').controller('storesCtrl', [
 
         $scope.selectAll = function (z) {
             if (z === 'services') {
-            $scope.servicesOption.list = addAllOptions($scope.servicesOptions);
+                $scope.servicesOption.list = addAllOptions($scope.servicesOptions);
             } else if (z === 'noservices') {
                 $scope.servicesOption.list = [];
             } else if (z === 'types') {
@@ -165,6 +174,10 @@ angular.module('bby-query-mixer.stores').controller('storesCtrl', [
                 $scope.storeResponse.list = addAllOptions($scope.storeResponses);
             } else if (z === 'noResponse') {
                 $scope.storeResponse.list = [];
+            } else if (z === 'products') {
+                $scope.productOption.list = addAllOptions($scope.productOptions)
+            } else if (z === 'noproducts'){
+                $scope.productOption.list = [];
             }
             return;
         };

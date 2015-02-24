@@ -20,5 +20,6 @@
   },
   "_source": "git://github.com/ivaynberg/select2.git",
   "_target": "~3.4.5",
-  "_originalSource": "select2"
+  "_originalSource": "select2",
+  "_direct": true
 }

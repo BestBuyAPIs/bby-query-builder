@@ -57,7 +57,9 @@ angular.module('bby-query-mixer.stores').controller('storesCtrl', [
             //queryParams are things like apikey, format, etc
             var queryParams = [];
             var skuListOption = $scope.skuList !== '' ? queryParams.push('+products(sku%20in%20('+$scope.skuList+'))') : '';
+
             queryParams.push('?format=json');
+            var productShowOptions = (($scope.productOption.list.length > 0)&&($scope.skuList !== '')) ? queryParams.push('&show='+$scope.productOption.list):'';
             var addKey = $scope.apiKey ? queryParams.push(('&apiKey='+$scope.apiKey)):'';
             var addStoreResponseOptions = ($scope.storeResponse.list.length > 0) ? queryParams.push(('&show=' + $scope.storeResponse.list)) : '';
             var addPagination = (($scope.pageSize !== 10) || ($scope.whichPage !== 1)) ? queryParams.push(('&pageSize='+$scope.pageSize+'&page='+$scope.whichPage)) :'';
@@ -158,7 +160,7 @@ angular.module('bby-query-mixer.stores').controller('storesCtrl', [
 
         $scope.selectAll = function (z) {
             if (z === 'services') {
-            $scope.servicesOption.list = addAllOptions($scope.servicesOptions);
+                $scope.servicesOption.list = addAllOptions($scope.servicesOptions);
             } else if (z === 'noservices') {
                 $scope.servicesOption.list = [];
             } else if (z === 'types') {

@@ -44,6 +44,11 @@ describe('bby-query-mixer.stores module', function () {
 	        scope.skuList = '6461052,5909042';
 	        expect(scope.buildRemixQuery()).toEqual('http://api.remix.bestbuy.com/v1/stores+products(sku%20in%20(6461052,5909042))?format=json&callback=JSON_CALLBACK');
 	    });
+	   	it('should add list of product options to the url', function (){
+	        scope.skuList = '6461052,5909042';
+	        scope.productOption.list = 'products.shortDescription'
+	        expect(scope.buildRemixQuery()).toEqual('http://api.remix.bestbuy.com/v1/stores+products(sku%20in%20(6461052,5909042))?format=json&show=products.shortDescription&callback=JSON_CALLBACK');
+	    });	    
     });
 
     describe('reset query function', function () {

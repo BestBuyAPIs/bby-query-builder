@@ -16,7 +16,7 @@
                         <input class="endpoint-button" ng-class="{'selected': (endpoint.selected === 'activeAdventurer')}" type="button" id="activeAdventurerButton" ng-click="endpoint.selected = 'activeAdventurer'; activeAdventurer = !activeAdventurer;" ng-init="activeAdventurer = false"></input>
                     </span>
                     <span>
-                        <input class="endpoint-button" ng-class="{'selected': (endpoint.selected === 'conHome')}" type="button" id="conHomeButton" ng-click="endpoint.selected = 'conHome'; conHome = !conHome;" ng-init="conHome = false"></input>
+                        <input class="endpoint-button" ng-class="{'selected': (endpoint.selected === 'connectedHome')}" type="button" id="connectedHomeButton" ng-click="endpoint.selected = 'connectedHome'; connectedHome = !connectedHome;" ng-init="connectedHome = false"></input>
                     </span>
 <!--                     <span>
                         <input class="endpoint-button" ng-class="{'selected': (endpoint.selected === ' ')}" type="button" id="  Button" ng-click="endpoint.selected = '  ';   = ! ;" ng-init="  = false"></input>
@@ -26,16 +26,15 @@
 
 
                 <div>
-                    <button id="invoke-query" class="query-button" ng-click="smartListsQuery()">RESET
+                    <button id="reset-query" class="query-button" ng-click="resetSmartListsQuery()">RESET
                         query
                     </button>
 
-                    <button id="invoke-query" class="query-button" ng-click="smartListsQuery()">RUN
+                    <button id="invoke-query" class="query-button" ng-click="invokeRecommendationsQuery()">RUN
                         query
                     </button>
                 </div>
                 <br/>
-                <p id="recommendationsFooterNote">Note: The differences between Trending Products and Most Popular Viewed Products is that Trending Products reflects change in velocity of product views while Most Popular Viewed reflects page views only.</p>
             </div>
         </div>
     </div>
@@ -53,11 +52,11 @@
             <div class="content-container" id="response-content">
                 <div>
                     <p>#request:
-                        <button id="recommendations-copy-button" class="copy-button" type="button" clip-copy="buildRecommendationsQuery()" tooltip="copy" tooltip-placement="right" ng-click="callCopyEvent()">
+                        <button id="recommendations-copy-button" class="copy-button" type="button" clip-copy="buildSmartListsQuery()" tooltip="copy" tooltip-placement="right" ng-click="callCopyEvent()">
                             <img src="assets/clipboard_white.png" width="20" height="20" alt="copy"/>
                         </button>
                     </p>
-                    <span class="query-text" id="recommendations-query" ng-bind="buildRecommendationsQuery()"></span>
+                    <span class="query-text" id="recommendations-query" ng-bind="buildSmartListsQuery"></span>
                 </div>
                 <div>
                     <p>#response:

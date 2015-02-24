@@ -11,21 +11,12 @@
 #activeAdventurerButton.selected {
     background-image: url(../assets/active_selected.png);
 }
-#conHomeButton {
+#connectedHomeButton {
     background-image: url(../assets/conHome.png);
 }
-#conHomeButton:hover{
+#connectedHomeButton:hover{
     background-image: url(../assets/conHome_hover.png);
 }
-#conHomeButton.selected {
-    background-image: url(../assets/conHome_selected.png);
-}
-#conHomeButton {
-    background-image: url(../assets/conHome.png);
-}
-#conHomeButton:hover{
-    background-image: url(../assets/conHome_hover.png);
-}
-#conHomeButton.selected {
+#connectedHomeButton.selected {
     background-image: url(../assets/conHome_selected.png);
 }

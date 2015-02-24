@@ -18,8 +18,8 @@ angular.module('appConfig').constant('categoryConfig', [
         label: 'Digital Cameras'
     },
     {
-        value: 'pcmcat243800050004',
-        label: 'Fitness & Exercise'
+        value: 'pcmcat242800050021',
+        label: 'Health, Fitness & Beauty'
     },
     {
         value: 'abcat0204000',

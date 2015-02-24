@@ -17,5 +17,14 @@ describe('bby-query-mixer.smartLists module', function () {
                     })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
             }));
 
+        describe('build remix query function', function () {
+            it('should add the appropriate endpoint', function (){
+                scope.endpoint.selected = 'activeAdventurer';
+                expect(scope.buildSmartListsQuery()).toEqual('http://api.bestbuy.com/beta/products/activeAdventurer&callback=JSON_CALLBACK');
+                scope.endpoint.selected = 'connectedHome';
+                expect(scope.buildSmartListsQuery()).toEqual('http://api.bestbuy.com/beta/products/connectedHome&callback=JSON_CALLBACK');            
+            });
+        });
+
     });
 });

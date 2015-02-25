@@ -169,7 +169,7 @@
 
                 <p ng-show="storeType.list.length > 0"><a href="https://developer.bestbuy.com/documentation/stores-api#csv_213-attribute-storeType" class="breakdownLabel" target="_blank">storeTypes</a> : <span ng-bind="filterStoreType(storeType.list)"></span></p>
 
-                <p ng-show="storeResponse.list.length > 0 || skuList.length > 0"><a class="breakdownLabel" href="https://developer.bestbuy.com/documentation/stores-api#documentation/stores-api-information" target="_blank">show</a> : &show=<span ng-bind="storeResponse.list"></span><span ng-show="storeResponse.list.length > 0"><span ng-show="storeResponse.list.length > 0 && skuList.length > 0">,</span></span><span ng-show="skuList.length > 0" ng-bind="productOption.list"></span></p>
+                <p ng-show="storeResponse.list.length > 0 || skuList.length > 0"><a class="breakdownLabel" href="https://developer.bestbuy.com/documentation/stores-api#documentation/stores-api-information" target="_blank">show</a> : &show=<span ng-bind="storeResponse.list"></span><span ng-show="storeResponse.list.length > 0"><span ng-show="storeResponse.list.length > 0 &&  skuList.length > 0">,</span></span><span ng-show="skuList.length > 0" ng-bind="productOption.list"></span></p>
 
                 <p ng-show="skuList.length > 0"><a href="https://developer.bestbuy.com/documentation/stores-api#documentation/stores-api-in-store-availability" class="breakdownLabel" target="_blank">skuList</a> : +products(sku%20in%20(<span ng-bind="skuList"></span>)</p>
 

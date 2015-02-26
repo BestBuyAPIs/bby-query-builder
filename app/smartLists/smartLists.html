@@ -4,26 +4,25 @@
             <div class="query-information">
                 <h3>Smart Lists API</h3>
                 <div>
-                    <p></p>
+                    <p>Provides access to a guided shopping experience. As an example, our Connected Home <a href="https://developer.bestbuy.com/documentation/smartLists-api" target="_blank">Smart List</a> identifies products that are top rated and a part of automating and securing your home.</p>
                 </div>
                 <h4><span class="fa-stack fa-3x numberIcon">
                     <i class="fa fa-circle fa-stack-2x icon-stack-base"></i>
                     <strong class="char-overlay fa-stack-1x">1</strong>
                     </span> Pick Your Endpoint</i>
-</h4>
+                </h4>
                 <div class="row content-container endpointContainer">
                     <span>
-                        <input class="endpoint-button" ng-class="{'selected': (endpoint.selected === 'activeAdventurer')}" type="button" id="activeAdventurerButton" ng-click="endpoint.selected = 'activeAdventurer'; activeAdventurer = !activeAdventurer;" ng-init="activeAdventurer = false"></input><i class="fa fa-question-circle recommendationTooltip" tooltip="The Active Adventurer Smart List identifies top-rated products for devices used during sporting activities such as watersports, walking, running and golfing to name a few." tooltip-placement="right"></i>
+                        <input class="endpoint-button" ng-class="{'selected': (endpoint.selected === 'activeAdventurer')}" type="button" id="activeAdventurerButton" ng-click="endpoint.selected = 'activeAdventurer'; activeAdventurer = !activeAdventurer;" ng-init="activeAdventurer = false"></input><i class="fa fa-question-circle recommendationTooltip" tooltip="The Active Adventurer Smart List identifies top-rated products for devices used during sporting activities such as watersports, walking, running and golfing to name a few." tooltip-placement="top"></i>
                     </span>
                     <span>
-                        <input class="endpoint-button" ng-class="{'selected': (endpoint.selected === 'connectedHome')}" type="button" id="connectedHomeButton" ng-click="endpoint.selected = 'connectedHome'; connectedHome = !connectedHome;" ng-init="connectedHome = false"></input><i class="fa fa-question-circle recommendationTooltip" tooltip="The Connected Home Smart List identifies top-rated products for automating and securing your home." tooltip-placement="right"></i>
+                        <input class="endpoint-button" ng-class="{'selected': (endpoint.selected === 'connectedHome')}" type="button" id="connectedHomeButton" ng-click="endpoint.selected = 'connectedHome'; connectedHome = !connectedHome;" ng-init="connectedHome = false"></input><i class="fa fa-question-circle recommendationTooltip" tooltip="The Connected Home Smart List identifies top-rated products for automating and securing your home." tooltip-placement="top"></i>
                     </span>
 <!--                     <span>
                         <input class="endpoint-button" ng-class="{'selected': (endpoint.selected === ' ')}" type="button" id="  Button" ng-click="endpoint.selected = '  ';   = ! ;" ng-init="  = false"></input>
                     </span>   -->                                      
                 </div>
                 <br/>
-
 
                 <div id="button-container">
                     <button id="reset-query" class="query-button" ng-click="resetSmartListsQuery()">RESET

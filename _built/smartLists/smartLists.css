@@ -12,13 +12,13 @@
     background-image: url(../assets/active_selected.png);
 }
 #connectedHomeButton {
-    background-image: url(../assets/conhome.png);
+    background-image: url(../assets/conHome.png);
 }
 #connectedHomeButton:hover{
-    background-image: url(../assets/conhome_hover.png);
+    background-image: url(../assets/conHome_hover.png);
 }
 #connectedHomeButton.selected {
-    background-image: url(../assets/conhome_selected.png);
+    background-image: url(../assets/conHome_selected.png);
 }
 
 #button-container {

@@ -62,7 +62,7 @@ angular.module('bby-query-mixer.stores').controller('storesCtrl', [
             var addKey = $scope.apiKey ? queryParams.push(('&apiKey='+$scope.apiKey)):'';
 
             var showParams = [];
-            var productShowOptions = (($scope.productOption.list.length > 0)&&($scope.skuList !== '')) ? showParams.push($scope.productOption.list):'';
+            var productShowOptions = $scope.skuList !== '' ? showParams.push($scope.productOption.list):'';
             var addStoreResponseOptions = ($scope.storeResponse.list.length > 0) ? showParams.push($scope.storeResponse.list) : '';
             var addShowParams = showParams.length > 0 ? queryParams.push('&show='+showParams):'';
 
@@ -125,13 +125,20 @@ angular.module('bby-query-mixer.stores').controller('storesCtrl', [
             $scope.zipCode = '';
         };
 
+        //this function lets us 'select' all options in an array of objects, instead of having to hardcode it
+        $scope.addAllOptions = function(optionArray) {
+            var newArray = [];
+            angular.forEach(optionArray, function(i) { this.push(i.value) }, newArray);
+            return newArray;
+        };
+
         $scope.resetParams = function () {
             $scope.searchSelection = $scope.options[0];
             $scope.regionOptions = angular.copy(regionsConfig);
             $scope.servicesOptions = angular.copy(storeServicesConfig);
             $scope.servicesOption.list = [];
             $scope.productOptions = angular.copy(productAttributesConfig);
-            $scope.productOption.list = [];
+            $scope.productOption.list = $scope.addAllOptions($scope.productOptions);
             $scope.whichPage = 1;
             $scope.pageSize = 10;
             $scope.storeResponses = angular.copy(storeResponseConfig);
@@ -153,29 +160,22 @@ angular.module('bby-query-mixer.stores').controller('storesCtrl', [
             GaService.copyUrlEvent(tab,$scope.apiKey);
         };
 
-        //this function lets us 'select' all options in an array of objects, instead of having to hardcode it
-        var addAllOptions = function(optionArray) {
-            var newArray = [];
-            angular.forEach(optionArray, function(i) { this.push(i.value) }, newArray);
-            return newArray;
-        };
-
 
         $scope.selectAll = function (z) {
             if (z === 'services') {
-                $scope.servicesOption.list = addAllOptions($scope.servicesOptions);
+                $scope.servicesOption.list = $scope.addAllOptions($scope.servicesOptions);
             } else if (z === 'noservices') {
                 $scope.servicesOption.list = [];
             } else if (z === 'types') {
-                $scope.storeType.list = addAllOptions($scope.storeTypes);
+                $scope.storeType.list = $scope.addAllOptions($scope.storeTypes);
             } else if (z === 'notypes') {
                 $scope.storeType.list = [];
             } else if (z === 'responseAttributes') {
-                $scope.storeResponse.list = addAllOptions($scope.storeResponses);
+                $scope.storeResponse.list = $scope.addAllOptions($scope.storeResponses);
             } else if (z === 'noResponse') {
                 $scope.storeResponse.list = [];
             } else if (z === 'products') {
-                $scope.productOption.list = addAllOptions($scope.productOptions)
+                $scope.productOption.list = $scope.addAllOptions($scope.productOptions)
             } else if (z === 'noproducts'){
                 $scope.productOption.list = [];
             }

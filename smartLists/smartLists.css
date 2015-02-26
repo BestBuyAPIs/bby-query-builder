@@ -1,0 +1,26 @@
+#recommendationsFooterNote{
+    font-style: italic;
+    font-size: 1em;
+}
+#activeAdventurerButton {
+    background-image: url(../assets/active.png);
+}
+#activeAdventurerButton:hover{
+    background-image: url(../assets/active_hover.png);
+}
+#activeAdventurerButton.selected {
+    background-image: url(../assets/active_selected.png);
+}
+#connectedHomeButton {
+    background-image: url(../assets/conHome.png);
+}
+#connectedHomeButton:hover{
+    background-image: url(../assets/conHome_hover.png);
+}
+#connectedHomeButton.selected {
+    background-image: url(../assets/conHome_selected.png);
+}
+
+#button-container {
+	padding-top: 2%;
+}

@@ -49,8 +49,7 @@
                                     </div>
                                 </div>
                             </form>
-                        </div>
-                    
+                        </div>                  
 
                         <div ng-show="searchSelection.value ==='storeId'">
                             <span class="subtitle">Store ID: </span><input type="number" class="rounded" placeholder="281" ng-model="storeId"></input>
@@ -117,7 +116,7 @@
             <p>Enter a comma separated <a href="https://developer.bestbuy.com/documentation/stores-api#documentation/stores-api-in-store-availability" target="_blank">list of SKUs</a> to determine if those products are available in any of the stores in Step 1. </p>
             List of SKUs <input class="rounded" id="pagination" ng-model="skuList" type="text" placeholder="6461052,5909042">
             </form>
-            <p>
+<!--             <p>
                 <span class="subtitle">Product Attributes </span><span>(optional)</span>
                 <button class="btn btn-default btn-xs" ng-click="selectAll('products')">Select All</button> <button class="btn btn-default btn-xs" ng-click="selectAll('noproducts')">Select None</button>
             </p>
@@ -128,7 +127,7 @@
                       <div ng-bind-html="option.text | highlight: $select.search"></div>
                     </ui-select-choices>
                 </ui-select>
-            </div>  
+            </div>   -->
         </div>  
 
              <h4><span class="fa-stack fa-3x numberIcon">
@@ -166,13 +165,15 @@
 
                 <p ng-show="skuList !== ''"><a class="breakdownLabel" href="https://developer.bestbuy.com/documentation/stores-api#documentation/stores-api-in-store-availability" target="_blank">inStoreAvailability</a> : +products(sku%20in%20(<span ng-show="skuList"><span ng-bind="skuList"></span></span>)</p>
 
-
                 <p ng-show="servicesOption.list.length > 0"><a href="https://developer.bestbuy.com/documentation/stores-api#documentation/stores-api-services-offered" class="breakdownLabel" target="_blank">storeServices</a> : <span ng-bind="filterStoreService(servicesOption.list)"></span></p>
 
                 <p ng-show="storeType.list.length > 0"><a href="https://developer.bestbuy.com/documentation/stores-api#csv_213-attribute-storeType" class="breakdownLabel" target="_blank">storeTypes</a> : <span ng-bind="filterStoreType(storeType.list)"></span></p>
 
+                <p ng-show="storeResponse.list.length > 0 || skuList.length > 0"><a class="breakdownLabel" href="https://developer.bestbuy.com/documentation/stores-api#documentation/stores-api-information" target="_blank">show</a> : &show=<span ng-bind="storeResponse.list"></span><span ng-show="storeResponse.list.length > 0"><span ng-show="storeResponse.list.length > 0 &&  skuList.length > 0">,</span></span><span ng-show="skuList.length > 0" ng-bind="productOption.list"></span></p>
 
-                <p ng-show="storeResponse.list.length > 0 || productOption.list.length > 0"><a class="breakdownLabel" href="https://developer.bestbuy.com/documentation/stores-api#documentation/stores-api-information" target="_blank">show</a> : &show=<span ng-bind="storeResponse.list"></span><span ng-show="storeResponse.list.length > 0">,</span><span ng-bind="productOption.list"></span></p>
+                <p ng-show="skuList.length > 0"><a href="https://developer.bestbuy.com/documentation/stores-api#documentation/stores-api-in-store-availability" class="breakdownLabel" target="_blank">skuList</a> : +products(sku%20in%20(<span ng-bind="skuList"></span>)</p>
+
+                <p></p>
 
                 <p><a class="breakdownLabel" href="https://remix.mashery.com/member/register" target="_blank">apiKey</a> : ?apiKey=<span ng-bind="apiKey"></span></p>
 

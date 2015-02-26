@@ -22,6 +22,9 @@
     <script src="bower_components/html5-boilerplate/js/vendor/modernizr-2.6.2.min.js"></script>
     <link rel="stylesheet" href="bower_components/select2/select2.css">
     <link rel="stylesheet" href="app.css">
+    <link rel="stylesheet" href="recommendations/recommendations.css">
+    <link rel="stylesheet" href="smartLists/smartLists.css">
+
     <script>
   (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
   (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
@@ -44,18 +47,22 @@
 <![endif]-->
 <div ng-controller="pageController">
     <div id="logo-wrapper">
-        <div class="content-container">
-          <span><a href="https://developer.bestbuy.com" id="portal-link"><img src="assets/BBY_Logo.png"/></a> Query Builder</span>
+        <div class="container">
+          <span>
+            <a href="https://developer.bestbuy.com" id="portal-link"><img src="assets/BBY_Logo.png"/></a> 
+            <span id="header-title">Query Builder</span>
+          </span>
         </div>
     </div>
     <div class='row'>
         <div class="col-sm-8">
             <ul class="nav nav-tabs menu" ng-controller="menuController">
                 <li ng-class="{active:isActive('/productSearch')}"><a href="#/productSearch">products</a></li>
-                <li ng-class="{active:isActive('/recommendations')}"><a href="#/recommendations">recommendations</a></li>
-                <li ng-class="{active:isActive('/openbox')}"><a href="#/openbox">open box</a></li>
                 <li ng-class="{active:isActive('/stores')}"><a href="#/stores">stores</a></li>
+                <li ng-class="{active:isActive('/openbox')}"><a href="#/openbox">open box</a></li>
+                <li ng-class="{active:isActive('/recommendations')}"><a href="#/recommendations">recommendations</a></li>
                 <li style="display:none" ng-class="{active:isActive('/category')}"><a href="#/category">category</a></li>
+                <li ng-class="{active:isActive('/smartlists')}"><a href="#/smartlists">smart lists</a></li>
             </ul>
         </div>
         <div class="col-sm-4">
@@ -104,6 +111,8 @@
 <script src="stores/storeServicesConfig.js"></script>
 <script src="stores/productAttributesConfig.js"></script>
 <script src="stores/storesResponseConfig.js"></script>
+<script src="smartLists/00-module.js"></script>
+<script src="smartLists/smartLists.js"></script>
 
   <!--[if lt IE 9]>
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.js"></script>

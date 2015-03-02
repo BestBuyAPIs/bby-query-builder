@@ -7,18 +7,25 @@ module.exports = function (grunt) {
                 runInBackground: true
             }
         },
-        protractor: {
-            options: {
-                configFile: "protractor.conf.js",
-                keepAlive: true,
-                noColor: false
-            },
-            run: {}
-        },
         karma: {
             unit: {
                 configFile: 'karma.conf.js',
                 singleRun: true
+            }
+        },
+        concat: {
+            dist: {
+                src: [ 
+                    './app/app.js',
+                    './app/appConstants/*.js',
+                    './app/appServices/*.js',
+                    './app/openBox/*.js',
+                    './app/productSearch/*.js',
+                    './app/recommendations/*.js',
+                    './app/smartLists/*.js',                    
+                    './app/stores/*.js',
+                ],
+            dest: './app/production.js',
             }
         }
     });
@@ -26,11 +33,11 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-karma');
     grunt.loadNpmTasks('grunt-protractor-runner');
     grunt.loadNpmTasks('grunt-http-server');
+    grunt.loadNpmTasks('grunt-contrib-concat');
+    grunt.loadNpmTasks('grunt-bower-concat');
 
     grunt.registerTask('test', [
-        'karma',
-        'http-server:dev',
-        'protractor:run'
+        'karma'
     ]);
 
 };

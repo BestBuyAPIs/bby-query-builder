@@ -1,0 +1,1064 @@
+'use strict';
+
+// Declare app level module which depends on views, and components
+angular.module('bby-query-mixer', [
+    'ngRoute',
+    'ngSanitize',
+    'bby-query-mixer.productSearch',
+    'bby-query-mixer.recommendations',
+    'bby-query-mixer.openBox',
+    'bby-query-mixer.stores',
+    'bby-query-mixer.smartLists',
+    'ngClipboard',
+    'checklist-model',
+    'ui.bootstrap',
+    'ui.select',
+    'appConfig',
+    'appServices',
+    'ngCookies'
+    ])
+    .config(['$routeProvider', 'ngClipProvider', function ($routeProvider, ngClipProvider) {
+        $routeProvider.otherwise({redirectTo: '/productSearch'});
+        ngClipProvider.setPath("bower_components/zeroclipboard/dist/ZeroClipboard.swf");
+    }])
+    .controller('pageController', ['$scope', 'GaService', '$cookies', function($scope, GaService, $cookies){
+    	$scope.apiKey = $cookies.apiKey || '';
+
+        $scope.$watch('apiKey', function (key) {
+            $cookies.apiKey = key;
+            GaService.enterKeyEvent(key);
+        });
+    }])
+    .controller('menuController', ['$scope', '$location', function($scope, $location) {
+        $scope.isActive = function(route) {
+            return route === $location.path();
+        }
+    }])
+    .directive('analytics', ['$rootScope', '$location',
+    function ($rootScope, $location) {
+    return {
+        link: function (scope, elem, attrs, ctrl) {
+            $rootScope.$on('$routeChangeSuccess', function(event, currRoute, prevRoute) {
+                ga('set', 'page', $location.path());
+                var dimension1Value = '';
+                //'dimension1' was registered as 'api key' in the google analytics admin console
+                ga('set', 'dimension1', dimension1Value);
+                ga('send', 'pageview');
+            });
+        }
+    }
+}])
+    .filter('propsFilter', function() {
+      return function(items, props) {
+        var out = [];
+
+        if (angular.isArray(items)) {
+          items.forEach(function(item) {
+            var itemMatches = false;
+
+            var keys = Object.keys(props);
+            for (var i = 0; i < keys.length; i++) {
+              var prop = keys[i];
+              var text = props[prop].toLowerCase();
+              if (item[prop].toString().toLowerCase().indexOf(text) !== -1) {
+                itemMatches = true;
+                break;
+              }
+            }
+
+            if (itemMatches) {
+              out.push(item);
+            }
+          });
+        } else {
+          // Let the output be the input untouched
+          out = items;
+        }
+
+        return out;
+      };
+});
+
+'use strict';
+
+angular.module('appConfig', ['ngRoute', 'ngResource','bby-query-mixer']);
+'use strict';
+
+angular.module('appConfig').constant('categoryConfig', [
+    {
+        value: false,
+        label: 'Choose Category'
+    },
+    {
+        value: 'pcmcat209400050001',
+        label: 'All Cell Phones with Plans'
+    },
+    {
+        value: 'abcat0501000',
+        label: 'Desktop & All-in-One Computers'
+    },
+    {
+        value: 'abcat0401000',
+        label: 'Digital Cameras'
+    },
+    {
+        value: 'pcmcat242800050021',
+        label: 'Health, Fitness & Beauty'
+    },
+    {
+        value: 'abcat0204000',
+        label: 'Headphones'
+    },
+    {
+        value: 'pcmcat241600050001',
+        label: 'Home Audio'
+    },
+    {
+        value: 'pcmcat254000050002',
+        label: 'Home Automation & Security'
+    },
+    {
+        value: 'pcmcat209000050006',
+        label: 'iPad, Tablets & E-Readers'
+    },
+    {
+        value: 'abcat0502000',
+        label: 'Laptops'
+    },
+    {
+        value: 'pcmcat232900050000',
+        label: 'Nintendo 3DS'
+    },
+    {
+        value: 'pcmcat295700050012',
+        label: 'PlayStation 4'
+    },
+    {
+        value: 'pcmcat310200050004',
+        label: 'Portable & Wireless Speakers'
+    },
+    {
+        value: 'pcmcat243400050029',
+        label: 'PS Vita'
+    },
+    {
+        value: 'abcat0904000',
+        label: 'Ranges, Cooktops & Ovens'
+    },
+    {
+        value: 'abcat0901000',
+        label: 'Refrigerators'
+    },
+    {
+        value: 'abcat0912000',
+        label: 'Small Kitchen Appliances'
+    },
+    {
+        value: 'abcat0101000',
+        label: 'TVs'
+    },
+    {
+        value: 'abcat0910000',
+        label: 'Washers & Dryers'
+    },
+    {
+        value: 'pcmcat273800050036',
+        label: 'Wii U'
+    },
+    {
+        value: 'pcmcat300300050002',
+        label: 'Xbox One'
+    }
+]);
+'use strict';
+
+angular.module('appServices', ['ngRoute', 'ngResource','bby-query-mixer']);
+'use strict';
+
+angular.module('appServices').factory('GaService', [ function() {
+    
+    var clickQueryButtonEvent = function(eventActionName, apiKey){
+    	// var eventActionName = '';
+    	return ga('send', 'event', 'button click', eventActionName, {'dimension1': apiKey});
+    };
+
+    var enterKeyEvent = function (apiKey) {
+        //ng-minlength & ng-maxlength sets apikey as undefined unless it is the proper length
+        if (apiKey){
+            ga('send', 'event', 'user input', 'tried entering an api key', {'dimension1': apiKey});
+        };
+    };
+
+    var copyUrlEvent = function (tab, apiKey) {
+        ga('send', 'event', 'button click', 'copied a ' + tab + ' complete url', {'dimension1': apiKey});
+
+    };
+
+    return {
+    	clickQueryButtonEvent : clickQueryButtonEvent,
+    	enterKeyEvent : enterKeyEvent,
+        copyUrlEvent : copyUrlEvent
+    }
+}]);
+'use strict';
+
+angular.module('appServices').factory('HttpClientService', ['$resource', function($resource) {
+    
+    var httpClient = function (query) {
+		return $resource(query, {}, {
+		    jsonp_query: {
+		        method: 'JSONP'
+		    }
+		});
+	};
+
+	return {
+		httpClient : httpClient
+	}
+}]);
+'use strict';
+
+angular.module('bby-query-mixer.openBox', ['ngRoute'])
+
+    .config(['$routeProvider', function ($routeProvider) {
+        $routeProvider.when('/openbox', {
+            templateUrl: 'openBox/openBox.html',
+            controller: 'openBoxCtrl'
+        });
+    }]
+);
+'use strict';
+
+angular.module('bby-query-mixer.openBox').controller('openBoxCtrl', [
+    '$scope',
+    'categoryConfig',
+    'HttpClientService',
+    'GaService',
+    function ($scope, categoryConfig, HttpClientService, GaService) {
+        $scope.categories = angular.copy(categoryConfig);
+        $scope.category = $scope.categories[0];
+
+        $scope.options = [
+            { text: "Select an Open Box Search Option", value: 0 },
+        	{ text: "Open Box Offers All SKUs", value: 'allSkus' },
+        	{ text: "Open Box Offers by Category", value: 'category' },
+        	{ text: "Open Box Offers by List of SKUs", value: 'skuList' },
+        	{ text: "Open Box Offers by SKU", value: 'singleSku' }
+        ];
+        
+        $scope.buildRemixQuery = function () {
+            var baseUrl = 'http://api.bestbuy.com/beta/products/openBox'
+            var categoryQuery = (($scope.searchSelection.value === 'category')&& $scope.category.value) ? baseUrl += '(categoryId='+$scope.category.value+')' :'';
+            var skuListQuery = (($scope.searchSelection.value === 'skuList')&&($scope.skuList)) ? baseUrl += '(sku%20in('+$scope.skuList+'))':'';
+            var singleSkuQuery = (($scope.searchSelection.value === 'singleSku')&&($scope.singleSku)) ? baseUrl = 'http://api.bestbuy.com/beta/products/'+$scope.singleSku +'/openBox' : '';
+            var apiKey = $scope.apiKey ? baseUrl += '?apiKey='+$scope.apiKey : '';
+            baseUrl += '&callback=JSON_CALLBACK' + '&pageSize='+$scope.pageSize+'&page='+$scope.whichPage;
+            return baseUrl
+        };
+
+        $scope.invokeRemixQuery = function () {
+            $scope.results = "Running";
+            var query = $scope.buildRemixQuery();
+            var successFn = function (value) {
+                $scope.results = value;
+            };
+            var errorFn = function (httpResponse) {
+                $scope.results = httpResponse;
+            };
+
+            if (($scope.apiKey !==  "")&($scope.searchSelection.value !== 0)){
+                $scope.errorResult = false;
+
+                var eventActionName = "open box query success";
+                GaService.clickQueryButtonEvent(eventActionName, $scope.apiKey);
+
+                HttpClientService.httpClient(query).jsonp_query(successFn, errorFn);
+            }else if ($scope.apiKey ===  ""){
+                $scope.errorResult = true;
+                $scope.results = "Please enter your API Key";
+            } else{
+                $scope.errorResult = true;
+                $scope.results = "Please pick a search option";
+            };
+        };
+
+        $scope.resetParams = function () {
+            $scope.errorResult = false;
+            $scope.results = {};
+        	$scope.pageSize = 10;
+        	$scope.whichPage = 1;
+        	$scope.searchSelection = $scope.options[0];
+            $scope.skuList = '';
+            $scope.resetSelectionValues();
+        };
+        $scope.resetSelectionValues = function () {
+            $scope.skuList = '';
+            $scope.singleSku = '';
+            $scope.category = $scope.categories[0];
+        };
+
+        $scope.resetParams();
+
+        $scope.callCopyEvent = function () {
+            var tab = "open box";
+            GaService.copyUrlEvent(tab,$scope.apiKey);
+        };
+}]);
+'use strict';
+
+angular.module('bby-query-mixer.productSearch', ['ngRoute'])
+    .config(['$routeProvider', function ($routeProvider) {
+        $routeProvider.when('/productSearch', {
+            templateUrl: 'productSearch/productSearch.html',
+            controller: 'ProductSearchCtrl'
+        });
+    }]
+);
+
+'use strict';
+
+angular.module('bby-query-mixer.productSearch').constant('attributeOptionsConfig', [ 
+	{text:'Choose Attribute', productAttribute:false, operator:[{value:'operator'}], placeholder:'Value', type:false},		
+	{text:'Best Selling Rank', productAttribute:'bestSellingRank', operator:[{value:'='},{value:'>'},{value:'<'},{value:'<='},{value:'>='}], placeholder:'1', type: "number"},		
+	{text:'Color', productAttribute:'color', operator:[{value:'='},{value:'!='}], placeholder:'black', type:"text"},
+	{text:'Condition', productAttribute:'condition', operator:[{value:'='},{value:'!='}], placeholder:'new,refurbished', type:"text"},
+	{text:'Customer Review Average', productAttribute:'customerReviewAverage', operator:[{value:'='},{value:'>'},{value:'<'},{value:'<='},{value:'>='}], placeholder:5.0, type:"number"},
+	{text:'Customer Review Count', productAttribute:'customerReviewCount', operator:[{value:'='},{value:'>'},{value:'<'},{value:'<='},{value:'>='}], placeholder:5, type:"number"},
+	{text:'Description', productAttribute:'description', operator:[{value:'='},{value:'!='}], placeholder:'text', type:'text'},
+	{text:'Dollar Savings', productAttribute:'dollarSavings', operator:[{value:'='},{value:'>'},{value:'<'},{value:'<='},{value:'>='}], placeholder:'10.99', type:'number'},
+	{text:'Free Shipping', productAttribute:'freeShipping', operator:[{value:'='}], placeholder:true, type:"boolean", valueOptions:[{value:"true"},{value:"false"},{value:'*'}] },
+	{text:'In Store Availability', productAttribute:'inStoreAvailability', operator:[{value:'='}], placeholder:true, type:"boolean", valueOptions:[{value:"true"},{value:"false"},{value:'*'}] },
+	{text:'Manufacturer', productAttribute:'manufacturer', operator:[{value:'='},{value:'!='}], placeholder:"canon", type:"text"},
+	{text:'Model Number', productAttribute:'modelNumber', operator:[{value:'='},{value:'!='}], placeholder:"4460B004", type:"text"},
+	{text:'Name', productAttribute:'name', operator:[{value:'='},{value:'!='}], placeholder:"Canon - EOS 60D DSLR Camera", type:"text"},
+	{text:'Online Availability', productAttribute:'onlineAvailability', operator:[{value:'='}], placeholder:true, type:"boolean", valueOptions:[{value:"true"},{value:"false"},{value:'*'}] },
+	{text:'On Sale', productAttribute:'onSale', operator:[{value:'='}], placeholder:true, type:"boolean", valueOptions:[{value:"true"},{value:"false"},{value:'*'}] },
+	{text:'Percent Savings', productAttribute:'percentSavings', operator:[{value:'='},{value:'>'},{value:'<'},{value:'<='},{value:'>='}], placeholder:'10', type:"number"},
+	{text:'Preowned', productAttribute:'preowned', operator:[{value:'='}], placeholder:true, type:"boolean", valueOptions:[{value:"true"},{value:"false"},{value:'*'}] },
+	{text:'Regular Price', productAttribute:'regularPrice', operator:[{value:'='},{value:'>'},{value:'<'},{value:'<='},{value:'>='}], placeholder:'19.99', type:"number"},
+	{text:'Sale Price', productAttribute:'salePrice', operator:[{value:'='},{value:'>'},{value:'<'},{value:'<='},{value:'>='}], placeholder:'9.99', type:"number"},
+	{text:'Shipping Cost', productAttribute:'shippingCost', operator:[{value:'='},{value:'>'},{value:'<'},{value:'<='},{value:'>='}], placeholder:'9.99', type:"number"},
+	{text:'SKU', productAttribute:'sku',operator:[{value:'='},{value:'!='},{value:' in '}], placeholder:'1234567,7654321', type:"text"},
+	{text:'Type', productAttribute:'type', operator:[{value:'='},{value:'!='}], placeholder:"Music", type:"text"},
+	{text:'UPC', productAttribute:'upc', operator:[{value:'='},{value:'!='}], placeholder:"12345678910", type:"text"}
+]);
+'use strict'
+angular.module('bby-query-mixer.productSearch').directive("spaceless", function(){
+   return {
+      require: 'ngModel',
+      link: function(scope, element, attrs, ngModelController) {
+        ngModelController.$parsers.push(function(data) {
+          //convert data from view format to model format
+          return data.replace(/\s+/g, '&search='); //converted
+        });
+    
+        ngModelController.$formatters.push(function(data) {
+          //convert data from model format to view format
+          return data.replace(/\s+/g, '&'); //converted
+        });
+      }
+    };
+});
+'use strict';
+
+angular.module('bby-query-mixer.productSearch').controller('ProductSearchCtrl', [
+    '$scope',
+    'categoryConfig',
+    'showOptionsConfig',
+    'attributeOptionsConfig',
+    'HttpClientService',
+    'GaService',
+    function ($scope, categoryConfig, showOptionsConfig, attributeOptionsConfig, HttpClientService, GaService) {
+        $scope.categories = angular.copy(categoryConfig);
+        $scope.showOptions = angular.copy(showOptionsConfig);
+        $scope.attributeOptions = angular.copy(attributeOptionsConfig);
+
+        $scope.sortOrderOptions = [
+            {text:"Ascending", value:"asc"},
+            {text:"Descending", value:"dsc"}
+        ];
+
+        $scope.showOpts = function () {
+            console.log($scope.option.showOptions);
+        };
+
+        $scope.buildRemixQuery = function () {
+            var searchArgs = [];
+            var keywordQuery = $scope.keywordSearch ? searchArgs.push( '(search=' + $scope.keywordSearch +')' ) :'' ;
+
+            var manyAttributes = $scope.dynamicForms[0].value.productAttribute ? searchArgs.push($scope.parseDynamicForms($scope.dynamicForms)) : '';
+
+            var categoryQuery = $scope.category.value ? searchArgs.push('(categoryPath.id=' + $scope.category.value + ')') : '';
+            var baseUrl = searchArgs.length > 0 ? 'https://api.remix.bestbuy.com/v1/products' + '(' + searchArgs.join('&') + ')' : 'https://api.remix.bestbuy.com/v1/products';
+            return baseUrl + $scope.buildParams();
+        };
+
+        $scope.invokeRemixQuery = function () {
+            $scope.remixResults = "Running";
+            var query = $scope.buildRemixQuery();
+            var successFn = function (value) {
+                $scope.remixResults = value;
+            };
+            var errorFn = function (httpResponse) {
+                console.log('invokeRemixQuery failure: ' + JSON.stringify(httpResponse));
+                $scope.remixResults = [
+                    {error: httpResponse}
+                ];
+            }
+            if ($scope.apiKey) {
+                $scope.errorResult = false;
+
+                var eventActionName = "products query success";
+                GaService.clickQueryButtonEvent(eventActionName, $scope.apiKey);
+
+                HttpClientService.httpClient(query).jsonp_query(successFn, errorFn);
+            }else{
+                $scope.errorResult = true;
+                $scope.remixResults = 'Please enter your API Key';
+            }
+        };
+
+        $scope.buildParams = function () {
+            var paramArgs = [];
+
+            if ($scope.apiKey) {
+                paramArgs.push('apiKey=' + $scope.apiKey + '&callback=JSON_CALLBACK' );
+            }
+
+            if ($scope.sortBy && $scope.sortBy != 'none') {
+                paramArgs.push('sort=' + $scope.sortBy.value + '.' + $scope.sortOrder.value);
+            }
+
+            if ($scope.showOption.list.length > 0){
+                paramArgs.push('show=' + addAllOptionValues($scope.showOption.list));
+            };
+            if (($scope.facetAttribute.productAttribute)&&($scope.facetNumber)){
+                paramArgs.push('facet=' + $scope.facetAttribute.productAttribute + ',' + $scope.facetNumber);
+            } else if($scope.facetAttribute.productAttribute){
+                paramArgs.push('facet=' + $scope.facetAttribute.productAttribute);
+            };
+
+            if(($scope.pageSize !== 10) || ($scope.whichPage !== 1)){
+                paramArgs.push('pageSize='+$scope.pageSize + '&page='+$scope.whichPage);
+            };
+
+            paramArgs.push('format=json');
+
+            if (paramArgs.length > 0) {
+                return '?' + paramArgs.join('&');
+            } else {
+                return '';
+            }
+        };
+        $scope.resetFacetNumber = function () {
+            $scope.facetNumber = '';
+        };
+
+        $scope.showOption = {};
+
+        $scope.resetParams = function () {
+            $scope.category = $scope.categories[0];
+            $scope.whichPage = 1;
+            $scope.sortOrder = 'asc';
+            $scope.complexAttr = '';
+            $scope.complexVal = '';
+            $scope.pageSize =  10;
+            $scope.attributeOption = $scope.attributeOptions[0];
+            $scope.sortOrder = $scope.sortOrderOptions[0];
+            $scope.remixResults = {};
+            $scope.keywordSearch = '';
+            $scope.errorResult = false;
+            $scope.operator = $scope.attributeOption.operator[0];
+            $scope.resetFacetNumber();
+            $scope.facetAttribute = $scope.attributeOptions[0];
+            $scope.showOption.list = [];
+            $scope.dynamicForms = [{value: $scope.attributeOption}];
+        };
+        //calling the function here loads the defaults on page load
+        $scope.resetParams();
+
+
+        // $scope.sortBy = $scope.showOption.list[0];
+
+        //this function is fired on a ng-change when attribute is selected. it sets the first operator to be pre-selected
+        $scope.preselectOperator = function(form) {
+            form.opt = form.value.operator[0];
+            form.complexVal = form.value.valueOptions ? form.value.valueOptions[0].value : '';
+        };
+
+        $scope.callCopyEvent = function () {
+            var tab = "products";
+            GaService.copyUrlEvent(tab,$scope.apiKey);
+        };
+
+        var addAllOptions = function(optionArray) {
+            var newArray = [];
+            angular.forEach(optionArray, function(i) { this.push(i) }, newArray);
+            return newArray;
+        };
+        var addAllOptionValues = function(optionArray) {
+            var newArray = [];
+            angular.forEach(optionArray, function(i) { this.push(i.value) }, newArray);
+            return newArray;
+        };
+        $scope.addAllShowOptions = function(optionArray) {
+            var newArray = [];
+            angular.forEach(optionArray, function(i) { this.push(i.value) }, newArray);
+            return newArray.join(',');
+        };
+        $scope.selectAll = function (z) {
+            if (z === 'allproducts') {
+                $scope.showOption.list = addAllOptions($scope.showOptions);
+            } else if (z === 'noproducts') {
+                $scope.showOption.list = [];
+            } 
+            return;
+        };
+        
+        $scope.dynamicForms = [{id: '0',value:'',opt:'',complexVal:''}];  
+
+        var counter = 0;
+        $scope.addNewForm = function() {
+            counter += 1;
+            $scope.dynamicForms.push({'id':''+(counter)});
+
+        };
+        $scope.removeForm = function(form) {
+            var newItemNo = $scope.dynamicForms.length-1;
+            // console.log(form)
+            // console.log($scope.dynamicForms.indexOf(form))
+            $scope.dynamicForms.splice($scope.dynamicForms.indexOf(form),1);   
+        };
+
+        $scope.parseDynamicForms = function (array) {
+            var newArray = [];
+            angular.forEach(array, function(i) { 
+                if (i.value.productAttribute && i.opt.value && i.complexVal){
+                    if (i.opt.value === ' in ') {
+                        this.push(i.value.productAttribute + i.opt.value +'('+ i.complexVal+')'); 
+                    }else {
+                this.push(i.value.productAttribute + i.opt.value + i.complexVal); 
+                // console.dir(i) 
+                    }
+                }
+            }, newArray);
+
+            return newArray.join('&');
+        };
+
+        $scope.clearBlankSelect = function () {
+            $scope.sortBy = $scope.showOption.list[0];
+            // console.dir($scope.showOption.list)
+        };
+
+    }
+]);
+'use strict';
+
+angular.module('bby-query-mixer.productSearch').constant('showOptionsConfig', [ 
+	{ text: 'Accessories SKUs', value: 'accessories.sku' },
+	{ text: 'Add To Cart Url', value: 'addToCartUrl' },
+	{ text: 'Best Selling Rank', value: 'bestSellingRank' },
+	{ text: 'Category Path Id', value: 'categoryPath.id' },
+	{ text: 'Category Path Name', value: 'categoryPath.name' },
+	{ text: 'Color', value: 'color' },
+	{ text: 'Condition', value: 'condition' },
+	{ text: 'Customer Review Average', value: 'customerReviewAverage' },
+	{ text: 'Customer Review Count', value: 'customerReviewCount' },
+	{ text: 'Description', value: 'description' },
+	{ text: 'Detail Text', value: 'details.name' },
+	{ text: 'Details Value', value: 'details.value' },
+	{ text: 'Dollar Savings', value: 'dollarSavings' },
+	{ text: 'Features', value: 'features.feature' },
+	{ text: 'Free Shipping', value: 'freeShipping' },
+	{ text: 'Frequently Purchased With SKUs', value: 'frequentlyPurchasedWith.sku' },
+	{ text: 'Image', value: 'image' },
+	{ text: 'Included Items', value: 'includedItemList.includedItem' },
+	{ text: 'In Store Availability', value: 'inStoreAvailability' },
+	{ text: 'In Store Availability Text', value: 'inStoreAvailabilityText' },
+	{ text: 'Long Description', value: 'longDescription' },
+	{ text: 'Manufacturer', value: 'manufacturer' },
+	{ text: 'Mobile Url', value: 'mobileUrl' },
+	{ text: 'Model Number', value: 'modelNumber' },
+	{ text: 'Name', value: 'name' },
+	{ text: 'Online Availability', value: 'onlineAvailability' },
+	{ text: 'Online Availability Text', value: 'onlineAvailabilityText' },
+	{ text: 'On Sale', value: 'onSale' },
+	{ text: 'Percent Savings', value: 'percentSavings' },
+	{ text: 'Preowned?', value: 'preowned' },
+	{ text: 'Regular Price', value: 'regularPrice' },
+	{ text: 'Related Product SKUs', value: 'relatedProducts.sku' },
+	{ text: 'Sale Price', value: 'salePrice' },
+	{ text: 'Shipping', value: 'shipping' },
+	{ text: 'Shipping Cost', value: 'shippingCost' },
+	{ text: 'Short Description', value: 'shortDescription' },
+	{ text: 'SKU', value: 'sku' },
+    { text: 'Thumbnail Image', value: 'thumbnailImage' },
+    { text: 'Type', value: 'type' },
+    { text: 'UPC', value: 'upc' },
+    { text: 'URL', value: 'url' }
+]);
+'use strict';
+
+angular.module('bby-query-mixer.recommendations', ['ngRoute'])
+
+    .config(['$routeProvider', function ($routeProvider) {
+        $routeProvider.when('/recommendations', {
+            templateUrl: 'recommendations/recommendations.html',
+            controller: 'RecommendationsCtrl'
+        });
+    }]
+);
+'use strict';
+
+angular.module('bby-query-mixer.recommendations').controller('RecommendationsCtrl', [
+    '$scope',
+    'categoryConfig',
+    'HttpClientService',
+    'GaService',
+    function ($scope, categoryConfig, HttpClientService, GaService) {
+        $scope.categories = angular.copy(categoryConfig);
+        $scope.category = $scope.categories[0];
+
+        $scope.buildRecommendationsQuery = function () {
+            var baseUrl = 'http://api.bestbuy.com/beta/products/';
+            var queryArgs = [];
+            var endpointSelection = $scope.endpoint.selected ? baseUrl += ($scope.endpoint.selected) : '';
+            var categoryOption = $scope.category.value ? baseUrl += ('(categoryId='+$scope.category.value+')') : '';
+            var addKey = $scope.apiKey ? baseUrl += ('?apiKey='+$scope.apiKey):'';
+            baseUrl += '&callback=JSON_CALLBACK';
+            return baseUrl;
+        };
+
+        $scope.invokeRecommendationsQuery = function () {
+            $scope.results = "Running";
+            var query = $scope.buildRecommendationsQuery();
+
+            var successFn = function (value) {
+                $scope.results = value;
+            };
+            var errorFn = function (httpResponse) {
+                $scope.results = httpResponse;
+            };
+
+            if (($scope.apiKey !=  "")&($scope.endpoint.selected != "")){
+                $scope.errorResult = false;
+
+                var eventActionName = "recommendation query success";
+                GaService.clickQueryButtonEvent(eventActionName, $scope.apiKey);
+
+                HttpClientService.httpClient(query).jsonp_query(successFn, errorFn);
+            }else if ($scope.apiKey ===  ""){
+                $scope.errorResult = true;
+                $scope.results = "Please enter your API Key";
+            } else{
+                $scope.errorResult = true;
+                $scope.results = "Please pick an endpoint";
+            };
+        };
+
+        $scope.isRemixQueryButtonDisabled = function () {
+            return ($scope.skuList == recommendationsConfig.skuList);
+        };
+
+        $scope.resetRecommendationsQuery = function () {
+            $scope.results = {};
+            $scope.endpoint = {selected:""};
+            $scope.category = $scope.categories[0];
+            $scope.errorResult = false;
+        };
+
+        $scope.callCopyEvent = function () {
+            var tab = "recommendations";
+            GaService.copyUrlEvent(tab,$scope.apiKey);
+        };
+
+        //this loads our default model scopes on page load
+        $scope.resetRecommendationsQuery();
+
+    }
+]);
+'use strict';
+
+angular.module('bby-query-mixer.smartLists', ['ngRoute'])
+    .config(['$routeProvider', function ($routeProvider) {
+        $routeProvider.when('/smartlists', {
+            templateUrl: 'smartLists/smartLists.html',
+            controller: 'SmartListsCtrl'
+        });
+    }]
+);
+
+'use strict';
+
+angular.module('bby-query-mixer.smartLists').controller('SmartListsCtrl', [
+    '$scope',
+    'categoryConfig',
+    'HttpClientService',
+    'GaService',
+    function ($scope, categoryConfig, HttpClientService, GaService) {
+        //http://api.bestbuy.com/beta/products/connectedHome?apiKey=YourAPIKey
+
+        $scope.buildSmartListsQuery = function () {
+            var baseUrl = 'http://api.bestbuy.com/beta/products/';
+            var queryArgs = [];
+            var endpointSelection = $scope.endpoint.selected ? baseUrl += ($scope.endpoint.selected) : '';
+            var addKey = $scope.apiKey ? baseUrl += ('?apiKey='+$scope.apiKey):'';
+            baseUrl += '&callback=JSON_CALLBACK';
+            return baseUrl;
+        };
+
+        $scope.invokeRecommendationsQuery = function () {
+            $scope.results = "Running";
+            var query = $scope.buildSmartListsQuery();
+
+            var successFn = function (value) {
+                $scope.results = value;
+            };
+            var errorFn = function (httpResponse) {
+                $scope.results = httpResponse;
+            };
+
+            if (($scope.apiKey !=  "")&($scope.endpoint.selected != "")){
+                $scope.errorResult = false;
+
+                var eventActionName = "smart lists query success";
+                GaService.clickQueryButtonEvent(eventActionName, $scope.apiKey);
+
+                HttpClientService.httpClient(query).jsonp_query(successFn, errorFn);
+            }else if ($scope.apiKey ===  ""){
+                $scope.errorResult = true;
+                $scope.results = "Please enter your API Key";
+            } else{
+                $scope.errorResult = true;
+                $scope.results = "Please pick an endpoint";
+            };
+        };
+
+        $scope.resetSmartListsQuery = function () {
+            $scope.results = {};
+            $scope.endpoint = {selected:""};
+            $scope.errorResult = false;
+        };
+
+        $scope.callCopyEvent = function () {
+            var tab = "smart lists";
+            GaService.copyUrlEvent(tab,$scope.apiKey);
+        };
+
+        //this loads our default model scopes on page load
+        $scope.resetSmartListsQuery();
+
+}]);
+'use strict';
+
+angular.module('bby-query-mixer.stores', ['ngRoute'])
+    .config(['$routeProvider', function ($routeProvider) {
+        $routeProvider.when('/stores', {
+            templateUrl: 'stores/stores.html',
+            controller: 'storesCtrl'
+        });
+    }]
+);
+
+'use strict';
+
+angular.module('bby-query-mixer.stores').constant('productAttributesConfig', [ 
+	{ text: "SKU", value: "products.sku" },
+	{ text: "Name", value: "products.name" },
+	{ text: "Short Description", value: "products.shortDescription" },
+	{ text: "Sale Price", value: "products.salePrice" },
+	{ text: "Regular Price", value: "products.regularPrice" },
+	{ text: "Add To Cart URL", value: "products.addToCartURL" },
+	{ text: "Product Url", value: "products.url" },
+	{ text: "Image", value: "products.image" },
+	{ text: "Customer Review Count", value: "products.customerReviewCount" },
+	{ text: "Customer Review Average", value: "products.customerReviewAverage" }
+]);
+'use strict';
+
+angular.module('bby-query-mixer.stores').constant('regionsConfig', [ 
+	{ text:"Choose a Region/State", value: false },
+	{ text:"AL - Alabama", value:"AL" },
+	{ text:"AK - Alaska", value:"AK" },
+	{ text:"AP - Armed Forces Pacific", value:"AP" },
+	{ text:"AE - Armed Forces Europe", value:"AE" },
+	{ text:"AA - Armed Forces America", value:"AA" },
+	{ text:"AZ - Arizona", value:"AZ" },
+	{ text:"AR - Arkansas", value:"AR" },
+	{ text:"CA - California", value:"CA" },
+	{ text:"CO - Colorado", value:"CO" },
+	{ text:"CT - Connecticut", value:"CT" },
+	{ text:"DC - Washington D.C.", value:"DC" },
+	{ text:"DE - Delaware", value:"DE" },
+	{ text:"FL - Florida", value:"FL" },
+	{ text:"GA - Georgia", value:"GA" },
+	{ text:"GU - Guam", value:"GU" },
+	{ text:"HI - Hawaii", value:"HI" },
+	{ text:"ID - Idaho", value:"ID" },
+	{ text:"IL - Illinois", value:"IL" },
+	{ text:"IN - Indiana", value:"IN" },
+	{ text:"IA - Iowa", value:"IA" },
+	{ text:"KS - Kansas", value:"KS" },
+	{ text:"KY - Kentucky", value:"KY" },
+	{ text:"LA - Louisiana", value:"LA" },
+	{ text:"ME - Maine", value:"ME" },
+	{ text:"MD - Maryland", value:"MD" },
+	{ text:"MA - Massachusetts", value:"MA" },
+	{ text:"MI - Michigan", value:"MI" },
+	{ text:"MN - Minnesota", value:"MN" },
+	{ text:"MS - Mississippi", value:"MS" },
+	{ text:"MO - Missouri", value:"MO" },
+	{ text:"MT - Montana", value:"MT" },
+	{ text:"NE - Nebraska", value:"NE" },
+	{ text:"NV - Nevada", value:"NV" },
+	{ text:"NH - New Hampshire", value:"NH" },
+	{ text:"NJ - New Jersey", value:"NJ" },
+	{ text:"NM - New Mexico", value:"NM" },
+	{ text:"NY - New York", value:"NY" },
+	{ text:"NC - North Carolina", value:"NC" },
+	{ text:"ND - North Dakota", value:"ND" },
+	{ text:"OH - Ohio", value:"OH" },
+	{ text:"OK - Oklahoma", value:"OK" },
+	{ text:"OR - Oregon", value:"OR" },
+	{ text:"PA - Pennsylvania", value:"PA" },
+	{ text:"PR - Puerto Rico", value:"PR" },
+	{ text:"RI - Rhode Island", value:"RI" },
+	{ text:"SC - South Carolina", value:"SC" },
+	{ text:"SD - South Dakota", value:"SD" },
+	{ text:"TN - Tennessee", value:"TN" },
+	{ text:"TX - Texas", value:"TX" },
+	{ text:"UT - Utah", value:"UT" },
+	{ text:"VT - Vermont", value:"VT" },
+	{ text:"VA - Virginia", value:"VA" },
+	{ text:"VI - Virgin Island", value:"VI" },
+	{ text:"WA - Washington", value:"WA" },
+	{ text:"WV - West Virginia", value:"WV" },
+	{ text:"WI - Wisconsin", value:"WI" },
+	{ text:"WY - Wyoming", value:"WY" },
+]);
+'use strict';
+
+angular.module('bby-query-mixer.stores').constant('storeServicesConfig', [ 
+	{ text:'Apple Shop', value: '"apple shop"' },
+	{ text:'Best Buy for Business', value: '"best buy for business"' },
+	{ text:'Best Buy Mobile', value: '"best buy mobile"' },
+	{ text:'Best Buy Mobile Specialty Store', value: '"best buy mobile specialty store"' },
+	{ text:'Car & GPS Installation Services', value: '"car & gps installation services"' },
+	{ text:'Electronics Recycling', value: '"electronics recycling"' },
+	{ text:'Geek Squad Services', value: '"geek squad services"' },
+	{ text:'Geek Squad Solution Central', value: '"geek squad solution central"' },
+	{ text:'Hablamos Español', value: '"hablamos espa*ol"' },
+	{ text:'Magnolia Design Center', value: '"magnolia design center"' },
+	{ text:'Magnolia Home Theater', value: '"magnolia home theater"' },
+	{ text:'Pacific Kitchen & Home', value: '"pacific kitchen & home"' },
+	{ text:'Samsung Experience Shop', value: '"samsung experience shop"' },
+	{ text:'Support for Military Families', value: '"support for military families"' },
+	{ text:'Windows Store', value: '"windows store"' }
+]);
+'use strict';
+
+angular.module('bby-query-mixer.stores').controller('storesCtrl', [
+    '$scope',
+    'categoryConfig',
+    'HttpClientService',
+    'GaService',
+    'regionsConfig',
+    'storeServicesConfig',
+    'storeResponseConfig',
+    'productAttributesConfig',
+    function ($scope, categoryConfig, HttpClientService, GaService, regionsConfig, storeServicesConfig, storeResponseConfig, productAttributesConfig) {
+        
+        $scope.storeTypes = [
+            { text:"Big Box", value: "bigbox" },
+            { text: "Mobile", value: "mobile" },
+            { text: "Express (Kiosk)", value: "express" }
+        ];
+
+        $scope.filterStoreType = function (storeTypesArray) {
+            var newArray = [];
+            angular.forEach(storeTypesArray, function(i) {this.push('(storeType='+i+')')}, newArray);
+            return newArray.join('|');
+        };
+
+        $scope.filterStoreService = function (storeServiceArray) {
+            var newArray = [];
+            angular.forEach(storeServiceArray, function(i) {this.push('(services.service='+i+')')}, newArray);
+            return newArray.join('&');
+        };
+
+        $scope.buildRemixQuery = function () {
+            var baseUrl = 'http://api.remix.bestbuy.com/v1/stores';
+            
+            //searchArgs = optional search arguments like store type, store services, region, etc
+            var searchArgs = [];
+            var byCity = ($scope.searchSelection.value === 'city') ? (searchArgs.push('(city='+$scope.cityChoice+')')):'';
+            var byPostalCode = (function () {
+                if (($scope.zipCode)&&($scope.area !== '')) {
+                   return (searchArgs.push('(area('+$scope.zipCode+','+$scope.area+'))')) ;
+                } else if ($scope.zipCode) {
+                   return (searchArgs.push('(postalCode='+$scope.zipCode+')')) ;
+                }
+            })();
+            var lat = ($scope.latCompassDirection === 'south') ? '-'+ $scope.latitude: $scope.latitude;
+            var long = ($scope.longCompassDirection === 'west') ? '-' + $scope.longitude : $scope.longitude;
+            var area = ($scope.latLongArea) ? $scope.latLongArea : '';
+            var byLatLong = (($scope.longitude)&&($scope.latitude)) ? searchArgs.push('(area('+lat+','+long+','+area+'))') :'';
+            var byStoreId = ($scope.searchSelection.value === 'storeId') ? (searchArgs.push('(storeId='+$scope.storeId+')')):'';
+            var byRegion = ($scope.searchSelection.value === 'region') ? (searchArgs.push('(region='+$scope.regionOption.value+')')) : '';
+            
+            var addStoreType = ($scope.storeType.list.length > 0) ? searchArgs.push(('('+$scope.filterStoreType($scope.storeType.list)+')')) : '';
+
+            var addStoreServices = ((!$scope.searchSelection.value) && ($scope.servicesOption.list.length > 0)) ? searchArgs.push(($scope.filterStoreService($scope.servicesOption.list) )) :
+                    (($scope.searchSelection.value) && ($scope.servicesOption.list.length > 0)) ? searchArgs.push('('+$scope.filterStoreService($scope.servicesOption.list)+')' ) : '' ;
+
+            //queryParams are things like apikey, format, etc
+            var queryParams = [];
+            var skuListOption = $scope.skuList !== '' ? queryParams.push('+products(sku%20in%20('+$scope.skuList+'))') : '';
+
+            queryParams.push('?format=json');
+            var addKey = $scope.apiKey ? queryParams.push(('&apiKey='+$scope.apiKey)):'';
+
+            var showParams = [];
+            var productShowOptions = $scope.skuList !== '' ? showParams.push($scope.productOption.list):'';
+            var addStoreResponseOptions = ($scope.storeResponse.list.length > 0) ? showParams.push($scope.storeResponse.list) : '';
+            var addShowParams = showParams.length > 0 ? queryParams.push('&show='+showParams):'';
+
+            var addPagination = (($scope.pageSize !== 10) || ($scope.whichPage !== 1)) ? queryParams.push(('&pageSize='+$scope.pageSize+'&page='+$scope.whichPage)) :'';
+            queryParams.push('&callback=JSON_CALLBACK');
+            var parensCheck = searchArgs.length === 0 ? baseUrl += (searchArgs.join('')) : baseUrl += ('('+searchArgs.join('&')+')');
+            baseUrl += queryParams.join('');
+            return baseUrl
+        };
+
+        $scope.invokeRemixQuery = function () {
+            $scope.results = "Running";
+            var query = $scope.buildRemixQuery();
+
+            var successFn = function (value) {
+                $scope.results = value;
+            };
+            var errorFn = function (httpResponse) {
+                $scope.results = httpResponse;
+            };
+
+            if (($scope.apiKey !==  "")&($scope.searchSelection.value !== 0)){
+                $scope.errorResult = false;
+
+                var eventActionName = "stores query success";
+                GaService.clickQueryButtonEvent(eventActionName, $scope.apiKey);
+
+                HttpClientService.httpClient(query).jsonp_query(successFn, errorFn);
+            }else if ($scope.apiKey ===  ""){
+                $scope.errorResult = true;
+                $scope.results = "Please enter your API Key";
+            } else {
+                $scope.errorResult = true;
+                $scope.results = "Please pick a search option";
+            };
+        };
+
+        $scope.options = [
+            {text:"Location Criteria", value:false},
+            {text:"By City", value:"city"},
+            {text:"By Postal Code", value:"postalCode"},
+            {text:"By Latitude/Longitude", value:"latLong"},
+            {text:"By StoreId", value:"storeId"},
+            {text:"By Region/State", value:"region"}
+        ];
+            
+        $scope.servicesOption = {};
+        $scope.storeType = {};
+        $scope.storeResponse = {};
+        $scope.productOption = {};
+        
+        $scope.resetInput = function () {
+            $scope.area = '';
+            $scope.latLongArea = '';
+            $scope.cityChoice = '';
+            $scope.regionOption = $scope.regionOptions[0];
+            $scope.storeId = '';
+            $scope.longitude = '';
+            $scope.latitude = '';
+            $scope.zipCode = '';
+        };
+
+        //this function lets us 'select' all options in an array of objects, instead of having to hardcode it
+        $scope.addAllOptions = function(optionArray) {
+            var newArray = [];
+            angular.forEach(optionArray, function(i) { this.push(i.value) }, newArray);
+            return newArray;
+        };
+
+        $scope.resetParams = function () {
+            $scope.searchSelection = $scope.options[0];
+            $scope.regionOptions = angular.copy(regionsConfig);
+            $scope.servicesOptions = angular.copy(storeServicesConfig);
+            $scope.servicesOption.list = [];
+            $scope.productOptions = angular.copy(productAttributesConfig);
+            $scope.productOption.list = $scope.addAllOptions($scope.productOptions);
+            $scope.whichPage = 1;
+            $scope.pageSize = 10;
+            $scope.storeResponses = angular.copy(storeResponseConfig);
+            $scope.storeResponse.list = [];
+            $scope.storeType.list = [];
+            $scope.resetInput();
+            $scope.errorResult = false;
+            $scope.results = {};
+            $scope.latCompassDirection = 'north';
+            $scope.longCompassDirection = 'east';
+            $scope.skuList = '';
+        };
+
+
+        $scope.resetParams();
+
+        $scope.callCopyEvent = function () {
+            var tab = "stores";
+            GaService.copyUrlEvent(tab,$scope.apiKey);
+        };
+
+
+        $scope.selectAll = function (z) {
+            if (z === 'services') {
+                $scope.servicesOption.list = $scope.addAllOptions($scope.servicesOptions);
+            } else if (z === 'noservices') {
+                $scope.servicesOption.list = [];
+            } else if (z === 'types') {
+                $scope.storeType.list = $scope.addAllOptions($scope.storeTypes);
+            } else if (z === 'notypes') {
+                $scope.storeType.list = [];
+            } else if (z === 'responseAttributes') {
+                $scope.storeResponse.list = $scope.addAllOptions($scope.storeResponses);
+            } else if (z === 'noResponse') {
+                $scope.storeResponse.list = [];
+            } else if (z === 'products') {
+                $scope.productOption.list = $scope.addAllOptions($scope.productOptions)
+            } else if (z === 'noproducts'){
+                $scope.productOption.list = [];
+            }
+            return;
+        };
+}]);
+'use strict';
+
+angular.module('bby-query-mixer.stores').constant('storeResponseConfig', [ 
+	{ text: "Address", value: "address" },
+	{ text: "City", value: "city" },
+	{ text: "Country", value: "country" },
+	{ text: "Hours", value: "hours" },
+	{ text: "Hours AM/PM", value: "hoursAmPm" },
+	{ text: "Hours Detailed", value: "detailedHours" },
+	{ text: "Latitude", value: "lat" },
+	{ text: "Location", value: "location" },
+	{ text: "Longitude", value: "lng" },
+	{ text: "Name", value: "name" },
+	{ text: "Name Long", value: "longName" },
+	{ text: "Phone", value: "phone" },
+	{ text: "Postal Code", value: "fullPostalCode" },
+	{ text: "Services", value: "services" },
+	{ text: "State, Territory", value: "region" },
+	{ text: "Store Id", value: "storeId" },
+	{ text: "Store Type", value: "storeType" },
+	{ text: "Trade In Information", value: "tradeIn" }
+]);

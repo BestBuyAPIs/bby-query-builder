@@ -14,6 +14,7 @@
     "grunt-contrib-watch": "^0.6.1",
     "grunt-http-server": "1.0.x",
     "grunt-karma": "0.9.x",
+    "grunt-run": "^0.3.0",
     "http-server": "0.6.x",
     "karma": "0.x",
     "karma-cli": "0.0.x",
@@ -26,7 +27,7 @@
   "scripts": {
     "postinstall": "bower install",
     "prestart": "npm install",
-    "start": "http-server -a localhost -p 8000 -c-1",
+    "start": "grunt concurrent",
     "pretest": "npm install",
     "test": "grunt test",
     "test-watch": "karma start karma.conf.js",

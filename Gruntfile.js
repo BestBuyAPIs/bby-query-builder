@@ -43,12 +43,21 @@ module.exports = function (grunt) {
         },
         concurrent: {
             target: {
-                tasks: ['http-server','watch'],
+                tasks: ['run:target','watch'],
                 options: {
                     logConcurrentOutput: true
                 }
             }
-        }
+        },
+        run: {
+            target: {
+                exec: "http-server -a localhost -p 8000 -c-1",
+                args: []
+            },
+            options: {
+                spawn: false,
+            }
+        },
     });
 
     grunt.loadNpmTasks('grunt-karma');
@@ -58,11 +67,14 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-bower-concat');
     grunt.loadNpmTasks('grunt-contrib-watch');
     grunt.loadNpmTasks('grunt-concurrent');
-
+    grunt.loadNpmTasks('grunt-run');
+    
     grunt.registerTask('test', [
         'karma'
     ]);
 
-
+    grunt.registerTask('test', [
+        'karma'
+    ]);
 
 };

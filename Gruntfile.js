@@ -14,23 +14,9 @@ module.exports = function (grunt) {
             }
         },
         concat: {
-            dist: {
-                src: [ 
-                    './app/app.js',
-                    './app/appConstants/*.js',
-                    './app/appServices/*.js',
-                    './app/openBox/*.js',
-                    './app/productSearch/*.js',
-                    './app/recommendations/*.js',
-                    './app/smartLists/*.js',                    
-                    './app/stores/*.js',
-                ],
-            dest: './app/production.js',
-            }
-        },
-        watch: {
-            scripts: {
-                files: [ 
+            scripts:{            
+                dist: {
+                    src: [ 
                         './app/app.js',
                         './app/appConstants/*.js',
                         './app/appServices/*.js',
@@ -40,7 +26,23 @@ module.exports = function (grunt) {
                         './app/smartLists/*.js',                    
                         './app/stores/*.js',
                     ],
-                tasks: ["concat"]
+                dest: './app/production.js',
+            }
+        }
+        },
+        watch: {
+            scripts: {
+                files: [ 
+                    './app/app.js',
+                    './app/appConstants/*.js',
+                    './app/appServices/*.js',
+                    './app/openBox/*.js',
+                    './app/productSearch/*.js',
+                    './app/recommendations/*.js',
+                    './app/smartLists/*.js',                    
+                    './app/stores/*.js',
+                    ],
+                tasks: ["concat:scripts"]
             }
         },
         concurrent: {

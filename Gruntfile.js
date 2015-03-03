@@ -1,5 +1,17 @@
 module.exports = function (grunt) {
 
+
+    var jsFiles = [ 
+        './app/app.js',
+        './app/appConstants/*.js',
+        './app/appServices/*.js',
+        './app/openBox/*.js',
+        './app/productSearch/*.js',
+        './app/recommendations/*.js',
+        './app/smartLists/*.js',                    
+        './app/stores/*.js',
+    ];
+
     grunt.initConfig({
         'http-server': {
             'dev': {
@@ -16,32 +28,14 @@ module.exports = function (grunt) {
         concat: {
             scripts:{            
                 dist: {
-                    src: [ 
-                        './app/app.js',
-                        './app/appConstants/*.js',
-                        './app/appServices/*.js',
-                        './app/openBox/*.js',
-                        './app/productSearch/*.js',
-                        './app/recommendations/*.js',
-                        './app/smartLists/*.js',                    
-                        './app/stores/*.js',
-                    ],
+                    src: jsFiles,
                 dest: './app/production.js',
             }
         }
         },
         watch: {
             scripts: {
-                files: [ 
-                    './app/app.js',
-                    './app/appConstants/*.js',
-                    './app/appServices/*.js',
-                    './app/openBox/*.js',
-                    './app/productSearch/*.js',
-                    './app/recommendations/*.js',
-                    './app/smartLists/*.js',                    
-                    './app/stores/*.js',
-                    ],
+                files: jsFiles,
                 tasks: ["concat:scripts"]
             }
         },

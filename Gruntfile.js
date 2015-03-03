@@ -29,21 +29,23 @@ module.exports = function (grunt) {
             }
         },
         watch: {
-            files: [ 
-                    './app/app.js',
-                    './app/appConstants/*.js',
-                    './app/appServices/*.js',
-                    './app/openBox/*.js',
-                    './app/productSearch/*.js',
-                    './app/recommendations/*.js',
-                    './app/smartLists/*.js',                    
-                    './app/stores/*.js',
-                ],
-            tasks: ["concat"]
+            scripts: {
+                files: [ 
+                        './app/app.js',
+                        './app/appConstants/*.js',
+                        './app/appServices/*.js',
+                        './app/openBox/*.js',
+                        './app/productSearch/*.js',
+                        './app/recommendations/*.js',
+                        './app/smartLists/*.js',                    
+                        './app/stores/*.js',
+                    ],
+                tasks: ["concat"]
+            }
         },
         concurrent: {
             target: {
-                tasks: ['run:target','watch'],
+                tasks: ['run:target','watch:scripts'],
                 options: {
                     logConcurrentOutput: true
                 }

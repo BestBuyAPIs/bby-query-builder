@@ -73,8 +73,4 @@ module.exports = function (grunt) {
         'karma'
     ]);
 
-    grunt.registerTask('test', [
-        'karma'
-    ]);
-
 };

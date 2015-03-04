@@ -12,6 +12,15 @@ module.exports = function (grunt) {
         './app/stores/*.js',
     ];
 
+    var cssFiles = [
+        './app/app.css',
+        './app/openBox/*.css',
+        './app/productSearch/*.css',
+        './app/recommendations/*.css',
+        './app/smartLists/*.css',                    
+        './app/stores/*.css',        
+    ];
+
     grunt.initConfig({
         'http-server': {
             'dev': {
@@ -29,19 +38,29 @@ module.exports = function (grunt) {
             scripts:{            
                 dist: {
                     src: jsFiles,
-                dest: './app/production.js',
+                    dest: './app/production.js',
+                }
+            },
+        },
+        concat_css: {
+            all: {
+                src: cssFiles,
+                dest: './app/production.css'
             }
-        }
         },
         watch: {
             scripts: {
                 files: jsFiles,
-                tasks: ["concat:scripts"]
-            }
+                tasks: ["concat:scripts","concat:styles"]
+            },
+            styles: {
+                files: cssFiles,
+                tasks: ["concat_css:all"]
+            },
         },
         concurrent: {
             target: {
-                tasks: ['run:target','watch:scripts'],
+                tasks: ['run:target','watch:scripts','watch:styles'],
                 options: {
                     logConcurrentOutput: true
                 }

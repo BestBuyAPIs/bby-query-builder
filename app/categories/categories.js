@@ -33,5 +33,14 @@ angular.module('bby-query-mixer.categories').controller('CategoriesCtrl', [
             return newArray;
         };
 
+        $scope.selectAll = function (z) {
+            if (z === 'categoryAttributes') {
+                $scope.categoryResponse.list = $scope.addAllOptions($scope.categoryResponses);
+            } else if (z === 'noResponse'){
+                $scope.categoryResponse.list = [];
+            }
+            return;
+        };
+
     }
 ]);

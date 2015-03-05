@@ -10,6 +10,7 @@ module.exports = function (grunt) {
         './app/recommendations/*.js',
         './app/smartLists/*.js',                    
         './app/stores/*.js',
+        './app/categories/*.js',        
     ];
 
     var cssFiles = [

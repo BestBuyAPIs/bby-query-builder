@@ -1,6 +1,6 @@
 'use strict';
 
-// Declare app level module which depends on views, and components
+// Declare app level module which depends on views, and components.
 angular.module('bby-query-mixer', [
     'ngRoute',
     'ngSanitize',
@@ -9,6 +9,7 @@ angular.module('bby-query-mixer', [
     'bby-query-mixer.openBox',
     'bby-query-mixer.stores',
     'bby-query-mixer.smartLists',
+    'bby-query-mixer.categories',
     'ngClipboard',
     'checklist-model',
     'ui.bootstrap',
@@ -1061,4 +1062,42 @@ angular.module('bby-query-mixer.stores').constant('storeResponseConfig', [
 	{ text: "Store Id", value: "storeId" },
 	{ text: "Store Type", value: "storeType" },
 	{ text: "Trade In Information", value: "tradeIn" }
+]);
+'use strict';
+
+angular.module('bby-query-mixer.categories', ['ngRoute'])
+    .config(['$routeProvider', function ($routeProvider) {
+        $routeProvider.when('/categories', {
+            templateUrl: 'categories/categories.html',
+            controller: 'CategoriesCtrl'
+        });
+    }]
+);
+'use strict';
+
+angular.module('bby-query-mixer.categories').controller('CategoriesCtrl', [
+    '$scope',
+    'HttpClientService',
+    'GaService',
+    function ($scope, categoryConfig, showOptionsConfig, attributeOptionsConfig, HttpClientService, GaService) {
+
+        $scope.buildRemixQuery = function () {
+           
+        };
+
+        $scope.invokeRemixQuery = function () {
+        };
+
+        $scope.buildParams = function () {
+           
+        };
+
+
+        $scope.resetParams = function () {
+
+        };
+        //calling the function here loads the defaults on page load
+        $scope.resetParams();
+
+    }
 ]);

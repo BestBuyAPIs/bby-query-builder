@@ -3,22 +3,22 @@
     font-size: 1em;
 }
 #activeAdventurerButton {
-    background-image: url(../assets/active.png);
+    background-image: url(./assets/active.png);
 }
 #activeAdventurerButton:hover{
-    background-image: url(../assets/active_hover.png);
+    background-image: url(./assets/active_hover.png);
 }
 #activeAdventurerButton.selected {
-    background-image: url(../assets/active_selected.png);
+    background-image: url(./assets/active_selected.png);
 }
 #connectedHomeButton {
-    background-image: url(../assets/conhome.png);
+    background-image: url(./assets/conhome.png);
 }
 #connectedHomeButton:hover{
-    background-image: url(../assets/conhome_hover.png);
+    background-image: url(./assets/conhome_hover.png);
 }
 #connectedHomeButton.selected {
-    background-image: url(../assets/conhome_selected.png);
+    background-image: url(./assets/conhome_selected.png);
 }
 
 #button-container {

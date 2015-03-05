@@ -8,20 +8,20 @@
     font-size: 1em;
 }
 #popularRecommendationButton {
-    background-image: url(../assets/popular.png);
+    background-image: url(./assets/popular.png);
 }
 #popularRecommendationButton:hover{
-    background-image: url(../assets/popular_hover.png);
+    background-image: url(./assets/popular_hover.png);
 }
 #popularRecommendationButton.selected {
-    background-image: url(../assets/popular_selected.png);
+    background-image: url(./assets/popular_selected.png);
 }
 #trendingRecommendationButton {
-    background-image: url(../assets/trending.png);
+    background-image: url(./assets/trending.png);
 }
 #trendingRecommendationButton:hover{
-    background-image: url(../assets/trending_hover.png);
+    background-image: url(./assets/trending_hover.png);
 }
 #trendingRecommendationButton.selected {
-    background-image: url(../assets/trending_selected.png);
+    background-image: url(./assets/trending_selected.png);
 }

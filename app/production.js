@@ -1079,7 +1079,8 @@ angular.module('bby-query-mixer.categories').controller('CategoriesCtrl', [
     '$scope',
     'HttpClientService',
     'GaService',
-    function ($scope, categoryConfig, showOptionsConfig, attributeOptionsConfig, HttpClientService, GaService) {
+    'categoryResponseConfig',
+    function ($scope, HttpClientService, GaService, categoryResponseConfig) {
 
         $scope.buildRemixQuery = function () {
            
@@ -1092,12 +1093,28 @@ angular.module('bby-query-mixer.categories').controller('CategoriesCtrl', [
            
         };
 
+        $scope.categoryResponse = {};
 
         $scope.resetParams = function () {
-
+            $scope.categoryResponse.list = [];
+            $scope.categoryResponses = angular.copy(categoryResponseConfig);
         };
         //calling the function here loads the defaults on page load
         $scope.resetParams();
 
+        $scope.addAllOptions = function(optionArray) {
+            var newArray = [];
+            angular.forEach(optionArray, function(i) { this.push(i.value) }, newArray);
+            return newArray;
+        };
+
     }
+]);
+'use strict';
+
+angular.module('bby-query-mixer.categories').constant('categoryResponseConfig', [ 
+    {text:"Name", value:"name" },
+    {text:"Id", value:"id" },
+    {text:"SubCategory Name", value:"subCategories.name" },
+    {text:"SubCategory Id", value:"subCategories.id" }
 ]);

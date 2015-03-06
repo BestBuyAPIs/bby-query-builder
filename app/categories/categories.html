@@ -13,6 +13,23 @@
                         <select ng-model="searchSelection" ng-options="opt as opt.text for opt in searchOptions" ng-change="resetInput()"></select>
                     </div>
 
+                    <div class="content-container">
+                        <div ng-show="searchSelection.value ==='allcategories'">
+                            <p>Returns all categories and subcategories.</p>
+                        </div>
+                        <div ng-show="searchSelection.value ==='toplevelcategories'">
+                            <p>Returns top level categories.</p>
+                        </div>
+                        <div ng-show="searchSelection.value ==='categoryname'">
+                            <p>Returns all categories that contain search text in the name field.</p>
+                        </div>
+                        <div ng-show="searchSelection.value ==='categoryid'">
+                            <p>Search by category id</p>
+                        </div>
+                        <div ng-show="searchSelection.value ==='multiplecategoryparams'">
+                            <p>Search By Category Name and/or Id</p>
+                        </div>
+                    </div>
             </div>
             <h4><span class="fa-stack fa-3x numberIcon">
                     <i class="fa fa-circle fa-stack-2x icon-stack-base"></i>

@@ -1082,6 +1082,14 @@ angular.module('bby-query-mixer.categories').controller('CategoriesCtrl', [
     'categoryResponseConfig',
     function ($scope, HttpClientService, GaService, categoryResponseConfig) {
 
+        $scope.searchOptions = [
+            {text:"All Categories", value:"allcategories"},
+            {text:"Top Level Categories", value:"toplevelcategories"},
+            {text:"Search By Category Name", value:"categoryname"},
+            {text:"Search By Category Id", value:"categoryid"},
+            {text:"Search By Category Name and/or Id", value:"multiplecategoryparams"},
+        ];
+
         $scope.buildRemixQuery = function () {
            
         };
@@ -1098,6 +1106,7 @@ angular.module('bby-query-mixer.categories').controller('CategoriesCtrl', [
         $scope.resetParams = function () {
             $scope.categoryResponse.list = [];
             $scope.categoryResponses = angular.copy(categoryResponseConfig);
+            $scope.searchSelection = $scope.searchOptions[0];
         };
         //calling the function here loads the defaults on page load
         $scope.resetParams();

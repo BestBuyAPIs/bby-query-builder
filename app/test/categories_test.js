@@ -33,6 +33,14 @@ describe('bby-query-mixer.categories module', function () {
 	        scope.whichPage = '3';
 	        expect(scope.buildRemixQuery()).toEqual('http://api.remix.bestbuy.com/v1/categories?&pageSize=12&page=3&format=json&callback=JSON_CALLBACK');
 	    });
+	   	it('should add category name if needed', function (){
+	        scope.categoryName = 'awesomeProducts';
+	        expect(scope.buildRemixQuery()).toEqual('http://api.remix.bestbuy.com/v1/categories(name=awesomeProducts*)?&format=json&callback=JSON_CALLBACK');
+	    });
+	   	it('should add category name if needed', function (){
+	        scope.categoryId = 'abcat0401000';
+	        expect(scope.buildRemixQuery()).toEqual('http://api.remix.bestbuy.com/v1/categories(id=abcat0401000)?&format=json&callback=JSON_CALLBACK');
+	    });	    
     });
 
     describe('reset query function', function () {

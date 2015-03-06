@@ -22,6 +22,7 @@
                         </div>
                         <div ng-show="searchSelection.value ==='categoryname'">
                             <p>Returns all categories that contain search text in the name field.</p>
+                            <input class="rounded" type="text" placeholder="Category Name" ng-model="categoryName"></input>
                         </div>
                         <div ng-show="searchSelection.value ==='categoryid'">
                             <p>Search by category id</p>
@@ -73,7 +74,7 @@
             <div id="exampleUrl" class="content-container">
                 <p><a class="breakdownLabel" href="https://developer.bestbuy.com/documentation#advancedSearch-search" target="_blank">baseURL</a> : http://api.remix.bestbuy.com/v1/stores</p>
 
-                <p><a class="breakdownLabel" target="_blank">categoryId/categoryName</a> :</p>
+                <p ng-show="categoryName !== ''"><a class="breakdownLabel" target="_blank">categoryId/categoryName</a> : (name=<span ng-bind="categoryName"></span>)</p>
 
                 <p><a class="breakdownLabel" target="_blank">showOptions</a> : <span ng-bind="categoryResponse.list"></span></p>
 

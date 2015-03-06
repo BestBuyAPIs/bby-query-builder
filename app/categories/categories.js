@@ -19,11 +19,14 @@ angular.module('bby-query-mixer.categories').controller('CategoriesCtrl', [
         $scope.buildRemixQuery = function () {
             var queryUrl = 'http://api.remix.bestbuy.com/v1/categories';
 
+            var topLevel = ($scope.searchSelection.value === 'toplevelcategories') ? queryUrl += '(id=abcat*)' : '';
             
+
             var queryParams = '?';
             var addKey = $scope.apiKey ? queryParams += 'apiKey=' + $scope.apiKey : '';
             var pageSize = (($scope.pageSize)&&($scope.pageSize !== 10)) ? queryParams += '&pageSize='+$scope.pageSize:'';
             var whichPage = (($scope.whichPage)&&($scope.whichPage !== 1)) ? queryParams += '&page='+$scope.whichPage:'';
+            var toplevelshow = ($scope.searchSelection.value === 'toplevelcategories') ? queryParams += '&show=id,name' : '';
             queryParams += '&format=json&callback=JSON_CALLBACK';
 
             return queryUrl + queryParams;

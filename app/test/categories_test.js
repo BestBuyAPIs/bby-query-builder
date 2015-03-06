@@ -31,7 +31,7 @@ describe('bby-query-mixer.categories module', function () {
 	    it('should update pagination in the query string', function (){
 	        scope.pageSize = '12';
 	        scope.whichPage = '3';
-	        expect(scope.buildRemixQuery()).toEqual('http://api.remix.bestbuy.com/v1/stores?format=json&pageSize=12&page=3&callback=JSON_CALLBACK');
+	        expect(scope.buildRemixQuery()).toEqual('http://api.remix.bestbuy.com/v1/categories?&pageSize=12&page=3&format=json&callback=JSON_CALLBACK');
 	    });
     });
 

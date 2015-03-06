@@ -1097,6 +1097,8 @@ angular.module('bby-query-mixer.categories').controller('CategoriesCtrl', [
             
             var queryParams = '?';
             var addKey = $scope.apiKey ? queryParams += 'apiKey=' + $scope.apiKey : '';
+            var pageSize = (($scope.pageSize)&&($scope.pageSize !== 10)) ? queryParams += '&pageSize='+$scope.pageSize:'';
+            var whichPage = (($scope.whichPage)&&($scope.whichPage !== 1)) ? queryParams += '&page='+$scope.whichPage:'';
             queryParams += '&format=json&callback=JSON_CALLBACK';
 
             return queryUrl + queryParams;
@@ -1136,6 +1138,8 @@ angular.module('bby-query-mixer.categories').controller('CategoriesCtrl', [
         $scope.categoryResponse = {};
 
         $scope.resetParams = function () {
+            $scope.pageSize = 10;
+            $scope.whichPage = 1;
             $scope.categoryResponse.list = [];
             $scope.categoryResponses = angular.copy(categoryResponseConfig);
             $scope.searchSelection = $scope.searchOptions[0];

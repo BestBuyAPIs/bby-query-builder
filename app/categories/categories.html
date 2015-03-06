@@ -15,17 +15,17 @@
 
                     <div class="content-container">
                         <div ng-show="searchSelection.value ==='allcategories'">
-                            <p>Returns all categories and subcategories.</p>
+                            <p class="descriptionUnderDropdown">Returns all categories and subcategories.</p>
                         </div>
                         <div ng-show="searchSelection.value ==='toplevelcategories'">
-                            <p>Returns top level categories.</p>
+                            <p class="descriptionUnderDropdown">Returns top level categories.</p>
                         </div>
                         <div ng-show="searchSelection.value ==='categoryname'">
-                            <p>Returns all categories that contain search text in the name field.</p>
+                            <p class="descriptionUnderDropdown">Returns all categories that contain search text in the name field.</p>
                             <input class="rounded" type="text" placeholder="Category Name" ng-model="categoryName"></input>
                         </div>
                         <div ng-show="searchSelection.value ==='categoryid'">
-                            <p>Search by category id</p>
+                            <p class="descriptionUnderDropdown">Search by category id</p>
                             <input class="rounded" type="text" placeholder="Category Id" ng-model="categoryId"></input>                           
                         </div>
                     </div>

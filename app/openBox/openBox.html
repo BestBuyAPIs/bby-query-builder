@@ -13,19 +13,19 @@
                     </select></p>
                     <div>
                         <div ng-show="searchSelection.value === 'allSkus'">
-                            <p class="openBoxEndpointDescription">The <a href="https://developer.bestbuy.com/documentation/buyingOptions-api#documentation/buyingOptions-api-open-box-all-skus" target="_blank">Open Box Offers All SKUs</a> endpoint returns all available Open Box offers across Best Buy.</p>
+                            <p class="descriptionUnderDropdown">The <a href="https://developer.bestbuy.com/documentation/buyingOptions-api#documentation/buyingOptions-api-open-box-all-skus" target="_blank">Open Box Offers All SKUs</a> endpoint returns all available Open Box offers across Best Buy.</p>
                         </div>
                         <div ng-show="searchSelection.value === 'category'">
-                            <p class="openBoxEndpointDescription">The <a href="https://developer.bestbuy.com/documentation/buyingOptions-api#documentation/buyingOptions-api-open-box-by-category" target="_blank">Open Box Offers by Category</a> endpoint lets you query for products based on their Category. For additional information on Categories please see our <a href="https://developer.bestbuy.com/documentation/categories-api" target="_blank">Categories API</a> documentation.</p>
+                            <p class="descriptionUnderDropdown">The <a href="https://developer.bestbuy.com/documentation/buyingOptions-api#documentation/buyingOptions-api-open-box-by-category" target="_blank">Open Box Offers by Category</a> endpoint lets you query for products based on their Category. For additional information on Categories please see our <a href="https://developer.bestbuy.com/documentation/categories-api" target="_blank">Categories API</a> documentation.</p>
                             <select class="" id="category" ng-model="category"
                                     ng-options="opt as opt.label for opt in categories"></select>
                         </div>
                         <div ng-show="searchSelection.value === 'skuList'">
-                            <p class="openBoxEndpointDescription">The Open Box Offers by <a href="https://developer.bestbuy.com/documentation/buyingOptions-api#documentation/buyingOptions-api-open-box-by-list-of-skus" target="_blank">List of SKUs</a> let you query for a list of products using the product identifier (SKU). The list must be comma delimited.</p>
+                            <p class="descriptionUnderDropdown">The Open Box Offers by <a href="https://developer.bestbuy.com/documentation/buyingOptions-api#documentation/buyingOptions-api-open-box-by-list-of-skus" target="_blank">List of SKUs</a> let you query for a list of products using the product identifier (SKU). The list must be comma delimited.</p>
                             <input class="rounded" type="text" ng-model="skuList" placeholder="1234567, 7894565" ng-maxlength="80" required>
                         </div>
                         <div ng-show="searchSelection.value === 'singleSku'">
-                            <p class="openBoxEndpointDescription">The <a href="https://developer.bestbuy.com/documentation/buyingOptions-api#documentation/buyingOptions-api-open-box-single-sku" target="_blank">Open Box Offers by SKU</a> endpoint lets you query for a specific product using the product identifier of SKU.</p>
+                            <p class="descriptionUnderDropdown">The <a href="https://developer.bestbuy.com/documentation/buyingOptions-api#documentation/buyingOptions-api-open-box-single-sku" target="_blank">Open Box Offers by SKU</a> endpoint lets you query for a specific product using the product identifier of SKU.</p>
                             <input class="rounded" type="text" ng-model="singleSku" placeholder="1234567" ng-maxlength="16" required>
                         </div> 
                     </div>    

@@ -74,7 +74,7 @@
 
                 <p ng-show="categoryName !== ''"><a class="breakdownLabel" target="_blank">categoryId/categoryName</a> : (name=<span ng-bind="categoryName"></span>)</p>
 
-                <p><a class="breakdownLabel" target="_blank">showOptions</a> : <span ng-bind="categoryResponse.list"></span></p>
+                <p ng-show="categoryResponse.list.length > 0"><a class="breakdownLabel" target="_blank">showOptions</a> : <span ng-bind="categoryResponse.list"></span></p>
 
                 <p><a class="breakdownLabel" href="https://remix.mashery.com/member/register" target="_blank">apiKey</a> : ?apiKey=<span ng-bind="apiKey"></span></p>
 

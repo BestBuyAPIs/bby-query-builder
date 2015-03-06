@@ -1087,8 +1087,7 @@ angular.module('bby-query-mixer.categories').controller('CategoriesCtrl', [
             {text:"All Categories", value:"allcategories"},
             {text:"Top Level Categories", value:"toplevelcategories"},
             {text:"Search By Category Name", value:"categoryname"},
-            {text:"Search By Category Id", value:"categoryid"},
-            {text:"Search By Category Name and/or Id", value:"multiplecategoryparams"},
+            {text:"Search By Category Id", value:"categoryid"}
         ];
 
         $scope.buildRemixQuery = function () {

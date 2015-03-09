@@ -29,7 +29,7 @@ label:after {
 
 .menu a {
     text-decoration: none;
-    text-transform: uppercase;
+    font-size: 1.2em;
     cursor: pointer;
 }
 

@@ -10,7 +10,7 @@ angular.module('bby-query-mixer.recommendations').controller('RecommendationsCtr
         $scope.category = $scope.categories[0];
 
         $scope.buildRecommendationsQuery = function () {
-            var baseUrl = 'http://api.bestbuy.com/beta/products/';
+            var baseUrl = 'https://api.bestbuy.com/beta/products/';
             var queryArgs = [];
             var endpointSelection = $scope.endpoint.selected ? baseUrl += ($scope.endpoint.selected) : '';
             var categoryOption = $scope.category.value ? baseUrl += ('(categoryId='+$scope.category.value+')') : '';

@@ -248,10 +248,10 @@ angular.module('bby-query-mixer.openBox').controller('openBoxCtrl', [
         ];
         
         $scope.buildRemixQuery = function () {
-            var baseUrl = 'http://api.bestbuy.com/beta/products/openBox'
+            var baseUrl = 'https://api.bestbuy.com/beta/products/openBox'
             var categoryQuery = (($scope.searchSelection.value === 'category')&& $scope.category.value) ? baseUrl += '(categoryId='+$scope.category.value+')' :'';
             var skuListQuery = (($scope.searchSelection.value === 'skuList')&&($scope.skuList)) ? baseUrl += '(sku%20in('+$scope.skuList+'))':'';
-            var singleSkuQuery = (($scope.searchSelection.value === 'singleSku')&&($scope.singleSku)) ? baseUrl = 'http://api.bestbuy.com/beta/products/'+$scope.singleSku +'/openBox' : '';
+            var singleSkuQuery = (($scope.searchSelection.value === 'singleSku')&&($scope.singleSku)) ? baseUrl = 'https://api.bestbuy.com/beta/products/'+$scope.singleSku +'/openBox' : '';
             var apiKey = $scope.apiKey ? baseUrl += '?apiKey='+$scope.apiKey : '';
             baseUrl += '&callback=JSON_CALLBACK' + '&pageSize='+$scope.pageSize+'&page='+$scope.whichPage;
             return baseUrl
@@ -622,7 +622,7 @@ angular.module('bby-query-mixer.recommendations').controller('RecommendationsCtr
         $scope.category = $scope.categories[0];
 
         $scope.buildRecommendationsQuery = function () {
-            var baseUrl = 'http://api.bestbuy.com/beta/products/';
+            var baseUrl = 'https://api.bestbuy.com/beta/products/';
             var queryArgs = [];
             var endpointSelection = $scope.endpoint.selected ? baseUrl += ($scope.endpoint.selected) : '';
             var categoryOption = $scope.category.value ? baseUrl += ('(categoryId='+$scope.category.value+')') : '';
@@ -701,7 +701,7 @@ angular.module('bby-query-mixer.smartLists').controller('SmartListsCtrl', [
         //http://api.bestbuy.com/beta/products/connectedHome?apiKey=YourAPIKey
 
         $scope.buildSmartListsQuery = function () {
-            var baseUrl = 'http://api.bestbuy.com/beta/products/';
+            var baseUrl = 'https://api.bestbuy.com/beta/products/';
             var queryArgs = [];
             var endpointSelection = $scope.endpoint.selected ? baseUrl += ($scope.endpoint.selected) : '';
             var addKey = $scope.apiKey ? baseUrl += ('?apiKey='+$scope.apiKey):'';
@@ -889,7 +889,7 @@ angular.module('bby-query-mixer.stores').controller('storesCtrl', [
         };
 
         $scope.buildRemixQuery = function () {
-            var baseUrl = 'http://api.remix.bestbuy.com/v1/stores';
+            var baseUrl = 'https://api.remix.bestbuy.com/v1/stores';
             
             //searchArgs = optional search arguments like store type, store services, region, etc
             var searchArgs = [];

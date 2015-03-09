@@ -9,7 +9,7 @@ angular.module('bby-query-mixer.smartLists').controller('SmartListsCtrl', [
         //http://api.bestbuy.com/beta/products/connectedHome?apiKey=YourAPIKey
 
         $scope.buildSmartListsQuery = function () {
-            var baseUrl = 'http://api.bestbuy.com/beta/products/';
+            var baseUrl = 'https://api.bestbuy.com/beta/products/';
             var queryArgs = [];
             var endpointSelection = $scope.endpoint.selected ? baseUrl += ($scope.endpoint.selected) : '';
             var addKey = $scope.apiKey ? baseUrl += ('?apiKey='+$scope.apiKey):'';

@@ -52,6 +52,7 @@ describe('bby-query-mixer.categories module', function () {
             scope.resetParams();
             expect(scope.categoryResponse.list).toEqual([]);
             expect(scope.searchSelection).toEqual(scope.searchOptions[0]);
+            expect(scope.categoryResponse.list).toEqual([]);
         });
         
         it('should leave the apikey as is', function () {

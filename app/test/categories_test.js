@@ -61,4 +61,16 @@ describe('bby-query-mixer.categories module', function () {
             expect(scope.apiKey).toEqual('myApiKey');
         });
     });
+
+    describe('resetInput function', function () {
+    	it('should reset inputs and response options', function () {
+    		scope.categoryName = 'test';
+    		scope.categoryId = '1234';
+    		scope.categoryResponse.list = ['foo','bar'];
+    		scope.resetInput();
+    		expect(scope.categoryName).toEqual('');
+    		expect(scope.categoryId).toEqual('');
+    		scope.categoryResponse.list = [];
+    	});
+    });
 });

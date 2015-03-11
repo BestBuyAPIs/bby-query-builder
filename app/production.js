@@ -1138,6 +1138,12 @@ angular.module('bby-query-mixer.categories').controller('CategoriesCtrl', [
             };
         };
 
+        $scope.resetInput = function () {
+            $scope.categoryName = '';
+            $scope.categoryId = '';
+            $scope.categoryResponse.list = [];            
+        };
+
         $scope.categoryResponse = {};
 
         $scope.resetParams = function () {
@@ -1148,6 +1154,7 @@ angular.module('bby-query-mixer.categories').controller('CategoriesCtrl', [
             $scope.categoryResponse.list = [];
             $scope.categoryResponses = angular.copy(categoryResponseConfig);
             $scope.searchSelection = $scope.searchOptions[0];
+            $scope.resetInput();
         };
         //calling the function here loads the defaults on page load
         $scope.resetParams();

@@ -27,7 +27,7 @@ angular.module('bby-query-mixer.categories').controller('CategoriesCtrl', [
             var pageSize = (($scope.pageSize)&&($scope.pageSize !== 10)) ? queryParams += '&pageSize='+$scope.pageSize:'';
             var whichPage = (($scope.whichPage)&&($scope.whichPage !== 1)) ? queryParams += '&page='+$scope.whichPage:'';
             var addShowOptions =  ($scope.categoryResponse.list.length > 0) ? queryParams += '&show='+$scope.categoryResponse.list :'';
-            queryParams += '&format=json&callback=JSON_CALLBACK';
+            queryParams += '&callback=JSON_CALLBACK&format=json';
 
             return queryUrl + queryParams;
         };

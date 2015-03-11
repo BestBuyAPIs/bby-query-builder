@@ -917,8 +917,9 @@ angular.module('bby-query-mixer.stores').controller('storesCtrl', [
             var queryParams = [];
             var skuListOption = $scope.skuList !== '' ? queryParams.push('+products(sku%20in%20('+$scope.skuList+'))') : '';
 
-            queryParams.push('?format=json');
-            var addKey = $scope.apiKey ? queryParams.push(('&apiKey='+$scope.apiKey)):'';
+            queryParams.push('?')
+
+            var addKey = $scope.apiKey ? queryParams.push(('apiKey='+$scope.apiKey)):'';
 
             var showParams = [];
             var productShowOptions = $scope.skuList !== '' ? showParams.push($scope.productOption.list):'';
@@ -926,7 +927,7 @@ angular.module('bby-query-mixer.stores').controller('storesCtrl', [
             var addShowParams = showParams.length > 0 ? queryParams.push('&show='+showParams):'';
 
             var addPagination = (($scope.pageSize !== 10) || ($scope.whichPage !== 1)) ? queryParams.push(('&pageSize='+$scope.pageSize+'&page='+$scope.whichPage)) :'';
-            queryParams.push('&callback=JSON_CALLBACK');
+            queryParams.push('&callback=JSON_CALLBACK&format=json');
             var parensCheck = searchArgs.length === 0 ? baseUrl += (searchArgs.join('')) : baseUrl += ('('+searchArgs.join('&')+')');
             baseUrl += queryParams.join('');
             return baseUrl
@@ -1102,7 +1103,7 @@ angular.module('bby-query-mixer.categories').controller('CategoriesCtrl', [
             var pageSize = (($scope.pageSize)&&($scope.pageSize !== 10)) ? queryParams += '&pageSize='+$scope.pageSize:'';
             var whichPage = (($scope.whichPage)&&($scope.whichPage !== 1)) ? queryParams += '&page='+$scope.whichPage:'';
             var addShowOptions =  ($scope.categoryResponse.list.length > 0) ? queryParams += '&show='+$scope.categoryResponse.list :'';
-            queryParams += '&format=json&callback=JSON_CALLBACK';
+            queryParams += '&callback=JSON_CALLBACK&format=json';
 
             return queryUrl + queryParams;
         };

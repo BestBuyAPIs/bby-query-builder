@@ -78,5 +78,10 @@ describe('bby-query-mixer.categories module', function () {
     		expect(scope.whichPage).toEqual(1);
     		expect(scope.pageSize).toEqual(10);
     	});
+    	it('should preselect id and name for top level categories search', function () {
+    		scope.searchSelection.value = 'toplevelcategories';
+    		scope.resetInput();
+    		expect(scope.categoryResponse.list).toEqual(['id','name']);
+    	});
     });
 });

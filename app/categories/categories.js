@@ -54,7 +54,7 @@ angular.module('bby-query-mixer.categories').controller('CategoriesCtrl', [
                 GaService.clickQueryButtonEvent(eventActionName, $scope.apiKey);
 
                 HttpClientService.httpClient(query).jsonp_query(successFn, errorFn);
-            }else if ($scope.apiKey ===  ""){
+            } else if ($scope.apiKey ===  ""){
                 $scope.errorResult = true;
                 $scope.results = "Please enter your API Key";
             } else {
@@ -68,7 +68,8 @@ angular.module('bby-query-mixer.categories').controller('CategoriesCtrl', [
             $scope.categoryId = '';
             $scope.categoryResponse.list = [];
             $scope.whichPage = 1;
-            $scope.pageSize = 10;            
+            $scope.pageSize = 10;
+            var topCat = ($scope.searchSelection.value === 'toplevelcategories') ? $scope.categoryResponse.list = ['id','name']:'';
         };
 
         $scope.categoryResponse = {};

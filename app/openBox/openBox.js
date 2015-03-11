@@ -16,14 +16,19 @@ angular.module('bby-query-mixer.openBox').controller('openBoxCtrl', [
         	{ text: "Open Box Offers by List of SKUs", value: 'skuList' },
         	{ text: "Open Box Offers by SKU", value: 'singleSku' }
         ];
-        
+
         $scope.buildRemixQuery = function () {
             var baseUrl = 'https://api.bestbuy.com/beta/products/openBox'
             var categoryQuery = (($scope.searchSelection.value === 'category')&& $scope.category.value) ? baseUrl += '(categoryId='+$scope.category.value+')' :'';
             var skuListQuery = (($scope.searchSelection.value === 'skuList')&&($scope.skuList)) ? baseUrl += '(sku%20in('+$scope.skuList+'))':'';
             var singleSkuQuery = (($scope.searchSelection.value === 'singleSku')&&($scope.singleSku)) ? baseUrl = 'https://api.bestbuy.com/beta/products/'+$scope.singleSku +'/openBox' : '';
             var apiKey = $scope.apiKey ? baseUrl += '?apiKey='+$scope.apiKey : '';
-            baseUrl += '&callback=JSON_CALLBACK' + '&pageSize='+$scope.pageSize+'&page='+$scope.whichPage;
+            
+            baseUrl += '&callback=JSON_CALLBACK' ;
+            
+            var checkPageSize = (($scope.pageSize)&&($scope.pageSize !== 10)) ? baseUrl += '&pageSize='+$scope.pageSize : '';
+            var checkWhichPage = (($scope.whichPage)&&($scope.whichPage !== 1)) ? baseUrl += '&page='+$scope.whichPage : '';
+            
             return baseUrl
         };
 

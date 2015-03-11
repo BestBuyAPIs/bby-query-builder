@@ -67,7 +67,9 @@ angular.module('bby-query-mixer.stores').controller('storesCtrl', [
             var addStoreResponseOptions = ($scope.storeResponse.list.length > 0) ? showParams.push($scope.storeResponse.list) : '';
             var addShowParams = showParams.length > 0 ? queryParams.push('&show='+showParams):'';
 
-            var addPagination = (($scope.pageSize !== 10) || ($scope.whichPage !== 1)) ? queryParams.push(('&pageSize='+$scope.pageSize+'&page='+$scope.whichPage)) :'';
+            var checkPageSize = (($scope.pageSize)&&($scope.pageSize !== 10)) ? baseUrl += '&pageSize='+$scope.pageSize : '';
+            var checkWhichPage = (($scope.whichPage)&&($scope.whichPage !== 1)) ? baseUrl += '&page='+$scope.whichPage : '';
+                        
             queryParams.push('&callback=JSON_CALLBACK&format=json');
             var parensCheck = searchArgs.length === 0 ? baseUrl += (searchArgs.join('')) : baseUrl += ('('+searchArgs.join('&')+')');
             baseUrl += queryParams.join('');

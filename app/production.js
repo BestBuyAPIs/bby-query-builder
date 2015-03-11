@@ -246,14 +246,19 @@ angular.module('bby-query-mixer.openBox').controller('openBoxCtrl', [
         	{ text: "Open Box Offers by List of SKUs", value: 'skuList' },
         	{ text: "Open Box Offers by SKU", value: 'singleSku' }
         ];
-        
+
         $scope.buildRemixQuery = function () {
             var baseUrl = 'https://api.bestbuy.com/beta/products/openBox'
             var categoryQuery = (($scope.searchSelection.value === 'category')&& $scope.category.value) ? baseUrl += '(categoryId='+$scope.category.value+')' :'';
             var skuListQuery = (($scope.searchSelection.value === 'skuList')&&($scope.skuList)) ? baseUrl += '(sku%20in('+$scope.skuList+'))':'';
             var singleSkuQuery = (($scope.searchSelection.value === 'singleSku')&&($scope.singleSku)) ? baseUrl = 'https://api.bestbuy.com/beta/products/'+$scope.singleSku +'/openBox' : '';
             var apiKey = $scope.apiKey ? baseUrl += '?apiKey='+$scope.apiKey : '';
-            baseUrl += '&callback=JSON_CALLBACK' + '&pageSize='+$scope.pageSize+'&page='+$scope.whichPage;
+            
+            baseUrl += '&callback=JSON_CALLBACK' ;
+            
+            var checkPageSize = (($scope.pageSize)&&($scope.pageSize !== 10)) ? baseUrl += '&pageSize='+$scope.pageSize : '';
+            var checkWhichPage = (($scope.whichPage)&&($scope.whichPage !== 1)) ? baseUrl += '&page='+$scope.whichPage : '';
+            
             return baseUrl
         };
 
@@ -439,9 +444,8 @@ angular.module('bby-query-mixer.productSearch').controller('ProductSearchCtrl', 
                 paramArgs.push('facet=' + $scope.facetAttribute.productAttribute);
             };
 
-            if(($scope.pageSize !== 10) || ($scope.whichPage !== 1)){
-                paramArgs.push('pageSize='+$scope.pageSize + '&page='+$scope.whichPage);
-            };
+            var checkPageSize = (($scope.pageSize)&&($scope.pageSize !== 10)) ? paramArgs.push('&pageSize='+$scope.pageSize) : '';
+            var checkWhichPage = (($scope.whichPage)&&($scope.whichPage !== 1)) ? paramArgs.push('&page='+$scope.whichPage) : '';
 
             paramArgs.push('format=json');
 
@@ -926,7 +930,9 @@ angular.module('bby-query-mixer.stores').controller('storesCtrl', [
             var addStoreResponseOptions = ($scope.storeResponse.list.length > 0) ? showParams.push($scope.storeResponse.list) : '';
             var addShowParams = showParams.length > 0 ? queryParams.push('&show='+showParams):'';
 
-            var addPagination = (($scope.pageSize !== 10) || ($scope.whichPage !== 1)) ? queryParams.push(('&pageSize='+$scope.pageSize+'&page='+$scope.whichPage)) :'';
+            var checkPageSize = (($scope.pageSize)&&($scope.pageSize !== 10)) ? baseUrl += '&pageSize='+$scope.pageSize : '';
+            var checkWhichPage = (($scope.whichPage)&&($scope.whichPage !== 1)) ? baseUrl += '&page='+$scope.whichPage : '';
+                        
             queryParams.push('&callback=JSON_CALLBACK&format=json');
             var parensCheck = searchArgs.length === 0 ? baseUrl += (searchArgs.join('')) : baseUrl += ('('+searchArgs.join('&')+')');
             baseUrl += queryParams.join('');

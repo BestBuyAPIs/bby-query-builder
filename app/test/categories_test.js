@@ -13,6 +13,10 @@ describe('bby-query-mixer.categories module', function () {
 		});
 	}));
 
+    beforeEach(inject(function ($controller, $rootScope) {
+        scope.apiKey = 'youreAnApiKey';
+    }));
+
 	describe('CategoriesCtrl', function () {
 
 		it('should have a controller defined', function () {
@@ -26,24 +30,24 @@ describe('bby-query-mixer.categories module', function () {
 	        expect(scope.buildRemixQuery).toBeDefined();
 	    });
 	    it('should build a query string', function (){
-	        expect(scope.buildRemixQuery()).toEqual('http://api.remix.bestbuy.com/v1/categories?&format=json&callback=JSON_CALLBACK');
+	        expect(scope.buildRemixQuery()).toEqual('http://api.remix.bestbuy.com/v1/categories?apiKey=youreAnApiKey&callback=JSON_CALLBACK&format=json');
 	    });
 	    it('should update pagination in the query string', function (){
 	        scope.pageSize = '12';
 	        scope.whichPage = '3';
-	        expect(scope.buildRemixQuery()).toEqual('http://api.remix.bestbuy.com/v1/categories?&pageSize=12&page=3&format=json&callback=JSON_CALLBACK');
+	        expect(scope.buildRemixQuery()).toEqual('http://api.remix.bestbuy.com/v1/categories?apiKey=youreAnApiKey&pageSize=12&page=3&callback=JSON_CALLBACK&format=json');
 	    });
 	   	it('should add category name if needed', function (){
 	        scope.categoryName = 'awesomeProducts';
-	        expect(scope.buildRemixQuery()).toEqual('http://api.remix.bestbuy.com/v1/categories(name=awesomeProducts*)?&format=json&callback=JSON_CALLBACK');
+	        expect(scope.buildRemixQuery()).toEqual('http://api.remix.bestbuy.com/v1/categories(name=awesomeProducts*)?apiKey=youreAnApiKey&callback=JSON_CALLBACK&format=json');
 	    });
-	   	it('should add category name if needed', function (){
+	   	it('should add category id if needed', function (){
 	        scope.categoryId = 'abcat0401000';
-	        expect(scope.buildRemixQuery()).toEqual('http://api.remix.bestbuy.com/v1/categories(id=abcat0401000)?&format=json&callback=JSON_CALLBACK');
+	        expect(scope.buildRemixQuery()).toEqual('http://api.remix.bestbuy.com/v1/categories(id=abcat0401000)?apiKey=youreAnApiKey&callback=JSON_CALLBACK&format=json');
 	    });
 	   	it('should add the correct response attributes', function (){
 	        scope.categoryResponse.list = ['id','name','subcategory'];
-	        expect(scope.buildRemixQuery()).toEqual('http://api.remix.bestbuy.com/v1/categories?&show=id,name,subcategory&format=json&callback=JSON_CALLBACK');
+	        expect(scope.buildRemixQuery()).toEqual('http://api.remix.bestbuy.com/v1/categories?apiKey=youreAnApiKey&show=id,name,subcategory&callback=JSON_CALLBACK&format=json');
 	    });	 	    
     });
 

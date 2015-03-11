@@ -67,10 +67,16 @@ describe('bby-query-mixer.categories module', function () {
     		scope.categoryName = 'test';
     		scope.categoryId = '1234';
     		scope.categoryResponse.list = ['foo','bar'];
+    		scope.pageSize = 300;
+    		scope.whichPage = 300;
+
     		scope.resetInput();
+
     		expect(scope.categoryName).toEqual('');
     		expect(scope.categoryId).toEqual('');
-    		scope.categoryResponse.list = [];
+    		expect(scope.categoryResponse.list).toEqual([]);
+    		expect(scope.whichPage).toEqual(1);
+    		expect(scope.pageSize).toEqual(10);
     	});
     });
 });

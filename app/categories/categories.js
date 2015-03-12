@@ -79,8 +79,8 @@ angular.module('bby-query-mixer.categories').controller('CategoriesCtrl', [
             $scope.categoryId = '';
             $scope.pageSize = 10;
             $scope.whichPage = 1;
-            $scope.categoryResponse.list = [];
             $scope.categoryResponses = angular.copy(categoryResponseConfig);
+            $scope.categoryResponse.list = [];
             $scope.searchSelection = $scope.searchOptions[0];
             $scope.resetInput();
         };

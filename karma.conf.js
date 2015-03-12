@@ -14,6 +14,7 @@ module.exports = function (config) {
         exclude: [
             'app/bower_components/bootstrap/**',
             'app/bower_components/jquery/**',
+            'app/bower_components/*'
         ],
         autoWatch: true,
         frameworks: [
@@ -25,11 +26,16 @@ module.exports = function (config) {
         plugins: [
             'karma-phantomjs-launcher',
             'karma-jasmine',
-            'karma-junit-reporter'
+            'karma-junit-reporter',
+            'karma-coverage'
         ],
         junitReporter: {
             outputFile: 'test_out/unit.xml',
             suite: 'unit'
-        }
+        },
+        preprocessors : {
+            'app/!(bower_components)/*.js': ['coverage']
+        },
+        reporters: ['coverage','dots']
     });
 };

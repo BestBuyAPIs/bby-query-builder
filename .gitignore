@@ -7,3 +7,4 @@ tmp
 .idea
 *.iml
 *npm-debug.log
+coverage/

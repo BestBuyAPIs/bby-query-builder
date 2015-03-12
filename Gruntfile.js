@@ -82,4 +82,8 @@ module.exports = function (grunt) {
         'karma'
     ]);
 
+    grunt.registerTask('build', [
+        'concat',
+        'concat_css'
+    ]);
 };

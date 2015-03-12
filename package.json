@@ -3,7 +3,7 @@
   "private": true,
   "version": "0.0.1",
   "description": "A query builder for the Best Buy Product APIs",
-  "repository": "https://github.com/BestBuyAPIs/bby-query-mixer.git",
+  "repository": "https://github.com/BestBuyAPIs/bby-query-builder.git",
   "license": "MIT",
   "devDependencies": {
     "bower": "1.3.x",

@@ -107,6 +107,18 @@ describe('bby-query-mixer.stores module', function () {
 		it('should have a function for tracking copy url events', function (){
 			expect(scope.callCopyEvent).toBeDefined();
 		});
+		it('should have a select all function', function (){
+			expect(scope.selectAll).toBeDefined();
+		});		
+		it('should have a list of store types', function (){
+			expect(scope.storeTypes).toBeDefined();
+		})
+		it('should have a store type filter function', function (){
+			expect(scope.filterStoreType).toBeDefined();
+		})
+		it('should have a store service filter', function (){
+			expect(scope.filterStoreService()).toBeDefined();
+		})
 	});
 
     describe('reset query function', function () {

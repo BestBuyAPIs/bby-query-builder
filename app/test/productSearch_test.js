@@ -92,7 +92,6 @@ describe('bby-query-mixer.productSearch module', function () {
                 scope.apiKey = '';
                 scope.sortBy = {value : 'sku'};
                 scope.sortOrder.value = 'asc';
-
                 expect(scope.buildParams()).toEqual('?sort=sku.asc&format=json');
             });
 

@@ -64,8 +64,50 @@ describe('bby-query-mixer.stores module', function () {
 	        scope.storeResponse.list = ['name','hours'];
 	        scope.productOption.list = 'products.shortDescription'
 	        expect(scope.buildRemixQuery()).toEqual('https://api.remix.bestbuy.com/v1/stores+products(sku%20in%20(6461052,5909042))?apiKey=testKey&show=products.shortDescription,name,hours&callback=JSON_CALLBACK&format=json');
-	    });		     
+	    });
+	    it('should search by city', function () {
+	    	scope.searchSelection.value = 'city';
+	    	scope.cityChoice = "EmeraldCity";
+	    	expect(scope.buildRemixQuery()).toEqual('https://api.remix.bestbuy.com/v1/stores((city=EmeraldCity))?apiKey=testKey&callback=JSON_CALLBACK&format=json')
+	    });
+	    it('should search by postal code', function () {
+	    	scope.zipCode = '12345';
+	    	expect(scope.buildRemixQuery()).toEqual('https://api.remix.bestbuy.com/v1/stores((postalCode=12345))?apiKey=testKey&callback=JSON_CALLBACK&format=json')
+
+	    });
+	    it('should search by lat long', function () {
+	    	scope.longitude = 50;
+	    	scope.latitude = 50;
+	    	expect(scope.buildRemixQuery()).toEqual('https://api.remix.bestbuy.com/v1/stores((area(50,50,)))?apiKey=testKey&callback=JSON_CALLBACK&format=json')
+
+	    });	
+	    it('should search by storeid', function () {
+			scope.searchSelection.value = 'storeId';
+			scope.storeId = '54321';
+			expect(scope.buildRemixQuery()).toEqual('https://api.remix.bestbuy.com/v1/stores((storeId=54321))?apiKey=testKey&callback=JSON_CALLBACK&format=json')
+	    });	        	    		     
+	    it('should search by region/state', function () {
+			scope.searchSelection.value ='region';
+			scope.regionOption = {value:"Minnesota"};
+			expect(scope.buildRemixQuery()).toEqual('https://api.remix.bestbuy.com/v1/stores((region=Minnesota))?apiKey=testKey&callback=JSON_CALLBACK&format=json');
+	    });   
+	    it('should add a key', function () {
+	    	scope.apiKey = "mySuperSecretApiKey";
+	    	expect(scope.buildRemixQuery()).toEqual('https://api.remix.bestbuy.com/v1/stores?apiKey=mySuperSecretApiKey&callback=JSON_CALLBACK&format=json');
+	    }); 	     
     });
+
+	describe('helpers / constants', function (){
+		it('should have a list of search options', function (){
+			expect(scope.options).toBeDefined();
+		});
+		it('should have a add all options function', function (){
+			expect(scope.addAllOptions).toBeDefined();
+		});
+		it('should have a function for tracking copy url events', function (){
+			expect(scope.callCopyEvent).toBeDefined();
+		});
+	});
 
     describe('reset query function', function () {
         it('should reset all relevant query params', function () {

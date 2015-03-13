@@ -34,8 +34,7 @@ module.exports = function (config) {
             suite: 'unit'
         },
         preprocessors : {
-            'app/production.js': ['coverage']
-        },
+            'app/!(bower_components)/*.js': ['coverage']        },
         reporters: ['coverage','dots']
     });
 };

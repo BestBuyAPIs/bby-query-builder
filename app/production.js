@@ -1151,7 +1151,7 @@ angular.module('bby-query-mixer.categories').controller('CategoriesCtrl', [
             $scope.categoryResponse.list = [];
             $scope.whichPage = 1;
             $scope.pageSize = 10;
-            var topCat = ($scope.searchSelection.value === 'toplevelcategories') ? $scope.categoryResponse.list = ['id','name']:'';
+            var topCat = ($scope.searchSelection.value === 'toplevelcategories') ? $scope.categoryResponse.list = [{text:"Id",value:'id'},{text:"Name",value:'name'}]:'';
         };
 
         $scope.categoryResponse = {};

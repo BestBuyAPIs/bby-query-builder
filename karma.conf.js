@@ -34,7 +34,14 @@ module.exports = function (config) {
             suite: 'unit'
         },
         preprocessors : {
-            'app/!(bower_components)/*.js': ['coverage'],
+            'app/appConstants/*.js': ['coverage'],                       
+            'app/appServices/*.js': ['coverage'],                       
+            'app/categories/*.js': ['coverage'],
+            'app/openBox/*.js': ['coverage'],
+            'app/productSearch/*.js': ['coverage'],
+            'app/recommendations/*.js': ['coverage'],
+            'app/smartLists/*.js': ['coverage'],
+            'app/stores/*.js': ['coverage'],
         },
         reporters: ['coverage','dots']
     });

@@ -7,12 +7,15 @@ angular.module('bby-query-mixer.categories').controller('CategoriesCtrl', [
     'categoryResponseConfig',
     function ($scope, HttpClientService, GaService, categoryResponseConfig) {
 
+            $scope.categoryResponses = angular.copy(categoryResponseConfig);
+
+
         $scope.searchOptions = [
             {text:"Choose a seach option", value:""},        
-            {text:"All Categories", value:"allcategories"},
-            {text:"Top Level Categories", value:"toplevelcategories"},
-            {text:"Search By Category Name", value:"categoryname"},
-            {text:"Search By Category Id", value:"categoryid"}
+            {text:"All Categories", value:"allcategories", responseOptions:$scope.categoryResponses},
+            {text:"Top Level Categories", value:"toplevelcategories", responseOptions:[$scope.categoryResponses[0],$scope.categoryResponses[1]]},
+            {text:"Search By Category Name", value:"categoryname", responseOptions:$scope.categoryResponses},
+            {text:"Search By Category Id", value:"categoryid", responseOptions:$scope.categoryResponses}
         ];
 
         $scope.buildRemixQuery = function () {
@@ -69,7 +72,6 @@ angular.module('bby-query-mixer.categories').controller('CategoriesCtrl', [
             $scope.categoryResponse.list = [];
             $scope.whichPage = 1;
             $scope.pageSize = 10;
-            var topCat = ($scope.searchSelection.value === 'toplevelcategories') ? $scope.categoryResponse.list = [{text:"Id",value:'id'},{text:"Name",value:'name'}]:'';
         };
 
         $scope.categoryResponse = {};
@@ -88,9 +90,11 @@ angular.module('bby-query-mixer.categories').controller('CategoriesCtrl', [
         $scope.resetParams();
 
         $scope.selectAll = function (z) {
-            if (z === 'categoryAttributes') {
+            if (z === 'toplevelcategories') {
+                $scope.categoryResponse.list = [$scope.categoryResponses[0],$scope.categoryResponses[1]];
+            } else if (z !== 'noResponse'){
                 $scope.categoryResponse.list = angular.copy($scope.categoryResponses);
-            } else if (z === 'noResponse'){
+            }else if (z === 'noResponse'){
                 $scope.categoryResponse.list = [];
             }
             return;

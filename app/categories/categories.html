@@ -43,7 +43,7 @@
                     <div class="multiSelectBox content-container">
                         <ui-select multiple="true" ng-model="categoryResponse.list" theme="select2" ng-disabled="disabled">
                             <ui-select-match placeholder="Select category attributes">{{$item.text}}</ui-select-match>
-                            <ui-select-choices repeat="option.value as option in categoryResponses track by $index | propsFilter: {text: $select.search}">
+                            <ui-select-choices repeat="option.value as option in categoryResponses | propsFilter: {text: $select.search}">
                               <div ng-bind-html="option.text | highlight: $select.search"></div>
                             </ui-select-choices>
                         </ui-select>

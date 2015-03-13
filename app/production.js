@@ -1169,15 +1169,9 @@ angular.module('bby-query-mixer.categories').controller('CategoriesCtrl', [
         //calling the function here loads the defaults on page load
         $scope.resetParams();
 
-        $scope.addAllOptions = function(optionArray) {
-            var newArray = [];
-            angular.forEach(optionArray, function(i) { this.push(i.value) }, newArray);
-            return newArray;
-        };
-
         $scope.selectAll = function (z) {
             if (z === 'categoryAttributes') {
-                $scope.categoryResponse.list = $scope.addAllOptions($scope.categoryResponses);
+                $scope.categoryResponse.list = angular.copy($scope.categoryResponses);
             } else if (z === 'noResponse'){
                 $scope.categoryResponse.list = [];
             }

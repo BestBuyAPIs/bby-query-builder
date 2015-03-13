@@ -27,34 +27,6 @@ label:after {
      margin: 0 0 2px;
 }
 
-/*.menu {
-    list-style: none;
-    margin-bottom: 2em;
-    padding: 0 0 0.5em;
-}
-
-.menu:before {
-    content: "[";
-}
-
-.menu:after {
-    content: "]";
-}
-
-.menu > li {
-    display: inline;
-}
-
-.menu > li:before {
-    content: "|";
-    padding-right: 0.3em;
-}
-
-.menu > li:nth-child(1):before {
-    content: "";
-    padding: 0;
-}*/
-
 .menu a {
     text-decoration: none;
     text-transform: uppercase;
@@ -162,13 +134,16 @@ label:after {
     width: 50%;
     margin: 0;
     padding: 5px 0;
-    font-size: 24pt;
+    font-size: 24px;
+
 }
 #logo-wrapper img {
     width: 50px;
     height: 35px;
 }
-
+#header-title{
+    vertical-align: middle;
+}
 .query-result {
     width: 100%;
     min-height: 8em;
@@ -255,33 +230,6 @@ input.ng-invalid {
   border: 1px solid red;
 }
 
-.query-button:hover {
-    color: #0099FF;
-    border-color: #0099FF;
-}
-
-#recommendationsFooterNote{
-    font-style: italic;
-    font-size: 1em;
-}
-#popularRecommendationButton {
-    background-image: url(assets/popular.png);
-}
-#popularRecommendationButton:hover{
-    background-image: url(assets/popular_hover.png);
-}
-#popularRecommendationButton.selected {
-    background-image: url(assets/popular_selected.png);
-}
-#trendingRecommendationButton {
-    background-image: url(assets/trending.png);
-}
-#trendingRecommendationButton:hover{
-    background-image: url(assets/trending_hover.png);
-}
-#trendingRecommendationButton.selected {
-    background-image: url(assets/trending_selected.png);
-}
 .endpointContainer{
     position: relative;
     display: inline-block;
@@ -315,7 +263,7 @@ input.ng-invalid {
     font-family: 'Avenir Next', Avenir, 'Proxima Nova', proxima-nova, 'Helvetica Neue', Helvetica, Arial, sans-serif;
     -webkit-font-smoothing: antialiased;
 }
-.recommendation-endpoint-button{
+.endpoint-button{
     overflow: hidden;
     background-size: cover;
     background-position: center;
@@ -386,4 +334,7 @@ input.ng-invalid {
 }
 .longLatForm > p{
     padding-left: 0.5%;
+}
+p{
+    overflow: auto;
 }

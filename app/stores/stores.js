@@ -166,15 +166,15 @@ angular.module('bby-query-mixer.stores').controller('storesCtrl', [
 
         $scope.selectAll = function (z) {
             if (z === 'services') {
-                $scope.servicesOption.list = $scope.addAllOptions($scope.servicesOptions);
+                $scope.servicesOption.list = angular.copy($scope.servicesOptions);
             } else if (z === 'noservices') {
                 $scope.servicesOption.list = [];
             } else if (z === 'types') {
-                $scope.storeType.list = $scope.addAllOptions($scope.storeTypes);
+                $scope.storeType.list = angular.copy($scope.storeTypes);
             } else if (z === 'notypes') {
                 $scope.storeType.list = [];
             } else if (z === 'responseAttributes') {
-                $scope.storeResponse.list = $scope.addAllOptions($scope.storeResponses);
+                $scope.storeResponse.list = angular.copy($scope.storeResponses);
             } else if (z === 'noResponse') {
                 $scope.storeResponse.list = [];
             } else if (z === 'products') {

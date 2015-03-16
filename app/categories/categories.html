@@ -30,28 +30,10 @@
                         </div>
                     </div>
             </div>
-            <h4><span class="fa-stack fa-3x numberIcon">
-                    <i class="fa fa-circle fa-stack-2x icon-stack-base"></i>
-                    <strong class="char-overlay fa-stack-1x">2</strong>
-                    </span> Build Your Response</h4>
-                    <div class="content-container">
-                    <p>
-                        <span class="subtitle">Category Attributes</span> (optional)
-                        <button class="btn btn-default btn-xs" ng-click="selectAll(searchSelection.value)">Select All</button> <button class="btn btn-default btn-xs" ng-click="selectAll('noResponse')">Select None</button>
-                    </p>
-                    </div>
-                    <div class="multiSelectBox content-container">
-                        <ui-select multiple="true" ng-model="categoryResponse.list" theme="select2" ng-disabled="disabled">
-                            <ui-select-match placeholder="Select category attributes">{{$item.text}}</ui-select-match>
-                            <ui-select-choices repeat="option.value as option in searchSelection.responseOptions | propsFilter: {text: $select.search}">
-                              <div ng-bind-html="option.text | highlight: $select.search"></div>
-                            </ui-select-choices>
-                        </ui-select>
-                    </div>
 
              <h4><span class="fa-stack fa-3x numberIcon">
                     <i class="fa fa-circle fa-stack-2x icon-stack-base"></i>
-                    <strong class="char-overlay fa-stack-1x">3</strong>
+                    <strong class="char-overlay fa-stack-1x">2</strong>
                     </span> Pagination</h4>
             <div class="content-container">
                 <form name="pageSizeform">
@@ -60,7 +42,28 @@
                 <span class="error" ng-show="pageSizeform.input.$error.number">Not valid number!</span>
                 Page: <input class="rounded" id="whichPage" ng-model="whichPage" type="number" min="1" max="900" required>
                 </form>
-            </div>       
+            </div>  
+
+            <div ng-show="searchSelection.value !== 'toplevelcategories' && searchSelection.value !== ''" class="multiselect-container">
+                <h4><span class="fa-stack fa-3x numberIcon">
+                        <i class="fa fa-circle fa-stack-2x icon-stack-base"></i>
+                        <strong class="char-overlay fa-stack-1x">3</strong>
+                        </span> Build Your Response</h4>
+                        <div class="content-container">
+                        <p>
+                            <span class="subtitle">Category Attributes</span> (optional)
+                            <button class="btn btn-default btn-xs" ng-click="selectAll(searchSelection.value)">Select All</button> <button class="btn btn-default btn-xs" ng-click="selectAll('noResponse')">Select None</button>
+                        </p>
+                        </div>
+                        <div class="multiSelectBox content-container">
+                            <ui-select multiple="true" ng-model="categoryResponse.list" theme="select2" ng-disabled="disabled">
+                                <ui-select-match placeholder="Select category attributes">{{$item.text}}</ui-select-match>
+                                <ui-select-choices repeat="option.value as option in searchSelection.responseOptions | propsFilter: {text: $select.search}">
+                                  <div ng-bind-html="option.text | highlight: $select.search"></div>
+                                </ui-select-choices>
+                            </ui-select>
+                        </div>
+            </div>
             <br/>
                 <button class="query-button" ng-click="resetParams()">RESET Query</button>
                 <button class="query-button" ng-click="invokeRemixQuery()">RUN Query</button>

@@ -69,9 +69,11 @@ angular.module('bby-query-mixer.categories').controller('CategoriesCtrl', [
         $scope.resetInput = function () {
             $scope.categoryName = '';
             $scope.categoryId = '';
-            $scope.categoryResponse.list = [];
+            // $scope.categoryResponse.list = [];
             $scope.whichPage = 1;
             $scope.pageSize = 10;
+            var toplevelcats = ($scope.searchSelection.value ==='toplevelcategories')
+                ? $scope.selectAll("toplevelcategories") : $scope.categoryResponse.list = [];
         };
 
         $scope.categoryResponse = {};

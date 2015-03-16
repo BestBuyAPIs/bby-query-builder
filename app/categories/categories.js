@@ -29,14 +29,16 @@ angular.module('bby-query-mixer.categories').controller('CategoriesCtrl', [
             var addKey = $scope.apiKey ? queryParams += 'apiKey=' + $scope.apiKey : '';
             var pageSize = (($scope.pageSize)&&($scope.pageSize !== 10)) ? queryParams += '&pageSize='+$scope.pageSize:'';
             var whichPage = (($scope.whichPage)&&($scope.whichPage !== 1)) ? queryParams += '&page='+$scope.whichPage:'';
-            var addShowOptions =  ($scope.categoryResponse.list.length > 0) ? queryParams += '&show='+$scope.categoryResponse.list :'';
+            
+            var addShowOptions =  (($scope.categoryResponse.list.length > 0)||($scope.searchSelection.value ==='toplevelcategories')) ? 
+                ($scope.searchSelection.value !=='toplevelcategories') ?
+                (queryParams += '&show='+$scope.categoryResponse.list) :
+                    (queryParams += '&show=id,name'):'';
+            
+
             queryParams += '&callback=JSON_CALLBACK&format=json';
 
             return queryUrl + queryParams;
-        };
-
-        $scope.buildParams = function () {
-           
         };
 
         $scope.invokeRemixQuery = function () {
@@ -69,11 +71,9 @@ angular.module('bby-query-mixer.categories').controller('CategoriesCtrl', [
         $scope.resetInput = function () {
             $scope.categoryName = '';
             $scope.categoryId = '';
-            // $scope.categoryResponse.list = [];
+            $scope.categoryResponse.list = [];
             $scope.whichPage = 1;
             $scope.pageSize = 10;
-            var toplevelcats = ($scope.searchSelection.value ==='toplevelcategories')
-                ? $scope.selectAll("toplevelcategories") : $scope.categoryResponse.list = [];
         };
 
         $scope.categoryResponse = {};

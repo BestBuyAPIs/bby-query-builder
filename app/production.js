@@ -1087,7 +1087,8 @@ angular.module('bby-query-mixer.categories').controller('CategoriesCtrl', [
     'HttpClientService',
     'GaService',
     'categoryResponseConfig',
-    function ($scope, HttpClientService, GaService, categoryResponseConfig) {
+    '$timeout',
+    function ($scope, HttpClientService, GaService, categoryResponseConfig, $timeout) {
 
             $scope.categoryResponses = angular.copy(categoryResponseConfig);
 
@@ -1150,12 +1151,28 @@ angular.module('bby-query-mixer.categories').controller('CategoriesCtrl', [
             };
         };
 
+        $scope.preselectTop = function () {
+            if ($scope.searchSelection.value === 'toplevelcategories') {
+                $scope.categoryResponse.list = $scope.searchOptions[2].responseOptions
+            } else
+            return
+        };
+
+        $scope.clearResponseList = function () {
+            $scope.categoryResponse.list = [];
+            $timeout(function(){$scope.preselectTop()},0);
+        };
+
         $scope.resetInput = function () {
             $scope.categoryName = '';
             $scope.categoryId = '';
-            $scope.categoryResponse.list = [];
+            // $scope.categoryResponse.list = [];
             $scope.whichPage = 1;
             $scope.pageSize = 10;
+            // $scope.preselectTop();
+            $scope.clearResponseList();
+            // console.log($scope.searchSelection.value)
+            // var toplevels = ($scope.searchSelection.value === 'toplevelcategories') ? $scope.categoryResponse.list = $scope.searchOptions[2].responseOptions:$scope.categoryResponse.list = [];
         };
 
         $scope.categoryResponse = {};

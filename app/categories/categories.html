@@ -10,7 +10,7 @@
                     </span> Search for Categories</h4>
 
                     <div class="content-container categoriesSearchForm">  
-                        <select ng-model="searchSelection" ng-options="opt as opt.text for opt in searchOptions" ng-change="resetInput()"></select>
+                        <select ng-model="searchSelection" ng-options="opt as opt.text for opt in searchOptions" ng-change="resetInput(searchSelection.value)"></select>
                     </div>
 
                     <div class="content-container">
@@ -31,9 +31,32 @@
                     </div>
             </div>
 
+            <div class="multiselect-container">
+                <h4><span class="fa-stack fa-3x numberIcon">
+                        <i class="fa fa-circle fa-stack-2x icon-stack-base"></i>
+                        <strong class="char-overlay fa-stack-1x">2</strong>
+                        </span> Build Your Response</h4>
+                    <div  class="content-container">
+                        <p>
+                            <span class="subtitle">Category Attributes</span> (optional)
+                            <span ng-show="searchSelection.value !== 'toplevelcategories'" id="button-container">
+                                <button class="btn btn-default btn-xs" ng-click="selectAll(searchSelection.value)">Select All</button> <button class="btn btn-default btn-xs" ng-click="selectAll('noResponse')">Select None</button>
+                            </span>
+                        </p>
+                        <div class="multiSelectBox">
+                            <ui-select multiple="true" ng-model="categoryResponse.list" theme="select2" ng-disabled="searchSelection.value ==='toplevelcategories'">
+                                <ui-select-match placeholder="Select category attributes">{{$item.text}}</ui-select-match>
+                                <ui-select-choices repeat="option.value as option in searchSelection.responseOptions | propsFilter: {text: $select.search}">
+                                  <div ng-bind-html="option.text | highlight: $select.search"></div>
+                                </ui-select-choices>
+                            </ui-select>
+                        </div>
+                    </div>
+            </div>
+
              <h4><span class="fa-stack fa-3x numberIcon">
                     <i class="fa fa-circle fa-stack-2x icon-stack-base"></i>
-                    <strong class="char-overlay fa-stack-1x">2</strong>
+                    <strong class="char-overlay fa-stack-1x">3</strong>
                     </span> Pagination</h4>
             <div class="content-container">
                 <form name="pageSizeform">
@@ -44,26 +67,6 @@
                 </form>
             </div>  
 
-            <div ng-show="searchSelection.value !== 'toplevelcategories' && searchSelection.value !== ''" class="multiselect-container">
-                <h4><span class="fa-stack fa-3x numberIcon">
-                        <i class="fa fa-circle fa-stack-2x icon-stack-base"></i>
-                        <strong class="char-overlay fa-stack-1x">3</strong>
-                        </span> Build Your Response</h4>
-                        <div class="content-container">
-                        <p>
-                            <span class="subtitle">Category Attributes</span> (optional)
-                            <button class="btn btn-default btn-xs" ng-click="selectAll(searchSelection.value)">Select All</button> <button class="btn btn-default btn-xs" ng-click="selectAll('noResponse')">Select None</button>
-                        </p>
-                        </div>
-                        <div class="multiSelectBox content-container">
-                            <ui-select multiple="true" ng-model="categoryResponse.list" theme="select2" ng-disabled="disabled">
-                                <ui-select-match placeholder="Select category attributes">{{$item.text}}</ui-select-match>
-                                <ui-select-choices repeat="option.value as option in searchSelection.responseOptions | propsFilter: {text: $select.search}">
-                                  <div ng-bind-html="option.text | highlight: $select.search"></div>
-                                </ui-select-choices>
-                            </ui-select>
-                        </div>
-            </div>
             <br/>
                 <button class="query-button" ng-click="resetParams()">RESET Query</button>
                 <button class="query-button" ng-click="invokeRemixQuery()">RUN Query</button>

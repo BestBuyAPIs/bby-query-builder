@@ -32,6 +32,12 @@ describe('bby-query-mixer.smartLists module', function () {
             it('should be defined', function () {
                 expect(scope.invokeRecommendationsQuery).toBeDefined();
             });
+            it('should error when no key is given', function () {
+                scope.apiKey = '';
+                scope.invokeRecommendationsQuery();
+
+                expect(scope.results).toBeDefined("Please enter your API Key");
+            });
         });
         describe('reset function', function () {
             it('should be defined', function () {

@@ -17,14 +17,44 @@ describe('bby-query-mixer.smartLists module', function () {
                     })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
             }));
 
-        describe('build remix query function', function () {
+        describe('build smart lists query function', function () {
+            it('should be defined', function () {
+                expect(scope.buildSmartListsQuery).toBeDefined();
+            });
             it('should add the appropriate endpoint', function (){
                 scope.endpoint.selected = 'activeAdventurer';
-                expect(scope.buildSmartListsQuery()).toEqual('http://api.bestbuy.com/beta/products/activeAdventurer&callback=JSON_CALLBACK');
+                expect(scope.buildSmartListsQuery()).toEqual('https://api.bestbuy.com/beta/products/activeAdventurer&callback=JSON_CALLBACK');
                 scope.endpoint.selected = 'connectedHome';
-                expect(scope.buildSmartListsQuery()).toEqual('http://api.bestbuy.com/beta/products/connectedHome&callback=JSON_CALLBACK');            
+                expect(scope.buildSmartListsQuery()).toEqual('https://api.bestbuy.com/beta/products/connectedHome&callback=JSON_CALLBACK');            
             });
         });
+        describe('invoke recommendations query function', function (){
+            it('should be defined', function () {
+                expect(scope.invokeRecommendationsQuery).toBeDefined();
+            });
+            it('should error when no key is given', function () {
+                scope.apiKey = '';
+                scope.invokeRecommendationsQuery();
 
+                expect(scope.results).toBeDefined("Please enter your API Key");
+            });
+        });
+        describe('reset function', function () {
+            it('should be defined', function () {
+                expect(scope.resetSmartListsQuery).toBeDefined();
+            });
+            it('should reset the right params', function (){
+                scope.resetSmartListsQuery();
+                expect(scope.results).toEqual({});
+                expect(scope.endpoint.selected).toEqual("");
+                expect(scope.errorResult).toEqual(false);
+            });
+        });
+        describe('call google analytics function', function () {
+            it('should be defined', function () {
+                expect(scope.callCopyEvent).toBeDefined();
+            });
+
+        });
     });
 });

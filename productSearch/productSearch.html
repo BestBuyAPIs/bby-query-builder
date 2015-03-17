@@ -122,7 +122,7 @@
                 <p ng-show="showOption.list"><a class="breakdownLabel" href="https://developer.bestbuy.com/documentation#show-show" target="_blank">showOptions</a> : &show=<span ng-bind="addAllShowOptions(showOption.list)"></span></p>
 
 
-                <p ng-show="(pageSize !== 10) || (whichPage !== 1)"><a class="breakdownLabel" href="https://developer.bestbuy.com/documentation#pagination-pagination" target="_blank">pagination</a> : pageSize=<span ng-bind="pageSize"></span>&page=<span ng-bind="whichPage"></span></p>
+                <p ng-show="(pageSize !== 10) || (whichPage !== 1)"><a class="breakdownLabel" href="https://developer.bestbuy.com/documentation#pagination-pagination" target="_blank">pagination</a> : <span ng-show="(pageSize !== 10)">pageSize=<span ng-bind="pageSize"></span></span><span ng-show="(whichPage !== 1)">&page=<span ng-bind="whichPage"></span></span></p>
 
                 <p ng-show="facetAttribute.productAttribute"><a class="breakdownLabel" href="https://developer.bestbuy.com/documentation#facets-facets" target="_blank">facets</a> : &facet=<span ng-bind="facetAttribute.productAttribute"></span><span ng-show="facetNumber">,<span ng-bind="facetNumber"></span></span></p>
 

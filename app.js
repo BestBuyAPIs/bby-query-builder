@@ -1,6 +1,6 @@
 'use strict';
 
-// Declare app level module which depends on views, and components
+// Declare app level module which depends on views, and components.
 angular.module('bby-query-mixer', [
     'ngRoute',
     'ngSanitize',
@@ -9,6 +9,7 @@ angular.module('bby-query-mixer', [
     'bby-query-mixer.openBox',
     'bby-query-mixer.stores',
     'bby-query-mixer.smartLists',
+    'bby-query-mixer.categories',
     'ngClipboard',
     'checklist-model',
     'ui.bootstrap',

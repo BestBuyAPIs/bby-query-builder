@@ -5,12 +5,13 @@ describe('bby-query-mixer.stores module', function () {
 	beforeEach(module('bby-query-mixer.stores', 'appConfig'), function () {
 	});
 
-	var ctrl, scope;
+	var ctrl, scope, queryParams;
 	beforeEach(inject(function ($controller, $rootScope) {
 		scope = $rootScope.$new();
 		ctrl = $controller('storesCtrl', {
 			$scope: scope
 		});
+		queryParams = [];
 	}));
 
 	describe('storesCtrl', function () {
@@ -34,9 +35,10 @@ describe('bby-query-mixer.stores module', function () {
 	        expect(scope.buildRemixQuery()).toEqual('https://api.remix.bestbuy.com/v1/stores?apiKey=testKey&callback=JSON_CALLBACK&format=json');
 	    });
 	    it('should update pagination in the query string', function (){
+	        var queryParams = [];
 	        scope.pageSize = '12';
 	        scope.whichPage = '3';
-	        expect(scope.buildRemixQuery()).toEqual('https://api.remix.bestbuy.com/v1/stores&pageSize=12&page=3?apiKey=testKey&callback=JSON_CALLBACK&format=json');
+	        expect(scope.buildRemixQuery()).toEqual('https://api.remix.bestbuy.com/v1/stores?apiKey=testKey&pageSize=12&page=3&callback=JSON_CALLBACK&format=json');
 	    });
 	    it('should add an ampersand in front of services list, but only if needed', function (){
 	     	scope.apiKey = 'testKey';   	        
@@ -55,7 +57,7 @@ describe('bby-query-mixer.stores module', function () {
 	        scope.productOption.list = 'products.shortDescription'
 	        expect(scope.buildRemixQuery()).toEqual('https://api.remix.bestbuy.com/v1/stores+products(sku%20in%20(6461052,5909042))?apiKey=testKey&show=products.shortDescription&callback=JSON_CALLBACK&format=json');
 	    });
-	   it('should add list of store response options to the url', function (){
+	   	it('should add list of store response options to the url', function (){
 	        scope.storeResponse.list = ['hours','name'];
 	        expect(scope.buildRemixQuery()).toEqual('https://api.remix.bestbuy.com/v1/stores?apiKey=testKey&show=hours,name&callback=JSON_CALLBACK&format=json');
 	    });	 	   

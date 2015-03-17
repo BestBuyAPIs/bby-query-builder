@@ -1,0 +1,114 @@
+<div ng-controller="CategoriesCtrl" xmlns="http://www.w3.org/1999/html">
+    <div id="left-side-container" class="query-container">
+        <div class="content-container" id="builder-content">
+            <div class="query-information">
+                <h3>Categories API</h3>
+                <p>The <a href="https://developer.bestbuy.com/documentation/categories-api#documentation/categories-api" target="_blank">Categories API</a> gives insight into the categorization that Best Buy gives to it's products. Every product has a category and sub-category and this API will help you to pick the category so you can get your desired grouping of products.</p>
+                <h4><span class="fa-stack fa-3x numberIcon">
+                    <i class="fa fa-circle fa-stack-2x icon-stack-base"></i>
+                    <strong class="char-overlay fa-stack-1x">1</strong>
+                    </span> Search for Categories</h4>
+
+                    <div class="content-container categoriesSearchForm">  
+                        <select ng-model="searchSelection" ng-options="opt as opt.text for opt in searchOptions" ng-change="resetInput(searchSelection.value)"></select>
+                    </div>
+
+                    <div class="content-container">
+                        <div ng-show="searchSelection.value ==='allcategories'">
+                            <p class="descriptionUnderDropdown">Returns all categories and subcategories.</p>
+                        </div>
+                        <div ng-show="searchSelection.value ==='toplevelcategories'">
+                            <p class="descriptionUnderDropdown">Returns top level categories.</p>
+                        </div>
+                        <div ng-show="searchSelection.value ==='categoryname'">
+                            <p class="descriptionUnderDropdown">Returns all categories that contain search text in the name field.</p>
+                            <input class="rounded" type="text" placeholder="Category Name" ng-model="categoryName"></input>
+                        </div>
+                        <div ng-show="searchSelection.value ==='categoryid'">
+                            <p class="descriptionUnderDropdown">Search by category id</p>
+                            <input class="rounded" type="text" placeholder="Category Id" ng-model="categoryId"></input>                           
+                        </div>
+                    </div>
+            </div>
+
+            <div class="multiselect-container">
+                <h4><span class="fa-stack fa-3x numberIcon">
+                        <i class="fa fa-circle fa-stack-2x icon-stack-base"></i>
+                        <strong class="char-overlay fa-stack-1x">2</strong>
+                        </span> Build Your Response</h4>
+                    <div  class="content-container">
+                        <p>
+                            <span class="subtitle">Category Attributes</span> (optional)
+                            <span ng-show="searchSelection.value !== 'toplevelcategories'" id="button-container">
+                                <button class="btn btn-default btn-xs" ng-click="selectAll(searchSelection.value)">Select All</button> <button class="btn btn-default btn-xs" ng-click="selectAll('noResponse')">Select None</button>
+                            </span>
+                        </p>
+                        <div class="multiSelectBox">
+                            <ui-select multiple="true" ng-model="categoryResponse.list" theme="select2" ng-disabled="searchSelection.value ==='toplevelcategories'">
+                                <ui-select-match placeholder="Select category attributes">{{$item.text}}</ui-select-match>
+                                <ui-select-choices repeat="option.value as option in searchSelection.responseOptions | propsFilter: {text: $select.search}">
+                                  <div ng-bind-html="option.text | highlight: $select.search"></div>
+                                </ui-select-choices>
+                            </ui-select>
+                        </div>
+                    </div>
+            </div>
+
+             <h4><span class="fa-stack fa-3x numberIcon">
+                    <i class="fa fa-circle fa-stack-2x icon-stack-base"></i>
+                    <strong class="char-overlay fa-stack-1x">3</strong>
+                    </span> Pagination</h4>
+            <div class="content-container">
+                <form name="pageSizeform">
+                <p>Specify additional results per page or return subsequent pages by updating the Results Per Page and Page values:</p>
+                Results Per Page: <input class="rounded" id="pagination" ng-model="pageSize" type="number" min="1" max="100" required>
+                <span class="error" ng-show="pageSizeform.input.$error.number">Not valid number!</span>
+                Page: <input class="rounded" id="whichPage" ng-model="whichPage" type="number" min="1" max="900" required>
+                </form>
+            </div>  
+
+            <br/>
+                <button class="query-button" ng-click="resetParams()">RESET Query</button>
+                <button class="query-button" ng-click="invokeRemixQuery()">RUN Query</button>
+            </div>
+        </div>
+    <div id="right-side-container" class="query-container">
+        <h4 class="container urlBreakdown">URL Breakdown</h4>
+        <div class="content-container"><label>Here is an anatomy of your request, showing all of the "pieces" that make up your complete URL:</label>
+            <div id="exampleUrl" class="content-container">
+                <p><a class="breakdownLabel" href="https://developer.bestbuy.com/documentation#advancedSearch-search" target="_blank">baseURL</a> : https://api.remix.bestbuy.com/v1/categories</p>
+
+                <p ng-show="categoryName !== ''"><a class="breakdownLabel" target="_blank">categoryId/categoryName</a> : (name=<span ng-bind="categoryName"></span>)</p>
+
+                <p ng-show="categoryResponse.list.length > 0"><a class="breakdownLabel" target="_blank">showOptions</a> : show=<span ng-bind="categoryResponse.list"></span></p>
+
+                <p ng-show="searchSelection.value === 'toplevelcategories'"><a class="breakdownLabel" target="_blank">showOptions</a> : show=id,name</p>
+
+                <p><a class="breakdownLabel" href="https://remix.mashery.com/member/register" target="_blank">apiKey</a> : ?apiKey=<span ng-bind="apiKey"></span></p>
+
+                <p ng-show="(pageSize !== 10) || (whichPage !== 1)"><a class="breakdownLabel" href="https://developer.bestbuy.com/documentation#pagination-pagination" target="_blank">pagination</a> : <span ng-show="(pageSize !== 10)">pageSize=<span ng-bind="pageSize"></span></span><span ng-show="(whichPage !== 1)">&page=<span ng-bind="whichPage"></span></span></p>
+
+                <p><a class="breakdownLabel" href="https://developer.bestbuy.com/documentation#responseFormat-response-format" target="_blank">callback</a> : &callback=JSON_CALLBACK</p>
+                
+                <p><a class="breakdownLabel" href="https://developer.bestbuy.com/documentation#responseFormat-response-format" target="_blank">responseFormat</a> : &format=json</p>
+
+            </div>
+        </div>
+        <h4 class="container">Complete URL</h4>
+        <div class="content-container" id="response-content">
+            <p>#request:
+                <button id="copy-button" class="copy-button" type="button" clip-copy="buildRemixQuery()" tooltip="copy" tooltip-placement="right" ng-click="callCopyEvent()">
+                    <img src="assets/clipboard_white.png" width="20" height="20" alt="copy"/></button>
+            </p>
+            <h5><span id="remix-query" class="query-text" ng-bind="buildRemixQuery()"></span></h5>
+            <div>
+                <p>#response:
+                    <button id="copy-results-button" class="copy-button" type="button" clip-copy="results | json" tooltip="copy" tooltip-placement="right">
+                    <img src="assets/clipboard_white.png" width="20" height="20" alt="copy"/></button>
+                </p>
+                <textarea ng-class="{errorResult: errorResult}" class="query-result" ng-bind="results | json"></textarea>
+
+            </div>
+        </div>
+    </div>
+</div>

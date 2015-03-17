@@ -21,17 +21,17 @@ describe('bby-query-mixer.recommendations module', function () {
             metadata: {},
             results: [
                 {
-                    productLink: "http://api.remix.bestbuy.com/v1/products/5070633.json?apiKey=totallyLegitAPIKey",
+                    productLink: "https://api.remix.bestbuy.com/v1/products/5070633.json?apiKey=totallyLegitAPIKey",
                     rank: 1,
                     sku: "5070633"
                 },
                 {
-                    productLink: "http://api.remix.bestbuy.com/v1/products/8618049.json?apiKey=totallyLegitAPIKey",
+                    productLink: "https://api.remix.bestbuy.com/v1/products/8618049.json?apiKey=totallyLegitAPIKey",
                     rank: 2,
                     sku: "8618049"
                 },
                 {
-                    productLink: "http://api.remix.bestbuy.com/v1/products/9064159.json?apiKey=totallyLegitAPIKey",
+                    productLink: "https://api.remix.bestbuy.com/v1/products/9064159.json?apiKey=totallyLegitAPIKey",
                     rank: 3,
                     sku: "9064159"
                 }
@@ -49,7 +49,7 @@ describe('bby-query-mixer.recommendations module', function () {
 
             it('should return a url when apiKey is supplied', function () {
                 scope.apiKey = 'someApiKey';
-                expect(scope.buildRecommendationsQuery()).toEqual('http://api.bestbuy.com/beta/products/?apiKey=someApiKey&callback=JSON_CALLBACK')
+                expect(scope.buildRecommendationsQuery()).toEqual('https://api.bestbuy.com/beta/products/?apiKey=someApiKey&callback=JSON_CALLBACK')
             });
         });
 
@@ -65,7 +65,7 @@ describe('bby-query-mixer.recommendations module', function () {
             });
 
             it('should return an error in an array on a failing response', function () {
-                $httpBackend.expectJSONP('http://api.bestbuy.com/beta/products/trendingViewed?apiKey=inactiveKey&callback=JSON_CALLBACK').respond(403, {
+                $httpBackend.expectJSONP('https://api.bestbuy.com/beta/products/trendingViewed?apiKey=inactiveKey&callback=JSON_CALLBACK').respond(403, {
                     status: 403,
                     errorMessage: "Account Inactive",
                     help: "http://developer.bestbuy.com/get-started"

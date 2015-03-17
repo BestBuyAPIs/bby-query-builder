@@ -58,16 +58,19 @@ angular.module('bby-query-mixer.stores').controller('storesCtrl', [
             var queryParams = [];
             var skuListOption = $scope.skuList !== '' ? queryParams.push('+products(sku%20in%20('+$scope.skuList+'))') : '';
 
-            queryParams.push('?format=json');
-            var addKey = $scope.apiKey ? queryParams.push(('&apiKey='+$scope.apiKey)):'';
+            queryParams.push('?')
+
+            var addKey = $scope.apiKey ? queryParams.push(('apiKey='+$scope.apiKey)):'';
 
             var showParams = [];
             var productShowOptions = $scope.skuList !== '' ? showParams.push($scope.productOption.list):'';
             var addStoreResponseOptions = ($scope.storeResponse.list.length > 0) ? showParams.push($scope.storeResponse.list) : '';
             var addShowParams = showParams.length > 0 ? queryParams.push('&show='+showParams):'';
 
-            var addPagination = (($scope.pageSize !== 10) || ($scope.whichPage !== 1)) ? queryParams.push(('&pageSize='+$scope.pageSize+'&page='+$scope.whichPage)) :'';
-            queryParams.push('&callback=JSON_CALLBACK');
+            var checkPageSize = (($scope.pageSize)&&($scope.pageSize !== 10)) ? baseUrl += '&pageSize='+$scope.pageSize : '';
+            var checkWhichPage = (($scope.whichPage)&&($scope.whichPage !== 1)) ? baseUrl += '&page='+$scope.whichPage : '';
+                        
+            queryParams.push('&callback=JSON_CALLBACK&format=json');
             var parensCheck = searchArgs.length === 0 ? baseUrl += (searchArgs.join('')) : baseUrl += ('('+searchArgs.join('&')+')');
             baseUrl += queryParams.join('');
             return baseUrl
@@ -163,15 +166,15 @@ angular.module('bby-query-mixer.stores').controller('storesCtrl', [
 
         $scope.selectAll = function (z) {
             if (z === 'services') {
-                $scope.servicesOption.list = $scope.addAllOptions($scope.servicesOptions);
+                $scope.servicesOption.list = angular.copy($scope.servicesOptions);
             } else if (z === 'noservices') {
                 $scope.servicesOption.list = [];
             } else if (z === 'types') {
-                $scope.storeType.list = $scope.addAllOptions($scope.storeTypes);
+                $scope.storeType.list = angular.copy($scope.storeTypes);
             } else if (z === 'notypes') {
                 $scope.storeType.list = [];
             } else if (z === 'responseAttributes') {
-                $scope.storeResponse.list = $scope.addAllOptions($scope.storeResponses);
+                $scope.storeResponse.list = angular.copy($scope.storeResponses);
             } else if (z === 'noResponse') {
                 $scope.storeResponse.list = [];
             } else if (z === 'products') {

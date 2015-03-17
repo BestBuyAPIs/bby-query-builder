@@ -10,6 +10,7 @@ module.exports = function (grunt) {
         './app/recommendations/*.js',
         './app/smartLists/*.js',                    
         './app/stores/*.js',
+        './app/categories/*.js',        
     ];
 
     var cssFiles = [
@@ -35,12 +36,10 @@ module.exports = function (grunt) {
             }
         },
         concat: {
-            scripts:{            
-                dist: {
-                    src: jsFiles,
-                    dest: './app/production.js',
-                }
-            },
+            dist: {
+                src: jsFiles,
+                dest: './app/production.js',
+            }
         },
         concat_css: {
             all: {
@@ -51,7 +50,7 @@ module.exports = function (grunt) {
         watch: {
             scripts: {
                 files: jsFiles,
-                tasks: ["concat:scripts"]
+                tasks: ["concat"]
             },
             styles: {
                 files: cssFiles,
@@ -83,4 +82,8 @@ module.exports = function (grunt) {
         'karma'
     ]);
 
+    grunt.registerTask('build', [
+        'concat',
+        'concat_css'
+    ]);
 };

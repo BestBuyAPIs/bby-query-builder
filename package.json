@@ -19,6 +19,7 @@
     "http-server": "0.6.x",
     "karma": "0.x",
     "karma-cli": "0.0.x",
+    "karma-coverage": "^0.2.7",
     "karma-jasmine": "0.1.x",
     "karma-junit-reporter": "0.2.x",
     "karma-phantomjs-launcher": "0.1.x",

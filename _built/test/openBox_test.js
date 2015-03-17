@@ -31,31 +31,31 @@ describe('bby-query-mixer.productSearch module', function () {
                 expect(scope.buildRemixQuery).toBeDefined();
             });
             it('should build a query string', function (){
-                expect(scope.buildRemixQuery()).toEqual('http://api.bestbuy.com/beta/products/openBox&callback=JSON_CALLBACK&pageSize=10&page=1');
+                expect(scope.buildRemixQuery()).toEqual('https://api.bestbuy.com/beta/products/openBox&callback=JSON_CALLBACK');
             });
             it('should update pagination in the query string', function (){
                 scope.pageSize = '12';
                 scope.whichPage = '3';
-                expect(scope.buildRemixQuery()).toEqual('http://api.bestbuy.com/beta/products/openBox&callback=JSON_CALLBACK&pageSize=12&page=3');
+                expect(scope.buildRemixQuery()).toEqual('https://api.bestbuy.com/beta/products/openBox&callback=JSON_CALLBACK&pageSize=12&page=3');
             });
-            it('should build a query string with the right options', function (){
+            it('should search by category id', function (){
                 scope.searchSelection.value = "category";
                 scope.category.value = 'pcmcat209400050001'
-                expect(scope.buildRemixQuery()).toEqual('http://api.bestbuy.com/beta/products/openBox(categoryId=pcmcat209400050001)&callback=JSON_CALLBACK&pageSize=10&page=1');
+                expect(scope.buildRemixQuery()).toEqual('https://api.bestbuy.com/beta/products/openBox(categoryId=pcmcat209400050001)&callback=JSON_CALLBACK');
             });
-            it('should build a query string with the right options', function (){
+            it('should search for all skus', function (){
                 scope.searchSelection.value = "allSkus";
-                expect(scope.buildRemixQuery()).toEqual('http://api.bestbuy.com/beta/products/openBox&callback=JSON_CALLBACK&pageSize=10&page=1');
+                expect(scope.buildRemixQuery()).toEqual('https://api.bestbuy.com/beta/products/openBox&callback=JSON_CALLBACK');
             });
-            it('should build a query string with the right options', function (){
+            it('should add list of skus', function (){
                 scope.searchSelection.value = "skuList";
                 scope.skuList = '123,321';
-                expect(scope.buildRemixQuery()).toEqual('http://api.bestbuy.com/beta/products/openBox(sku%20in(123,321))&callback=JSON_CALLBACK&pageSize=10&page=1');
+                expect(scope.buildRemixQuery()).toEqual('https://api.bestbuy.com/beta/products/openBox(sku%20in(123,321))&callback=JSON_CALLBACK');
             });
-            it('should build a query string with the right options', function (){
+            it('should add singlesku', function (){
                 scope.searchSelection.value = "singleSku";
                 scope.singleSku = '123';
-                expect(scope.buildRemixQuery()).toEqual('http://api.bestbuy.com/beta/products/123/openBox&callback=JSON_CALLBACK&pageSize=10&page=1');
+                expect(scope.buildRemixQuery()).toEqual('https://api.bestbuy.com/beta/products/123/openBox&callback=JSON_CALLBACK');
             });
     });
 

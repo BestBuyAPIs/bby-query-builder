@@ -77,9 +77,8 @@ angular.module('bby-query-mixer.productSearch').controller('ProductSearchCtrl', 
                 paramArgs.push('facet=' + $scope.facetAttribute.productAttribute);
             };
 
-            if(($scope.pageSize !== 10) || ($scope.whichPage !== 1)){
-                paramArgs.push('pageSize='+$scope.pageSize + '&page='+$scope.whichPage);
-            };
+            var checkPageSize = (($scope.pageSize)&&($scope.pageSize !== 10)) ? paramArgs.push('&pageSize='+$scope.pageSize) : '';
+            var checkWhichPage = (($scope.whichPage)&&($scope.whichPage !== 1)) ? paramArgs.push('&page='+$scope.whichPage) : '';
 
             paramArgs.push('format=json');
 

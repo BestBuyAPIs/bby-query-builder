@@ -1,6 +1,6 @@
 'use strict';
 
-// Declare app level module which depends on views, and components
+// Declare app level module which depends on views, and components.
 angular.module('bby-query-mixer', [
     'ngRoute',
     'ngSanitize',
@@ -9,6 +9,7 @@ angular.module('bby-query-mixer', [
     'bby-query-mixer.openBox',
     'bby-query-mixer.stores',
     'bby-query-mixer.smartLists',
+    'bby-query-mixer.categories',
     'ngClipboard',
     'checklist-model',
     'ui.bootstrap',
@@ -245,14 +246,19 @@ angular.module('bby-query-mixer.openBox').controller('openBoxCtrl', [
         	{ text: "Open Box Offers by List of SKUs", value: 'skuList' },
         	{ text: "Open Box Offers by SKU", value: 'singleSku' }
         ];
-        
+
         $scope.buildRemixQuery = function () {
             var baseUrl = 'https://api.bestbuy.com/beta/products/openBox'
             var categoryQuery = (($scope.searchSelection.value === 'category')&& $scope.category.value) ? baseUrl += '(categoryId='+$scope.category.value+')' :'';
             var skuListQuery = (($scope.searchSelection.value === 'skuList')&&($scope.skuList)) ? baseUrl += '(sku%20in('+$scope.skuList+'))':'';
-            var singleSkuQuery = (($scope.searchSelection.value === 'singleSku')&&($scope.singleSku)) ? baseUrl = 'http://api.bestbuy.com/beta/products/'+$scope.singleSku +'/openBox' : '';
+            var singleSkuQuery = (($scope.searchSelection.value === 'singleSku')&&($scope.singleSku)) ? baseUrl = 'https://api.bestbuy.com/beta/products/'+$scope.singleSku +'/openBox' : '';
             var apiKey = $scope.apiKey ? baseUrl += '?apiKey='+$scope.apiKey : '';
-            baseUrl += '&callback=JSON_CALLBACK' + '&pageSize='+$scope.pageSize+'&page='+$scope.whichPage;
+            
+            baseUrl += '&callback=JSON_CALLBACK' ;
+            
+            var checkPageSize = (($scope.pageSize)&&($scope.pageSize !== 10)) ? baseUrl += '&pageSize='+$scope.pageSize : '';
+            var checkWhichPage = (($scope.whichPage)&&($scope.whichPage !== 1)) ? baseUrl += '&page='+$scope.whichPage : '';
+            
             return baseUrl
         };
 
@@ -438,9 +444,8 @@ angular.module('bby-query-mixer.productSearch').controller('ProductSearchCtrl', 
                 paramArgs.push('facet=' + $scope.facetAttribute.productAttribute);
             };
 
-            if(($scope.pageSize !== 10) || ($scope.whichPage !== 1)){
-                paramArgs.push('pageSize='+$scope.pageSize + '&page='+$scope.whichPage);
-            };
+            var checkPageSize = (($scope.pageSize)&&($scope.pageSize !== 10)) ? paramArgs.push('&pageSize='+$scope.pageSize) : '';
+            var checkWhichPage = (($scope.whichPage)&&($scope.whichPage !== 1)) ? paramArgs.push('&page='+$scope.whichPage) : '';
 
             paramArgs.push('format=json');
 
@@ -916,16 +921,19 @@ angular.module('bby-query-mixer.stores').controller('storesCtrl', [
             var queryParams = [];
             var skuListOption = $scope.skuList !== '' ? queryParams.push('+products(sku%20in%20('+$scope.skuList+'))') : '';
 
-            queryParams.push('?format=json');
-            var addKey = $scope.apiKey ? queryParams.push(('&apiKey='+$scope.apiKey)):'';
+            queryParams.push('?')
+
+            var addKey = $scope.apiKey ? queryParams.push(('apiKey='+$scope.apiKey)):'';
 
             var showParams = [];
             var productShowOptions = $scope.skuList !== '' ? showParams.push($scope.productOption.list):'';
             var addStoreResponseOptions = ($scope.storeResponse.list.length > 0) ? showParams.push($scope.storeResponse.list) : '';
             var addShowParams = showParams.length > 0 ? queryParams.push('&show='+showParams):'';
 
-            var addPagination = (($scope.pageSize !== 10) || ($scope.whichPage !== 1)) ? queryParams.push(('&pageSize='+$scope.pageSize+'&page='+$scope.whichPage)) :'';
-            queryParams.push('&callback=JSON_CALLBACK');
+            var checkPageSize = (($scope.pageSize)&&($scope.pageSize !== 10)) ? baseUrl += '&pageSize='+$scope.pageSize : '';
+            var checkWhichPage = (($scope.whichPage)&&($scope.whichPage !== 1)) ? baseUrl += '&page='+$scope.whichPage : '';
+                        
+            queryParams.push('&callback=JSON_CALLBACK&format=json');
             var parensCheck = searchArgs.length === 0 ? baseUrl += (searchArgs.join('')) : baseUrl += ('('+searchArgs.join('&')+')');
             baseUrl += queryParams.join('');
             return baseUrl
@@ -1021,15 +1029,15 @@ angular.module('bby-query-mixer.stores').controller('storesCtrl', [
 
         $scope.selectAll = function (z) {
             if (z === 'services') {
-                $scope.servicesOption.list = $scope.addAllOptions($scope.servicesOptions);
+                $scope.servicesOption.list = angular.copy($scope.servicesOptions);
             } else if (z === 'noservices') {
                 $scope.servicesOption.list = [];
             } else if (z === 'types') {
-                $scope.storeType.list = $scope.addAllOptions($scope.storeTypes);
+                $scope.storeType.list = angular.copy($scope.storeTypes);
             } else if (z === 'notypes') {
                 $scope.storeType.list = [];
             } else if (z === 'responseAttributes') {
-                $scope.storeResponse.list = $scope.addAllOptions($scope.storeResponses);
+                $scope.storeResponse.list = angular.copy($scope.storeResponses);
             } else if (z === 'noResponse') {
                 $scope.storeResponse.list = [];
             } else if (z === 'products') {
@@ -1061,4 +1069,142 @@ angular.module('bby-query-mixer.stores').constant('storeResponseConfig', [
 	{ text: "Store Id", value: "storeId" },
 	{ text: "Store Type", value: "storeType" },
 	{ text: "Trade In Information", value: "tradeIn" }
+]);
+'use strict';
+
+angular.module('bby-query-mixer.categories', ['ngRoute'])
+    .config(['$routeProvider', function ($routeProvider) {
+        $routeProvider.when('/categories', {
+            templateUrl: 'categories/categories.html',
+            controller: 'CategoriesCtrl'
+        });
+    }]
+);
+'use strict';
+
+angular.module('bby-query-mixer.categories').controller('CategoriesCtrl', [
+    '$scope',
+    'HttpClientService',
+    'GaService',
+    'categoryResponseConfig',
+    '$timeout',
+    function ($scope, HttpClientService, GaService, categoryResponseConfig, $timeout) {
+
+            $scope.categoryResponses = angular.copy(categoryResponseConfig);
+
+
+        $scope.searchOptions = [
+            {text:"Choose a seach option", value:""},        
+            {text:"All Categories", value:"allcategories", responseOptions:$scope.categoryResponses},
+            {text:"Top Level Categories", value:"toplevelcategories", responseOptions:[$scope.categoryResponses[0],$scope.categoryResponses[1]]},
+            {text:"Search By Category Name", value:"categoryname", responseOptions:$scope.categoryResponses},
+            {text:"Search By Category Id", value:"categoryid", responseOptions:$scope.categoryResponses}
+        ];
+
+        $scope.buildRemixQuery = function () {
+            var queryUrl = 'http://api.remix.bestbuy.com/v1/categories';
+
+            var topLevel = ($scope.searchSelection.value === 'toplevelcategories') ? queryUrl += '(id=abcat*)' : '';
+            var addCategoryName = ($scope.categoryName.length > 0) ? queryUrl += '(name='+$scope.categoryName+'*)':''; 
+            var addCategoryId = ($scope.categoryId.length > 0) ? queryUrl += '(id='+$scope.categoryId+')':'';
+
+            var queryParams = '?';
+            var addKey = $scope.apiKey ? queryParams += 'apiKey=' + $scope.apiKey : '';
+            var pageSize = (($scope.pageSize)&&($scope.pageSize !== 10)) ? queryParams += '&pageSize='+$scope.pageSize:'';
+            var whichPage = (($scope.whichPage)&&($scope.whichPage !== 1)) ? queryParams += '&page='+$scope.whichPage:'';
+            
+            var addShowOptions =  (($scope.categoryResponse.list.length > 0)||($scope.searchSelection.value ==='toplevelcategories')) ? 
+                ($scope.searchSelection.value !=='toplevelcategories') ?
+                (queryParams += '&show='+$scope.categoryResponse.list) :
+                    (queryParams += '&show=id,name'):'';
+            
+
+            queryParams += '&callback=JSON_CALLBACK&format=json';
+
+            return queryUrl + queryParams;
+        };
+
+        $scope.invokeRemixQuery = function () {
+            $scope.results = "Running";
+            var query = $scope.buildRemixQuery();
+
+            var successFn = function (value) {
+                $scope.results = value;
+            };
+            var errorFn = function (httpResponse) {
+                $scope.results = httpResponse;
+            };
+
+            if (($scope.apiKey !==  "")&($scope.searchSelection.value !== '')){
+                $scope.errorResult = false;
+
+                var eventActionName = "categories query success";
+                GaService.clickQueryButtonEvent(eventActionName, $scope.apiKey);
+
+                HttpClientService.httpClient(query).jsonp_query(successFn, errorFn);
+            } else if ($scope.apiKey ===  ""){
+                $scope.errorResult = true;
+                $scope.results = "Please enter your API Key";
+            } else {
+                $scope.errorResult = true;
+                $scope.results = "Please pick a search option";
+            };
+        };
+
+        $scope.preselectTop = function () {
+            if ($scope.searchSelection.value === 'toplevelcategories') {
+                $scope.categoryResponse.list = $scope.searchOptions[2].responseOptions
+            } else
+            return
+        };
+
+        $scope.clearResponseList = function () {
+            $scope.categoryResponse.list = [];
+            $timeout(function(){$scope.preselectTop()},0);
+        };
+
+        $scope.resetInput = function () {
+            $scope.categoryName = '';
+            $scope.categoryId = '';
+            $scope.whichPage = 1;
+            $scope.pageSize = 10;
+            $scope.clearResponseList();
+        };
+
+        $scope.categoryResponse = {};
+
+        $scope.resetParams = function () {
+            $scope.categoryName = '';
+            $scope.categoryId = '';
+            $scope.pageSize = 10;
+            $scope.whichPage = 1;
+            $scope.categoryResponses = angular.copy(categoryResponseConfig);
+            $scope.categoryResponse.list = [];
+            $scope.searchSelection = $scope.searchOptions[0];
+            $scope.resetInput();
+        };
+        //calling the function here loads the defaults on page load
+        $scope.resetParams();
+
+        $scope.selectAll = function (z) {
+            if (z === 'toplevelcategories') {
+                $scope.categoryResponse.list = [$scope.categoryResponses[0],$scope.categoryResponses[1]];
+            } else if (z !== 'noResponse'){
+                $scope.categoryResponse.list = angular.copy($scope.categoryResponses);
+            }else if (z === 'noResponse'){
+                $scope.categoryResponse.list = [];
+            }
+            return;
+        };
+
+    }
+]);
+
+'use strict';
+
+angular.module('bby-query-mixer.categories').constant('categoryResponseConfig', [ 
+    {text:"Name", value:"name" },
+    {text:"Id", value:"id" },
+    {text:"SubCategory Name", value:"subCategories.name" },
+    {text:"SubCategory Id", value:"subCategories.id" }
 ]);

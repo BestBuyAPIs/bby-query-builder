@@ -7,8 +7,8 @@ BBY Query Builder is an application to help developers learn Best Buy's APIs. It
 Included in this app are queries for fetching:
 
 1. [Product][products-tab] information
-1. Best Buy [Store][stores-tab] locations and other info
-1. product [Categories][categories-tab]
+1. [Store][stores-tab] locations
+1. [Categories][categories-tab] of Best Buy products
 1. [Open Box][open-box-tab] buying options
 1. [Recommendations][recommendations-tab] product lists
 1. [Smart Lists][smart-lists-tab] of curated products

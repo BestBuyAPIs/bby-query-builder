@@ -68,7 +68,7 @@ Now browse to the app at `http://localhost:8000/app`.
 
 ## Testing
 
-There are two kinds of tests in the application: unit tests and code coverage test.
+There are two kinds of tests in the application: unit tests and a code coverage test.
 
 ### Running Unit Tests
 

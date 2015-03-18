@@ -68,7 +68,7 @@ Now browse to the app at `http://localhost:8000/app/index.html`.
 
 ## Testing
 
-There are two kinds of tests in the application: unit tests and end-to-end tests.
+There are two kinds of tests in the application: unit tests and code coverage test.
 
 ### Running Unit Tests
 
@@ -97,6 +97,9 @@ predefined script to do this:
 ```
 npm run test-single-run
 ```
+#### Test Coverage
+Our Karma test runner is configured to use a library called Istanbul to check for code coverage. It is automatically run with `npm test` and you can check the coverage report by opening the report file at coverage/PhantomJS/index.html
+
 
 ### Testing Using Grunt
 

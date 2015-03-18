@@ -6,12 +6,12 @@ BBY Query Builder is an application to help developers learn Best Buy's APIs. It
 
 Included in this app are queries for fetching:
 
-1. Product information
-1. Best Buy Store locations and other info
-1. product Categories
-1. Open Box buying options
-1. Recommendations product lists
-1. Smart Lists of curated products
+1. [Product][products-tab] information
+1. Best Buy [Store][stores-tab] locations and other info
+1. product [Categories][categories-tab]
+1. [Open Box][open-box-tab] buying options
+1. [Recommendations][recommendations-tab] product lists
+1. [Smart Lists][smart-lists-tab] of curated products
 
 ## Getting Started
 
@@ -121,3 +121,9 @@ And contact us directly [@bbyopen](https://twitter.com/bbyopen) or email us [dev
 [grunt]: http://gruntjs.com/
 [zeroclipboard]: https://github.com/zeroclipboard/zeroclipboard
 [istanbul]: https://gotwarlost.github.io/istanbul/
+[stores-tab]: https://bestbuyapis.github.io/bby-query-builder/#/stores
+[products-tab]: https://bestbuyapis.github.io/bby-query-builder/#/productSearch
+[categories-tab]: https://bestbuyapis.github.io/bby-query-builder/#/categories
+[open-box-tab]: https://bestbuyapis.github.io/bby-query-builder/#/openbox
+[recommendations-tab]: https://bestbuyapis.github.io/bby-query-builder/#/recommendations
+[smart-lists-tab]:https://bestbuyapis.github.io/bby-query-builder/#/smartlists

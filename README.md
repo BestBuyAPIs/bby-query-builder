@@ -85,7 +85,7 @@ The easiest way to run the unit tests is to use the supplied npm script:
 npm test
 ```
 
-This script will start the Karma test runner to execute the unit tests. Moreover, Karma will sit and
+This script will start the [Karma][karma] test runner to execute the unit tests. Moreover, Karma will sit and
 watch the source and test files for changes and then re-run the tests whenever any of them change.
 This is the recommended strategy; if your unit tests are being run every time you save a file then
 you receive instant feedback on any changes that break the expected code functionality.
@@ -98,7 +98,7 @@ predefined script to do this:
 npm run test-single-run
 ```
 #### Test Coverage
-Our Karma test runner is configured to use a library called Istanbul to check for code coverage. It is automatically run with `npm test` and you can check the coverage report by opening the report file at `coverage/PhantomJS/index.html`
+Our Karma test runner is configured to use a library called [Istanbul][istanbul] to check for code coverage. It is automatically run with `npm test` and you can check the coverage report by opening the report file at `coverage/PhantomJS/index.html`
 
 ## Contact
 
@@ -112,8 +112,8 @@ And contact us directly [@bbyopen](https://twitter.com/bbyopen) or email us [dev
 [bower]: http://bower.io
 [npm]: https://www.npmjs.org/
 [node]: http://nodejs.org
-[protractor]: https://github.com/angular/protractor
 [jasmine]: http://jasmine.github.io
 [karma]: http://karma-runner.github.io
 [grunt]: http://gruntjs.com/
 [zeroclipboard]: https://github.com/zeroclipboard/zeroclipboard
+[istanbul]: https://gotwarlost.github.io/istanbul/

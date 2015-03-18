@@ -1,8 +1,8 @@
-# BBY Query builder
+# BBY Query Builder
 
 [![Build Status](https://travis-ci.org/BestBuyAPIs/bby-query-builder.svg)](https://travis-ci.org/BestBuyAPIs/bby-query-builder)
 
-BBY Query builder is an application to help developers learn Best Buy's APIs. It is based on [angular-seed](https://github.com/angular/angular-seed).
+BBY Query Builder is an application to help developers learn Best Buy's APIs. It is based on [angular-seed](https://github.com/angular/angular-seed).
 
 Included in this app are queries for fetching products:
 

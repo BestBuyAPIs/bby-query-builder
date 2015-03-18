@@ -98,7 +98,7 @@ predefined script to do this:
 npm run test-single-run
 ```
 #### Test Coverage
-Our Karma test runner is configured to use a library called [Istanbul][istanbul] to check for code coverage. It is automatically run with `npm test` and you can check the coverage report by opening the report file at `coverage/PhantomJS/index.html`
+Our Karma test runner is configured to use a library called [Istanbul][istanbul] to check for code coverage. It is automatically run with `npm test`. You can check your test coverage by opening the report file at `coverage/PhantomJS/index.html`
 
 ## Contact
 

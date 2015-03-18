@@ -4,10 +4,14 @@
 
 BBY Query Builder is an application to help developers learn Best Buy's APIs. It is based on [angular-seed](https://github.com/angular/angular-seed).
 
-Included in this app are queries for fetching products:
+Included in this app are queries for fetching:
 
-1. belonging to common product categories
-1. trending on [BestBuy.com](www.bestbuy.com)
+1. Product information
+1. Best Buy Store locations and other info
+1. product Categories
+1. Open Box buying options
+1. Recommendations product lists
+1. Smart Lists of curated products
 
 ## Getting Started
 

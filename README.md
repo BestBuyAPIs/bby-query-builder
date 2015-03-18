@@ -100,27 +100,6 @@ npm run test-single-run
 #### Test Coverage
 Our Karma test runner is configured to use a library called Istanbul to check for code coverage. It is automatically run with `npm test` and you can check the coverage report by opening the report file at coverage/PhantomJS/index.html
 
-
-### Testing Using Grunt
-
-We use [Grunt][grunt] to quickly run both unit tests and end-to-end tests.
-
-#### Initial Setup
-
-Before running Grunt, install Grunt's command line interface and update the webdriver.
-
-```
-npm install -g grunt-cli
-npm run update-webdriver
-```
-
-#### Running the Test Suite
-
-Run the test suite.  (This will automatically start the app before testing and stop the app after testing is complete.)
-```
-grunt test
-```
-
 ## Contact
 
 For more information please visit [https://developer.bestbuy.com](https://developer.bestbuy.com)

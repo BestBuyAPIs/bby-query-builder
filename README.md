@@ -1,8 +1,8 @@
-# BBY Query Mixer
+# BBY Query builder
 
-[![Build Status](https://travis-ci.org/BestBuyAPIs/bby-query-mixer.svg)](https://travis-ci.org/BestBuyAPIs/bby-query-mixer)
+[![Build Status](https://travis-ci.org/BestBuyAPIs/bby-query-builder.svg)](https://travis-ci.org/BestBuyAPIs/bby-query-builder)
 
-BBY Query Mixer is an application to help developers learn Best Buy's APIs. It is based on [angular-seed](https://github.com/angular/angular-seed).
+BBY Query builder is an application to help developers learn Best Buy's APIs. It is based on [angular-seed](https://github.com/angular/angular-seed).
 
 Included in this app are queries for fetching products:
 
@@ -22,13 +22,13 @@ You need git to clone the query-builder repository. You can get git from
 We also use a number of node.js tools to initialize and test query-builder. You must have node.js and
 its package manager (npm) installed. You can get them from [http://nodejs.org/](http://nodejs.org/).
 
-### Download bby-query-mixer
+### Download bby-query-builder
 
-Clone the BBY Query Mixer repository using [git][git]:
+Clone the BBY Query Builder repository using [git][git]:
 
 ```
-git clone https://github.com/BestBuyAPIs/bby-query-mixer.git
-cd bby-query-mixer
+git clone https://github.com/BestBuyAPIs/bby-query-builder.git
+cd bby-query-builder
 ```
 
 ### Install Dependencies

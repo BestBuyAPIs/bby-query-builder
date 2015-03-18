@@ -99,8 +99,9 @@ npm run-script test-watch
 #### Test Coverage
 Our Karma test runner is configured to use a library called [Istanbul][istanbul] to check for code coverage. It is automatically run with `npm test`. You can check your test coverage by opening the report file at `coverage/PhantomJS/index.html`
 
-## Deploying to Github Pages
+## Deploying
 Query Builder is deployed as a Github Pages site from the gh-pages branch. When you want to push changes you can use the prewritten script `npm run-script deploy`. The first time you do this you might have to delete your local gh-pages branch before running the deploy script.
+Furthermore, Query Builder is a static app so it is easy to drop in and deploy from your own platform if you so choose.
 
 ## Contact
 

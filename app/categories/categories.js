@@ -20,7 +20,7 @@ angular.module('bby-query-mixer.categories').controller('CategoriesCtrl', [
         ];
 
         $scope.buildRemixQuery = function () {
-            var queryUrl = 'http://api.remix.bestbuy.com/v1/categories';
+            var queryUrl = 'https://api.remix.bestbuy.com/v1/categories';
 
             var topLevel = ($scope.searchSelection.value === 'toplevelcategories') ? queryUrl += '(id=abcat*)' : '';
             var addCategoryName = ($scope.categoryName.length > 0) ? queryUrl += '(name='+$scope.categoryName+'*)':''; 

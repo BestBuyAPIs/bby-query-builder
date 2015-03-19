@@ -8,15 +8,13 @@ angular.module('bby-query-mixer.productSearch').controller('ProductSearchCtrl', 
     'HttpClientService',
     'GaService',
     'ProductServices',
-    function ($scope, categoryConfig, showOptionsConfig, attributeOptionsConfig, HttpClientService, GaService, ProductServices) {
+    'sortOrderConfig',
+    function ($scope, categoryConfig, showOptionsConfig, attributeOptionsConfig, HttpClientService, GaService, ProductServices, sortOrderConfig) {
         $scope.categories = angular.copy(categoryConfig);
         $scope.showOptions = angular.copy(showOptionsConfig);
         $scope.attributeOptions = angular.copy(attributeOptionsConfig);
 
-        $scope.sortOrderOptions = [
-            {text:"Ascending", value:"asc"},
-            {text:"Descending", value:"dsc"}
-        ];
+        $scope.sortOrderOptions = angular.copy(sortOrderConfig);
 
         $scope.buildRemixQuery = function () {
             var searchArgs = [];

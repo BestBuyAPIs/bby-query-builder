@@ -105,7 +105,7 @@ describe('bby-query-mixer.stores module', function () {
 			expect(scope.options).toBeDefined();
 		});
 		it('should have a add all options function', function (){
-			expect(scope.addAllOptions).toBeDefined();
+			expect(StoreServices.addAllOptions).toBeDefined();
 		});
 		it('should have a function for tracking copy url events', function (){
 			expect(scope.callCopyEvent).toBeDefined();

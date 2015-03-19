@@ -866,9 +866,16 @@ angular.module('bby-query-mixer.stores').factory('StoreServices', [ function(){
         return newArray.join('&');
     };
 
+    var addAllOptions = function(optionArray) {
+            var newArray = [];
+            angular.forEach(optionArray, function(i) { this.push(i.value) }, newArray);
+            return newArray;
+        };
+
     return {
     	filterStoreService : filterStoreService ,
-    	filterStoreType: filterStoreType
+    	filterStoreType : filterStoreType,
+    	addAllOptions : addAllOptions
     }
 
 }]);
@@ -1004,20 +1011,13 @@ angular.module('bby-query-mixer.stores').controller('storesCtrl', [
             $scope.zipCode = '';
         };
 
-        //this function lets us 'select' all options in an array of objects, instead of having to hardcode it
-        $scope.addAllOptions = function(optionArray) {
-            var newArray = [];
-            angular.forEach(optionArray, function(i) { this.push(i.value) }, newArray);
-            return newArray;
-        };
-
         $scope.resetParams = function () {
             $scope.searchSelection = $scope.options[0];
             $scope.regionOptions = angular.copy(regionsConfig);
             $scope.servicesOptions = angular.copy(storeServicesConfig);
             $scope.servicesOption.list = [];
             $scope.productOptions = angular.copy(productAttributesConfig);
-            $scope.productOption.list = $scope.addAllOptions($scope.productOptions);
+            $scope.productOption.list = StoreServices.addAllOptions($scope.productOptions);
             $scope.whichPage = 1;
             $scope.pageSize = 10;
             $scope.storeResponses = angular.copy(storeResponseConfig);
@@ -1054,7 +1054,7 @@ angular.module('bby-query-mixer.stores').controller('storesCtrl', [
             } else if (z === 'noResponse') {
                 $scope.storeResponse.list = [];
             } else if (z === 'products') {
-                $scope.productOption.list = $scope.addAllOptions($scope.productOptions)
+                $scope.productOption.list = StoreServices.addAllOptions($scope.productOptions)
             } else if (z === 'noproducts'){
                 $scope.productOption.list = [];
             }

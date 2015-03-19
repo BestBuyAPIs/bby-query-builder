@@ -14,9 +14,16 @@ angular.module('bby-query-mixer.stores').factory('StoreServices', [ function(){
         return newArray.join('&');
     };
 
+    var addAllOptions = function(optionArray) {
+            var newArray = [];
+            angular.forEach(optionArray, function(i) { this.push(i.value) }, newArray);
+            return newArray;
+        };
+
     return {
     	filterStoreService : filterStoreService ,
-    	filterStoreType: filterStoreType
+    	filterStoreType : filterStoreType,
+    	addAllOptions : addAllOptions
     }
 
 }]);

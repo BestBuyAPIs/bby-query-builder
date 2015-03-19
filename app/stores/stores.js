@@ -11,13 +11,10 @@ angular.module('bby-query-mixer.stores').controller('storesCtrl', [
     'productAttributesConfig',
     'StoreServices',
     'searchValueOptionsConfig',
-    function ($scope, categoryConfig, HttpClientService, GaService, regionsConfig, storeServicesConfig, storeResponseConfig, productAttributesConfig, StoreServices, searchValueOptionsConfig) {
+    'storeTypesConfig',
+    function ($scope, categoryConfig, HttpClientService, GaService, regionsConfig, storeServicesConfig, storeResponseConfig, productAttributesConfig, StoreServices, searchValueOptionsConfig,storeTypesConfig) {
         
-        $scope.storeTypes = [
-            { text:"Big Box", value: "bigbox" },
-            { text: "Mobile", value: "mobile" },
-            { text: "Express (Kiosk)", value: "express" }
-        ];
+        $scope.storeTypes = angular.copy(storeTypesConfig);
 
         $scope.options = angular.copy(searchValueOptionsConfig);
 

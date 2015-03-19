@@ -374,7 +374,8 @@ angular.module('bby-query-mixer.productSearch').controller('ProductSearchCtrl', 
     'attributeOptionsConfig',
     'HttpClientService',
     'GaService',
-    function ($scope, categoryConfig, showOptionsConfig, attributeOptionsConfig, HttpClientService, GaService) {
+    'ProductServices',
+    function ($scope, categoryConfig, showOptionsConfig, attributeOptionsConfig, HttpClientService, GaService, ProductServices) {
         $scope.categories = angular.copy(categoryConfig);
         $scope.showOptions = angular.copy(showOptionsConfig);
         $scope.attributeOptions = angular.copy(attributeOptionsConfig);
@@ -486,10 +487,7 @@ angular.module('bby-query-mixer.productSearch').controller('ProductSearchCtrl', 
         // $scope.sortBy = $scope.showOption.list[0];
 
         //this function is fired on a ng-change when attribute is selected. it sets the first operator to be pre-selected
-        $scope.preselectOperator = function(form) {
-            form.opt = form.value.operator[0];
-            form.complexVal = form.value.valueOptions ? form.value.valueOptions[0].value : '';
-        };
+        $scope.preselectOperator = ProductServices.preSelectOperator;
 
         $scope.callCopyEvent = function () {
             var tab = "products";
@@ -558,6 +556,20 @@ angular.module('bby-query-mixer.productSearch').controller('ProductSearchCtrl', 
 
     }
 ]);
+'use strict';
+
+angular.module('bby-query-mixer.productSearch').factory('ProductServices', [ function() {
+    
+    var preSelectOperator = function(form) {
+        form.opt = form.value.operator[0];
+        form.complexVal = form.value.valueOptions ? form.value.valueOptions[0].value : '';
+    };
+
+
+    return {
+    	preSelectOperator : preSelectOperator
+    }
+}]);
 'use strict';
 
 angular.module('bby-query-mixer.productSearch').constant('showOptionsConfig', [ 

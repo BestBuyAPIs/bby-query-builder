@@ -87,14 +87,14 @@ angular.module('bby-query-mixer.stores').controller('storesCtrl', [
                 $scope.results = httpResponse;
             };
 
-            if (($scope.apiKey !==  "")&($scope.searchSelection.value !== 0)){
+            if (($scope.apiKey !==  "")){
                 $scope.errorResult = false;
 
                 var eventActionName = "stores query success";
                 GaService.clickQueryButtonEvent(eventActionName, $scope.apiKey);
 
                 HttpClientService.httpClient(query).jsonp_query(successFn, errorFn);
-            }else if ($scope.apiKey ===  ""){
+            } else if ($scope.apiKey ===  ""){
                 $scope.errorResult = true;
                 $scope.results = "Please enter your API Key";
             } else {

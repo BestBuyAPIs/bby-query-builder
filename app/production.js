@@ -479,9 +479,6 @@ angular.module('bby-query-mixer.productSearch').controller('ProductSearchCtrl', 
         //calling the function here loads the defaults on page load
         $scope.resetParams();
 
-
-        // $scope.sortBy = $scope.showOption.list[0];
-
         //this function is fired on a ng-change when attribute is selected. it sets the first operator to be pre-selected
         $scope.preselectOperator = ProductServices.preSelectOperator;
 
@@ -496,7 +493,7 @@ angular.module('bby-query-mixer.productSearch').controller('ProductSearchCtrl', 
             return newArray;
         };
         $scope.addAllShowOptions = ProductServices.addAllShowOptions;
-        
+
         $scope.selectAll = function (z) {
             if (z === 'allproducts') {
                 $scope.showOption.list = angular.copy($scope.showOptions);
@@ -516,8 +513,6 @@ angular.module('bby-query-mixer.productSearch').controller('ProductSearchCtrl', 
         };
         $scope.removeForm = function(form) {
             var newItemNo = $scope.dynamicForms.length-1;
-            // console.log(form)
-            // console.log($scope.dynamicForms.indexOf(form))
             $scope.dynamicForms.splice($scope.dynamicForms.indexOf(form),1);   
         };
 
@@ -529,7 +524,6 @@ angular.module('bby-query-mixer.productSearch').controller('ProductSearchCtrl', 
                         this.push(i.value.productAttribute + i.opt.value +'('+ i.complexVal+')'); 
                     }else {
                 this.push(i.value.productAttribute + i.opt.value + i.complexVal); 
-                // console.dir(i) 
                     }
                 }
             }, newArray);
@@ -539,7 +533,6 @@ angular.module('bby-query-mixer.productSearch').controller('ProductSearchCtrl', 
 
         $scope.clearBlankSelect = function () {
             $scope.sortBy = $scope.showOption.list[0];
-            // console.dir($scope.showOption.list)
         };
 
     }

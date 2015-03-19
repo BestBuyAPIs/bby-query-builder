@@ -128,11 +128,8 @@ angular.module('bby-query-mixer.productSearch').controller('ProductSearchCtrl', 
             angular.forEach(optionArray, function(i) { this.push(i.value) }, newArray);
             return newArray;
         };
-        $scope.addAllShowOptions = function(optionArray) {
-            var newArray = [];
-            angular.forEach(optionArray, function(i) { this.push(i.value) }, newArray);
-            return newArray.join(',');
-        };
+        $scope.addAllShowOptions = ProductServices.addAllShowOptions;
+        
         $scope.selectAll = function (z) {
             if (z === 'allproducts') {
                 $scope.showOption.list = angular.copy($scope.showOptions);

@@ -495,11 +495,8 @@ angular.module('bby-query-mixer.productSearch').controller('ProductSearchCtrl', 
             angular.forEach(optionArray, function(i) { this.push(i.value) }, newArray);
             return newArray;
         };
-        $scope.addAllShowOptions = function(optionArray) {
-            var newArray = [];
-            angular.forEach(optionArray, function(i) { this.push(i.value) }, newArray);
-            return newArray.join(',');
-        };
+        $scope.addAllShowOptions = ProductServices.addAllShowOptions;
+        
         $scope.selectAll = function (z) {
             if (z === 'allproducts') {
                 $scope.showOption.list = angular.copy($scope.showOptions);
@@ -556,9 +553,15 @@ angular.module('bby-query-mixer.productSearch').factory('ProductServices', [ fun
         form.complexVal = form.value.valueOptions ? form.value.valueOptions[0].value : '';
     };
 
+    var addAllShowOptions = function(optionArray) {
+        var newArray = [];
+        angular.forEach(optionArray, function(i) { this.push(i.value) }, newArray);
+        return newArray.join(',');
+    };
 
     return {
-    	preSelectOperator : preSelectOperator
+    	preSelectOperator : preSelectOperator,
+    	addAllShowOptions : addAllShowOptions
     }
 }]);
 'use strict';

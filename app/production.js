@@ -433,7 +433,7 @@ angular.module('bby-query-mixer.productSearch').controller('ProductSearchCtrl', 
             }
 
             if ($scope.showOption.list.length > 0){
-                paramArgs.push('show=' + addAllOptionValues($scope.showOption.list));
+                paramArgs.push('show=' + ProductServices.addAllOptionValues($scope.showOption.list));
             };
             if (($scope.facetAttribute.productAttribute)&&($scope.facetNumber)){
                 paramArgs.push('facet=' + $scope.facetAttribute.productAttribute + ',' + $scope.facetNumber);
@@ -486,12 +486,7 @@ angular.module('bby-query-mixer.productSearch').controller('ProductSearchCtrl', 
             var tab = "products";
             GaService.copyUrlEvent(tab,$scope.apiKey);
         };
-
-        var addAllOptionValues = function(optionArray) {
-            var newArray = [];
-            angular.forEach(optionArray, function(i) { this.push(i.value) }, newArray);
-            return newArray;
-        };
+        
         $scope.addAllShowOptions = ProductServices.addAllShowOptions;
 
         $scope.selectAll = function (z) {
@@ -516,20 +511,7 @@ angular.module('bby-query-mixer.productSearch').controller('ProductSearchCtrl', 
             $scope.dynamicForms.splice($scope.dynamicForms.indexOf(form),1);   
         };
 
-        $scope.parseDynamicForms = function (array) {
-            var newArray = [];
-            angular.forEach(array, function(i) { 
-                if (i.value.productAttribute && i.opt.value && i.complexVal){
-                    if (i.opt.value === ' in ') {
-                        this.push(i.value.productAttribute + i.opt.value +'('+ i.complexVal+')'); 
-                    }else {
-                this.push(i.value.productAttribute + i.opt.value + i.complexVal); 
-                    }
-                }
-            }, newArray);
-
-            return newArray.join('&');
-        };
+        $scope.parseDynamicForms = ProductServices.parseDynamicForms;
 
         $scope.clearBlankSelect = function () {
             $scope.sortBy = $scope.showOption.list[0];
@@ -552,9 +534,32 @@ angular.module('bby-query-mixer.productSearch').factory('ProductServices', [ fun
         return newArray.join(',');
     };
 
+    var parseDynamicForms = function (array) {
+            var newArray = [];
+            angular.forEach(array, function(i) { 
+                if (i.value.productAttribute && i.opt.value && i.complexVal){
+                    if (i.opt.value === ' in ') {
+                        this.push(i.value.productAttribute + i.opt.value +'('+ i.complexVal+')'); 
+                    }else {
+                this.push(i.value.productAttribute + i.opt.value + i.complexVal); 
+                    }
+                }
+            }, newArray);
+
+            return newArray.join('&');
+    };
+
+    var addAllOptionValues = function(optionArray) {
+        var newArray = [];
+        angular.forEach(optionArray, function(i) { this.push(i.value) }, newArray);
+        return newArray;
+    };
+
     return {
     	preSelectOperator : preSelectOperator,
-    	addAllShowOptions : addAllShowOptions
+    	addAllShowOptions : addAllShowOptions,
+    	parseDynamicForms : parseDynamicForms,
+    	addAllOptionValues : addAllOptionValues
     }
 }]);
 'use strict';

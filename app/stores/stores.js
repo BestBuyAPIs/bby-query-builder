@@ -10,13 +10,16 @@ angular.module('bby-query-mixer.stores').controller('storesCtrl', [
     'storeResponseConfig',
     'productAttributesConfig',
     'StoreServices',
-    function ($scope, categoryConfig, HttpClientService, GaService, regionsConfig, storeServicesConfig, storeResponseConfig, productAttributesConfig, StoreServices) {
+    'searchValueOptionsConfig',
+    function ($scope, categoryConfig, HttpClientService, GaService, regionsConfig, storeServicesConfig, storeResponseConfig, productAttributesConfig, StoreServices, searchValueOptionsConfig) {
         
         $scope.storeTypes = [
             { text:"Big Box", value: "bigbox" },
             { text: "Mobile", value: "mobile" },
             { text: "Express (Kiosk)", value: "express" }
         ];
+
+        $scope.options = angular.copy(searchValueOptionsConfig);
 
         $scope.buildRemixQuery = function () {
             var baseUrl = 'https://api.remix.bestbuy.com/v1/stores';
@@ -91,15 +94,6 @@ angular.module('bby-query-mixer.stores').controller('storesCtrl', [
                 $scope.results = "Please pick a search option";
             };
         };
-
-        $scope.options = [
-            {text:"Location Criteria", value:false},
-            {text:"By City", value:"city"},
-            {text:"By Postal Code", value:"postalCode"},
-            {text:"By Latitude/Longitude", value:"latLong"},
-            {text:"By StoreId", value:"storeId"},
-            {text:"By Region/State", value:"region"}
-        ];
             
         $scope.servicesOption = {};
         $scope.storeType = {};

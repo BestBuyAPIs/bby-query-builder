@@ -5,12 +5,13 @@ describe('bby-query-mixer.stores module', function () {
 	beforeEach(module('bby-query-mixer.stores', 'appConfig'), function () {
 	});
 
-	var ctrl, scope, queryParams;
-	beforeEach(inject(function ($controller, $rootScope) {
+	var ctrl, scope, queryParams, StoreServices;
+	beforeEach(inject(function ($controller, $rootScope,_StoreServices_) {
 		scope = $rootScope.$new();
 		ctrl = $controller('storesCtrl', {
 			$scope: scope
 		});
+		StoreServices = _StoreServices_;
 		queryParams = [];
 	}));
 
@@ -116,10 +117,10 @@ describe('bby-query-mixer.stores module', function () {
 			expect(scope.storeTypes).toBeDefined();
 		})
 		it('should have a store type filter function', function (){
-			expect(scope.filterStoreType).toBeDefined();
+			expect(StoreServices.filterStoreType).toBeDefined();
 		})
 		it('should have a store service filter', function (){
-			expect(scope.filterStoreService()).toBeDefined();
+			expect(StoreServices.filterStoreService()).toBeDefined();
 		})
 	});
 

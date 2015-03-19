@@ -490,11 +490,6 @@ angular.module('bby-query-mixer.productSearch').controller('ProductSearchCtrl', 
             GaService.copyUrlEvent(tab,$scope.apiKey);
         };
 
-        var addAllOptions = function(optionArray) {
-            var newArray = [];
-            angular.forEach(optionArray, function(i) { this.push(i) }, newArray);
-            return newArray;
-        };
         var addAllOptionValues = function(optionArray) {
             var newArray = [];
             angular.forEach(optionArray, function(i) { this.push(i.value) }, newArray);
@@ -507,7 +502,7 @@ angular.module('bby-query-mixer.productSearch').controller('ProductSearchCtrl', 
         };
         $scope.selectAll = function (z) {
             if (z === 'allproducts') {
-                $scope.showOption.list = addAllOptions($scope.showOptions);
+                $scope.showOption.list = angular.copy($scope.showOptions);
             } else if (z === 'noproducts') {
                 $scope.showOption.list = [];
             } 

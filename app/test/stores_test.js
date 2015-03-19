@@ -119,9 +119,17 @@ describe('bby-query-mixer.stores module', function () {
 		it('should have a store type filter function', function (){
 			expect(StoreServices.filterStoreType).toBeDefined();
 		})
+		it('should filter store types correctly', function (){
+			var storeTypesArray = ['big box', 'mobile', 'express kiosk']
+			expect(StoreServices.filterStoreType(storeTypesArray)).toEqual('(storeType=big box)|(storeType=mobile)|(storeType=express kiosk)');
+		});
 		it('should have a store service filter', function (){
 			expect(StoreServices.filterStoreService()).toBeDefined();
 		})
+		it('should filter store services correctly', function (){
+			var storeServicesArray = ['repairs','business','mobile phones'];
+			expect(StoreServices.filterStoreService(storeServicesArray)).toEqual('(services.service=repairs)&(services.service=business)&(services.service=mobile phones)');
+		});
 	});
 
     describe('reset query function', function () {

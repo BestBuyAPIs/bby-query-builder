@@ -18,10 +18,6 @@ angular.module('bby-query-mixer.productSearch').controller('ProductSearchCtrl', 
             {text:"Descending", value:"dsc"}
         ];
 
-        $scope.showOpts = function () {
-            console.log($scope.option.showOptions);
-        };
-
         $scope.buildRemixQuery = function () {
             var searchArgs = [];
             var keywordQuery = $scope.keywordSearch ? searchArgs.push( '(search=' + $scope.keywordSearch +')' ) :'' ;

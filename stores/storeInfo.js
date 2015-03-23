@@ -16,4 +16,9 @@ angular.module('bby-query-mixer.stores').constant('storeServicesConfig', [
 	{ text:'Samsung Experience Shop', value: '"samsung experience shop"' },
 	{ text:'Support for Military Families', value: '"support for military families"' },
 	{ text:'Windows Store', value: '"windows store"' }
+])
+.constant('storeTypesConfig',[
+    { text:"Big Box", value: "bigbox" },
+    { text: "Mobile", value: "mobile" },
+    { text: "Express (Kiosk)", value: "express" }
 ]);

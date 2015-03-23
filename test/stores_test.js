@@ -5,12 +5,13 @@ describe('bby-query-mixer.stores module', function () {
 	beforeEach(module('bby-query-mixer.stores', 'appConfig'), function () {
 	});
 
-	var ctrl, scope, queryParams;
-	beforeEach(inject(function ($controller, $rootScope) {
+	var ctrl, scope, queryParams, StoreServices;
+	beforeEach(inject(function ($controller, $rootScope,_StoreServices_) {
 		scope = $rootScope.$new();
 		ctrl = $controller('storesCtrl', {
 			$scope: scope
 		});
+		StoreServices = _StoreServices_;
 		queryParams = [];
 	}));
 
@@ -104,7 +105,7 @@ describe('bby-query-mixer.stores module', function () {
 			expect(scope.options).toBeDefined();
 		});
 		it('should have a add all options function', function (){
-			expect(scope.addAllOptions).toBeDefined();
+			expect(StoreServices.addAllOptions).toBeDefined();
 		});
 		it('should have a function for tracking copy url events', function (){
 			expect(scope.callCopyEvent).toBeDefined();
@@ -116,11 +117,19 @@ describe('bby-query-mixer.stores module', function () {
 			expect(scope.storeTypes).toBeDefined();
 		})
 		it('should have a store type filter function', function (){
-			expect(scope.filterStoreType).toBeDefined();
+			expect(StoreServices.filterStoreType).toBeDefined();
 		})
+		it('should filter store types correctly', function (){
+			var storeTypesArray = ['big box', 'mobile', 'express kiosk']
+			expect(StoreServices.filterStoreType(storeTypesArray)).toEqual('(storeType=big box)|(storeType=mobile)|(storeType=express kiosk)');
+		});
 		it('should have a store service filter', function (){
-			expect(scope.filterStoreService()).toBeDefined();
+			expect(StoreServices.filterStoreService()).toBeDefined();
 		})
+		it('should filter store services correctly', function (){
+			var storeServicesArray = ['repairs','business','mobile phones'];
+			expect(StoreServices.filterStoreService(storeServicesArray)).toEqual('(services.service=repairs)&(services.service=business)&(services.service=mobile phones)');
+		});
 	});
 
     describe('reset query function', function () {

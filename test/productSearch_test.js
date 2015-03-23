@@ -5,12 +5,13 @@ describe('bby-query-mixer.productSearch module', function () {
     beforeEach(module('bby-query-mixer.productSearch', 'appConfig'), function () {
     });
 
-    var ctrl, scope;
-    beforeEach(inject(function ($controller, $rootScope) {
+    var ctrl, scope, ProductServices;
+    beforeEach(inject(function ($controller, $rootScope, _ProductServices_) {
         scope = $rootScope.$new();
         ctrl = $controller('ProductSearchCtrl', {
             $scope: scope
         });
+        ProductServices = _ProductServices_;
     }));
 
     describe('productSearch controller', function () {
@@ -154,7 +155,7 @@ describe('bby-query-mixer.productSearch module', function () {
         describe('preselectOperator function', function () {
             it('should reset values when attribute dropdown is changed', function () {
                 var form = {value:{operator:[]}};
-                scope.preselectOperator(form);
+                ProductServices.preSelectOperator(form);
                 expect(scope.operator).toEqual(scope.attributeOption.operator[0]);
                 expect(scope.complexVal).toEqual('');
             });

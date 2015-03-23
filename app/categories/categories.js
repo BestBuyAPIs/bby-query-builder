@@ -8,8 +8,7 @@ angular.module('bby-query-mixer.categories').controller('CategoriesCtrl', [
     '$timeout',
     function ($scope, HttpClientService, GaService, categoryResponseConfig, $timeout) {
 
-            $scope.categoryResponses = angular.copy(categoryResponseConfig);
-
+        $scope.categoryResponses = angular.copy(categoryResponseConfig);        
 
         $scope.searchOptions = [
             {text:"Choose a seach option", value:""},        

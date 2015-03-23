@@ -378,19 +378,14 @@ angular.module('bby-query-mixer.productSearch').controller('ProductSearchCtrl', 
     'attributeOptionsConfig',
     'HttpClientService',
     'GaService',
-    function ($scope, categoryConfig, showOptionsConfig, attributeOptionsConfig, HttpClientService, GaService) {
+    'ProductServices',
+    'sortOrderConfig',
+    function ($scope, categoryConfig, showOptionsConfig, attributeOptionsConfig, HttpClientService, GaService, ProductServices, sortOrderConfig) {
         $scope.categories = angular.copy(categoryConfig);
         $scope.showOptions = angular.copy(showOptionsConfig);
         $scope.attributeOptions = angular.copy(attributeOptionsConfig);
 
-        $scope.sortOrderOptions = [
-            {text:"Ascending", value:"asc"},
-            {text:"Descending", value:"dsc"}
-        ];
-
-        $scope.showOpts = function () {
-            console.log($scope.option.showOptions);
-        };
+        $scope.sortOrderOptions = angular.copy(sortOrderConfig);
 
         $scope.buildRemixQuery = function () {
             var searchArgs = [];
@@ -440,7 +435,7 @@ angular.module('bby-query-mixer.productSearch').controller('ProductSearchCtrl', 
             }
 
             if ($scope.showOption.list.length > 0){
-                paramArgs.push('show=' + addAllOptionValues($scope.showOption.list));
+                paramArgs.push('show=' + ProductServices.addAllOptionValues($scope.showOption.list));
             };
             if (($scope.facetAttribute.productAttribute)&&($scope.facetNumber)){
                 paramArgs.push('facet=' + $scope.facetAttribute.productAttribute + ',' + $scope.facetNumber);
@@ -486,38 +481,19 @@ angular.module('bby-query-mixer.productSearch').controller('ProductSearchCtrl', 
         //calling the function here loads the defaults on page load
         $scope.resetParams();
 
-
-        // $scope.sortBy = $scope.showOption.list[0];
-
         //this function is fired on a ng-change when attribute is selected. it sets the first operator to be pre-selected
-        $scope.preselectOperator = function(form) {
-            form.opt = form.value.operator[0];
-            form.complexVal = form.value.valueOptions ? form.value.valueOptions[0].value : '';
-        };
+        $scope.preselectOperator = ProductServices.preSelectOperator;
 
         $scope.callCopyEvent = function () {
             var tab = "products";
             GaService.copyUrlEvent(tab,$scope.apiKey);
         };
+        
+        $scope.addAllShowOptions = ProductServices.addAllShowOptions;
 
-        var addAllOptions = function(optionArray) {
-            var newArray = [];
-            angular.forEach(optionArray, function(i) { this.push(i) }, newArray);
-            return newArray;
-        };
-        var addAllOptionValues = function(optionArray) {
-            var newArray = [];
-            angular.forEach(optionArray, function(i) { this.push(i.value) }, newArray);
-            return newArray;
-        };
-        $scope.addAllShowOptions = function(optionArray) {
-            var newArray = [];
-            angular.forEach(optionArray, function(i) { this.push(i.value) }, newArray);
-            return newArray.join(',');
-        };
         $scope.selectAll = function (z) {
             if (z === 'allproducts') {
-                $scope.showOption.list = addAllOptions($scope.showOptions);
+                $scope.showOption.list = angular.copy($scope.showOptions);
             } else if (z === 'noproducts') {
                 $scope.showOption.list = [];
             } 
@@ -534,12 +510,33 @@ angular.module('bby-query-mixer.productSearch').controller('ProductSearchCtrl', 
         };
         $scope.removeForm = function(form) {
             var newItemNo = $scope.dynamicForms.length-1;
-            // console.log(form)
-            // console.log($scope.dynamicForms.indexOf(form))
             $scope.dynamicForms.splice($scope.dynamicForms.indexOf(form),1);   
         };
 
-        $scope.parseDynamicForms = function (array) {
+        $scope.parseDynamicForms = ProductServices.parseDynamicForms;
+
+        $scope.clearBlankSelect = function () {
+            $scope.sortBy = $scope.showOption.list[0];
+        };
+
+    }
+]);
+'use strict';
+
+angular.module('bby-query-mixer.productSearch').factory('ProductServices', [ function() {
+    
+    var preSelectOperator = function(form) {
+        form.opt = form.value.operator[0];
+        form.complexVal = form.value.valueOptions ? form.value.valueOptions[0].value : '';
+    };
+
+    var addAllShowOptions = function(optionArray) {
+        var newArray = [];
+        angular.forEach(optionArray, function(i) { this.push(i.value) }, newArray);
+        return newArray.join(',');
+    };
+
+    var parseDynamicForms = function (array) {
             var newArray = [];
             angular.forEach(array, function(i) { 
                 if (i.value.productAttribute && i.opt.value && i.complexVal){
@@ -547,21 +544,26 @@ angular.module('bby-query-mixer.productSearch').controller('ProductSearchCtrl', 
                         this.push(i.value.productAttribute + i.opt.value +'('+ i.complexVal+')'); 
                     }else {
                 this.push(i.value.productAttribute + i.opt.value + i.complexVal); 
-                // console.dir(i) 
                     }
                 }
             }, newArray);
 
             return newArray.join('&');
-        };
+    };
 
-        $scope.clearBlankSelect = function () {
-            $scope.sortBy = $scope.showOption.list[0];
-            // console.dir($scope.showOption.list)
-        };
+    var addAllOptionValues = function(optionArray) {
+        var newArray = [];
+        angular.forEach(optionArray, function(i) { this.push(i.value) }, newArray);
+        return newArray;
+    };
 
+    return {
+    	preSelectOperator : preSelectOperator,
+    	addAllShowOptions : addAllShowOptions,
+    	parseDynamicForms : parseDynamicForms,
+    	addAllOptionValues : addAllOptionValues
     }
-]);
+}]);
 'use strict';
 
 angular.module('bby-query-mixer.productSearch').constant('showOptionsConfig', [ 
@@ -606,6 +608,10 @@ angular.module('bby-query-mixer.productSearch').constant('showOptionsConfig', [
     { text: 'Type', value: 'type' },
     { text: 'UPC', value: 'upc' },
     { text: 'URL', value: 'url' }
+])
+.constant('sortOrderConfig',[
+	{text:"Ascending", value:"asc"},
+	{text:"Descending", value:"dsc"}
 ]);
 'use strict';
 

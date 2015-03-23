@@ -520,35 +520,15 @@ angular.module('bby-query-mixer.productSearch').controller('ProductSearchCtrl', 
 
         $scope.parseDynamicForms = ProductServices.parseDynamicForms;
 
-        var restrictedSortOptions = [
-            'accessories.sku',
-            'categoryPath.id',
-            'categoryPath.name',
-            'details.text',
-            'details.value',
-            'features.feature',
-            'frequentlyPurchasedWith.sku',
-            'includedItemList.includedItem',
-            'mobileURL',
-            'relatedProducts.sku',
-            'shipping'
-        ];
-    var restrictSortOptionLists = function (array) {
-        var newArray = [];
-        angular.forEach(array,
-            function(i) {
-                if (restrictedSortOptions.indexOf(i.value) === -1){
-                    this.push(i.value)
-                }
-            }, newArray);
-        return newArray;
-    };
 
-    console.log(restrictSortOptionLists($scope.showOptions));
+
+        // console.log(ProductServices.restrictSortOptionLists($scope.showOptions));
 
         $scope.clearBlankSelect = function () {
             $scope.sortBy = $scope.showOption.list[0];
-
+            console.log($scope.showOption.list);
+            $scope.sortOptions.list = ProductServices.restrictSortOptionLists($scope.showOption.list);
+            console.log($scope.sortOptions.list);
         };
 
     }
@@ -607,8 +587,8 @@ angular.module('bby-query-mixer.productSearch').factory('ProductServices', [ fun
         var newArray = [];
         angular.forEach(array,
             function(i) {
-                if (restrictedSortOptions.indexOf(i) >= 0){
-                    this.push(i.value)
+                if (restrictedSortOptions.indexOf(i.value) === -1){
+                    this.push(i)
                 }
             }, newArray);
         return newArray;

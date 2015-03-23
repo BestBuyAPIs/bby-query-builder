@@ -52,8 +52,8 @@ angular.module('bby-query-mixer.productSearch').factory('ProductServices', [ fun
         var newArray = [];
         angular.forEach(array,
             function(i) {
-                if (restrictedSortOptions.indexOf(i) >= 0){
-                    this.push(i.value)
+                if (restrictedSortOptions.indexOf(i.value) === -1){
+                    this.push(i)
                 }
             }, newArray);
         return newArray;

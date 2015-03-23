@@ -235,17 +235,12 @@ angular.module('bby-query-mixer.openBox').controller('openBoxCtrl', [
     'categoryConfig',
     'HttpClientService',
     'GaService',
-    function ($scope, categoryConfig, HttpClientService, GaService) {
+    'searchOptions',
+    function ($scope, categoryConfig, HttpClientService, GaService, searchOptions) {
         $scope.categories = angular.copy(categoryConfig);
         $scope.category = $scope.categories[0];
 
-        $scope.options = [
-            { text: "Select an Open Box Search Option", value: 0 },
-        	{ text: "Open Box Offers All SKUs", value: 'allSkus' },
-        	{ text: "Open Box Offers by Category", value: 'category' },
-        	{ text: "Open Box Offers by List of SKUs", value: 'skuList' },
-        	{ text: "Open Box Offers by SKU", value: 'singleSku' }
-        ];
+        $scope.options = angular.copy(searchOptions);
 
         $scope.buildRemixQuery = function () {
             var baseUrl = 'https://api.bestbuy.com/beta/products/openBox'
@@ -310,6 +305,15 @@ angular.module('bby-query-mixer.openBox').controller('openBoxCtrl', [
             GaService.copyUrlEvent(tab,$scope.apiKey);
         };
 }]);
+'use strict';
+
+angular.module('bby-query-mixer.openBox').constant('searchOptions', [
+    { text: "Select an Open Box Search Option", value: 0 },
+	{ text: "Open Box Offers All SKUs", value: 'allSkus' },
+	{ text: "Open Box Offers by Category", value: 'category' },
+	{ text: "Open Box Offers by List of SKUs", value: 'skuList' },
+	{ text: "Open Box Offers by SKU", value: 'singleSku' }
+]);
 'use strict';
 
 angular.module('bby-query-mixer.productSearch', ['ngRoute'])
@@ -1090,8 +1094,7 @@ angular.module('bby-query-mixer.categories').controller('CategoriesCtrl', [
     '$timeout',
     function ($scope, HttpClientService, GaService, categoryResponseConfig, $timeout) {
 
-            $scope.categoryResponses = angular.copy(categoryResponseConfig);
-
+        $scope.categoryResponses = angular.copy(categoryResponseConfig);        
 
         $scope.searchOptions = [
             {text:"Choose a seach option", value:""},        

@@ -459,6 +459,7 @@ angular.module('bby-query-mixer.productSearch').controller('ProductSearchCtrl', 
         };
 
         $scope.showOption = {};
+        $scope.sortOptions = {};
 
         $scope.resetParams = function () {
             $scope.category = $scope.categories[0];
@@ -477,7 +478,11 @@ angular.module('bby-query-mixer.productSearch').controller('ProductSearchCtrl', 
             $scope.facetAttribute = $scope.attributeOptions[0];
             $scope.showOption.list = [];
             $scope.dynamicForms = [{value: $scope.attributeOption}];
+
+            $scope.sortOptions.list = [];
         };
+        // $scope.sortOptions.list = ProductServices.restrictSortOptionLists($scope.showOption.list);
+        
         //calling the function here loads the defaults on page load
         $scope.resetParams();
 
@@ -515,8 +520,35 @@ angular.module('bby-query-mixer.productSearch').controller('ProductSearchCtrl', 
 
         $scope.parseDynamicForms = ProductServices.parseDynamicForms;
 
+        var restrictedSortOptions = [
+            'accessories.sku',
+            'categoryPath.id',
+            'categoryPath.name',
+            'details.text',
+            'details.value',
+            'features.feature',
+            'frequentlyPurchasedWith.sku',
+            'includedItemList.includedItem',
+            'mobileURL',
+            'relatedProducts.sku',
+            'shipping'
+        ];
+    var restrictSortOptionLists = function (array) {
+        var newArray = [];
+        angular.forEach(array,
+            function(i) {
+                if (restrictedSortOptions.indexOf(i.value) === -1){
+                    this.push(i.value)
+                }
+            }, newArray);
+        return newArray;
+    };
+
+    console.log(restrictSortOptionLists($scope.showOptions));
+
         $scope.clearBlankSelect = function () {
             $scope.sortBy = $scope.showOption.list[0];
+
         };
 
     }
@@ -557,11 +589,37 @@ angular.module('bby-query-mixer.productSearch').factory('ProductServices', [ fun
         return newArray;
     };
 
+    var restrictedSortOptions = [
+        'accessories.sku',
+        'categoryPath.id',
+        'categoryPath.name',
+        'details.text',
+        'details.value',
+        'features.feature',
+        'frequentlyPurchasedWith.sku',
+        'includedItemList.includedItem',
+        'mobileURL',
+        'relatedProducts.sku',
+        'shipping'
+    ];
+
+    var restrictSortOptionLists = function (array) {
+        var newArray = [];
+        angular.forEach(array,
+            function(i) {
+                if (restrictedSortOptions.indexOf(i) >= 0){
+                    this.push(i.value)
+                }
+            }, newArray);
+        return newArray;
+    };
+
     return {
     	preSelectOperator : preSelectOperator,
     	addAllShowOptions : addAllShowOptions,
     	parseDynamicForms : parseDynamicForms,
-    	addAllOptionValues : addAllOptionValues
+    	addAllOptionValues : addAllOptionValues,
+        restrictSortOptionLists : restrictSortOptionLists
     }
 }]);
 'use strict';

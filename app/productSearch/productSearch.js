@@ -149,16 +149,9 @@ angular.module('bby-query-mixer.productSearch').controller('ProductSearchCtrl', 
 
         $scope.parseDynamicForms = ProductServices.parseDynamicForms;
 
-
-
-        // console.log(ProductServices.restrictSortOptionLists($scope.showOptions));
-
         $scope.clearBlankSelect = function () {
-            console.log($scope.showOption.list);
             $scope.sortOptions.list = ProductServices.restrictSortOptionLists($scope.showOption.list);
-            console.log($scope.sortOptions.list);
             $scope.sortBy = $scope.showOption.list[0];
-
         };
 
     }

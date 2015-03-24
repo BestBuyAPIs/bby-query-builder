@@ -13,23 +13,19 @@ describe('bby-query-mixer.productSearch module', function () {
         });
         ProductServices = _ProductServices_;
     }));
-
     describe('productSearch controller', function () {
         beforeEach(inject(function ($controller, $rootScope) {
             scope.apiKey = 'youreAnApiKey';
-        
         }));
         it('should have a controller defined', function () {
             expect(ctrl).toBeDefined();
         });
-
         it('should have a category id associated with each category label', function () {
             scope.categories.map(function (categoryOption) {
                 expect(categoryOption.value).toBeDefined();
                 expect(categoryOption.label).toBeDefined();
             });
         });
-
         describe('buildRemixQuery function', function () {
             it('should have a remix query function', function () {
                 expect(scope.buildRemixQuery).toBeDefined();
@@ -87,7 +83,6 @@ describe('bby-query-mixer.productSearch module', function () {
                 expect(scope.buildRemixQuery()).toEqual("https://api.remix.bestbuy.com/v1/products?apiKey=youreAnApiKey&callback=JSON_CALLBACK&&pageSize=111&format=json");
             });              
         });
-
         describe('buildParams function', function () {
             it('should return sortBy and sortOrder asc when only sortBy selected', function () {
                 scope.apiKey = '';
@@ -95,7 +90,6 @@ describe('bby-query-mixer.productSearch module', function () {
                 scope.sortOrder.value = 'asc';
                 expect(scope.buildParams()).toEqual('?sort=sku.asc&format=json');
             });
-
             it('should return sortBy and sortOrder asc when only sortBy selected', function () {
                 scope.apiKey = '';
                 scope.sortBy = {value : 'sku'};
@@ -103,12 +97,10 @@ describe('bby-query-mixer.productSearch module', function () {
 
                 expect(scope.buildParams()).toEqual('?sort=sku.desc&format=json');
             });
-
             it('should return apiKey when only apiKey specified', function () {
                 scope.apiKey = 'someApiKey';
                 expect(scope.buildParams()).toEqual('?apiKey=someApiKey&callback=JSON_CALLBACK&format=json');
             });
-
             it('should return both apiKey and sortBy with sortOrder when both specified', function () {
                 scope.apiKey = 'someApiKey';
                 scope.sortBy = {value : 'sku'};
@@ -143,7 +135,6 @@ describe('bby-query-mixer.productSearch module', function () {
                 expect(scope.apiKey).toEqual('myApiKey');
             });
         });
-
         describe('invokeRemixQuery function', function () {
             it('should error if no apikey is present', function () {
                 scope.apiKey = '';
@@ -160,7 +151,6 @@ describe('bby-query-mixer.productSearch module', function () {
                 expect(scope.complexVal).toEqual('');
             });
         });
-
         describe('dynamic forms functionality', function () {
             it('should compile the array of forms and add it to the remix query url', function () {
                 scope.dynamicForms= [{value:{productAttribute:'foo'},opt:{value:'='},complexVal:'foo'}]
@@ -183,9 +173,7 @@ describe('bby-query-mixer.productSearch module', function () {
                 scope.showOption.list = ['fizz','banana','mango'];
                 scope.clearBlankSelect();
                 expect(scope.sortBy).toEqual("fizz");
-
             });
-
         });
         describe('select all button', function () {
             it('should select all', function () {
@@ -197,6 +185,12 @@ describe('bby-query-mixer.productSearch module', function () {
                 expect(scope.showOption.list.length).toEqual(0);
             });
         });
-
+        describe('restrict sort options function', function () {
+            it('should return an array without the values on the restricted list', function (){
+                var firstArray = [{value:'shipping'},{value:'color'},{value:'salePrice'}, {value:'details.text'}];
+                var secondArray = ProductServices.restrictSortOptionLists(firstArray);
+                expect(secondArray).toEqual([ { value : 'color' }, { value : 'salePrice' } ]);
+            });
+        });
     });
 });

@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('bby-query-mixer.productSearch').factory('ProductServices', [ function() {
+angular.module('bby-query-mixer.productSearch').factory('ProductServices', [ 'restrictedSortOptions',function(restrictedSortOptions) {
     
     var preSelectOperator = function(form) {
         form.opt = form.value.operator[0];
@@ -34,10 +34,22 @@ angular.module('bby-query-mixer.productSearch').factory('ProductServices', [ fun
         return newArray;
     };
 
+    var restrictSortOptionLists = function (array) {
+        var newArray = [];
+        angular.forEach(array,
+            function(i) {
+                if (restrictedSortOptions.indexOf(i.value) === -1){
+                    this.push(i)
+                }
+            }, newArray);
+        return newArray;
+    };
+
     return {
     	preSelectOperator : preSelectOperator,
     	addAllShowOptions : addAllShowOptions,
     	parseDynamicForms : parseDynamicForms,
-    	addAllOptionValues : addAllOptionValues
+    	addAllOptionValues : addAllOptionValues,
+        restrictSortOptionLists : restrictSortOptionLists
     }
 }]);

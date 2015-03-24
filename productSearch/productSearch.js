@@ -88,6 +88,7 @@ angular.module('bby-query-mixer.productSearch').controller('ProductSearchCtrl', 
         };
 
         $scope.showOption = {};
+        $scope.sortOptions = {};
 
         $scope.resetParams = function () {
             $scope.category = $scope.categories[0];
@@ -106,7 +107,11 @@ angular.module('bby-query-mixer.productSearch').controller('ProductSearchCtrl', 
             $scope.facetAttribute = $scope.attributeOptions[0];
             $scope.showOption.list = [];
             $scope.dynamicForms = [{value: $scope.attributeOption}];
+
+            $scope.sortOptions.list = [];
         };
+        // $scope.sortOptions.list = ProductServices.restrictSortOptionLists($scope.showOption.list);
+        
         //calling the function here loads the defaults on page load
         $scope.resetParams();
 
@@ -145,7 +150,8 @@ angular.module('bby-query-mixer.productSearch').controller('ProductSearchCtrl', 
         $scope.parseDynamicForms = ProductServices.parseDynamicForms;
 
         $scope.clearBlankSelect = function () {
-            $scope.sortBy = $scope.showOption.list[0];
+            $scope.sortOptions.list = ProductServices.restrictSortOptionLists($scope.showOption.list);
+            $scope.sortBy = $scope.sortOptions.list[0];
         };
 
     }

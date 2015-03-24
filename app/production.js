@@ -522,7 +522,7 @@ angular.module('bby-query-mixer.productSearch').controller('ProductSearchCtrl', 
 
         $scope.clearBlankSelect = function () {
             $scope.sortOptions.list = ProductServices.restrictSortOptionLists($scope.showOption.list);
-            $scope.sortBy = $scope.showOption.list[0];
+            $scope.sortBy = $scope.sortOptions.list[0];
         };
 
     }

@@ -75,7 +75,7 @@
                         <div class="form-group" ng-show="showOption.list.length > 0">
                             <label class="control-label"><a href="https://developer.bestbuy.com/documentation#sort-sort" target="_blank">Sort By:</a></label>
                             <div class="">
-                                <select ng-init="showOption.list[0]" selected="Choose Sort Option" ng-model="sortBy" ng-options="opt as opt.text for opt in showOption.list"></select></span>
+                                <select ng-init="sortOptions.list[0]" selected="Choose Sort Option" ng-model="sortBy" ng-options="opt as opt.text for opt in sortOptions.list"></select></span>
                                 <span>Sort Order:
                                 <select ng-model="sortOrder" ng-options="opt as opt.text for opt in sortOrderOptions"></select>
                             </div>

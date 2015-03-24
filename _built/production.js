@@ -235,17 +235,12 @@ angular.module('bby-query-mixer.openBox').controller('openBoxCtrl', [
     'categoryConfig',
     'HttpClientService',
     'GaService',
-    function ($scope, categoryConfig, HttpClientService, GaService) {
+    'searchOptions',
+    function ($scope, categoryConfig, HttpClientService, GaService, searchOptions) {
         $scope.categories = angular.copy(categoryConfig);
         $scope.category = $scope.categories[0];
 
-        $scope.options = [
-            { text: "Select an Open Box Search Option", value: 0 },
-        	{ text: "Open Box Offers All SKUs", value: 'allSkus' },
-        	{ text: "Open Box Offers by Category", value: 'category' },
-        	{ text: "Open Box Offers by List of SKUs", value: 'skuList' },
-        	{ text: "Open Box Offers by SKU", value: 'singleSku' }
-        ];
+        $scope.options = angular.copy(searchOptions);
 
         $scope.buildRemixQuery = function () {
             var baseUrl = 'https://api.bestbuy.com/beta/products/openBox'
@@ -312,6 +307,15 @@ angular.module('bby-query-mixer.openBox').controller('openBoxCtrl', [
 }]);
 'use strict';
 
+angular.module('bby-query-mixer.openBox').constant('searchOptions', [
+    { text: "Select an Open Box Search Option", value: 0 },
+	{ text: "Open Box Offers All SKUs", value: 'allSkus' },
+	{ text: "Open Box Offers by Category", value: 'category' },
+	{ text: "Open Box Offers by List of SKUs", value: 'skuList' },
+	{ text: "Open Box Offers by SKU", value: 'singleSku' }
+]);
+'use strict';
+
 angular.module('bby-query-mixer.productSearch', ['ngRoute'])
     .config(['$routeProvider', function ($routeProvider) {
         $routeProvider.when('/productSearch', {
@@ -374,19 +378,14 @@ angular.module('bby-query-mixer.productSearch').controller('ProductSearchCtrl', 
     'attributeOptionsConfig',
     'HttpClientService',
     'GaService',
-    function ($scope, categoryConfig, showOptionsConfig, attributeOptionsConfig, HttpClientService, GaService) {
+    'ProductServices',
+    'sortOrderConfig',
+    function ($scope, categoryConfig, showOptionsConfig, attributeOptionsConfig, HttpClientService, GaService, ProductServices, sortOrderConfig) {
         $scope.categories = angular.copy(categoryConfig);
         $scope.showOptions = angular.copy(showOptionsConfig);
         $scope.attributeOptions = angular.copy(attributeOptionsConfig);
 
-        $scope.sortOrderOptions = [
-            {text:"Ascending", value:"asc"},
-            {text:"Descending", value:"dsc"}
-        ];
-
-        $scope.showOpts = function () {
-            console.log($scope.option.showOptions);
-        };
+        $scope.sortOrderOptions = angular.copy(sortOrderConfig);
 
         $scope.buildRemixQuery = function () {
             var searchArgs = [];
@@ -436,7 +435,7 @@ angular.module('bby-query-mixer.productSearch').controller('ProductSearchCtrl', 
             }
 
             if ($scope.showOption.list.length > 0){
-                paramArgs.push('show=' + addAllOptionValues($scope.showOption.list));
+                paramArgs.push('show=' + ProductServices.addAllOptionValues($scope.showOption.list));
             };
             if (($scope.facetAttribute.productAttribute)&&($scope.facetNumber)){
                 paramArgs.push('facet=' + $scope.facetAttribute.productAttribute + ',' + $scope.facetNumber);
@@ -482,38 +481,19 @@ angular.module('bby-query-mixer.productSearch').controller('ProductSearchCtrl', 
         //calling the function here loads the defaults on page load
         $scope.resetParams();
 
-
-        // $scope.sortBy = $scope.showOption.list[0];
-
         //this function is fired on a ng-change when attribute is selected. it sets the first operator to be pre-selected
-        $scope.preselectOperator = function(form) {
-            form.opt = form.value.operator[0];
-            form.complexVal = form.value.valueOptions ? form.value.valueOptions[0].value : '';
-        };
+        $scope.preselectOperator = ProductServices.preSelectOperator;
 
         $scope.callCopyEvent = function () {
             var tab = "products";
             GaService.copyUrlEvent(tab,$scope.apiKey);
         };
+        
+        $scope.addAllShowOptions = ProductServices.addAllShowOptions;
 
-        var addAllOptions = function(optionArray) {
-            var newArray = [];
-            angular.forEach(optionArray, function(i) { this.push(i) }, newArray);
-            return newArray;
-        };
-        var addAllOptionValues = function(optionArray) {
-            var newArray = [];
-            angular.forEach(optionArray, function(i) { this.push(i.value) }, newArray);
-            return newArray;
-        };
-        $scope.addAllShowOptions = function(optionArray) {
-            var newArray = [];
-            angular.forEach(optionArray, function(i) { this.push(i.value) }, newArray);
-            return newArray.join(',');
-        };
         $scope.selectAll = function (z) {
             if (z === 'allproducts') {
-                $scope.showOption.list = addAllOptions($scope.showOptions);
+                $scope.showOption.list = angular.copy($scope.showOptions);
             } else if (z === 'noproducts') {
                 $scope.showOption.list = [];
             } 
@@ -530,12 +510,33 @@ angular.module('bby-query-mixer.productSearch').controller('ProductSearchCtrl', 
         };
         $scope.removeForm = function(form) {
             var newItemNo = $scope.dynamicForms.length-1;
-            // console.log(form)
-            // console.log($scope.dynamicForms.indexOf(form))
             $scope.dynamicForms.splice($scope.dynamicForms.indexOf(form),1);   
         };
 
-        $scope.parseDynamicForms = function (array) {
+        $scope.parseDynamicForms = ProductServices.parseDynamicForms;
+
+        $scope.clearBlankSelect = function () {
+            $scope.sortBy = $scope.showOption.list[0];
+        };
+
+    }
+]);
+'use strict';
+
+angular.module('bby-query-mixer.productSearch').factory('ProductServices', [ function() {
+    
+    var preSelectOperator = function(form) {
+        form.opt = form.value.operator[0];
+        form.complexVal = form.value.valueOptions ? form.value.valueOptions[0].value : '';
+    };
+
+    var addAllShowOptions = function(optionArray) {
+        var newArray = [];
+        angular.forEach(optionArray, function(i) { this.push(i.value) }, newArray);
+        return newArray.join(',');
+    };
+
+    var parseDynamicForms = function (array) {
             var newArray = [];
             angular.forEach(array, function(i) { 
                 if (i.value.productAttribute && i.opt.value && i.complexVal){
@@ -543,21 +544,26 @@ angular.module('bby-query-mixer.productSearch').controller('ProductSearchCtrl', 
                         this.push(i.value.productAttribute + i.opt.value +'('+ i.complexVal+')'); 
                     }else {
                 this.push(i.value.productAttribute + i.opt.value + i.complexVal); 
-                // console.dir(i) 
                     }
                 }
             }, newArray);
 
             return newArray.join('&');
-        };
+    };
 
-        $scope.clearBlankSelect = function () {
-            $scope.sortBy = $scope.showOption.list[0];
-            // console.dir($scope.showOption.list)
-        };
+    var addAllOptionValues = function(optionArray) {
+        var newArray = [];
+        angular.forEach(optionArray, function(i) { this.push(i.value) }, newArray);
+        return newArray;
+    };
 
+    return {
+    	preSelectOperator : preSelectOperator,
+    	addAllShowOptions : addAllShowOptions,
+    	parseDynamicForms : parseDynamicForms,
+    	addAllOptionValues : addAllOptionValues
     }
-]);
+}]);
 'use strict';
 
 angular.module('bby-query-mixer.productSearch').constant('showOptionsConfig', [ 
@@ -602,6 +608,10 @@ angular.module('bby-query-mixer.productSearch').constant('showOptionsConfig', [
     { text: 'Type', value: 'type' },
     { text: 'UPC', value: 'upc' },
     { text: 'URL', value: 'url' }
+])
+.constant('sortOrderConfig',[
+	{text:"Ascending", value:"asc"},
+	{text:"Descending", value:"dsc"}
 ]);
 'use strict';
 
@@ -842,6 +852,14 @@ angular.module('bby-query-mixer.stores').constant('regionsConfig', [
 	{ text:"WI - Wisconsin", value:"WI" },
 	{ text:"WY - Wyoming", value:"WY" },
 ]);
+angular.module('bby-query-mixer.stores').constant('searchValueOptionsConfig', [
+            {text:"Location Criteria", value:false},
+            {text:"By City", value:"city"},
+            {text:"By Postal Code", value:"postalCode"},
+            {text:"By Latitude/Longitude", value:"latLong"},
+            {text:"By StoreId", value:"storeId"},
+            {text:"By Region/State", value:"region"}
+        ]);
 'use strict';
 
 angular.module('bby-query-mixer.stores').constant('storeServicesConfig', [ 
@@ -860,7 +878,41 @@ angular.module('bby-query-mixer.stores').constant('storeServicesConfig', [
 	{ text:'Samsung Experience Shop', value: '"samsung experience shop"' },
 	{ text:'Support for Military Families', value: '"support for military families"' },
 	{ text:'Windows Store', value: '"windows store"' }
+])
+.constant('storeTypesConfig',[
+    { text:"Big Box", value: "bigbox" },
+    { text: "Mobile", value: "mobile" },
+    { text: "Express (Kiosk)", value: "express" }
 ]);
+ 'use strict';
+
+angular.module('bby-query-mixer.stores').factory('StoreServices', [ function(){
+
+    var filterStoreType = function (storeTypesArray) {
+        var newArray = [];
+        angular.forEach(storeTypesArray, function(i) {this.push('(storeType='+i+')')}, newArray);
+        return newArray.join('|');
+    };
+
+    var filterStoreService = function (storeServiceArray) {
+        var newArray = [];
+        angular.forEach(storeServiceArray, function(i) {this.push('(services.service='+i+')')}, newArray);
+        return newArray.join('&');
+    };
+
+    var addAllOptions = function(optionArray) {
+            var newArray = [];
+            angular.forEach(optionArray, function(i) { this.push(i.value) }, newArray);
+            return newArray;
+        };
+
+    return {
+    	filterStoreService : filterStoreService ,
+    	filterStoreType : filterStoreType,
+    	addAllOptions : addAllOptions
+    }
+
+}]);
 'use strict';
 
 angular.module('bby-query-mixer.stores').controller('storesCtrl', [
@@ -872,25 +924,14 @@ angular.module('bby-query-mixer.stores').controller('storesCtrl', [
     'storeServicesConfig',
     'storeResponseConfig',
     'productAttributesConfig',
-    function ($scope, categoryConfig, HttpClientService, GaService, regionsConfig, storeServicesConfig, storeResponseConfig, productAttributesConfig) {
+    'StoreServices',
+    'searchValueOptionsConfig',
+    'storeTypesConfig',
+    function ($scope, categoryConfig, HttpClientService, GaService, regionsConfig, storeServicesConfig, storeResponseConfig, productAttributesConfig, StoreServices, searchValueOptionsConfig,storeTypesConfig) {
         
-        $scope.storeTypes = [
-            { text:"Big Box", value: "bigbox" },
-            { text: "Mobile", value: "mobile" },
-            { text: "Express (Kiosk)", value: "express" }
-        ];
+        $scope.storeTypes = angular.copy(storeTypesConfig);
 
-        $scope.filterStoreType = function (storeTypesArray) {
-            var newArray = [];
-            angular.forEach(storeTypesArray, function(i) {this.push('(storeType='+i+')')}, newArray);
-            return newArray.join('|');
-        };
-
-        $scope.filterStoreService = function (storeServiceArray) {
-            var newArray = [];
-            angular.forEach(storeServiceArray, function(i) {this.push('(services.service='+i+')')}, newArray);
-            return newArray.join('&');
-        };
+        $scope.options = angular.copy(searchValueOptionsConfig);
 
         $scope.buildRemixQuery = function () {
             var baseUrl = 'https://api.remix.bestbuy.com/v1/stores';
@@ -914,8 +955,8 @@ angular.module('bby-query-mixer.stores').controller('storesCtrl', [
             
             var addStoreType = ($scope.storeType.list.length > 0) ? searchArgs.push(('('+$scope.filterStoreType($scope.storeType.list)+')')) : '';
 
-            var addStoreServices = ((!$scope.searchSelection.value) && ($scope.servicesOption.list.length > 0)) ? searchArgs.push(($scope.filterStoreService($scope.servicesOption.list) )) :
-                    (($scope.searchSelection.value) && ($scope.servicesOption.list.length > 0)) ? searchArgs.push('('+$scope.filterStoreService($scope.servicesOption.list)+')' ) : '' ;
+            var addStoreServices = ((!$scope.searchSelection.value) && ($scope.servicesOption.list.length > 0)) ? searchArgs.push((StoreServices.filterStoreService($scope.servicesOption.list) )) :
+                    (($scope.searchSelection.value) && ($scope.servicesOption.list.length > 0)) ? searchArgs.push('('+StoreServices.filterStoreService($scope.servicesOption.list)+')' ) : '' ;
 
             //queryParams are things like apikey, format, etc
             var queryParams = [];
@@ -965,15 +1006,6 @@ angular.module('bby-query-mixer.stores').controller('storesCtrl', [
                 $scope.results = "Please pick a search option";
             };
         };
-
-        $scope.options = [
-            {text:"Location Criteria", value:false},
-            {text:"By City", value:"city"},
-            {text:"By Postal Code", value:"postalCode"},
-            {text:"By Latitude/Longitude", value:"latLong"},
-            {text:"By StoreId", value:"storeId"},
-            {text:"By Region/State", value:"region"}
-        ];
             
         $scope.servicesOption = {};
         $scope.storeType = {};
@@ -991,20 +1023,13 @@ angular.module('bby-query-mixer.stores').controller('storesCtrl', [
             $scope.zipCode = '';
         };
 
-        //this function lets us 'select' all options in an array of objects, instead of having to hardcode it
-        $scope.addAllOptions = function(optionArray) {
-            var newArray = [];
-            angular.forEach(optionArray, function(i) { this.push(i.value) }, newArray);
-            return newArray;
-        };
-
         $scope.resetParams = function () {
             $scope.searchSelection = $scope.options[0];
             $scope.regionOptions = angular.copy(regionsConfig);
             $scope.servicesOptions = angular.copy(storeServicesConfig);
             $scope.servicesOption.list = [];
             $scope.productOptions = angular.copy(productAttributesConfig);
-            $scope.productOption.list = $scope.addAllOptions($scope.productOptions);
+            $scope.productOption.list = StoreServices.addAllOptions($scope.productOptions);
             $scope.whichPage = 1;
             $scope.pageSize = 10;
             $scope.storeResponses = angular.copy(storeResponseConfig);
@@ -1041,7 +1066,7 @@ angular.module('bby-query-mixer.stores').controller('storesCtrl', [
             } else if (z === 'noResponse') {
                 $scope.storeResponse.list = [];
             } else if (z === 'products') {
-                $scope.productOption.list = $scope.addAllOptions($scope.productOptions)
+                $scope.productOption.list = StoreServices.addAllOptions($scope.productOptions)
             } else if (z === 'noproducts'){
                 $scope.productOption.list = [];
             }
@@ -1090,8 +1115,7 @@ angular.module('bby-query-mixer.categories').controller('CategoriesCtrl', [
     '$timeout',
     function ($scope, HttpClientService, GaService, categoryResponseConfig, $timeout) {
 
-            $scope.categoryResponses = angular.copy(categoryResponseConfig);
-
+        $scope.categoryResponses = angular.copy(categoryResponseConfig);        
 
         $scope.searchOptions = [
             {text:"Choose a seach option", value:""},        

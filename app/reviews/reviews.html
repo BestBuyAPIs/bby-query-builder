@@ -4,14 +4,32 @@
             <div class="query-information">
                 <h3>Reviews API</h3>
                 <div>
+                    <p>The Reviews API provides access to individual reviews that have been submitted on BESTBUY.COM for the products we sell. You can search for reviews based on ratings, SKU, review date, and review content. QueryBuilder will help create sample requests and response documents.</p>
                 </div>
                 <h4><span class="fa-stack fa-3x numberIcon">
                     <i class="fa fa-circle fa-stack-2x icon-stack-base"></i>
                     <strong class="char-overlay fa-stack-1x">1</strong>
-                    </span> </i>
+                    </span>Search for Reviews </i>
                 </h4>
 
-                <br/>
+                <h4><span class="fa-stack fa-3x numberIcon">
+                    <i class="fa fa-circle fa-stack-2x icon-stack-base"></i>
+                    <strong class="char-overlay fa-stack-1x">2</strong>
+                    </span>Build Your Response </i>
+                </h4>
+
+                <h4><span class="fa-stack fa-3x numberIcon">
+                        <i class="fa fa-circle fa-stack-2x icon-stack-base"></i>
+                        <strong class="char-overlay fa-stack-1x">3</strong>
+                        </span> Pagination</h4>
+                <div class="content-container">
+                    <form name="pageSizeform">
+                    <p>Specify additional results per page or return subsequent pages by updating the Results Per Page and Page values:</p>
+                    Results Per Page: <input class="rounded" id="pagination" ng-model="pageSize" type="number" style="width:60px;" required>
+                    <span class="error" ng-show="pageSizeform.input.$error.number">Not valid number!</span>
+                    Page: <input class="rounded" id="whichPage" ng-model="whichPage" type="number" min="1" max="900" required>
+                    </form>
+                </div>
 
                 <div id="button-container">
                     <button id="reset-query" class="query-button" ng-click="resetReviewsQuery()">RESET

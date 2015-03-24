@@ -46,4 +46,17 @@ angular.module('bby-query-mixer.productSearch').constant('showOptionsConfig', [
 .constant('sortOrderConfig',[
 	{text:"Ascending", value:"asc"},
 	{text:"Descending", value:"dsc"}
+])
+.constant('restrictedSortOptions', [
+    'accessories.sku',
+    'categoryPath.id',
+    'categoryPath.name',
+    'details.text',
+    'details.value',
+    'features.feature',
+    'frequentlyPurchasedWith.sku',
+    'includedItemList.includedItem',
+    'mobileURL',
+    'relatedProducts.sku',
+    'shipping'
 ]);

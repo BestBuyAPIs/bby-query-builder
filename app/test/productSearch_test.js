@@ -197,12 +197,8 @@ describe('bby-query-mixer.productSearch module', function () {
                 scope.showOption.list = [{value:'shipping'},{value:'color'},{value:'salePrice'},{value:'type'}];
                 scope.clearBlankSelect();
                 expect(scope.sortOptions.list).toEqual([ { value : 'color' }, { value : 'salePrice' }, { value : 'type' } ]);
-                expect(scope.sortOptions.list[0]).toEqual({ value : 'color' });
+                expect(scope.sortBy).toEqual({ value : 'color' });
             });
         });
     });
 });
-
-////
-// $scope.sortOptions.list = ProductServices.restrictSortOptionLists($scope.showOption.list);
-// $scope.sortBy = $scope.sortOptions.list[0];

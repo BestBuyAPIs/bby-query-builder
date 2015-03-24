@@ -186,11 +186,23 @@ describe('bby-query-mixer.productSearch module', function () {
             });
         });
         describe('restrict sort options function', function () {
-            it('should return an array without the values on the restricted list', function (){
+            it('should return an array without the values on the restricted list', function () {
                 var firstArray = [{value:'shipping'},{value:'color'},{value:'salePrice'}, {value:'details.text'}];
                 var secondArray = ProductServices.restrictSortOptionLists(firstArray);
                 expect(secondArray).toEqual([ { value : 'color' }, { value : 'salePrice' } ]);
             });
         });
+        describe('clearBlankSelect function', function () {
+            it('should do the thing', function () {
+                scope.showOption.list = [{value:'shipping'},{value:'color'},{value:'salePrice'},{value:'type'}];
+                scope.clearBlankSelect();
+                expect(scope.sortOptions.list).toEqual([ { value : 'color' }, { value : 'salePrice' }, { value : 'type' } ]);
+                expect(scope.sortOptions.list[0]).toEqual({ value : 'color' });
+            });
+        });
     });
 });
+
+////
+// $scope.sortOptions.list = ProductServices.restrictSortOptionLists($scope.showOption.list);
+// $scope.sortBy = $scope.sortOptions.list[0];

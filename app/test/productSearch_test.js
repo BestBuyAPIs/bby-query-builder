@@ -193,7 +193,7 @@ describe('bby-query-mixer.productSearch module', function () {
             });
         });
         describe('clearBlankSelect function', function () {
-            it('should do the thing', function () {
+            it('should set sortBy and sortOptions correctly', function () {
                 scope.showOption.list = [{value:'shipping'},{value:'color'},{value:'salePrice'},{value:'type'}];
                 scope.clearBlankSelect();
                 expect(scope.sortOptions.list).toEqual([ { value : 'color' }, { value : 'salePrice' }, { value : 'type' } ]);

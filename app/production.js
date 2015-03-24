@@ -1264,3 +1264,23 @@ angular.module('bby-query-mixer.categories').constant('categoryResponseConfig', 
     {text:"SubCategory Name", value:"subCategories.name" },
     {text:"SubCategory Id", value:"subCategories.id" }
 ]);
+'use strict';
+
+angular.module('bby-query-mixer.reviews', ['ngRoute'])
+    .config(['$routeProvider', function ($routeProvider) {
+        $routeProvider.when('/reviews', {
+            templateUrl: 'reviews/reviews.html',
+            controller: 'ReviewsCtrl'
+        });
+    }]
+);
+'use strict';
+
+angular.module('bby-query-mixer.reviews').controller('ReviewsCtrl', [
+    '$scope',
+    'categoryConfig',
+    'HttpClientService',
+    'GaService',
+    function ($scope, categoryConfig, HttpClientService, GaService) {
+        
+}]);

@@ -10,7 +10,8 @@ module.exports = function (grunt) {
         './app/recommendations/*.js',
         './app/smartLists/*.js',                    
         './app/stores/*.js',
-        './app/categories/*.js',        
+        './app/categories/*.js',
+        './app/reviews/*.js'        
     ];
 
     var cssFiles = [
@@ -19,7 +20,8 @@ module.exports = function (grunt) {
         './app/productSearch/*.css',
         './app/recommendations/*.css',
         './app/smartLists/*.css',                    
-        './app/stores/*.css',        
+        './app/stores/*.css',
+        './app/reviews/*.css'        
     ];
 
     grunt.initConfig({

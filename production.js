@@ -633,6 +633,7 @@ angular.module('bby-query-mixer.productSearch').constant('showOptionsConfig', [
 ])
 .constant('restrictedSortOptions', [
     'accessories.sku',
+    'addToCartUrl',
     'categoryPath.id',
     'categoryPath.name',
     'details.name',

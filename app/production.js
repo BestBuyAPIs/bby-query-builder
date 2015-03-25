@@ -1298,6 +1298,39 @@ angular.module('bby-query-mixer.reviews').controller('ReviewsCtrl', [
     'reviewShowOptionsConfig',
     function ($scope, categoryConfig, HttpClientService, GaService, ProductServices, reviewAttributeOptionsConfig, reviewShowOptionsConfig) {
                 
+        $scope.showOption = {};
+
+        $scope.buildReviewsQuery = function () {
+            var baseUrl = 'http://api.remix.bestbuy.com/v1/reviews';
+            var addKey = $scope.apiKey ? baseUrl += ('?apiKey='+$scope.apiKey):'';
+            baseUrl += '&callback=JSON_CALLBACK';
+            return baseUrl;
+        };
+
+        $scope.invokeReviewsQuery = function () {
+            $scope.results = "Running";
+            var query = $scope.buildReviewsQuery();
+
+            var successFn = function (value) {
+                $scope.results = value;
+            };
+            var errorFn = function (httpResponse) {
+                $scope.results = httpResponse;
+            };
+
+            if ($scope.apiKey !=  ""){
+                $scope.errorResult = false;
+
+                var eventActionName = "reviews query success";
+                GaService.clickQueryButtonEvent(eventActionName, $scope.apiKey);
+
+                HttpClientService.httpClient(query).jsonp_query(successFn, errorFn);
+            } else if ($scope.apiKey ===  ""){
+                $scope.errorResult = true;
+                $scope.results = "Please enter your API Key";
+            };
+        };
+
         $scope.dynamicForms = [{id: '0',value:'',opt:'',complexVal:''}];
         var counter = 0;
         $scope.addNewForm = function() {
@@ -1316,6 +1349,8 @@ angular.module('bby-query-mixer.reviews').controller('ReviewsCtrl', [
             $scope.attributeOption = $scope.attributeOptions[0];
             $scope.dynamicForms = [{value: $scope.attributeOption}];
             $scope.showOptions = angular.copy(reviewShowOptionsConfig);
+            $scope.showOption.list = [];
+            $scope.remixResults = {};
         };
         $scope.resetReviewsQuery();
 

@@ -187,7 +187,7 @@ describe('bby-query-mixer.productSearch module', function () {
         });
         describe('restrict sort options function', function () {
             it('should return an array without the values on the restricted list', function () {
-                var firstArray = [{value:'shipping'},{value:'color'},{value:'salePrice'}, {value:'details.text'}];
+                var firstArray = [{value:'shipping'},{value:'color'},{value:'salePrice'}, {value:'details.name'}];
                 var secondArray = ProductServices.restrictSortOptionLists(firstArray);
                 expect(secondArray).toEqual([ { value : 'color' }, { value : 'salePrice' } ]);
             });

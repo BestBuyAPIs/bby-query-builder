@@ -1331,7 +1331,7 @@ angular.module('bby-query-mixer.reviews').controller('ReviewsCtrl', [
 
         $scope.dynamicForms = [{id: '0',value:'',opt:'',complexVal:''}];
         var counter = 0;
-        $scope.addNewForm = function() {
+        $scope.addNewForm = function () {
             counter += 1;
             $scope.dynamicForms.push({'id':''+(counter)});
         };

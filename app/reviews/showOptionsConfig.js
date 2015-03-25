@@ -8,4 +8,8 @@ angular.module('bby-query-mixer.reviews').constant('reviewShowOptionsConfig', [
 	{ text: 'SKU', value: 'sku' },
 	{ text: 'Submission Time', value: 'submissionTime' },
 	{ text: 'Title', value: 'title' }
+])
+.constant('restrictedReviewSortOptions', [
+	'reviewer.name',
+	'aboutMe.customerType'
 ]);

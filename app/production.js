@@ -1295,7 +1295,8 @@ angular.module('bby-query-mixer.reviews').controller('ReviewsCtrl', [
     'GaService',
     'ProductServices',
     'reviewAttributeOptionsConfig',
-    function ($scope, categoryConfig, HttpClientService, GaService, ProductServices, reviewAttributeOptionsConfig) {
+    'reviewShowOptionsConfig',
+    function ($scope, categoryConfig, HttpClientService, GaService, ProductServices, reviewAttributeOptionsConfig, reviewShowOptionsConfig) {
                 
         $scope.dynamicForms = [{id: '0',value:'',opt:'',complexVal:''}];
         var counter = 0;
@@ -1314,9 +1315,21 @@ angular.module('bby-query-mixer.reviews').controller('ReviewsCtrl', [
             $scope.attributeOptions = angular.copy(reviewAttributeOptionsConfig);
             $scope.attributeOption = $scope.attributeOptions[0];
             $scope.dynamicForms = [{value: $scope.attributeOption}];
+            $scope.showOptions = angular.copy(reviewShowOptionsConfig);
         };
         $scope.resetReviewsQuery();
 
         $scope.parseDynamicForms = ProductServices.parseDynamicForms();
         $scope.preselectOperator = ProductServices.preSelectOperator;
 }]);
+'use strict';
+
+angular.module('bby-query-mixer.reviews').constant('reviewShowOptionsConfig', [ 
+	{ text: 'Comment', value: 'comment' },
+	{ text: 'Id', value: 'id' },
+	{ text: 'Rating', value: 'rating' },
+	{ text: 'Reviewer', value: 'reviewer' },
+	{ text: 'SKU', value: 'sku' },
+	{ text: 'Submission Time', value: 'submissionTime' },
+	{ text: 'Title', value: 'title' }
+]);

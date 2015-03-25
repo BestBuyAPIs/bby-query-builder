@@ -7,7 +7,8 @@ angular.module('bby-query-mixer.reviews').controller('ReviewsCtrl', [
     'GaService',
     'ProductServices',
     'reviewAttributeOptionsConfig',
-    function ($scope, categoryConfig, HttpClientService, GaService, ProductServices, reviewAttributeOptionsConfig) {
+    'reviewShowOptionsConfig',
+    function ($scope, categoryConfig, HttpClientService, GaService, ProductServices, reviewAttributeOptionsConfig, reviewShowOptionsConfig) {
                 
         $scope.dynamicForms = [{id: '0',value:'',opt:'',complexVal:''}];
         var counter = 0;
@@ -26,6 +27,7 @@ angular.module('bby-query-mixer.reviews').controller('ReviewsCtrl', [
             $scope.attributeOptions = angular.copy(reviewAttributeOptionsConfig);
             $scope.attributeOption = $scope.attributeOptions[0];
             $scope.dynamicForms = [{value: $scope.attributeOption}];
+            $scope.showOptions = angular.copy(reviewShowOptionsConfig);
         };
         $scope.resetReviewsQuery();
 

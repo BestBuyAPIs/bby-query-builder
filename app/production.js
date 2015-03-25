@@ -1277,12 +1277,13 @@ angular.module('bby-query-mixer.reviews', ['ngRoute'])
 'use strict';
 
 angular.module('bby-query-mixer.productSearch').constant('reviewAttributeOptionsConfig', [ 
-	{text:'Comment', reviewAttribute:'comment',operator:[{value:'='}],placeholder:'I bought this along with my laptop.' },
+	{text:'Choose review attributes', reviewAttribute:false,operator:false,placeholder:false},
+	{text:'Comment', reviewAttribute:'comment',operator:[{value:'='}],placeholder:'I <3 this phone.' },
 	{text:'Id', reviewAttribute:'id',operator:[{value:'='}],placeholder:'24798186' },
 	{text:'Rating', reviewAttribute:'rating',operator:[{value:'='}],placeholder:'4.0' },
-	{text:'Reviewer', reviewAttribute:'reviewer.name',operator:[{value:'='}],placeholder:'1cowgirl', },
+	{text:'Reviewer', reviewAttribute:'reviewer.name',operator:[{value:'='}],placeholder:'BBY-Fan28', },
 	{text:'SKU', reviewAttribute:'sku',operator:[{value:'='}],placeholder:'3764993' },
-	{text:'Submission Time', reviewAttribute:'submissionTime',operator:[{value:'='}],placeholder:'2014-04-29T22:40:33' },
+	{text:'Submission Time', reviewAttribute:'submissionTime',operator:[{value:'='}],placeholder:'2014-04-29 T22:40:33' },
 	{text:'Title', reviewAttribute:'title',operator:[{value:'='}],placeholder:'Good keyboard' }
 ]);
 'use strict';
@@ -1295,14 +1296,24 @@ angular.module('bby-query-mixer.reviews').controller('ReviewsCtrl', [
     'ProductServices',
     'reviewAttributeOptionsConfig',
     function ($scope, categoryConfig, HttpClientService, GaService, ProductServices, reviewAttributeOptionsConfig) {
-        
-        $scope.attributeOptions = angular.copy(reviewAttributeOptionsConfig);
-        
+                
         $scope.dynamicForms = [{id: '0',value:'',opt:'',complexVal:''}];
+        var counter = 0;
+        $scope.addNewForm = function() {
+            counter += 1;
+            $scope.dynamicForms.push({'id':''+(counter)});
+        };
+        $scope.removeForm = function(form) {
+            var newItemNo = $scope.dynamicForms.length-1;
+            $scope.dynamicForms.splice($scope.dynamicForms.indexOf(form),1);   
+        };
 
         $scope.resetReviewsQuery = function () {
             $scope.whichPage = 1;
             $scope.pageSize = 10;
+            $scope.attributeOptions = angular.copy(reviewAttributeOptionsConfig);
+            $scope.attributeOption = $scope.attributeOptions[0];
+            $scope.dynamicForms = [{value: $scope.attributeOption}];
         };
         $scope.resetReviewsQuery();
 

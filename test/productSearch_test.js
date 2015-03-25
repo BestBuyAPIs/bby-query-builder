@@ -187,7 +187,21 @@ describe('bby-query-mixer.productSearch module', function () {
         });
         describe('restrict sort options function', function () {
             it('should return an array without the values on the restricted list', function () {
-                var firstArray = [{value:'shipping'},{value:'color'},{value:'salePrice'}, {value:'details.text'}];
+                var firstArray = [    
+                    {value:'accessories.sku'},
+                    {value:'categoryPath.id'},
+                    {value:'categoryPath.name'},
+                    {value:'details.name'},
+                    {value:'details.value'},
+                    {value:'features.feature'},
+                    {value:'frequentlyPurchasedWith.sku'},
+                    {value:'includedItemList.includedItem'},
+                    {value:'mobileUrl'},
+                    {value:'relatedProducts.sku'},
+                    {value:'shipping'},
+                    {value:'color'},
+                    {value:'salePrice'}, 
+                ];
                 var secondArray = ProductServices.restrictSortOptionLists(firstArray);
                 expect(secondArray).toEqual([ { value : 'color' }, { value : 'salePrice' } ]);
             });

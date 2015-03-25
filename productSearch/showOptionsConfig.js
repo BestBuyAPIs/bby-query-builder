@@ -51,12 +51,12 @@ angular.module('bby-query-mixer.productSearch').constant('showOptionsConfig', [
     'accessories.sku',
     'categoryPath.id',
     'categoryPath.name',
-    'details.text',
+    'details.name',
     'details.value',
     'features.feature',
     'frequentlyPurchasedWith.sku',
     'includedItemList.includedItem',
-    'mobileURL',
+    'mobileUrl',
     'relatedProducts.sku',
     'shipping'
 ]);

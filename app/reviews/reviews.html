@@ -12,6 +12,29 @@
                     </span>Search for Reviews </i>
                 </h4>
 
+                    <div class="form-group" ng-repeat="form in dynamicForms track by $index">
+
+                        <div class="" id="complexSearch">
+                            <form>
+                                <select ng-init="form.value = attributeOption" id="attribute" ng-model="form.value" ng-change="preselectOperator(form)"
+                                        ng-options="attr as attr.text for attr in attributeOptions"></select>
+
+                                <select class="optDropdown" ng-show="form.value.reviewAttribute" id="operator" ng-model="form.opt" ng-change="skuInParens()"
+                                        ng-options="opt as opt.value for opt in form.value.operator" selected="{{dynamicOption.list[form.id].operator[0].value}}"></select>
+
+                                <input class="rounded" parenswrap ng-show="form.value.reviewAttribute && (form.value.type != 'boolean')" ng-model="form.complexVal" min="0" ng-maxlength="50" placeholder="{{form.value.placeholder}}">
+                                
+                                <select ng-show="form.value.type === 'boolean'"  ng-model="form.complexVal" ng-options="opt.value as opt.value for opt in form.value.valueOptions"></select>
+                                
+                                <span class="glyphicon glyphicon-minus" ng-show="dynamicForms.length > 1" ng-click="removeForm(form)"></span>
+
+                            </form>
+                            <span id="plus-button" class="glyphicon glyphicon-plus" ng-show="$last && (form.value.reviewAttribute)" ng-click="addNewForm()"></span>
+                        </div>
+                    </div>
+
+
+
                 <h4><span class="fa-stack fa-3x numberIcon">
                     <i class="fa fa-circle fa-stack-2x icon-stack-base"></i>
                     <strong class="char-overlay fa-stack-1x">2</strong>

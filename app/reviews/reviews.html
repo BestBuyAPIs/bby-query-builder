@@ -12,7 +12,7 @@
                     </span>Search for Reviews </i>
                 </h4>
 
-                    <div class="form-group" ng-repeat="form in dynamicForms track by $index">
+                    <div class="form-group content-container" ng-repeat="form in dynamicForms track by $index">
 
                         <div class="" id="complexSearch">
                             <form>
@@ -40,6 +40,21 @@
                     <strong class="char-overlay fa-stack-1x">2</strong>
                     </span>Build Your Response </i>
                 </h4>
+                <div class="content-container">
+                    <p>
+                        <span class="subtitle">Review Attributes </span><span>(optional)</span>
+                        <button class="btn btn-default btn-xs" ng-click="selectAll('allreviews')">Select All</button> <button class="btn btn-default btn-xs" ng-click="selectAll('noreviews')">Select None</button>
+                    </p>
+                    <div class="multiSelectBox">
+                        <ui-select ng-change="clearBlankSelect()" multiple ng-model="showOption.list" theme="select2" ng-disabled="disabled">
+                            <ui-select-match placeholder="Select response options">{{$item.text}}</ui-select-match>
+                            <ui-select-choices repeat="option as option in showOptions | propsFilter: {text: $select.search}">
+                              <div ng-bind-html="option.text | highlight: $select.search"></div>
+                            </ui-select-choices>
+                        </ui-select>
+                    </div>
+                </div>
+
 
                 <h4><span class="fa-stack fa-3x numberIcon">
                         <i class="fa fa-circle fa-stack-2x icon-stack-base"></i>

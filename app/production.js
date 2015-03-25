@@ -1301,7 +1301,7 @@ angular.module('bby-query-mixer.reviews').controller('ReviewsCtrl', [
         $scope.buildReviewsQuery = function () {
             var baseUrl = 'http://api.remix.bestbuy.com/v1/reviews';
             var addKey = $scope.apiKey ? baseUrl += ('?apiKey='+$scope.apiKey):'';
-            baseUrl += '&callback=JSON_CALLBACK';
+            baseUrl += '&callback=JSON_CALLBACK&format=json';
             return baseUrl;
         };
 
@@ -1354,6 +1354,15 @@ angular.module('bby-query-mixer.reviews').controller('ReviewsCtrl', [
 
         $scope.parseDynamicForms = ProductServices.parseDynamicForms();
         $scope.preselectOperator = ProductServices.preSelectOperator;
+
+        $scope.selectAll = function (z) {
+            if (z === 'allreviews') {
+                $scope.showOption.list = angular.copy($scope.showOptions);
+            } else if (z === 'noreviews') {
+                $scope.showOption.list = [];
+            } 
+            return;
+        };
 }]);
 'use strict';
 

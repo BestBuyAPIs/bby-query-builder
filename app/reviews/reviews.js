@@ -25,7 +25,7 @@ angular.module('bby-query-mixer.reviews').controller('ReviewsCtrl', [
 
             var checkPageSize = (($scope.pageSize)&&($scope.pageSize !== 10)) ? baseUrl +=('&pageSize='+$scope.pageSize) : '';
             var checkWhichPage = (($scope.whichPage)&&($scope.whichPage !== 1)) ? baseUrl +=('&page='+$scope.whichPage) : '';
-            var sortBy = ($scope.sortBy && $scope.sortBy.value) ? baseUrl += ('sort=' + $scope.sortBy.value + '.' + $scope.sortOrder.value):'';
+            var sortBy = ($scope.sortBy && $scope.sortBy.value) ? baseUrl += ('&sort=' + $scope.sortBy.value + '.' + $scope.sortOrder.value):'';
 
             baseUrl += '&callback=JSON_CALLBACK&format=json';
             return baseUrl;

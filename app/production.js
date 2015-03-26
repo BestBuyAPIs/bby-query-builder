@@ -1360,7 +1360,7 @@ angular.module('bby-query-mixer.reviews').controller('ReviewsCtrl', [
 
             var checkPageSize = (($scope.pageSize)&&($scope.pageSize !== 10)) ? baseUrl +=('&pageSize='+$scope.pageSize) : '';
             var checkWhichPage = (($scope.whichPage)&&($scope.whichPage !== 1)) ? baseUrl +=('&page='+$scope.whichPage) : '';
-            var sortBy = ($scope.sortBy && $scope.sortBy.value) ? baseUrl += ('sort=' + $scope.sortBy.value + '.' + $scope.sortOrder.value):'';
+            var sortBy = ($scope.sortBy && $scope.sortBy.value) ? baseUrl += ('&sort=' + $scope.sortBy.value + '.' + $scope.sortOrder.value):'';
 
             baseUrl += '&callback=JSON_CALLBACK&format=json';
             return baseUrl;
@@ -1442,7 +1442,7 @@ angular.module('bby-query-mixer.reviews').constant('reviewShowOptionsConfig', [
 	{ text: 'Comment', value: 'comment' },
 	{ text: 'Id', value: 'id' },
 	{ text: 'Rating', value: 'rating' },
-	{ text: 'Reviewer', value: 'reviewer' },
+	{ text: 'Reviewer', value: 'reviewer.name' },
 	{ text: 'SKU', value: 'sku' },
 	{ text: 'Submission Time', value: 'submissionTime' },
 	{ text: 'Title', value: 'title' }

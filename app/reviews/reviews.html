@@ -24,8 +24,6 @@
 
                                 <input class="rounded" parenswrap ng-show="form.value.reviewAttribute && (form.value.type != 'boolean')" ng-model="form.complexVal" min="0" ng-maxlength="50" placeholder="{{form.value.placeholder}}">
                                 
-                                <select ng-show="form.value.type === 'boolean'"  ng-model="form.complexVal" ng-options="opt.value as opt.value for opt in form.value.valueOptions"></select>
-                                
                                 <span class="glyphicon glyphicon-minus" ng-show="dynamicForms.length > 1" ng-click="removeForm(form)"></span>
 
                             </form>

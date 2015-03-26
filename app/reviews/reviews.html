@@ -62,7 +62,7 @@
                             <select ng-model="sortOrder" ng-options="opt as opt.text for opt in sortOrderOptions"></select>
                         </div>
                     </div>
-                    
+
                 </div>
 
 
@@ -98,7 +98,7 @@
             <div id="exampleUrl" class="content-container">
                     <p><a class="breakdownLabel" href="https://developer.bestbuy.com/documentation#advancedSearch-search" target="_blank">baseURL</a> : http://api.bestbuy.com/beta/products/</p>
                     
-                    <p><a class="breakdownLabel">attribute</a> : </p>
+                    <p ng-show="dynamicForms[0].value.reviewAttribute"><a class="breakdownLabel" href="https://developer.bestbuy.com/documentation/reviews-api#documentation/reviews-api-attributes" target="_blank">attributes</a> : (<span ng-bind="parseDynamicForms(dynamicForms)"></span><span ng-show="operator.value === ' in ' ">(</span><span ng-bind="complexVal"></span><span ng-show="operator.value === ' in ' ">)</span>)</p>
 
                     <p ng-show="showOption.list"><a class="breakdownLabel" href="https://developer.bestbuy.com/documentation#show-show" target="_blank">showOptions</a> : &show=<span ng-bind="addAllShowOptions(showOption.list)"></span></p>
                     

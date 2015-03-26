@@ -1279,7 +1279,7 @@ angular.module('bby-query-mixer.productSearch').constant('reviewAttributeOptions
 	{text:'Comment', reviewAttribute:'comment',operator:[{value:'='}],placeholder:'I <3 this phone.' },
 	{text:'Id', reviewAttribute:'id',operator:[{value:'='}],placeholder:'24798186' },
 	{text:'Rating', reviewAttribute:'rating',operator:[{value:'='}],placeholder:'4.0' },
-	{text:'Reviewer', reviewAttribute:'reviewer.name',operator:[{value:'='}],placeholder:'BBY-Fan28', },
+	{text:'Reviewer', reviewAttribute:'reviewer.name',operator:[{value:'='}],placeholder:'BBY-Fan28' },
 	{text:'SKU', reviewAttribute:'sku',operator:[{value:'='}],placeholder:'3764993' },
 	{text:'Submission Time', reviewAttribute:'submissionTime',operator:[{value:'='}],placeholder:'2014-04-29 T22:40:33' },
 	{text:'Title', reviewAttribute:'title',operator:[{value:'='}],placeholder:'Good keyboard' }
@@ -1302,11 +1302,11 @@ angular.module('bby-query-mixer.reviews').factory('ReviewServices', [ 'restricte
     var parseDynamicForms = function (array) {
             var newArray = [];
             angular.forEach(array, function(i) { 
-                if (i.value.productAttribute && i.opt.value && i.complexVal){
-                    if (i.opt.value === ' in ') {
-                        this.push(i.value.productAttribute + i.opt.value +'('+ i.complexVal+')'); 
+                if (i.value.reviewAttribute && i.opt.value && i.complexVal){
+                    if ((i.value.reviewAttribute === 'comment')||(i.value.reviewAttribute === 'title')) {
+                        this.push(i.value.reviewAttribute + i.opt.value + i.complexVal+'*'); 
                     }else {
-                this.push(i.value.productAttribute + i.opt.value + i.complexVal); 
+                this.push(i.value.reviewAttribute + i.opt.value + i.complexVal); 
                     }
                 }
             }, newArray);
@@ -1348,7 +1348,11 @@ angular.module('bby-query-mixer.reviews').controller('ReviewsCtrl', [
         $scope.sortOptions = {};
 
         $scope.buildReviewsQuery = function () {
-            var baseUrl = 'http://api.remix.bestbuy.com/v1/reviews';
+
+            var searchArgs = [];
+            var manyAttributes = $scope.dynamicForms[0].value.reviewAttribute ? searchArgs.push($scope.parseDynamicForms($scope.dynamicForms)) : '';
+
+            var baseUrl = searchArgs.length > 0 ? 'https://api.remix.bestbuy.com/v1/reviews' + '(' + searchArgs.join('&') + ')' : 'https://api.remix.bestbuy.com/v1/reviews';
             var addKey = $scope.apiKey ? baseUrl += ('?apiKey='+$scope.apiKey):'';
             baseUrl += '&callback=JSON_CALLBACK&format=json';
             return baseUrl;
@@ -1403,7 +1407,7 @@ angular.module('bby-query-mixer.reviews').controller('ReviewsCtrl', [
         };
         $scope.resetReviewsQuery();
 
-        $scope.parseDynamicForms = ReviewServices.parseDynamicForms();
+        $scope.parseDynamicForms = ReviewServices.parseDynamicForms;
         $scope.preselectOperator = ReviewServices.preSelectOperator;
 
         $scope.selectAll = function (z) {

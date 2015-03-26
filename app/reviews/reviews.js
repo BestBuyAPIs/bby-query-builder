@@ -14,7 +14,11 @@ angular.module('bby-query-mixer.reviews').controller('ReviewsCtrl', [
         $scope.sortOptions = {};
 
         $scope.buildReviewsQuery = function () {
-            var baseUrl = 'http://api.remix.bestbuy.com/v1/reviews';
+
+            var searchArgs = [];
+            var manyAttributes = $scope.dynamicForms[0].value.reviewAttribute ? searchArgs.push($scope.parseDynamicForms($scope.dynamicForms)) : '';
+
+            var baseUrl = searchArgs.length > 0 ? 'https://api.remix.bestbuy.com/v1/reviews' + '(' + searchArgs.join('&') + ')' : 'https://api.remix.bestbuy.com/v1/reviews';
             var addKey = $scope.apiKey ? baseUrl += ('?apiKey='+$scope.apiKey):'';
             baseUrl += '&callback=JSON_CALLBACK&format=json';
             return baseUrl;
@@ -69,7 +73,7 @@ angular.module('bby-query-mixer.reviews').controller('ReviewsCtrl', [
         };
         $scope.resetReviewsQuery();
 
-        $scope.parseDynamicForms = ReviewServices.parseDynamicForms();
+        $scope.parseDynamicForms = ReviewServices.parseDynamicForms;
         $scope.preselectOperator = ReviewServices.preSelectOperator;
 
         $scope.selectAll = function (z) {

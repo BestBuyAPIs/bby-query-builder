@@ -22,7 +22,7 @@ describe('bby-query-mixer.reviews module', function () {
                 expect(scope.buildReviewsQuery).toBeDefined();
             });
             it('should add the appropriate endpoint', function (){
-                expect(scope.buildReviewsQuery()).toEqual('http://api.remix.bestbuy.com/v1/reviews&callback=JSON_CALLBACK&format=json');
+                expect(scope.buildReviewsQuery()).toEqual('https://api.remix.bestbuy.com/v1/reviews&callback=JSON_CALLBACK&format=json');
             });
         });
         describe('invoke recommendations query function', function (){

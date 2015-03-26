@@ -16,11 +16,11 @@ angular.module('bby-query-mixer.reviews').factory('ReviewServices', [ 'restricte
     var parseDynamicForms = function (array) {
             var newArray = [];
             angular.forEach(array, function(i) { 
-                if (i.value.productAttribute && i.opt.value && i.complexVal){
-                    if (i.opt.value === ' in ') {
-                        this.push(i.value.productAttribute + i.opt.value +'('+ i.complexVal+')'); 
+                if (i.value.reviewAttribute && i.opt.value && i.complexVal){
+                    if ((i.value.reviewAttribute === 'comment')||(i.value.reviewAttribute === 'title')) {
+                        this.push(i.value.reviewAttribute + i.opt.value + i.complexVal+'*'); 
                     }else {
-                this.push(i.value.productAttribute + i.opt.value + i.complexVal); 
+                this.push(i.value.reviewAttribute + i.opt.value + i.complexVal); 
                     }
                 }
             }, newArray);

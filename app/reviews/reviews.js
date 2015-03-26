@@ -5,12 +5,13 @@ angular.module('bby-query-mixer.reviews').controller('ReviewsCtrl', [
     'categoryConfig',
     'HttpClientService',
     'GaService',
-    'ProductServices',
     'reviewAttributeOptionsConfig',
     'reviewShowOptionsConfig',
-    function ($scope, categoryConfig, HttpClientService, GaService, ProductServices, reviewAttributeOptionsConfig, reviewShowOptionsConfig) {
+    'ReviewServices',
+    function ($scope, categoryConfig, HttpClientService, GaService, reviewAttributeOptionsConfig, reviewShowOptionsConfig, ReviewServices) {
                 
         $scope.showOption = {};
+        $scope.sortOptions = {};
 
         $scope.buildReviewsQuery = function () {
             var baseUrl = 'http://api.remix.bestbuy.com/v1/reviews';
@@ -63,11 +64,13 @@ angular.module('bby-query-mixer.reviews').controller('ReviewsCtrl', [
             $scope.showOptions = angular.copy(reviewShowOptionsConfig);
             $scope.showOption.list = [];
             $scope.remixResults = {};
+            $scope.results = {};
+            $scope.errorResult = false;
         };
         $scope.resetReviewsQuery();
 
-        $scope.parseDynamicForms = ProductServices.parseDynamicForms();
-        $scope.preselectOperator = ProductServices.preSelectOperator;
+        $scope.parseDynamicForms = ReviewServices.parseDynamicForms();
+        $scope.preselectOperator = ReviewServices.preSelectOperator;
 
         $scope.selectAll = function (z) {
             if (z === 'allreviews') {
@@ -76,5 +79,9 @@ angular.module('bby-query-mixer.reviews').controller('ReviewsCtrl', [
                 $scope.showOption.list = [];
             } 
             return;
+        };
+        $scope.clearBlankSelect = function () {
+            $scope.sortOptions.list = ReviewServices.restrictReviewsSortOptionLists($scope.showOption.list);
+            $scope.sortBy = $scope.sortOptions.list[0];
         };
 }]);

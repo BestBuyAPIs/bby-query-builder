@@ -183,6 +183,20 @@ angular.module('appConfig').constant('sortOrderConfig',[
 angular.module('appServices', ['ngRoute', 'ngResource','bby-query-mixer']);
 'use strict';
 
+angular.module('appServices').factory('AddAllShowOptionsService', [ function () {
+    
+    var addAllShowOptions = function(optionArray) {
+        var newArray = [];
+        angular.forEach(optionArray, function(i) { this.push(i.value) }, newArray);
+        return newArray.join(',');
+    };
+
+	return {
+		addAllShowOptions : addAllShowOptions
+	}
+}]);
+'use strict';
+
 angular.module('appServices').factory('GaService', [ function() {
     
     var clickQueryButtonEvent = function(eventActionName, apiKey){
@@ -222,6 +236,19 @@ angular.module('appServices').factory('HttpClientService', ['$resource', functio
 
 	return {
 		httpClient : httpClient
+	}
+}]);
+'use strict';
+
+angular.module('appServices').factory('PreSelectOperatorService', [ function () {
+    
+    var preSelectOperator = function(form) {
+        form.opt = form.value.operator[0];
+        form.complexVal = form.value.valueOptions ? form.value.valueOptions[0].value : '';
+    };
+
+	return {
+		preSelectOperator : preSelectOperator
 	}
 }]);
 'use strict';
@@ -387,7 +414,9 @@ angular.module('bby-query-mixer.productSearch').controller('ProductSearchCtrl', 
     'GaService',
     'ProductServices',
     'sortOrderConfig',
-    function ($scope, categoryConfig, showOptionsConfig, attributeOptionsConfig, HttpClientService, GaService, ProductServices, sortOrderConfig) {
+    'AddAllShowOptionsService',
+    'PreSelectOperatorService',
+    function ($scope, categoryConfig, showOptionsConfig, attributeOptionsConfig, HttpClientService, GaService, ProductServices, sortOrderConfig, AddAllShowOptionsService, PreSelectOperatorService) {
         $scope.categories = angular.copy(categoryConfig);
         $scope.showOptions = angular.copy(showOptionsConfig);
         $scope.attributeOptions = angular.copy(attributeOptionsConfig);
@@ -493,14 +522,14 @@ angular.module('bby-query-mixer.productSearch').controller('ProductSearchCtrl', 
         $scope.resetParams();
 
         //this function is fired on a ng-change when attribute is selected. it sets the first operator to be pre-selected
-        $scope.preselectOperator = ProductServices.preSelectOperator;
+        $scope.preselectOperator = PreSelectOperatorService.preSelectOperator;
 
         $scope.callCopyEvent = function () {
             var tab = "products";
             GaService.copyUrlEvent(tab,$scope.apiKey);
         };
         
-        $scope.addAllShowOptions = ProductServices.addAllShowOptions;
+        $scope.addAllShowOptions = AddAllShowOptionsService.addAllShowOptions;
 
         $scope.selectAll = function (z) {
             if (z === 'allproducts') {
@@ -537,17 +566,6 @@ angular.module('bby-query-mixer.productSearch').controller('ProductSearchCtrl', 
 
 angular.module('bby-query-mixer.productSearch').factory('ProductServices', [ 'restrictedSortOptions',function(restrictedSortOptions) {
     
-    var preSelectOperator = function(form) {
-        form.opt = form.value.operator[0];
-        form.complexVal = form.value.valueOptions ? form.value.valueOptions[0].value : '';
-    };
-
-    var addAllShowOptions = function(optionArray) {
-        var newArray = [];
-        angular.forEach(optionArray, function(i) { this.push(i.value) }, newArray);
-        return newArray.join(',');
-    };
-
     var parseDynamicForms = function (array) {
             var newArray = [];
             angular.forEach(array, function(i) { 
@@ -581,8 +599,6 @@ angular.module('bby-query-mixer.productSearch').factory('ProductServices', [ 're
     };
 
     return {
-    	preSelectOperator : preSelectOperator,
-    	addAllShowOptions : addAllShowOptions,
     	parseDynamicForms : parseDynamicForms,
     	addAllOptionValues : addAllOptionValues,
         restrictSortOptionLists : restrictSortOptionLists
@@ -1288,17 +1304,6 @@ angular.module('bby-query-mixer.productSearch').constant('reviewAttributeOptions
 'use strict';
 
 angular.module('bby-query-mixer.reviews').factory('ReviewServices', [ 'restrictedReviewSortOptions',function(restrictedReviewSortOptions) {
-    
-    var preSelectOperator = function(form) {
-        form.opt = form.value.operator[0];
-        form.complexVal = form.value.valueOptions ? form.value.valueOptions[0].value : '';
-    };
-
-    var addAllShowOptions = function(optionArray) {
-        var newArray = [];
-        angular.forEach(optionArray, function(i) { this.push(i.value) }, newArray);
-        return newArray.join(',');
-    };
 
     var parseDynamicForms = function (array) {
             var newArray = [];
@@ -1327,8 +1332,6 @@ angular.module('bby-query-mixer.reviews').factory('ReviewServices', [ 'restricte
     };
 
     return {
-    	preSelectOperator : preSelectOperator,
-    	addAllShowOptions : addAllShowOptions,
     	parseDynamicForms : parseDynamicForms,
         restrictReviewsSortOptionLists : restrictReviewsSortOptionLists
     }
@@ -1344,7 +1347,9 @@ angular.module('bby-query-mixer.reviews').controller('ReviewsCtrl', [
     'reviewShowOptionsConfig',
     'ReviewServices',
     'sortOrderConfig',
-    function ($scope, categoryConfig, HttpClientService, GaService, reviewAttributeOptionsConfig, reviewShowOptionsConfig, ReviewServices, sortOrderConfig) {
+    'AddAllShowOptionsService',
+    'PreSelectOperatorService',
+    function ($scope, categoryConfig, HttpClientService, GaService, reviewAttributeOptionsConfig, reviewShowOptionsConfig, ReviewServices, sortOrderConfig, AddAllShowOptionsService, PreSelectOperatorService) {
                 
         $scope.showOption = {};
         $scope.sortOptions = {};
@@ -1419,8 +1424,8 @@ angular.module('bby-query-mixer.reviews').controller('ReviewsCtrl', [
         $scope.resetReviewsQuery();
 
         $scope.parseDynamicForms = ReviewServices.parseDynamicForms;
-        $scope.preselectOperator = ReviewServices.preSelectOperator;
-        $scope.addAllShowOptions = ReviewServices.addAllShowOptions;
+        $scope.preselectOperator = PreSelectOperatorService.preSelectOperator;
+        $scope.addAllShowOptions = AddAllShowOptionsService.addAllShowOptions;
 
 
         $scope.selectAll = function (z) {

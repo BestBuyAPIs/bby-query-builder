@@ -1,17 +1,6 @@
 'use strict';
 
 angular.module('bby-query-mixer.reviews').factory('ReviewServices', [ 'restrictedReviewSortOptions',function(restrictedReviewSortOptions) {
-    
-    var preSelectOperator = function(form) {
-        form.opt = form.value.operator[0];
-        form.complexVal = form.value.valueOptions ? form.value.valueOptions[0].value : '';
-    };
-
-    var addAllShowOptions = function(optionArray) {
-        var newArray = [];
-        angular.forEach(optionArray, function(i) { this.push(i.value) }, newArray);
-        return newArray.join(',');
-    };
 
     var parseDynamicForms = function (array) {
             var newArray = [];
@@ -40,8 +29,6 @@ angular.module('bby-query-mixer.reviews').factory('ReviewServices', [ 'restricte
     };
 
     return {
-    	preSelectOperator : preSelectOperator,
-    	addAllShowOptions : addAllShowOptions,
     	parseDynamicForms : parseDynamicForms,
         restrictReviewsSortOptionLists : restrictReviewsSortOptionLists
     }

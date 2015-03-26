@@ -9,7 +9,9 @@ angular.module('bby-query-mixer.reviews').controller('ReviewsCtrl', [
     'reviewShowOptionsConfig',
     'ReviewServices',
     'sortOrderConfig',
-    function ($scope, categoryConfig, HttpClientService, GaService, reviewAttributeOptionsConfig, reviewShowOptionsConfig, ReviewServices, sortOrderConfig) {
+    'AddAllShowOptionsService',
+    'PreSelectOperatorService',
+    function ($scope, categoryConfig, HttpClientService, GaService, reviewAttributeOptionsConfig, reviewShowOptionsConfig, ReviewServices, sortOrderConfig, AddAllShowOptionsService, PreSelectOperatorService) {
                 
         $scope.showOption = {};
         $scope.sortOptions = {};
@@ -84,8 +86,8 @@ angular.module('bby-query-mixer.reviews').controller('ReviewsCtrl', [
         $scope.resetReviewsQuery();
 
         $scope.parseDynamicForms = ReviewServices.parseDynamicForms;
-        $scope.preselectOperator = ReviewServices.preSelectOperator;
-        $scope.addAllShowOptions = ReviewServices.addAllShowOptions;
+        $scope.preselectOperator = PreSelectOperatorService.preSelectOperator;
+        $scope.addAllShowOptions = AddAllShowOptionsService.addAllShowOptions;
 
 
         $scope.selectAll = function (z) {

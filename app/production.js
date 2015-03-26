@@ -1420,6 +1420,8 @@ angular.module('bby-query-mixer.reviews').controller('ReviewsCtrl', [
 
         $scope.parseDynamicForms = ReviewServices.parseDynamicForms;
         $scope.preselectOperator = ReviewServices.preSelectOperator;
+        $scope.addAllShowOptions = ReviewServices.addAllShowOptions;
+
 
         $scope.selectAll = function (z) {
             if (z === 'allreviews') {

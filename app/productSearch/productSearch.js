@@ -93,7 +93,6 @@ angular.module('bby-query-mixer.productSearch').controller('ProductSearchCtrl', 
         $scope.resetParams = function () {
             $scope.category = $scope.categories[0];
             $scope.whichPage = 1;
-            $scope.sortOrder = 'asc';
             $scope.complexAttr = '';
             $scope.complexVal = '';
             $scope.pageSize =  10;

@@ -43,10 +43,6 @@ angular.module('bby-query-mixer.productSearch').constant('showOptionsConfig', [
     { text: 'UPC', value: 'upc' },
     { text: 'URL', value: 'url' }
 ])
-.constant('sortOrderConfig',[
-	{text:"Ascending", value:"asc"},
-	{text:"Descending", value:"dsc"}
-])
 .constant('restrictedSortOptions', [
     'accessories.sku',
     'categoryPath.id',

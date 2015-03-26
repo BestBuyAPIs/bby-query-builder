@@ -8,10 +8,12 @@ angular.module('bby-query-mixer.reviews').controller('ReviewsCtrl', [
     'reviewAttributeOptionsConfig',
     'reviewShowOptionsConfig',
     'ReviewServices',
-    function ($scope, categoryConfig, HttpClientService, GaService, reviewAttributeOptionsConfig, reviewShowOptionsConfig, ReviewServices) {
+    'sortOrderConfig',
+    function ($scope, categoryConfig, HttpClientService, GaService, reviewAttributeOptionsConfig, reviewShowOptionsConfig, ReviewServices, sortOrderConfig) {
                 
         $scope.showOption = {};
         $scope.sortOptions = {};
+        $scope.sortOrderOptions = angular.copy(sortOrderConfig);
 
         $scope.buildReviewsQuery = function () {
 
@@ -20,6 +22,11 @@ angular.module('bby-query-mixer.reviews').controller('ReviewsCtrl', [
 
             var baseUrl = searchArgs.length > 0 ? 'https://api.remix.bestbuy.com/v1/reviews' + '(' + searchArgs.join('&') + ')' : 'https://api.remix.bestbuy.com/v1/reviews';
             var addKey = $scope.apiKey ? baseUrl += ('?apiKey='+$scope.apiKey):'';
+
+            var checkPageSize = (($scope.pageSize)&&($scope.pageSize !== 10)) ? baseUrl +=('&pageSize='+$scope.pageSize) : '';
+            var checkWhichPage = (($scope.whichPage)&&($scope.whichPage !== 1)) ? baseUrl +=('&page='+$scope.whichPage) : '';
+            var sortBy = ($scope.sortBy && $scope.sortBy.value) ? baseUrl += ('sort=' + $scope.sortBy.value + '.' + $scope.sortOrder.value):'';
+
             baseUrl += '&callback=JSON_CALLBACK&format=json';
             return baseUrl;
         };
@@ -70,6 +77,9 @@ angular.module('bby-query-mixer.reviews').controller('ReviewsCtrl', [
             $scope.remixResults = {};
             $scope.results = {};
             $scope.errorResult = false;
+            $scope.sortOrder = $scope.sortOrderOptions[0];
+            $scope.sortByOptions = angular.copy(sortOrderConfig);
+            $scope.sortBy = $scope.sortOptions[0];
         };
         $scope.resetReviewsQuery();
 

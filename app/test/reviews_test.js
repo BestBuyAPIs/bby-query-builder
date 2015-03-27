@@ -46,6 +46,10 @@ describe('bby-query-mixer.reviews module', function () {
                 scope.dynamicForms = [ {value:{reviewAttribute:'test'}, opt:{value:'='}, complexVal:"bar" },{value:{reviewAttribute:'foo'}, opt:{value:'='}, complexVal:"apple" } ];
                 expect(scope.buildReviewsQuery()).toEqual('https://api.remix.bestbuy.com/v1/reviews(test=bar&foo=apple)?apiKey=testKey&callback=JSON_CALLBACK&format=json');
             });
+            it('should add the correct show parameters', function () {
+                scope.showOption.list = [ {text:'reviewer', value:'reviewer'}, {text:'title', value:'title'}, {text:'rating', value:'rating'} ];
+                expect(scope.buildReviewsQuery()).toEqual('https://api.remix.bestbuy.com/v1/reviews?apiKey=testKey&show=reviewer,title,rating&callback=JSON_CALLBACK&format=json');
+            });            
         });
         describe('invoke recommendations query function', function (){
             it('should be defined', function () {

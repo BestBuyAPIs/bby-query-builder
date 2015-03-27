@@ -1363,6 +1363,8 @@ angular.module('bby-query-mixer.reviews').controller('ReviewsCtrl', [
             var baseUrl = searchArgs.length > 0 ? 'https://api.remix.bestbuy.com/v1/reviews' + '(' + searchArgs.join('&') + ')' : 'https://api.remix.bestbuy.com/v1/reviews';
             var addKey = $scope.apiKey ? baseUrl += ('?apiKey='+$scope.apiKey):'';
 
+            var addShowOptions = $scope.showOption.list.length > 0 ? baseUrl+=('&show='+$scope.addAllShowOptions($scope.showOption.list)) : '';
+
             var checkPageSize = (($scope.pageSize)&&($scope.pageSize !== 10)) ? baseUrl +=('&pageSize='+$scope.pageSize) : '';
             var checkWhichPage = (($scope.whichPage)&&($scope.whichPage !== 1)) ? baseUrl +=('&page='+$scope.whichPage) : '';
             var sortBy = ($scope.sortBy && $scope.sortBy.value) ? baseUrl += ('&sort=' + $scope.sortBy.value + '.' + $scope.sortOrder.value):'';

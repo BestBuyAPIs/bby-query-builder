@@ -37,6 +37,10 @@ describe('appServices module', function () {
             it('should return a addAllShowOptions function', function () {
                 expect(angular.isFunction(AddAllShowOptionsService.addAllShowOptions)).toBe(true);
             });
+            it('should make a new array with the correct format', function () {
+                var firstArray = [{value:'name'},{value:'price'},{value:'rating'}];
+                expect(AddAllShowOptionsService.addAllShowOptions(firstArray)).toEqual('name,price,rating');
+            });
         });
         describe('PreSelectOperatorService factory', function () {
         it('should return a preSelectOperator function', function () {

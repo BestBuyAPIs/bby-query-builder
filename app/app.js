@@ -12,7 +12,6 @@ angular.module('bby-query-mixer', [
     'bby-query-mixer.categories',
     'bby-query-mixer.reviews',
     'ngClipboard',
-    'checklist-model',
     'ui.bootstrap',
     'ui.select',
     'appConfig',

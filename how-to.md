@@ -1,0 +1,12 @@
+How to Add More Tabs to the Query Builder
+
+1. instantiate a new module for the tab and add it as a dependency to the main angular app module in `app/app.js` your controller and tab-specific services/constants/directives should be added to that specific module. if you need any of the above that will also be used in other tabs, you can add those to the app-wide `appConstants` or `appServices`.
+1. create a directory for the tab where the js, css and html files will live
+1. add the file path for the above directory to the jsFiles and the cssFiles array in `Gruntfile.js` and the test coverage in `karma.conf.js` . This ensures that the js and css files will be added to the `app/production.js` and `app/production.css` files that will actually get run by the page.
+1. the pattern QB has followed is for each tab to have its own `00-module.js` file where the module is instantiated and the controller is tied to the view, so that the ng-router can do its thing
+1. add test files for the tab to the `app/test` directory. the name should be *tabName*_test.js to be consistent
+1. the `appConstants` and `appServices` files hold functions and other data that are used in multiple tabs. If your tab needs these, simply add them as dependencies into your tab's controller.
+1. each tab has some calls to Google Analytics that register events such as a successful call to the remix api or using the clipboard button to copy a query url. the main Google Analytics functions are in a service in `app/appServices/analytics.js` You can also look at the other invoke___query functions in the other tabs to get an idea on how to configure that.
+1. to check the test coverage of your new file when it is all configured, open the `index.html` at `./coverage/../index.html`
+1. Presently, our own js and css files are concatened so we only need to call on one file each. however, the bower components are not presently concatened (though this is possible with grunt) so new ones will have to be included in the `/app/index.html` file
+1. the multi-select boxes use the ui-select directive from the angular ui team. the dynamic forms are mostly custom written. there is a form template tied to the scope, and an ng-repeat renders a list of items where the items are instances of that form template. then the parseDynamicForms service is called to pull all of those form items together and return an array of values.

@@ -8,7 +8,7 @@ angular.module('bby-query-mixer.productSearch').factory('ProductServices', [ 're
                 if (i.value.productAttribute && i.opt.value && i.complexVal){
                     if (i.opt.value === ' in ') {
                         this.push(i.value.productAttribute + i.opt.value +'('+ i.complexVal+')'); 
-                    }else {
+                    } else {
                 this.push(i.value.productAttribute + i.opt.value + i.complexVal); 
                     }
                 }

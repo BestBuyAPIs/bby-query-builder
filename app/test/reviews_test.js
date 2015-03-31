@@ -49,7 +49,11 @@ describe('bby-query-mixer.reviews module', function () {
             it('should add the correct show parameters', function () {
                 scope.showOption.list = [ {text:'reviewer', value:'reviewer'}, {text:'title', value:'title'}, {text:'rating', value:'rating'} ];
                 expect(scope.buildReviewsQuery()).toEqual('https://api.remix.bestbuy.com/v1/reviews?apiKey=testKey&show=reviewer,title,rating&callback=JSON_CALLBACK&format=json');
-            });            
+            });    
+            it("should add parens for 'sku in' queries" , function () {
+                scope.dynamicForms = [ {value:{reviewAttribute:'sku'}, opt:{value:' in '}, complexVal:"12345, 54321" } ];
+                expect(scope.buildReviewsQuery()).toEqual('https://api.remix.bestbuy.com/v1/reviews(sku in (12345, 54321))?apiKey=testKey&callback=JSON_CALLBACK&format=json');
+            });                     
         });
         describe('invoke recommendations query function', function (){
             it('should be defined', function () {

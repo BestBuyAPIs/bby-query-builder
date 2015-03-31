@@ -571,7 +571,7 @@ angular.module('bby-query-mixer.productSearch').factory('ProductServices', [ 're
                 if (i.value.productAttribute && i.opt.value && i.complexVal){
                     if (i.opt.value === ' in ') {
                         this.push(i.value.productAttribute + i.opt.value +'('+ i.complexVal+')'); 
-                    }else {
+                    } else {
                 this.push(i.value.productAttribute + i.opt.value + i.complexVal); 
                     }
                 }
@@ -1296,7 +1296,7 @@ angular.module('bby-query-mixer.productSearch').constant('reviewAttributeOptions
 	{text:'Id', reviewAttribute:'id',operator:[{value:'='}],placeholder:'24798186', type:'string' },
 	{text:'Rating', reviewAttribute:'rating',operator:[{value:'='},{value:'>'},{value:'<'},{value:'<='},{value:'>='}],placeholder:'4.0', type:'number' },
 	{text:'Reviewer', reviewAttribute:'reviewer.name',operator:[{value:'='}],placeholder:'BBY-Fan28', type:'string' },
-	{text:'SKU', reviewAttribute:'sku',operator:[{value:'='}],placeholder:'3764993', type:'string' },
+	{text:'SKU', reviewAttribute:'sku',operator:[{value:'='},{value:'!='},{value:' in '}],placeholder:'3764993', type:'string' },
 	{text:'Submission Time', reviewAttribute:'submissionTime',operator:[{value:'='}],placeholder:'2014-04-29 T22:40:33', type:'string' },
 	{text:'Title', reviewAttribute:'title',operator:[{value:'='}],placeholder:'Good keyboard', type:'string' }
 ]);
@@ -1310,7 +1310,9 @@ angular.module('bby-query-mixer.reviews').factory('ReviewServices', [ 'restricte
                 if (i.value.reviewAttribute && i.opt.value && i.complexVal){
                     if ((i.value.reviewAttribute === 'comment')||(i.value.reviewAttribute === 'title')) {
                         this.push(i.value.reviewAttribute + i.opt.value + i.complexVal+'*'); 
-                    }else {
+                    } else if (i.opt.value === ' in ') {
+                        this.push(i.value.reviewAttribute + i.opt.value +'('+ i.complexVal+')'); 
+                    } else {
                 this.push(i.value.reviewAttribute + i.opt.value + i.complexVal); 
                     }
                 }

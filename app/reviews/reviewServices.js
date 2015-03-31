@@ -8,7 +8,9 @@ angular.module('bby-query-mixer.reviews').factory('ReviewServices', [ 'restricte
                 if (i.value.reviewAttribute && i.opt.value && i.complexVal){
                     if ((i.value.reviewAttribute === 'comment')||(i.value.reviewAttribute === 'title')) {
                         this.push(i.value.reviewAttribute + i.opt.value + i.complexVal+'*'); 
-                    }else {
+                    } else if (i.opt.value === ' in ') {
+                        this.push(i.value.reviewAttribute + i.opt.value +'('+ i.complexVal+')'); 
+                    } else {
                 this.push(i.value.reviewAttribute + i.opt.value + i.complexVal); 
                     }
                 }

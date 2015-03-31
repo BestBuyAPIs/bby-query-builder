@@ -1,8 +1,10 @@
 How to Add More Tabs to the Query Builder
 
-1. instantiate a new module for the tab and add it as a dependency to the main angular app module in `app/app.js` your controller and tab-specific services/constants/directives should be added to that specific module. if you need any of the above that will also be used in other tabs, you can add those to the app-wide `appConstants` or `appServices`.
-1. create a directory for the tab where the js, css and html files will live
-1. add the file path for the above directory to the jsFiles and the cssFiles array in `Gruntfile.js` and the test coverage in `karma.conf.js` . This ensures that the js and css files will be added to the `app/production.js` and `app/production.css` files that will actually get run by the page.
+1. Instantiate a new module for the tab and add it as a dependency to the main angular app module in `app/app.js`. Your controller and tab-specific services/constants/directives should be added to that specific module. 
+ for example, `angular.module('myTab').controller(...` 
+If instead you need the code in other tabs as well, you can add those to the app-wide `appConstants` or `appServices`.
+1. create a directory under `/app/` for the tab where the js, css and html files specific to that tab will live
+1. add the file path for the above directory to the jsFiles and the cssFiles array in `Gruntfile.js` and the test coverage in `karma.conf.js` . This ensures that the js and css files will be added to the `app/production.js` and `app/production.css` files that will actually get run by the page. Concatenation is done when the server is running and when it is spun up initially.
 1. the pattern QB has followed is for each tab to have its own `00-module.js` file where the module is instantiated and the controller is tied to the view, so that the ng-router can do its thing
 1. add test files for the tab to the `app/test` directory. the name should be *tabName*_test.js to be consistent
 1. the `appConstants` and `appServices` files hold functions and other data that are used in multiple tabs. If your tab needs these, simply add them as dependencies into your tab's controller.

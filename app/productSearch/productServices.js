@@ -8,8 +8,10 @@ angular.module('bby-query-mixer.productSearch').factory('ProductServices', [ 're
                 if (i.value.productAttribute && i.opt.value && i.complexVal){
                     if (i.opt.value === ' in ') {
                         this.push(i.value.productAttribute + i.opt.value +'('+ i.complexVal+')'); 
+                    } else if (i.value.productAttribute === 'categoryPath.name'){
+                        this.push(i.value.productAttribute + i.opt.value + i.complexVal+'*'); 
                     } else {
-                this.push(i.value.productAttribute + i.opt.value + i.complexVal); 
+                        this.push(i.value.productAttribute + i.opt.value + i.complexVal); 
                     }
                 }
             }, newArray);

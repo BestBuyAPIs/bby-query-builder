@@ -66,6 +66,10 @@ describe('bby-query-mixer.productSearch module', function () {
                 scope.complexVal = '123, 456';
                 expect(scope.buildRemixQuery()).toEqual("https://api.remix.bestbuy.com/v1/products(sku in (123, 456))?apiKey=youreAnApiKey&callback=JSON_CALLBACK&format=json");
             });
+            it('should add an asterisk after category path name', function () {
+                scope.dynamicForms= [{value:{productAttribute:'categoryPath.name'},opt:{value:'='},complexVal:'Home Theater'}]
+                expect(scope.buildRemixQuery()).toEqual("https://api.remix.bestbuy.com/v1/products(categoryPath.name=Home Theater*)?apiKey=youreAnApiKey&callback=JSON_CALLBACK&format=json");
+            });            
             it('should return add faceting when specified', function () {
                 scope.facetAttribute.productAttribute = 'color';
                 scope.facetNumber = 11;

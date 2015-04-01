@@ -42,6 +42,7 @@ module.exports = function (config) {
             'app/recommendations/*.js': ['coverage'],
             'app/smartLists/*.js': ['coverage'],
             'app/stores/*.js': ['coverage'],
+            'app/reviews/*.js': ['coverage']
         },
         reporters: ['coverage','dots']
     });

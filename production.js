@@ -429,7 +429,7 @@ angular.module('bby-query-mixer.productSearch').controller('ProductSearchCtrl', 
             var paramArgs = [];
 
             if ($scope.apiKey) {
-                paramArgs.push('apiKey=' + $scope.apiKey + '&callback=JSON_CALLBACK' );
+                paramArgs.push('apiKey=' + $scope.apiKey );
             }
 
             if ($scope.sortBy && $scope.sortBy != 'none') {
@@ -445,10 +445,10 @@ angular.module('bby-query-mixer.productSearch').controller('ProductSearchCtrl', 
                 paramArgs.push('facet=' + $scope.facetAttribute.productAttribute);
             };
 
-            var checkPageSize = (($scope.pageSize)&&($scope.pageSize !== 10)) ? paramArgs.push('&pageSize='+$scope.pageSize) : '';
-            var checkWhichPage = (($scope.whichPage)&&($scope.whichPage !== 1)) ? paramArgs.push('&page='+$scope.whichPage) : '';
+            var checkPageSize = (($scope.pageSize)&&($scope.pageSize !== 10)) ? paramArgs.push('pageSize='+$scope.pageSize) : '';
+            var checkWhichPage = (($scope.whichPage)&&($scope.whichPage !== 1)) ? paramArgs.push('page='+$scope.whichPage) : '';
 
-            paramArgs.push('format=json');
+            paramArgs.push('callback=JSON_CALLBACK&format=json');
 
             if (paramArgs.length > 0) {
                 return '?' + paramArgs.join('&');

@@ -38,7 +38,7 @@ describe('bby-query-mixer.productSearch module', function () {
 
             it('should return a query string with no apiKey parameter when no key provided', function () {
                 scope.apiKey='';
-                expect(scope.buildRemixQuery()).toEqual("https://api.remix.bestbuy.com/v1/products?format=json");
+                expect(scope.buildRemixQuery()).toEqual("https://api.remix.bestbuy.com/v1/products?callback=JSON_CALLBACK&format=json");
             });
 
             it('should update the category id value when category is changed', function () {
@@ -68,7 +68,7 @@ describe('bby-query-mixer.productSearch module', function () {
             it('should return add faceting when specified', function () {
                 scope.facetAttribute.productAttribute = 'color';
                 scope.facetNumber = 11;
-                expect(scope.buildRemixQuery()).toEqual("https://api.remix.bestbuy.com/v1/products?apiKey=youreAnApiKey&callback=JSON_CALLBACK&facet=color,11&format=json");
+                expect(scope.buildRemixQuery()).toEqual("https://api.remix.bestbuy.com/v1/products?apiKey=youreAnApiKey&facet=color,11&callback=JSON_CALLBACK&format=json");
             });
             it('should add bad values to query so that remix returns the proper error status', function () {
                 scope.dynamicForms= [{value:{productAttribute:'bestSellingRank'},opt:{value:'='},complexVal:'wwwwwwwwww'}]
@@ -80,7 +80,7 @@ describe('bby-query-mixer.productSearch module', function () {
             });
             it('should allow invalid page sizes so remix can return the real error message', function () {
                 scope.pageSize = 111;
-                expect(scope.buildRemixQuery()).toEqual("https://api.remix.bestbuy.com/v1/products?apiKey=youreAnApiKey&callback=JSON_CALLBACK&&pageSize=111&format=json");
+                expect(scope.buildRemixQuery()).toEqual("https://api.remix.bestbuy.com/v1/products?apiKey=youreAnApiKey&pageSize=111&callback=JSON_CALLBACK&format=json");
             });              
         });
         describe('buildParams function', function () {
@@ -88,14 +88,14 @@ describe('bby-query-mixer.productSearch module', function () {
                 scope.apiKey = '';
                 scope.sortBy = {value : 'sku'};
                 scope.sortOrder.value = 'asc';
-                expect(scope.buildParams()).toEqual('?sort=sku.asc&format=json');
+                expect(scope.buildParams()).toEqual('?sort=sku.asc&callback=JSON_CALLBACK&format=json');
             });
             it('should return sortBy and sortOrder asc when only sortBy selected', function () {
                 scope.apiKey = '';
                 scope.sortBy = {value : 'sku'};
                 scope.sortOrder.value = 'desc';
 
-                expect(scope.buildParams()).toEqual('?sort=sku.desc&format=json');
+                expect(scope.buildParams()).toEqual('?sort=sku.desc&callback=JSON_CALLBACK&format=json');
             });
             it('should return apiKey when only apiKey specified', function () {
                 scope.apiKey = 'someApiKey';
@@ -106,12 +106,18 @@ describe('bby-query-mixer.productSearch module', function () {
                 scope.sortBy = {value : 'sku'};
                 scope.sortOrder.value = 'desc';
 
-                expect(scope.buildParams()).toEqual('?apiKey=someApiKey&callback=JSON_CALLBACK&sort=sku.desc&format=json');
+                expect(scope.buildParams()).toEqual('?apiKey=someApiKey&sort=sku.desc&callback=JSON_CALLBACK&format=json');
             });
             it('should add faceting when it\'s defined', function () {
                 scope.facetAttribute.productAttribute = 'manufacturer';
                 scope.facetNumber = '3';
-                expect(scope.buildParams()).toEqual('?apiKey=youreAnApiKey&callback=JSON_CALLBACK&facet=manufacturer,3&format=json');
+                expect(scope.buildParams()).toEqual('?apiKey=youreAnApiKey&facet=manufacturer,3&callback=JSON_CALLBACK&format=json');
+            });
+            it('construct pagination only when needed', function () {
+                expect(scope.buildParams()).toEqual('?apiKey=youreAnApiKey&callback=JSON_CALLBACK&format=json');
+                scope.pageSize = 11;
+                scope.whichPage = 3;
+                expect(scope.buildParams()).toEqual('?apiKey=youreAnApiKey&pageSize=11&page=3&callback=JSON_CALLBACK&format=json');
             });
         });
         describe('reset query function', function () {

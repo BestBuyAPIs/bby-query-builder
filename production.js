@@ -330,6 +330,8 @@ angular.module('bby-query-mixer.productSearch', ['ngRoute'])
 angular.module('bby-query-mixer.productSearch').constant('attributeOptionsConfig', [ 
 	{text:'Choose Attribute', productAttribute:false, operator:[{value:'operator'}], placeholder:'Value', type:false},		
 	{text:'Best Selling Rank', productAttribute:'bestSellingRank', operator:[{value:'='},{value:'>'},{value:'<'},{value:'<='},{value:'>='}], placeholder:'1', type: "number"},		
+	{text: 'Category Path Id', productAttribute: 'categoryPath.id', operator:[{value:'='},{value:'!='},{value:' in '}], placeholder:'abcat0502000', type:"text" },
+	{text: 'Category Path Name', productAttribute: 'categoryPath.name', operator:[{value:'='},{value:'!='}], placeholder:'Laptops', type:"text" },
 	{text:'Color', productAttribute:'color', operator:[{value:'='},{value:'!='}], placeholder:'black', type:"text"},
 	{text:'Condition', productAttribute:'condition', operator:[{value:'='},{value:'!='}], placeholder:'new,refurbished', type:"text"},
 	{text:'Customer Review Average', productAttribute:'customerReviewAverage', operator:[{value:'='},{value:'>'},{value:'<'},{value:'<='},{value:'>='}], placeholder:5.0, type:"number"},

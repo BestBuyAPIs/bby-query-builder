@@ -10,8 +10,8 @@ angular.module('bby-query-mixer', [
     'bby-query-mixer.stores',
     'bby-query-mixer.smartLists',
     'bby-query-mixer.categories',
+    'bby-query-mixer.reviews',
     'ngClipboard',
-    'checklist-model',
     'ui.bootstrap',
     'ui.select',
     'appConfig',
@@ -173,7 +173,27 @@ angular.module('appConfig').constant('categoryConfig', [
 ]);
 'use strict';
 
+angular.module('appConfig').constant('sortOrderConfig',[
+	{text:"Ascending", value:"asc"},
+	{text:"Descending", value:"dsc"}
+]);
+'use strict';
+
 angular.module('appServices', ['ngRoute', 'ngResource','bby-query-mixer']);
+'use strict';
+
+angular.module('appServices').factory('AddAllShowOptionsService', [ function () {
+    
+    var addAllShowOptions = function(optionArray) {
+        var newArray = [];
+        angular.forEach(optionArray, function(i) { this.push(i.value) }, newArray);
+        return newArray.join(',');
+    };
+
+	return {
+		addAllShowOptions : addAllShowOptions
+	}
+}]);
 'use strict';
 
 angular.module('appServices').factory('GaService', [ function() {
@@ -215,6 +235,19 @@ angular.module('appServices').factory('HttpClientService', ['$resource', functio
 
 	return {
 		httpClient : httpClient
+	}
+}]);
+'use strict';
+
+angular.module('appServices').factory('PreSelectOperatorService', [ function () {
+    
+    var preSelectOperator = function(form) {
+        form.opt = form.value.operator[0];
+        form.complexVal = form.value.valueOptions ? form.value.valueOptions[0].value : '';
+    };
+
+	return {
+		preSelectOperator : preSelectOperator
 	}
 }]);
 'use strict';
@@ -330,6 +363,8 @@ angular.module('bby-query-mixer.productSearch', ['ngRoute'])
 angular.module('bby-query-mixer.productSearch').constant('attributeOptionsConfig', [ 
 	{text:'Choose Attribute', productAttribute:false, operator:[{value:'operator'}], placeholder:'Value', type:false},		
 	{text:'Best Selling Rank', productAttribute:'bestSellingRank', operator:[{value:'='},{value:'>'},{value:'<'},{value:'<='},{value:'>='}], placeholder:'1', type: "number"},		
+	{text: 'Category Path Id', productAttribute: 'categoryPath.id', operator:[{value:'='},{value:'!='},{value:' in '}], placeholder:'abcat0502000', type:"text" },
+	{text: 'Category Path Name', productAttribute: 'categoryPath.name', operator:[{value:'='},{value:'!='}], placeholder:'Laptops', type:"text" },
 	{text:'Color', productAttribute:'color', operator:[{value:'='},{value:'!='}], placeholder:'black', type:"text"},
 	{text:'Condition', productAttribute:'condition', operator:[{value:'='},{value:'!='}], placeholder:'new,refurbished', type:"text"},
 	{text:'Customer Review Average', productAttribute:'customerReviewAverage', operator:[{value:'='},{value:'>'},{value:'<'},{value:'<='},{value:'>='}], placeholder:5.0, type:"number"},
@@ -380,7 +415,9 @@ angular.module('bby-query-mixer.productSearch').controller('ProductSearchCtrl', 
     'GaService',
     'ProductServices',
     'sortOrderConfig',
-    function ($scope, categoryConfig, showOptionsConfig, attributeOptionsConfig, HttpClientService, GaService, ProductServices, sortOrderConfig) {
+    'AddAllShowOptionsService',
+    'PreSelectOperatorService',
+    function ($scope, categoryConfig, showOptionsConfig, attributeOptionsConfig, HttpClientService, GaService, ProductServices, sortOrderConfig, AddAllShowOptionsService, PreSelectOperatorService) {
         $scope.categories = angular.copy(categoryConfig);
         $scope.showOptions = angular.copy(showOptionsConfig);
         $scope.attributeOptions = angular.copy(attributeOptionsConfig);
@@ -427,7 +464,7 @@ angular.module('bby-query-mixer.productSearch').controller('ProductSearchCtrl', 
             var paramArgs = [];
 
             if ($scope.apiKey) {
-                paramArgs.push('apiKey=' + $scope.apiKey + '&callback=JSON_CALLBACK' );
+                paramArgs.push('apiKey=' + $scope.apiKey );
             }
 
             if ($scope.sortBy && $scope.sortBy != 'none') {
@@ -443,10 +480,10 @@ angular.module('bby-query-mixer.productSearch').controller('ProductSearchCtrl', 
                 paramArgs.push('facet=' + $scope.facetAttribute.productAttribute);
             };
 
-            var checkPageSize = (($scope.pageSize)&&($scope.pageSize !== 10)) ? paramArgs.push('&pageSize='+$scope.pageSize) : '';
-            var checkWhichPage = (($scope.whichPage)&&($scope.whichPage !== 1)) ? paramArgs.push('&page='+$scope.whichPage) : '';
+            var checkPageSize = (($scope.pageSize)&&($scope.pageSize !== 10)) ? paramArgs.push('pageSize='+$scope.pageSize) : '';
+            var checkWhichPage = (($scope.whichPage)&&($scope.whichPage !== 1)) ? paramArgs.push('page='+$scope.whichPage) : '';
 
-            paramArgs.push('format=json');
+            paramArgs.push('callback=JSON_CALLBACK&format=json');
 
             if (paramArgs.length > 0) {
                 return '?' + paramArgs.join('&');
@@ -464,7 +501,6 @@ angular.module('bby-query-mixer.productSearch').controller('ProductSearchCtrl', 
         $scope.resetParams = function () {
             $scope.category = $scope.categories[0];
             $scope.whichPage = 1;
-            $scope.sortOrder = 'asc';
             $scope.complexAttr = '';
             $scope.complexVal = '';
             $scope.pageSize =  10;
@@ -487,14 +523,14 @@ angular.module('bby-query-mixer.productSearch').controller('ProductSearchCtrl', 
         $scope.resetParams();
 
         //this function is fired on a ng-change when attribute is selected. it sets the first operator to be pre-selected
-        $scope.preselectOperator = ProductServices.preSelectOperator;
+        $scope.preselectOperator = PreSelectOperatorService.preSelectOperator;
 
         $scope.callCopyEvent = function () {
             var tab = "products";
             GaService.copyUrlEvent(tab,$scope.apiKey);
         };
         
-        $scope.addAllShowOptions = ProductServices.addAllShowOptions;
+        $scope.addAllShowOptions = AddAllShowOptionsService.addAllShowOptions;
 
         $scope.selectAll = function (z) {
             if (z === 'allproducts') {
@@ -531,25 +567,16 @@ angular.module('bby-query-mixer.productSearch').controller('ProductSearchCtrl', 
 
 angular.module('bby-query-mixer.productSearch').factory('ProductServices', [ 'restrictedSortOptions',function(restrictedSortOptions) {
     
-    var preSelectOperator = function(form) {
-        form.opt = form.value.operator[0];
-        form.complexVal = form.value.valueOptions ? form.value.valueOptions[0].value : '';
-    };
-
-    var addAllShowOptions = function(optionArray) {
-        var newArray = [];
-        angular.forEach(optionArray, function(i) { this.push(i.value) }, newArray);
-        return newArray.join(',');
-    };
-
     var parseDynamicForms = function (array) {
             var newArray = [];
             angular.forEach(array, function(i) { 
                 if (i.value.productAttribute && i.opt.value && i.complexVal){
                     if (i.opt.value === ' in ') {
                         this.push(i.value.productAttribute + i.opt.value +'('+ i.complexVal+')'); 
-                    }else {
-                this.push(i.value.productAttribute + i.opt.value + i.complexVal); 
+                    } else if (i.value.productAttribute === 'categoryPath.name'){
+                        this.push(i.value.productAttribute + i.opt.value + i.complexVal+'*'); 
+                    } else {
+                        this.push(i.value.productAttribute + i.opt.value + i.complexVal); 
                     }
                 }
             }, newArray);
@@ -575,8 +602,6 @@ angular.module('bby-query-mixer.productSearch').factory('ProductServices', [ 're
     };
 
     return {
-    	preSelectOperator : preSelectOperator,
-    	addAllShowOptions : addAllShowOptions,
     	parseDynamicForms : parseDynamicForms,
     	addAllOptionValues : addAllOptionValues,
         restrictSortOptionLists : restrictSortOptionLists
@@ -626,10 +651,6 @@ angular.module('bby-query-mixer.productSearch').constant('showOptionsConfig', [
     { text: 'Type', value: 'type' },
     { text: 'UPC', value: 'upc' },
     { text: 'URL', value: 'url' }
-])
-.constant('sortOrderConfig',[
-	{text:"Ascending", value:"asc"},
-	{text:"Descending", value:"dsc"}
 ])
 .constant('restrictedSortOptions', [
     'accessories.sku',
@@ -744,11 +765,9 @@ angular.module('bby-query-mixer.smartLists').controller('SmartListsCtrl', [
     'HttpClientService',
     'GaService',
     function ($scope, categoryConfig, HttpClientService, GaService) {
-        //http://api.bestbuy.com/beta/products/connectedHome?apiKey=YourAPIKey
 
         $scope.buildSmartListsQuery = function () {
             var baseUrl = 'https://api.bestbuy.com/beta/products/';
-            var queryArgs = [];
             var endpointSelection = $scope.endpoint.selected ? baseUrl += ($scope.endpoint.selected) : '';
             var addKey = $scope.apiKey ? baseUrl += ('?apiKey='+$scope.apiKey):'';
             baseUrl += '&callback=JSON_CALLBACK';
@@ -1263,4 +1282,185 @@ angular.module('bby-query-mixer.categories').constant('categoryResponseConfig', 
     {text:"Id", value:"id" },
     {text:"SubCategory Name", value:"subCategories.name" },
     {text:"SubCategory Id", value:"subCategories.id" }
+]);
+'use strict';
+
+angular.module('bby-query-mixer.reviews', ['ngRoute'])
+    .config(['$routeProvider', function ($routeProvider) {
+        $routeProvider.when('/reviews', {
+            templateUrl: 'reviews/reviews.html',
+            controller: 'ReviewsCtrl'
+        });
+    }]
+);
+'use strict';
+
+angular.module('bby-query-mixer.productSearch').constant('reviewAttributeOptionsConfig', [ 
+	{text:'Choose review attributes', reviewAttribute:false,operator:false,placeholder:false},
+	{text:'Comment', reviewAttribute:'comment',operator:[{value:'='}],placeholder:'I <3 this phone.', type:'string' },
+	{text:'Id', reviewAttribute:'id',operator:[{value:'='},{value:'!='},{value:' in '}],placeholder:'24798186', type:'string' },
+	{text:'Rating', reviewAttribute:'rating',operator:[{value:'='},{value:'>'},{value:'<'},{value:'<='},{value:'>='}],placeholder:'4.0', type:'number' },
+	{text:'Reviewer', reviewAttribute:'reviewer.name',operator:[{value:'='}],placeholder:'BBY-Fan28', type:'string' },
+	{text:'SKU', reviewAttribute:'sku',operator:[{value:'='},{value:'!='},{value:' in '}],placeholder:'3764993', type:'string' },
+	{text:'Submission Time', reviewAttribute:'submissionTime',operator:[{value:'='}],placeholder:'2014-04-29 T22:40:33', type:'string' },
+	{text:'Title', reviewAttribute:'title',operator:[{value:'='}],placeholder:'Good keyboard', type:'string' }
+]);
+'use strict';
+
+angular.module('bby-query-mixer.reviews').factory('ReviewServices', [ 'restrictedReviewSortOptions',function(restrictedReviewSortOptions) {
+
+    var parseDynamicForms = function (array) {
+            var newArray = [];
+            angular.forEach(array, function(i) { 
+                if (i.value.reviewAttribute && i.opt.value && i.complexVal){
+                    if ((i.value.reviewAttribute === 'comment')||(i.value.reviewAttribute === 'title')) {
+                        this.push(i.value.reviewAttribute + i.opt.value + i.complexVal+'*'); 
+                    } else if (i.opt.value === ' in ') {
+                        this.push(i.value.reviewAttribute + i.opt.value +'('+ i.complexVal+')'); 
+                    } else {
+                this.push(i.value.reviewAttribute + i.opt.value + i.complexVal); 
+                    }
+                }
+            }, newArray);
+
+            return newArray.join('&');
+    };
+
+    var restrictReviewsSortOptionLists = function (array) {
+        var newArray = [];
+        angular.forEach(array,
+            function(i) {
+                if (restrictedReviewSortOptions.indexOf(i.value) === -1){
+                    this.push(i)
+                }
+            }, newArray);
+        return newArray;
+    };
+
+    return {
+    	parseDynamicForms : parseDynamicForms,
+        restrictReviewsSortOptionLists : restrictReviewsSortOptionLists
+    }
+}]);
+'use strict';
+
+angular.module('bby-query-mixer.reviews').controller('ReviewsCtrl', [
+    '$scope',
+    'categoryConfig',
+    'HttpClientService',
+    'GaService',
+    'reviewAttributeOptionsConfig',
+    'reviewShowOptionsConfig',
+    'ReviewServices',
+    'sortOrderConfig',
+    'AddAllShowOptionsService',
+    'PreSelectOperatorService',
+    function ($scope, categoryConfig, HttpClientService, GaService, reviewAttributeOptionsConfig, reviewShowOptionsConfig, ReviewServices, sortOrderConfig, AddAllShowOptionsService, PreSelectOperatorService) {
+                
+        $scope.showOption = {};
+        $scope.sortOptions = {};
+        $scope.sortOrderOptions = angular.copy(sortOrderConfig);
+
+        $scope.buildReviewsQuery = function () {
+
+            var searchArgs = [];
+            var manyAttributes = $scope.dynamicForms[0].value.reviewAttribute ? searchArgs.push($scope.parseDynamicForms($scope.dynamicForms)) : '';
+
+            var baseUrl = searchArgs.length > 0 ? 'https://api.remix.bestbuy.com/v1/reviews' + '(' + searchArgs.join('&') + ')' : 'https://api.remix.bestbuy.com/v1/reviews';
+            var addKey = $scope.apiKey ? baseUrl += ('?apiKey='+$scope.apiKey):'';
+
+            var addShowOptions = $scope.showOption.list.length > 0 ? baseUrl+=('&show='+$scope.addAllShowOptions($scope.showOption.list)) : '';
+
+            var checkPageSize = (($scope.pageSize)&&($scope.pageSize !== 10)) ? baseUrl +=('&pageSize='+$scope.pageSize) : '';
+            var checkWhichPage = (($scope.whichPage)&&($scope.whichPage !== 1)) ? baseUrl +=('&page='+$scope.whichPage) : '';
+            var sortBy = ($scope.sortBy && $scope.sortBy.value) ? baseUrl += ('&sort=' + $scope.sortBy.value + '.' + $scope.sortOrder.value):'';
+
+            baseUrl += '&callback=JSON_CALLBACK&format=json';
+            return baseUrl;
+        };
+
+        $scope.invokeReviewsQuery = function () {
+            $scope.results = "Running";
+            var query = $scope.buildReviewsQuery();
+
+            var successFn = function (value) {
+                $scope.results = value;
+            };
+            var errorFn = function (httpResponse) {
+                $scope.results = httpResponse;
+            };
+
+            if ($scope.apiKey !=  ""){
+                $scope.errorResult = false;
+
+                var eventActionName = "reviews query success";
+                GaService.clickQueryButtonEvent(eventActionName, $scope.apiKey);
+
+                HttpClientService.httpClient(query).jsonp_query(successFn, errorFn);
+            } else if ($scope.apiKey ===  ""){
+                $scope.errorResult = true;
+                $scope.results = "Please enter your API Key";
+            };
+        };
+
+        $scope.dynamicForms = [{id: '0',value:'',opt:'',complexVal:''}];
+        var counter = 0;
+        $scope.addNewForm = function () {
+            counter += 1;
+            $scope.dynamicForms.push({'id':''+(counter)});
+        };
+        $scope.removeForm = function(form) {
+            var newItemNo = $scope.dynamicForms.length-1;
+            $scope.dynamicForms.splice($scope.dynamicForms.indexOf(form),1);   
+        };
+
+        $scope.resetReviewsQuery = function () {
+            $scope.whichPage = 1;
+            $scope.pageSize = 10;
+            $scope.attributeOptions = angular.copy(reviewAttributeOptionsConfig);
+            $scope.attributeOption = $scope.attributeOptions[0];
+            $scope.dynamicForms = [{value: $scope.attributeOption}];
+            $scope.showOptions = angular.copy(reviewShowOptionsConfig);
+            $scope.showOption.list = [];
+            $scope.remixResults = {};
+            $scope.results = {};
+            $scope.errorResult = false;
+            $scope.sortOrder = $scope.sortOrderOptions[0];
+            $scope.sortByOptions = angular.copy(sortOrderConfig);
+            $scope.sortBy = $scope.sortOptions[0];
+        };
+        $scope.resetReviewsQuery();
+
+        $scope.parseDynamicForms = ReviewServices.parseDynamicForms;
+        $scope.preselectOperator = PreSelectOperatorService.preSelectOperator;
+        $scope.addAllShowOptions = AddAllShowOptionsService.addAllShowOptions;
+
+
+        $scope.selectAll = function (z) {
+            if (z === 'allreviews') {
+                $scope.showOption.list = angular.copy($scope.showOptions);
+            } else if (z === 'noreviews') {
+                $scope.showOption.list = [];
+            } 
+            return;
+        };
+        $scope.clearBlankSelect = function () {
+            $scope.sortOptions.list = ReviewServices.restrictReviewsSortOptionLists($scope.showOption.list);
+            $scope.sortBy = $scope.sortOptions.list[0];
+        };
+}]);
+'use strict';
+
+angular.module('bby-query-mixer.reviews').constant('reviewShowOptionsConfig', [ 
+	{ text: 'Comment', value: 'comment' },
+	{ text: 'Id', value: 'id' },
+	{ text: 'Rating', value: 'rating' },
+	{ text: 'Reviewer', value: 'reviewer.name' },
+	{ text: 'SKU', value: 'sku' },
+	{ text: 'Submission Time', value: 'submissionTime' },
+	{ text: 'Title', value: 'title' }
+])
+.constant('restrictedReviewSortOptions', [
+	'reviewer.name',
+	'aboutMe.customerType'
 ]);

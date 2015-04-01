@@ -5,13 +5,14 @@ describe('bby-query-mixer.productSearch module', function () {
     beforeEach(module('bby-query-mixer.productSearch', 'appConfig'), function () {
     });
 
-    var ctrl, scope, ProductServices;
-    beforeEach(inject(function ($controller, $rootScope, _ProductServices_) {
+    var ctrl, scope, ProductServices, PreSelectOperatorService;
+    beforeEach(inject(function ($controller, $rootScope, _ProductServices_, _PreSelectOperatorService_) {
         scope = $rootScope.$new();
         ctrl = $controller('ProductSearchCtrl', {
             $scope: scope
         });
         ProductServices = _ProductServices_;
+        PreSelectOperatorService = _PreSelectOperatorService_;
     }));
     describe('productSearch controller', function () {
         beforeEach(inject(function ($controller, $rootScope) {
@@ -38,7 +39,7 @@ describe('bby-query-mixer.productSearch module', function () {
 
             it('should return a query string with no apiKey parameter when no key provided', function () {
                 scope.apiKey='';
-                expect(scope.buildRemixQuery()).toEqual("https://api.remix.bestbuy.com/v1/products?format=json");
+                expect(scope.buildRemixQuery()).toEqual("https://api.remix.bestbuy.com/v1/products?callback=JSON_CALLBACK&format=json");
             });
 
             it('should update the category id value when category is changed', function () {
@@ -65,10 +66,14 @@ describe('bby-query-mixer.productSearch module', function () {
                 scope.complexVal = '123, 456';
                 expect(scope.buildRemixQuery()).toEqual("https://api.remix.bestbuy.com/v1/products(sku in (123, 456))?apiKey=youreAnApiKey&callback=JSON_CALLBACK&format=json");
             });
+            it('should add an asterisk after category path name', function () {
+                scope.dynamicForms= [{value:{productAttribute:'categoryPath.name'},opt:{value:'='},complexVal:'Home Theater'}]
+                expect(scope.buildRemixQuery()).toEqual("https://api.remix.bestbuy.com/v1/products(categoryPath.name=Home Theater*)?apiKey=youreAnApiKey&callback=JSON_CALLBACK&format=json");
+            });            
             it('should return add faceting when specified', function () {
                 scope.facetAttribute.productAttribute = 'color';
                 scope.facetNumber = 11;
-                expect(scope.buildRemixQuery()).toEqual("https://api.remix.bestbuy.com/v1/products?apiKey=youreAnApiKey&callback=JSON_CALLBACK&facet=color,11&format=json");
+                expect(scope.buildRemixQuery()).toEqual("https://api.remix.bestbuy.com/v1/products?apiKey=youreAnApiKey&facet=color,11&callback=JSON_CALLBACK&format=json");
             });
             it('should add bad values to query so that remix returns the proper error status', function () {
                 scope.dynamicForms= [{value:{productAttribute:'bestSellingRank'},opt:{value:'='},complexVal:'wwwwwwwwww'}]
@@ -80,7 +85,7 @@ describe('bby-query-mixer.productSearch module', function () {
             });
             it('should allow invalid page sizes so remix can return the real error message', function () {
                 scope.pageSize = 111;
-                expect(scope.buildRemixQuery()).toEqual("https://api.remix.bestbuy.com/v1/products?apiKey=youreAnApiKey&callback=JSON_CALLBACK&&pageSize=111&format=json");
+                expect(scope.buildRemixQuery()).toEqual("https://api.remix.bestbuy.com/v1/products?apiKey=youreAnApiKey&pageSize=111&callback=JSON_CALLBACK&format=json");
             });              
         });
         describe('buildParams function', function () {
@@ -88,14 +93,14 @@ describe('bby-query-mixer.productSearch module', function () {
                 scope.apiKey = '';
                 scope.sortBy = {value : 'sku'};
                 scope.sortOrder.value = 'asc';
-                expect(scope.buildParams()).toEqual('?sort=sku.asc&format=json');
+                expect(scope.buildParams()).toEqual('?sort=sku.asc&callback=JSON_CALLBACK&format=json');
             });
             it('should return sortBy and sortOrder asc when only sortBy selected', function () {
                 scope.apiKey = '';
                 scope.sortBy = {value : 'sku'};
                 scope.sortOrder.value = 'desc';
 
-                expect(scope.buildParams()).toEqual('?sort=sku.desc&format=json');
+                expect(scope.buildParams()).toEqual('?sort=sku.desc&callback=JSON_CALLBACK&format=json');
             });
             it('should return apiKey when only apiKey specified', function () {
                 scope.apiKey = 'someApiKey';
@@ -106,12 +111,18 @@ describe('bby-query-mixer.productSearch module', function () {
                 scope.sortBy = {value : 'sku'};
                 scope.sortOrder.value = 'desc';
 
-                expect(scope.buildParams()).toEqual('?apiKey=someApiKey&callback=JSON_CALLBACK&sort=sku.desc&format=json');
+                expect(scope.buildParams()).toEqual('?apiKey=someApiKey&sort=sku.desc&callback=JSON_CALLBACK&format=json');
             });
             it('should add faceting when it\'s defined', function () {
                 scope.facetAttribute.productAttribute = 'manufacturer';
                 scope.facetNumber = '3';
-                expect(scope.buildParams()).toEqual('?apiKey=youreAnApiKey&callback=JSON_CALLBACK&facet=manufacturer,3&format=json');
+                expect(scope.buildParams()).toEqual('?apiKey=youreAnApiKey&facet=manufacturer,3&callback=JSON_CALLBACK&format=json');
+            });
+            it('construct pagination only when needed', function () {
+                expect(scope.buildParams()).toEqual('?apiKey=youreAnApiKey&callback=JSON_CALLBACK&format=json');
+                scope.pageSize = 11;
+                scope.whichPage = 3;
+                expect(scope.buildParams()).toEqual('?apiKey=youreAnApiKey&pageSize=11&page=3&callback=JSON_CALLBACK&format=json');
             });
         });
         describe('reset query function', function () {
@@ -146,7 +157,7 @@ describe('bby-query-mixer.productSearch module', function () {
         describe('preselectOperator function', function () {
             it('should reset values when attribute dropdown is changed', function () {
                 var form = {value:{operator:[]}};
-                ProductServices.preSelectOperator(form);
+                PreSelectOperatorService.preSelectOperator(form);
                 expect(scope.operator).toEqual(scope.attributeOption.operator[0]);
                 expect(scope.complexVal).toEqual('');
             });

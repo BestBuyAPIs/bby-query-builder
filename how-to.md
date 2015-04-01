@@ -1,9 +1,9 @@
 How to Add More Tabs to the Query Builder
 
-1. Instantiate a new module for the tab and add it as a dependency to the main angular app module in `app/app.js` your controller and tab-specific services/constants/directives should be added to that specific module. if you need any of the above that will also be used in other tabs, you can add those to the app-wide `appConstants` or `appServices`.
+1. Instantiate a new module for the tab and add it as a dependency to the main angular app module in `app/app.js` your controller and tab-specific services/constants/directives should be added to that specific module. If you need any of the above that will also be used in other tabs, you can add those to the app-wide `appConstants` or `appServices`.
 1. Create a directory for the tab where the js, css and html files will live
 1. Add the file path for the above directory to the jsFiles and the cssFiles array in `Gruntfile.js` and the test coverage in `karma.conf.js` . This ensures that the js and css files will be added to the `app/production.js` and `app/production.css` files that will actually get run by the page.
-1. The pattern QB has followed is for each tab to have its own `00-module.js` file where the module is instantiated and the controller is tied to the view, so that the ng-router can do its thing
+1. The pattern QB has followed is for each tab to have its own `00-module.js` file where the module is instantiated and the controller is tied to the view, so that the ng-router can do its thing.
 1. Add test files for the tab to the `app/test` directory. the name should be *tabName*_test.js to be consistent
 1. The `appConstants` and `appServices` files hold functions and other data that are used in multiple tabs. If your tab needs these, simply add them as dependencies into your tab's controller.
 1. Each tab has some calls to Google Analytics that register events such as a successful call to the remix api or using the clipboard button to copy a query url. the main Google Analytics functions are in a service in `app/appServices/analytics.js` You can also look at the other invoke___query functions in the other tabs to get an idea on how to configure that.

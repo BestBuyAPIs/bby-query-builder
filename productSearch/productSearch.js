@@ -9,7 +9,9 @@ angular.module('bby-query-mixer.productSearch').controller('ProductSearchCtrl', 
     'GaService',
     'ProductServices',
     'sortOrderConfig',
-    function ($scope, categoryConfig, showOptionsConfig, attributeOptionsConfig, HttpClientService, GaService, ProductServices, sortOrderConfig) {
+    'AddAllShowOptionsService',
+    'PreSelectOperatorService',
+    function ($scope, categoryConfig, showOptionsConfig, attributeOptionsConfig, HttpClientService, GaService, ProductServices, sortOrderConfig, AddAllShowOptionsService, PreSelectOperatorService) {
         $scope.categories = angular.copy(categoryConfig);
         $scope.showOptions = angular.copy(showOptionsConfig);
         $scope.attributeOptions = angular.copy(attributeOptionsConfig);
@@ -93,7 +95,6 @@ angular.module('bby-query-mixer.productSearch').controller('ProductSearchCtrl', 
         $scope.resetParams = function () {
             $scope.category = $scope.categories[0];
             $scope.whichPage = 1;
-            $scope.sortOrder = 'asc';
             $scope.complexAttr = '';
             $scope.complexVal = '';
             $scope.pageSize =  10;
@@ -116,14 +117,14 @@ angular.module('bby-query-mixer.productSearch').controller('ProductSearchCtrl', 
         $scope.resetParams();
 
         //this function is fired on a ng-change when attribute is selected. it sets the first operator to be pre-selected
-        $scope.preselectOperator = ProductServices.preSelectOperator;
+        $scope.preselectOperator = PreSelectOperatorService.preSelectOperator;
 
         $scope.callCopyEvent = function () {
             var tab = "products";
             GaService.copyUrlEvent(tab,$scope.apiKey);
         };
         
-        $scope.addAllShowOptions = ProductServices.addAllShowOptions;
+        $scope.addAllShowOptions = AddAllShowOptionsService.addAllShowOptions;
 
         $scope.selectAll = function (z) {
             if (z === 'allproducts') {

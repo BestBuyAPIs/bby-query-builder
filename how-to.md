@@ -13,4 +13,20 @@ How to Add More Tabs to the Query Builder
 1. Whenever possible, constants such as a list of values to populate a select dropdown are put into angular `.constants` instead of keeping them in controllers. $scope values that will end up changing are harder to put into angular constants, so each controllers resetParams function will have those. The resetParams is also called at initial page load, so if you have to instantiate some scope values put them in there.
 1. According to the spec, all links should have `target="_blank"` so they open in a new tab. This is so that if a user has entered a complex query they are less likely to lose it if they click on a link to the docs.
 1. The URL Breakdown section describes each part of the query string as atomic units. We are using angular's `ng-show` syntax to only display these when they are also in the main Complete URL section.
-1. We set initial scope values so that select dropdowns and other forms are not blank on page load. This is trickier when certain forms are hidden on page load and only show up when a user goes down a certain path. In cases like this we've used `ng-change()` calls that can preselect a value so that these new forms show up without blank values. For example, the function `app/appServices/preSelectOperator.js`.
+1. We set initial scope values so that select dropdowns and other forms are not blank on page load. This is trickier when certain forms are hidden on page load and only show up when a user goes down a certain path. In cases like this we've used `ng-change()` calls that can preselect a value so that these new forms show up without blank values. For example, the function `app/appServices/preSelectOperator.js` is called on `productSearch/productSearch.html:26` because the rest of the form is not rendered until a value is chosen for the first option as seen below
+```                     
+<div class="form-group" ng-repeat="form in dynamicForms track by $index">
+    <div class="" id="complexSearch">
+        <form>
+            <select ng-init="form.value = attributeOption" id="attribute" ng-model="form.value" ng-change="preselectOperator(form)"
+                    ng-options="attr as attr.text for attr in attributeOptions"></select>
+            <select class="optDropdown" ng-show="form.value.productAttribute" id="operator" ng-model="form.opt" ng-change="skuInParens()"
+                    ng-options="opt as opt.value for opt in form.value.operator" selected="{{dynamicOption.list[form.id].operator[0].value}}"></select>
+            <input class="rounded" parenswrap ng-show="form.value.productAttribute && (form.value.type != 'boolean')" ng-model="form.complexVal" min="0" ng-maxlength="50" placeholder="{{form.value.placeholder}}">
+            <select ng-show="form.value.type === 'boolean'"  ng-model="form.complexVal" ng-options="opt.value as opt.value for opt in form.value.valueOptions"></select>
+            <span class="glyphicon glyphicon-minus" ng-show="dynamicForms.length > 1" ng-click="removeForm(form)"></span>
+        </form>
+        <span id="plus-button" class="glyphicon glyphicon-plus" ng-show="$last && (form.value.productAttribute)" ng-click="addNewForm()"></span>
+    </div>
+</div>
+```

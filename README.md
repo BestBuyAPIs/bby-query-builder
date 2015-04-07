@@ -43,11 +43,15 @@ us manage and test the application.
 * We get the tools we depend upon via `npm`, the [node package manager][npm].
 * We get the Angular code via `bower`, a [client-side code package manager][bower].
 
+Switch to the Guest network for the install steps in order to access the necessary repositories.
+
 We have preconfigured `npm` to automatically run `bower` so we can simply do:
 
 ```
 npm install
 ```
+
+NOTE: You may need to run `npm update`. Try that if the subsequent steps fail.
 
 Behind the scenes this will also call `bower install`. You should find that you have two new
 folders in your project.
@@ -58,6 +62,12 @@ folders in your project.
 *Note that the `bower_components` folder would normally be installed in the root folder but
 query-builder changes this location through the `.bowerrc` file. Putting it in the app folder makes
 it easier to serve the files by a webserver.*
+
+### Install grunt-cli
+
+```
+npm install -g grunt-cli
+```
 
 ### Run the Application
 

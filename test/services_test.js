@@ -20,7 +20,7 @@ describe('appServices module', function () {
         describe('HttpClientService factory', function () {
         	it('should return a httpclient function', function () {
         		expect(angular.isFunction(HttpClientService.httpClient)).toBe(true);
-        	});
+        	});         
         });
         describe('GaService factory', function () {
             it('should return a clickQueryButton function', function () {
@@ -43,8 +43,8 @@ describe('appServices module', function () {
             });
         });
         describe('PreSelectOperatorService factory', function () {
-        it('should return a preSelectOperator function', function () {
-            expect(angular.isFunction(PreSelectOperatorService.preSelectOperator)).toBe(true);
+            it('should return a preSelectOperator function', function () {
+                expect(angular.isFunction(PreSelectOperatorService.preSelectOperator)).toBe(true);
+            });
         });
-    });
 });

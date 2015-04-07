@@ -5,12 +5,18 @@ describe('bby-query-mixer.categories module', function () {
 	beforeEach(module('bby-query-mixer.categories', 'appConfig'), function () {
 	});
 
-	var ctrl, scope;
+	var ctrl, scope, ga;
 	beforeEach(inject(function ($controller, $rootScope) {
 		scope = $rootScope.$new();
 		ctrl = $controller('CategoriesCtrl', {
 			$scope: scope
 		});
+        ga = (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+                m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+                })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+		
 	}));
 
     beforeEach(inject(function ($controller, $rootScope) {
@@ -23,6 +29,9 @@ describe('bby-query-mixer.categories module', function () {
 			expect(ctrl).toBeDefined();
 		});
 
+		it('should have searchOptions defined', function () {
+			expect(scope.searchOptions).toBeDefined();
+		});
 	});
 
     describe('build query function', function () {
@@ -51,6 +60,25 @@ describe('bby-query-mixer.categories module', function () {
 	    });	 	    
     });
 
+	describe('invoke query function', function () {
+		it('should error when no apikey is present', function () {
+			scope.apiKey = '';
+			scope.invokeRemixQuery();
+			expect(scope.errorResult).toEqual(true);
+		});
+		it('should error when no category is selected', function () {
+			scope.searchSelection.value = '';
+			scope.invokeRemixQuery();
+			expect(scope.errorResult).toEqual(true);
+		});		
+		it('should work with category and apikey', function () {
+			scope.searchSelection.value = 'cameras';
+			scope.apiKey = '12345';
+			scope.invokeRemixQuery();
+			expect(scope.errorResult).toEqual(false);
+		});		
+	});
+
     describe('reset query function', function () {
         it('should reset all relevant query params', function () {
             scope.resetParams();
@@ -65,7 +93,19 @@ describe('bby-query-mixer.categories module', function () {
             expect(scope.apiKey).toEqual('myApiKey');
         });
     });
-
+    describe('clearResponseList function', function () {
+        it('should clear the response list', function () {
+        	scope.clearResponseList()
+            expect(scope.categoryResponse.list).toEqual([]);
+        });
+    });
+    describe('preselectTop function', function () {
+        it('should preselect toplevelcategories when necessary', function () {
+        	scope.searchSelection.value = 'toplevelcategories';
+        	scope.preselectTop()
+            expect(scope.categoryResponse.list).toEqual(scope.searchOptions[2].responseOptions);
+        });
+    });    
     describe('resetInput function', function () {
     	it('should reset inputs and response options', function () {
     		scope.categoryName = 'test';

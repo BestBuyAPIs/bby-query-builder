@@ -34,10 +34,18 @@ describe('bby-query-mixer.smartLists module', function () {
             });
             it('should error when no key is given', function () {
                 scope.apiKey = '';
+                scope.endpoint.selected = 'connected home';
                 scope.invokeRecommendationsQuery();
 
-                expect(scope.results).toBeDefined("Please enter your API Key");
+                expect(scope.results).toEqual("Please enter your API Key");
             });
+            it('should work', function () {
+                scope.apiKey = '12345';
+                scope.endpoint.selected = 'connected home';
+                scope.invokeRecommendationsQuery();
+
+                expect(scope.results).toEqual("Running");
+            });            
         });
         describe('reset function', function () {
             it('should be defined', function () {

@@ -43,8 +43,6 @@ us manage and test the application.
 * We get the tools we depend upon via `npm`, the [node package manager][npm].
 * We get the Angular code via `bower`, a [client-side code package manager][bower].
 
-Switch to the Guest network for the install steps in order to access the necessary repositories.
-
 We have preconfigured `npm` to automatically run `bower` so we can simply do:
 
 ```

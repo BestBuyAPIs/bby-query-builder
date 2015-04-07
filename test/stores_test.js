@@ -5,7 +5,7 @@ describe('bby-query-mixer.stores module', function () {
 	beforeEach(module('bby-query-mixer.stores', 'appConfig'), function () {
 	});
 
-	var ctrl, scope, queryParams, StoreServices;
+	var ctrl, scope, queryParams, StoreServices, ga;
 	beforeEach(inject(function ($controller, $rootScope,_StoreServices_) {
 		scope = $rootScope.$new();
 		ctrl = $controller('storesCtrl', {
@@ -13,6 +13,10 @@ describe('bby-query-mixer.stores module', function () {
 		});
 		StoreServices = _StoreServices_;
 		queryParams = [];
+        ga = (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
 	}));
 
 	describe('storesCtrl', function () {
@@ -99,6 +103,19 @@ describe('bby-query-mixer.stores module', function () {
 	    	expect(scope.buildRemixQuery()).toEqual('https://api.remix.bestbuy.com/v1/stores?apiKey=mySuperSecretApiKey&callback=JSON_CALLBACK&format=json');
 	    }); 	     
     });
+
+	describe('invoke query function', function () {
+		it('should error when no apikey is present', function () {
+			scope.apiKey = '';
+			scope.invokeRemixQuery();
+			expect(scope.errorResult).toEqual(true);
+		});	
+		it('should work with an apikey', function () {
+			scope.apiKey = '12345';
+			scope.invokeRemixQuery();
+			expect(scope.errorResult).toEqual(false);
+		});		
+	});
 
 	describe('helpers / constants', function (){
 		it('should have a list of search options', function (){

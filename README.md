@@ -65,6 +65,8 @@ it easier to serve the files by a webserver.*
 
 ### Install grunt-cli
 
+You only need to do this once - as this will install grunt-cli globally.
+
 ```
 npm install -g grunt-cli
 ```

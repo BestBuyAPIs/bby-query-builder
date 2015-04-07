@@ -49,6 +49,8 @@ We have preconfigured `npm` to automatically run `bower` so we can simply do:
 npm install
 ```
 
+NOTE: You may need to run `npm update`. Try that if the subsequent steps fail.
+
 Behind the scenes this will also call `bower install`. You should find that you have two new
 folders in your project.
 
@@ -58,6 +60,14 @@ folders in your project.
 *Note that the `bower_components` folder would normally be installed in the root folder but
 query-builder changes this location through the `.bowerrc` file. Putting it in the app folder makes
 it easier to serve the files by a webserver.*
+
+### Install grunt-cli
+
+You only need to do this once - as this will install grunt-cli globally.
+
+```
+npm install -g grunt-cli
+```
 
 ### Run the Application
 

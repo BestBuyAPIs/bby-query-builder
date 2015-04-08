@@ -66,7 +66,6 @@ angular.module('bby-query-mixer.reviews').controller('ReviewsCtrl', [
             $scope.dynamicForms.push({'id':''+(counter)});
         };
         $scope.removeForm = function(form) {
-            var newItemNo = $scope.dynamicForms.length-1;
             $scope.dynamicForms.splice($scope.dynamicForms.indexOf(form),1);   
         };
 

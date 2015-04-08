@@ -144,7 +144,6 @@ angular.module('bby-query-mixer.productSearch').controller('ProductSearchCtrl', 
 
         };
         $scope.removeForm = function(form) {
-            var newItemNo = $scope.dynamicForms.length-1;
             $scope.dynamicForms.splice($scope.dynamicForms.indexOf(form),1);   
         };
 

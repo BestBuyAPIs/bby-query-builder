@@ -101,7 +101,15 @@ describe('bby-query-mixer.stores module', function () {
 	    it('should add a key', function () {
 	    	scope.apiKey = "mySuperSecretApiKey";
 	    	expect(scope.buildRemixQuery()).toEqual('https://api.remix.bestbuy.com/v1/stores?apiKey=mySuperSecretApiKey&callback=JSON_CALLBACK&format=json');
-	    }); 	     
+	    }); 	
+	   	it('should add store types', function () {
+	    	scope.storeType.list = ['Big Box', 'Express'];
+	    	expect(scope.buildRemixQuery()).toEqual('https://api.remix.bestbuy.com/v1/stores(((storeType=Big Box)|(storeType=Express)))?apiKey=testKey&callback=JSON_CALLBACK&format=json');
+	    });  
+	   	it('should add store services', function () {
+	    	scope.servicesOption.list = ['Geek Squad', 'Best Buy for Enterprise'];
+	    	expect(scope.buildRemixQuery()).toEqual('https://api.remix.bestbuy.com/v1/stores((services.service=Geek Squad)&(services.service=Best Buy for Enterprise))?apiKey=testKey&callback=JSON_CALLBACK&format=json');
+	    });     
     });
 
 	describe('invoke query function', function () {

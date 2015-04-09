@@ -18,6 +18,9 @@ angular.module('bby-query-mixer.stores').controller('storesCtrl', [
 
         $scope.options = angular.copy(searchValueOptionsConfig);
 
+        $scope.filterStoreType = StoreServices.filterStoreType;
+        $scope.filterStoreService = StoreServices.filterStoreService;
+
         $scope.buildRemixQuery = function () {
             var baseUrl = 'https://api.remix.bestbuy.com/v1/stores';
             
@@ -40,8 +43,8 @@ angular.module('bby-query-mixer.stores').controller('storesCtrl', [
             
             var addStoreType = ($scope.storeType.list.length > 0) ? searchArgs.push(('('+$scope.filterStoreType($scope.storeType.list)+')')) : '';
 
-            var addStoreServices = ((!$scope.searchSelection.value) && ($scope.servicesOption.list.length > 0)) ? searchArgs.push((StoreServices.filterStoreService($scope.servicesOption.list) )) :
-                    (($scope.searchSelection.value) && ($scope.servicesOption.list.length > 0)) ? searchArgs.push('('+StoreServices.filterStoreService($scope.servicesOption.list)+')' ) : '' ;
+            var addStoreServices = ((!$scope.searchSelection.value) && ($scope.servicesOption.list.length > 0)) ? searchArgs.push(($scope.filterStoreService($scope.servicesOption.list) )) :
+                    (($scope.searchSelection.value) && ($scope.servicesOption.list.length > 0)) ? searchArgs.push('('+$scope.filterStoreService($scope.servicesOption.list)+')' ) : '' ;
 
             //queryParams are things like apikey, format, etc
             var queryParams = [];

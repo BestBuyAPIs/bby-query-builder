@@ -2,6 +2,7 @@
 
 angular.module('bby-query-mixer.stores').constant('storeResponseConfig', [ 
 	{ text: "Address", value: "address" },
+	{ text: "Address 2", value: "address2" },	
 	{ text: "City", value: "city" },
 	{ text: "Country", value: "country" },
 	{ text: "Hours", value: "hours" },

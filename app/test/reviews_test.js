@@ -26,37 +26,37 @@ describe('bby-query-mixer.reviews module', function () {
                 expect(scope.buildReviewsQuery).toBeDefined();
             });
             it('should build the right base url', function (){
-                expect(scope.buildReviewsQuery()).toEqual('https://api.remix.bestbuy.com/v1/reviews?apiKey=testKey&callback=JSON_CALLBACK&format=json');
+                expect(scope.buildReviewsQuery()).toEqual('https://api.bestbuy.com/v1/reviews?apiKey=testKey&callback=JSON_CALLBACK&format=json');
             });
             it('should be add apikey if present', function () {
                 scope.apiKey = '123456';
-                expect(scope.buildReviewsQuery()).toEqual('https://api.remix.bestbuy.com/v1/reviews?apiKey=123456&callback=JSON_CALLBACK&format=json');
+                expect(scope.buildReviewsQuery()).toEqual('https://api.bestbuy.com/v1/reviews?apiKey=123456&callback=JSON_CALLBACK&format=json');
             });
             it('should be add pagination if it is not default value', function () {
                 scope.whichPage = '12';
                 scope.pageSize = '12';
-                expect(scope.buildReviewsQuery()).toEqual('https://api.remix.bestbuy.com/v1/reviews?apiKey=testKey&pageSize=12&page=12&callback=JSON_CALLBACK&format=json');
+                expect(scope.buildReviewsQuery()).toEqual('https://api.bestbuy.com/v1/reviews?apiKey=testKey&pageSize=12&page=12&callback=JSON_CALLBACK&format=json');
             });
             it('should add sort options if needed', function () {
                 scope.sortBy = "rating";
                 scope.sortOrder.value = 'asc';
-                expect(scope.buildReviewsQuery()).toEqual('https://api.remix.bestbuy.com/v1/reviews?apiKey=testKey&callback=JSON_CALLBACK&format=json');
+                expect(scope.buildReviewsQuery()).toEqual('https://api.bestbuy.com/v1/reviews?apiKey=testKey&callback=JSON_CALLBACK&format=json');
             });
             it('should add list of different search paramters', function () {
                 scope.dynamicForms = [ {value:{reviewAttribute:'test'}, opt:{value:'='}, complexVal:"bar" },{value:{reviewAttribute:'foo'}, opt:{value:'='}, complexVal:"apple" } ];
-                expect(scope.buildReviewsQuery()).toEqual('https://api.remix.bestbuy.com/v1/reviews(test=bar&foo=apple)?apiKey=testKey&callback=JSON_CALLBACK&format=json');
+                expect(scope.buildReviewsQuery()).toEqual('https://api.bestbuy.com/v1/reviews(test=bar&foo=apple)?apiKey=testKey&callback=JSON_CALLBACK&format=json');
             });
             it('should add the correct show parameters', function () {
                 scope.showOption.list = [ {text:'reviewer', value:'reviewer'}, {text:'title', value:'title'}, {text:'rating', value:'rating'} ];
-                expect(scope.buildReviewsQuery()).toEqual('https://api.remix.bestbuy.com/v1/reviews?apiKey=testKey&show=reviewer,title,rating&callback=JSON_CALLBACK&format=json');
+                expect(scope.buildReviewsQuery()).toEqual('https://api.bestbuy.com/v1/reviews?apiKey=testKey&show=reviewer,title,rating&callback=JSON_CALLBACK&format=json');
             });    
             it("should add parens for 'sku in' queries" , function () {
                 scope.dynamicForms = [ {value:{reviewAttribute:'sku'}, opt:{value:' in '}, complexVal:"12345, 54321" } ];
-                expect(scope.buildReviewsQuery()).toEqual('https://api.remix.bestbuy.com/v1/reviews(sku in (12345, 54321))?apiKey=testKey&callback=JSON_CALLBACK&format=json');
+                expect(scope.buildReviewsQuery()).toEqual('https://api.bestbuy.com/v1/reviews(sku in (12345, 54321))?apiKey=testKey&callback=JSON_CALLBACK&format=json');
             });   
             it("should add parens for 'id in' queries" , function () {
                 scope.dynamicForms = [ {value:{reviewAttribute:'id'}, opt:{value:' in '}, complexVal:"12345, 54321" } ];
-                expect(scope.buildReviewsQuery()).toEqual('https://api.remix.bestbuy.com/v1/reviews(id in (12345, 54321))?apiKey=testKey&callback=JSON_CALLBACK&format=json');
+                expect(scope.buildReviewsQuery()).toEqual('https://api.bestbuy.com/v1/reviews(id in (12345, 54321))?apiKey=testKey&callback=JSON_CALLBACK&format=json');
             });                   
         });
         describe('invoke recommendations query function', function (){

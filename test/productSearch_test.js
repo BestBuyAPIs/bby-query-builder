@@ -34,28 +34,28 @@ describe('bby-query-mixer.productSearch module', function () {
 
             it('should return a url when apikey passed in', function () {
                 scope.apiKey = "youreAnApiKey";
-                expect(scope.buildRemixQuery()).toEqual("https://api.remix.bestbuy.com/v1/products?apiKey=youreAnApiKey&callback=JSON_CALLBACK&format=json");
+                expect(scope.buildRemixQuery()).toEqual("https://api.bestbuy.com/v1/products?apiKey=youreAnApiKey&callback=JSON_CALLBACK&format=json");
             });
 
             it('should return a query string with no apiKey parameter when no key provided', function () {
                 scope.apiKey='';
-                expect(scope.buildRemixQuery()).toEqual("https://api.remix.bestbuy.com/v1/products?callback=JSON_CALLBACK&format=json");
+                expect(scope.buildRemixQuery()).toEqual("https://api.bestbuy.com/v1/products?callback=JSON_CALLBACK&format=json");
             });
 
             it('should update the category id value when category is changed', function () {
                 scope.category = {
                     value: "abcat33"
                 };
-                expect(scope.buildRemixQuery()).toEqual("https://api.remix.bestbuy.com/v1/products((categoryPath.id=abcat33))?apiKey=youreAnApiKey&callback=JSON_CALLBACK&format=json");
+                expect(scope.buildRemixQuery()).toEqual("https://api.bestbuy.com/v1/products((categoryPath.id=abcat33))?apiKey=youreAnApiKey&callback=JSON_CALLBACK&format=json");
                 scope.category.value = "abcat34";
-                expect(scope.buildRemixQuery()).toEqual("https://api.remix.bestbuy.com/v1/products((categoryPath.id=abcat34))?apiKey=youreAnApiKey&callback=JSON_CALLBACK&format=json");
+                expect(scope.buildRemixQuery()).toEqual("https://api.bestbuy.com/v1/products((categoryPath.id=abcat34))?apiKey=youreAnApiKey&callback=JSON_CALLBACK&format=json");
             });
 
             it('should return a query string with a sort filter and sortOrder when specified', function () {
                 scope.category.value = "someCategory";
-                expect(scope.buildRemixQuery()).toEqual("https://api.remix.bestbuy.com/v1/products((categoryPath.id=someCategory))?apiKey=youreAnApiKey&callback=JSON_CALLBACK&format=json");
+                expect(scope.buildRemixQuery()).toEqual("https://api.bestbuy.com/v1/products((categoryPath.id=someCategory))?apiKey=youreAnApiKey&callback=JSON_CALLBACK&format=json");
                 scope.sortOrder.value = "desc";
-                expect(scope.buildRemixQuery()).toEqual("https://api.remix.bestbuy.com/v1/products((categoryPath.id=someCategory))?apiKey=youreAnApiKey&callback=JSON_CALLBACK&format=json");
+                expect(scope.buildRemixQuery()).toEqual("https://api.bestbuy.com/v1/products((categoryPath.id=someCategory))?apiKey=youreAnApiKey&callback=JSON_CALLBACK&format=json");
             });
             it('should return the right parens when sku in query is made', function () {
                 scope.dynamicForms= [{value:{productAttribute:'sku'},opt:{value:' in '},complexVal:'123, 456'}]
@@ -64,28 +64,28 @@ describe('bby-query-mixer.productSearch module', function () {
                 scope.attributeOption.value = 'sku';
                 scope.operator.value = ' in ';
                 scope.complexVal = '123, 456';
-                expect(scope.buildRemixQuery()).toEqual("https://api.remix.bestbuy.com/v1/products(sku in (123, 456))?apiKey=youreAnApiKey&callback=JSON_CALLBACK&format=json");
+                expect(scope.buildRemixQuery()).toEqual("https://api.bestbuy.com/v1/products(sku in (123, 456))?apiKey=youreAnApiKey&callback=JSON_CALLBACK&format=json");
             });
             it('should add an asterisk after category path name', function () {
                 scope.dynamicForms= [{value:{productAttribute:'categoryPath.name'},opt:{value:'='},complexVal:'Home Theater'}]
-                expect(scope.buildRemixQuery()).toEqual("https://api.remix.bestbuy.com/v1/products(categoryPath.name=Home Theater*)?apiKey=youreAnApiKey&callback=JSON_CALLBACK&format=json");
+                expect(scope.buildRemixQuery()).toEqual("https://api.bestbuy.com/v1/products(categoryPath.name=Home Theater*)?apiKey=youreAnApiKey&callback=JSON_CALLBACK&format=json");
             });            
             it('should return add faceting when specified', function () {
                 scope.facetAttribute.productAttribute = 'color';
                 scope.facetNumber = 11;
-                expect(scope.buildRemixQuery()).toEqual("https://api.remix.bestbuy.com/v1/products?apiKey=youreAnApiKey&facet=color,11&callback=JSON_CALLBACK&format=json");
+                expect(scope.buildRemixQuery()).toEqual("https://api.bestbuy.com/v1/products?apiKey=youreAnApiKey&facet=color,11&callback=JSON_CALLBACK&format=json");
             });
             it('should add bad values to query so that remix returns the proper error status', function () {
                 scope.dynamicForms= [{value:{productAttribute:'bestSellingRank'},opt:{value:'='},complexVal:'wwwwwwwwww'}]
-                expect(scope.buildRemixQuery()).toEqual("https://api.remix.bestbuy.com/v1/products(bestSellingRank=wwwwwwwwww)?apiKey=youreAnApiKey&callback=JSON_CALLBACK&format=json");
+                expect(scope.buildRemixQuery()).toEqual("https://api.bestbuy.com/v1/products(bestSellingRank=wwwwwwwwww)?apiKey=youreAnApiKey&callback=JSON_CALLBACK&format=json");
             });
             it('should add the star value to the query when selected', function () {
                 scope.dynamicForms= [{value:{productAttribute:'onSale'},opt:{value:'='},complexVal:'*'}];
-                expect(scope.buildRemixQuery()).toEqual("https://api.remix.bestbuy.com/v1/products(onSale=*)?apiKey=youreAnApiKey&callback=JSON_CALLBACK&format=json");
+                expect(scope.buildRemixQuery()).toEqual("https://api.bestbuy.com/v1/products(onSale=*)?apiKey=youreAnApiKey&callback=JSON_CALLBACK&format=json");
             });
             it('should allow invalid page sizes so remix can return the real error message', function () {
                 scope.pageSize = 111;
-                expect(scope.buildRemixQuery()).toEqual("https://api.remix.bestbuy.com/v1/products?apiKey=youreAnApiKey&pageSize=111&callback=JSON_CALLBACK&format=json");
+                expect(scope.buildRemixQuery()).toEqual("https://api.bestbuy.com/v1/products?apiKey=youreAnApiKey&pageSize=111&callback=JSON_CALLBACK&format=json");
             });              
         });
         describe('buildParams function', function () {
@@ -165,7 +165,7 @@ describe('bby-query-mixer.productSearch module', function () {
         describe('dynamic forms functionality', function () {
             it('should compile the array of forms and add it to the remix query url', function () {
                 scope.dynamicForms= [{value:{productAttribute:'foo'},opt:{value:'='},complexVal:'foo'}]
-                expect(scope.buildRemixQuery()).toEqual("https://api.remix.bestbuy.com/v1/products(foo=foo)?apiKey=youreAnApiKey&callback=JSON_CALLBACK&format=json");
+                expect(scope.buildRemixQuery()).toEqual("https://api.bestbuy.com/v1/products(foo=foo)?apiKey=youreAnApiKey&callback=JSON_CALLBACK&format=json");
             });
              it('should add/delete forms from the dynamic attributes list', function () {
                 scope.dynamicForms = [{value:{productAttribute:'foo'},opt:{value:'='},complexVal:'foo'}]

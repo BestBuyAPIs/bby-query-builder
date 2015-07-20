@@ -21,17 +21,17 @@ describe('bby-query-mixer.recommendations module', function () {
             metadata: {},
             results: [
                 {
-                    productLink: "https://api.remix.bestbuy.com/v1/products/5070633.json?apiKey=totallyLegitAPIKey",
+                    productLink: "https://api.bestbuy.com/v1/products/5070633.json?apiKey=totallyLegitAPIKey",
                     rank: 1,
                     sku: "5070633"
                 },
                 {
-                    productLink: "https://api.remix.bestbuy.com/v1/products/8618049.json?apiKey=totallyLegitAPIKey",
+                    productLink: "https://api.bestbuy.com/v1/products/8618049.json?apiKey=totallyLegitAPIKey",
                     rank: 2,
                     sku: "8618049"
                 },
                 {
-                    productLink: "https://api.remix.bestbuy.com/v1/products/9064159.json?apiKey=totallyLegitAPIKey",
+                    productLink: "https://api.bestbuy.com/v1/products/9064159.json?apiKey=totallyLegitAPIKey",
                     rank: 3,
                     sku: "9064159"
                 }

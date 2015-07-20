@@ -25,7 +25,7 @@ angular.module('bby-query-mixer.productSearch').controller('ProductSearchCtrl', 
             var manyAttributes = $scope.dynamicForms[0].value.productAttribute ? searchArgs.push($scope.parseDynamicForms($scope.dynamicForms)) : '';
 
             var categoryQuery = $scope.category.value ? searchArgs.push('(categoryPath.id=' + $scope.category.value + ')') : '';
-            var baseUrl = searchArgs.length > 0 ? 'https://api.remix.bestbuy.com/v1/products' + '(' + searchArgs.join('&') + ')' : 'https://api.remix.bestbuy.com/v1/products';
+            var baseUrl = searchArgs.length > 0 ? 'https://api.bestbuy.com/v1/products' + '(' + searchArgs.join('&') + ')' : 'https://api.bestbuy.com/v1/products';
             return baseUrl + $scope.buildParams();
         };
 

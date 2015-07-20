@@ -22,7 +22,7 @@ angular.module('bby-query-mixer.stores').controller('storesCtrl', [
         $scope.filterStoreService = StoreServices.filterStoreService;
 
         $scope.buildRemixQuery = function () {
-            var baseUrl = 'https://api.remix.bestbuy.com/v1/stores';
+            var baseUrl = 'https://api.bestbuy.com/v1/stores';
             
             //searchArgs = optional search arguments like store type, store services, region, etc
             var searchArgs = [];

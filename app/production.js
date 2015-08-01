@@ -431,7 +431,7 @@ angular.module('bby-query-mixer.productSearch').controller('ProductSearchCtrl', 
             var manyAttributes = $scope.dynamicForms[0].value.productAttribute ? searchArgs.push($scope.parseDynamicForms($scope.dynamicForms)) : '';
 
             var categoryQuery = $scope.category.value ? searchArgs.push('(categoryPath.id=' + $scope.category.value + ')') : '';
-            var baseUrl = searchArgs.length > 0 ? 'https://api.remix.bestbuy.com/v1/products' + '(' + searchArgs.join('&') + ')' : 'https://api.remix.bestbuy.com/v1/products';
+            var baseUrl = searchArgs.length > 0 ? 'https://api.bestbuy.com/v1/products' + '(' + searchArgs.join('&') + ')' : 'https://api.bestbuy.com/v1/products';
             return baseUrl + $scope.buildParams();
         };
 
@@ -987,7 +987,7 @@ angular.module('bby-query-mixer.stores').controller('storesCtrl', [
         $scope.filterStoreService = StoreServices.filterStoreService;
 
         $scope.buildRemixQuery = function () {
-            var baseUrl = 'https://api.remix.bestbuy.com/v1/stores';
+            var baseUrl = 'https://api.bestbuy.com/v1/stores';
             
             //searchArgs = optional search arguments like store type, store services, region, etc
             var searchArgs = [];
@@ -1180,7 +1180,7 @@ angular.module('bby-query-mixer.categories').controller('CategoriesCtrl', [
         ];
 
         $scope.buildRemixQuery = function () {
-            var queryUrl = 'https://api.remix.bestbuy.com/v1/categories';
+            var queryUrl = 'https://api.bestbuy.com/v1/categories';
 
             var topLevel = ($scope.searchSelection.value === 'toplevelcategories') ? queryUrl += '(id=abcat*)' : '';
             var addCategoryName = ($scope.categoryName.length > 0) ? queryUrl += '(name='+$scope.categoryName+'*)':''; 
@@ -1369,7 +1369,7 @@ angular.module('bby-query-mixer.reviews').controller('ReviewsCtrl', [
             var searchArgs = [];
             var manyAttributes = $scope.dynamicForms[0].value.reviewAttribute ? searchArgs.push($scope.parseDynamicForms($scope.dynamicForms)) : '';
 
-            var baseUrl = searchArgs.length > 0 ? 'https://api.remix.bestbuy.com/v1/reviews' + '(' + searchArgs.join('&') + ')' : 'https://api.remix.bestbuy.com/v1/reviews';
+            var baseUrl = searchArgs.length > 0 ? 'https://api.bestbuy.com/v1/reviews' + '(' + searchArgs.join('&') + ')' : 'https://api.bestbuy.com/v1/reviews';
             var addKey = $scope.apiKey ? baseUrl += ('?apiKey='+$scope.apiKey):'';
 
             var addShowOptions = $scope.showOption.list.length > 0 ? baseUrl+=('&show='+$scope.addAllShowOptions($scope.showOption.list)) : '';

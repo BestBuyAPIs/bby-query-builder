@@ -82,8 +82,6 @@
 
                 <p ng-show="categoryResponse.list.length > 0"><a class="breakdownLabel" target="_blank">showOptions</a> : show=<span ng-bind="categoryResponse.list"></span></p>
 
-                <p ng-show="searchSelection.value === 'toplevelcategories'"><a class="breakdownLabel" target="_blank">showOptions</a> : show=id,name</p>
-
                 <p><a class="breakdownLabel" href="https://remix.mashery.com/member/register" target="_blank">apiKey</a> : ?apiKey=<span ng-bind="apiKey"></span></p>
 
                 <p ng-show="(pageSize !== 10) || (whichPage !== 1)"><a class="breakdownLabel" href="https://developer.bestbuy.com/documentation#pagination-pagination" target="_blank">pagination</a> : <span ng-show="(pageSize !== 10)">pageSize=<span ng-bind="pageSize"></span></span><span ng-show="(whichPage !== 1)">&page=<span ng-bind="whichPage"></span></span></p>

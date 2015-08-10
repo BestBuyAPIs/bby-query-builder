@@ -102,10 +102,13 @@ describe('bby-query-mixer.categories module', function () {
     describe('preselectTop function', function () {
         it('should preselect toplevelcategories when necessary', function () {
         	scope.searchSelection.value = 'toplevelcategories';
-        	scope.preselectTop()
-            expect(scope.categoryResponse.list).toEqual(scope.searchOptions[2].responseOptions);
+            scope.preselectTop();
+            var expected = scope.searchOptions[2].responseOptions.map(function (item) {
+                return item.value;
+            });
+            expect(scope.categoryResponse.list).toEqual(expected);
         });
-    });    
+    });
     describe('resetInput function', function () {
     	it('should reset inputs and response options', function () {
     		scope.categoryName = 'test';

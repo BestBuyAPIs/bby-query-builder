@@ -1104,18 +1104,23 @@ angular.module('bby-query-mixer.stores').controller('storesCtrl', [
             GaService.copyUrlEvent(tab,$scope.apiKey);
         };
 
-
         $scope.selectAll = function (z) {
             if (z === 'services') {
-                $scope.servicesOption.list = angular.copy($scope.servicesOptions);
+                $scope.servicesOption.list = angular.copy($scope.servicesOptions).map(function (item) {
+                    return item.value;
+                });
             } else if (z === 'noservices') {
                 $scope.servicesOption.list = [];
             } else if (z === 'types') {
-                $scope.storeType.list = angular.copy($scope.storeTypes);
+                $scope.storeType.list = angular.copy($scope.storeTypes).map(function (item) {
+                    return item.value;
+                });
             } else if (z === 'notypes') {
                 $scope.storeType.list = [];
             } else if (z === 'responseAttributes') {
-                $scope.storeResponse.list = angular.copy($scope.storeResponses);
+                $scope.storeResponse.list = angular.copy($scope.storeResponses).map(function (item) {
+                    return item.value;
+                });
             } else if (z === 'noResponse') {
                 $scope.storeResponse.list = [];
             } else if (z === 'products') {
@@ -1231,7 +1236,9 @@ angular.module('bby-query-mixer.categories').controller('CategoriesCtrl', [
 
         $scope.preselectTop = function () {
             if ($scope.searchSelection.value === 'toplevelcategories') {
-                $scope.categoryResponse.list = $scope.searchOptions[2].responseOptions
+                $scope.categoryResponse.list = $scope.searchOptions[2].responseOptions.map(function (item) {
+                    return item.value;
+                });
             } else
             return
         };
@@ -1266,9 +1273,11 @@ angular.module('bby-query-mixer.categories').controller('CategoriesCtrl', [
 
         $scope.selectAll = function (z) {
             if (z === 'toplevelcategories') {
-                $scope.categoryResponse.list = [$scope.categoryResponses[0],$scope.categoryResponses[1]];
+                $scope.categoryResponse.list = [$scope.categoryResponses[0].value,$scope.categoryResponses[1].value];
             } else if (z !== 'noResponse'){
-                $scope.categoryResponse.list = angular.copy($scope.categoryResponses);
+                $scope.categoryResponse.list = angular.copy($scope.categoryResponses).map(function (item) {
+                    return item.value;
+                });
             }else if (z === 'noResponse'){
                 $scope.categoryResponse.list = [];
             }

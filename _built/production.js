@@ -431,7 +431,7 @@ angular.module('bby-query-mixer.productSearch').controller('ProductSearchCtrl', 
             var manyAttributes = $scope.dynamicForms[0].value.productAttribute ? searchArgs.push($scope.parseDynamicForms($scope.dynamicForms)) : '';
 
             var categoryQuery = $scope.category.value ? searchArgs.push('(categoryPath.id=' + $scope.category.value + ')') : '';
-            var baseUrl = searchArgs.length > 0 ? 'https://api.remix.bestbuy.com/v1/products' + '(' + searchArgs.join('&') + ')' : 'https://api.remix.bestbuy.com/v1/products';
+            var baseUrl = searchArgs.length > 0 ? 'https://api.bestbuy.com/v1/products' + '(' + searchArgs.join('&') + ')' : 'https://api.bestbuy.com/v1/products';
             return baseUrl + $scope.buildParams();
         };
 
@@ -987,7 +987,7 @@ angular.module('bby-query-mixer.stores').controller('storesCtrl', [
         $scope.filterStoreService = StoreServices.filterStoreService;
 
         $scope.buildRemixQuery = function () {
-            var baseUrl = 'https://api.remix.bestbuy.com/v1/stores';
+            var baseUrl = 'https://api.bestbuy.com/v1/stores';
             
             //searchArgs = optional search arguments like store type, store services, region, etc
             var searchArgs = [];
@@ -1104,18 +1104,23 @@ angular.module('bby-query-mixer.stores').controller('storesCtrl', [
             GaService.copyUrlEvent(tab,$scope.apiKey);
         };
 
-
         $scope.selectAll = function (z) {
             if (z === 'services') {
-                $scope.servicesOption.list = angular.copy($scope.servicesOptions);
+                $scope.servicesOption.list = angular.copy($scope.servicesOptions).map(function (item) {
+                    return item.value;
+                });
             } else if (z === 'noservices') {
                 $scope.servicesOption.list = [];
             } else if (z === 'types') {
-                $scope.storeType.list = angular.copy($scope.storeTypes);
+                $scope.storeType.list = angular.copy($scope.storeTypes).map(function (item) {
+                    return item.value;
+                });
             } else if (z === 'notypes') {
                 $scope.storeType.list = [];
             } else if (z === 'responseAttributes') {
-                $scope.storeResponse.list = angular.copy($scope.storeResponses);
+                $scope.storeResponse.list = angular.copy($scope.storeResponses).map(function (item) {
+                    return item.value;
+                });
             } else if (z === 'noResponse') {
                 $scope.storeResponse.list = [];
             } else if (z === 'products') {
@@ -1130,6 +1135,7 @@ angular.module('bby-query-mixer.stores').controller('storesCtrl', [
 
 angular.module('bby-query-mixer.stores').constant('storeResponseConfig', [ 
 	{ text: "Address", value: "address" },
+	{ text: "Address 2", value: "address2" },	
 	{ text: "City", value: "city" },
 	{ text: "Country", value: "country" },
 	{ text: "Hours", value: "hours" },
@@ -1179,7 +1185,7 @@ angular.module('bby-query-mixer.categories').controller('CategoriesCtrl', [
         ];
 
         $scope.buildRemixQuery = function () {
-            var queryUrl = 'https://api.remix.bestbuy.com/v1/categories';
+            var queryUrl = 'https://api.bestbuy.com/v1/categories';
 
             var topLevel = ($scope.searchSelection.value === 'toplevelcategories') ? queryUrl += '(id=abcat*)' : '';
             var addCategoryName = ($scope.categoryName.length > 0) ? queryUrl += '(name='+$scope.categoryName+'*)':''; 
@@ -1230,7 +1236,9 @@ angular.module('bby-query-mixer.categories').controller('CategoriesCtrl', [
 
         $scope.preselectTop = function () {
             if ($scope.searchSelection.value === 'toplevelcategories') {
-                $scope.categoryResponse.list = $scope.searchOptions[2].responseOptions
+                $scope.categoryResponse.list = $scope.searchOptions[2].responseOptions.map(function (item) {
+                    return item.value;
+                });
             } else
             return
         };
@@ -1265,9 +1273,11 @@ angular.module('bby-query-mixer.categories').controller('CategoriesCtrl', [
 
         $scope.selectAll = function (z) {
             if (z === 'toplevelcategories') {
-                $scope.categoryResponse.list = [$scope.categoryResponses[0],$scope.categoryResponses[1]];
+                $scope.categoryResponse.list = [$scope.categoryResponses[0].value,$scope.categoryResponses[1].value];
             } else if (z !== 'noResponse'){
-                $scope.categoryResponse.list = angular.copy($scope.categoryResponses);
+                $scope.categoryResponse.list = angular.copy($scope.categoryResponses).map(function (item) {
+                    return item.value;
+                });
             }else if (z === 'noResponse'){
                 $scope.categoryResponse.list = [];
             }
@@ -1368,7 +1378,7 @@ angular.module('bby-query-mixer.reviews').controller('ReviewsCtrl', [
             var searchArgs = [];
             var manyAttributes = $scope.dynamicForms[0].value.reviewAttribute ? searchArgs.push($scope.parseDynamicForms($scope.dynamicForms)) : '';
 
-            var baseUrl = searchArgs.length > 0 ? 'https://api.remix.bestbuy.com/v1/reviews' + '(' + searchArgs.join('&') + ')' : 'https://api.remix.bestbuy.com/v1/reviews';
+            var baseUrl = searchArgs.length > 0 ? 'https://api.bestbuy.com/v1/reviews' + '(' + searchArgs.join('&') + ')' : 'https://api.bestbuy.com/v1/reviews';
             var addKey = $scope.apiKey ? baseUrl += ('?apiKey='+$scope.apiKey):'';
 
             var addShowOptions = $scope.showOption.list.length > 0 ? baseUrl+=('&show='+$scope.addAllShowOptions($scope.showOption.list)) : '';

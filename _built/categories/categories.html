@@ -76,13 +76,11 @@
         <h4 class="container urlBreakdown">URL Breakdown</h4>
         <div class="content-container"><label>Here is an anatomy of your request, showing all of the "pieces" that make up your complete URL:</label>
             <div id="exampleUrl" class="content-container">
-                <p><a class="breakdownLabel" href="https://developer.bestbuy.com/documentation#advancedSearch-search" target="_blank">baseURL</a> : https://api.remix.bestbuy.com/v1/categories</p>
+                <p><a class="breakdownLabel" href="https://developer.bestbuy.com/documentation#advancedSearch-search" target="_blank">baseURL</a> : https://api.bestbuy.com/v1/categories</p>
 
                 <p ng-show="categoryName !== ''"><a class="breakdownLabel" target="_blank">categoryId/categoryName</a> : (name=<span ng-bind="categoryName"></span>)</p>
 
                 <p ng-show="categoryResponse.list.length > 0"><a class="breakdownLabel" target="_blank">showOptions</a> : show=<span ng-bind="categoryResponse.list"></span></p>
-
-                <p ng-show="searchSelection.value === 'toplevelcategories'"><a class="breakdownLabel" target="_blank">showOptions</a> : show=id,name</p>
 
                 <p><a class="breakdownLabel" href="https://remix.mashery.com/member/register" target="_blank">apiKey</a> : ?apiKey=<span ng-bind="apiKey"></span></p>
 

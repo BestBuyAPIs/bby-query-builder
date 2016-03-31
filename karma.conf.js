@@ -18,12 +18,14 @@ module.exports = function (config) {
         ],
         autoWatch: true,
         frameworks: [
+            'browserify',
             'jasmine'
         ],
         browsers: [
             'PhantomJS'
         ],
         plugins: [
+            'karma-browserify',
             'karma-phantomjs-launcher',
             'karma-jasmine',
             'karma-junit-reporter',
@@ -34,7 +36,8 @@ module.exports = function (config) {
             suite: 'unit'
         },
         preprocessors : {
-            'app/appConstants/*.js': ['coverage'],                       
+            'app/bower_components/angular*/*.js': ['browserify'],
+            'app/appConstants/*.js': ['coverage'],
             'app/appServices/*.js': ['coverage'],                       
             'app/categories/*.js': ['coverage'],
             'app/openBox/*.js': ['coverage'],

@@ -19,7 +19,7 @@ angular.module('bby-query-mixer.categories').controller('CategoriesCtrl', [
         ];
 
         $scope.buildRemixQuery = function () {
-            var queryUrl = 'https://api.remix.bestbuy.com/v1/categories';
+            var queryUrl = 'https://api.bestbuy.com/v1/categories';
 
             var topLevel = ($scope.searchSelection.value === 'toplevelcategories') ? queryUrl += '(id=abcat*)' : '';
             var addCategoryName = ($scope.categoryName.length > 0) ? queryUrl += '(name='+$scope.categoryName+'*)':''; 
@@ -70,7 +70,9 @@ angular.module('bby-query-mixer.categories').controller('CategoriesCtrl', [
 
         $scope.preselectTop = function () {
             if ($scope.searchSelection.value === 'toplevelcategories') {
-                $scope.categoryResponse.list = $scope.searchOptions[2].responseOptions
+                $scope.categoryResponse.list = $scope.searchOptions[2].responseOptions.map(function (item) {
+                    return item.value;
+                });
             } else
             return
         };
@@ -105,9 +107,11 @@ angular.module('bby-query-mixer.categories').controller('CategoriesCtrl', [
 
         $scope.selectAll = function (z) {
             if (z === 'toplevelcategories') {
-                $scope.categoryResponse.list = [$scope.categoryResponses[0],$scope.categoryResponses[1]];
+                $scope.categoryResponse.list = [$scope.categoryResponses[0].value,$scope.categoryResponses[1].value];
             } else if (z !== 'noResponse'){
-                $scope.categoryResponse.list = angular.copy($scope.categoryResponses);
+                $scope.categoryResponse.list = angular.copy($scope.categoryResponses).map(function (item) {
+                    return item.value;
+                });
             }else if (z === 'noResponse'){
                 $scope.categoryResponse.list = [];
             }

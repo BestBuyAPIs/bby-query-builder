@@ -22,7 +22,7 @@ angular.module('bby-query-mixer.stores').controller('storesCtrl', [
         $scope.filterStoreService = StoreServices.filterStoreService;
 
         $scope.buildRemixQuery = function () {
-            var baseUrl = 'https://api.remix.bestbuy.com/v1/stores';
+            var baseUrl = 'https://api.bestbuy.com/v1/stores';
             
             //searchArgs = optional search arguments like store type, store services, region, etc
             var searchArgs = [];
@@ -139,18 +139,23 @@ angular.module('bby-query-mixer.stores').controller('storesCtrl', [
             GaService.copyUrlEvent(tab,$scope.apiKey);
         };
 
-
         $scope.selectAll = function (z) {
             if (z === 'services') {
-                $scope.servicesOption.list = angular.copy($scope.servicesOptions);
+                $scope.servicesOption.list = angular.copy($scope.servicesOptions).map(function (item) {
+                    return item.value;
+                });
             } else if (z === 'noservices') {
                 $scope.servicesOption.list = [];
             } else if (z === 'types') {
-                $scope.storeType.list = angular.copy($scope.storeTypes);
+                $scope.storeType.list = angular.copy($scope.storeTypes).map(function (item) {
+                    return item.value;
+                });
             } else if (z === 'notypes') {
                 $scope.storeType.list = [];
             } else if (z === 'responseAttributes') {
-                $scope.storeResponse.list = angular.copy($scope.storeResponses);
+                $scope.storeResponse.list = angular.copy($scope.storeResponses).map(function (item) {
+                    return item.value;
+                });
             } else if (z === 'noResponse') {
                 $scope.storeResponse.list = [];
             } else if (z === 'products') {

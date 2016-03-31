@@ -14,7 +14,11 @@ module.exports = function (config) {
         exclude: [
             'app/bower_components/bootstrap/**',
             'app/bower_components/jquery/**',
-            'app/bower_components/*'
+            'app/bower_components/*',
+            'app/bower_components/angular-mocks/ngAnimateMock.js',
+            'app/bower_components/angular-mocks/ngMock.js',
+            'app/bower_components/angular-mocks/ngMockE2E.js',
+            'app/bower_components/**/index.js'
         ],
         autoWatch: true,
         frameworks: [
@@ -34,8 +38,8 @@ module.exports = function (config) {
             suite: 'unit'
         },
         preprocessors : {
-            'app/appConstants/*.js': ['coverage'],                       
-            'app/appServices/*.js': ['coverage'],                       
+            'app/appConstants/*.js': ['coverage'],
+            'app/appServices/*.js': ['coverage'],
             'app/categories/*.js': ['coverage'],
             'app/openBox/*.js': ['coverage'],
             'app/productSearch/*.js': ['coverage'],

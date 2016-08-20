@@ -4,8 +4,8 @@ angular.module('appServices').factory('HttpClientService', ['$resource', functio
     
     var httpClient = function (query) {
 		return $resource(query, {}, {
-		    jsonp_query: {
-		        method: 'JSONP'
+		    json_query: {
+		        method: 'JSON'
 		    }
 		});
 	};

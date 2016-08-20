@@ -19,8 +19,6 @@ angular.module('bby-query-mixer.openBox').controller('openBoxCtrl', [
             var singleSkuQuery = (($scope.searchSelection.value === 'singleSku')&&($scope.singleSku)) ? baseUrl = 'https://api.bestbuy.com/beta/products/'+$scope.singleSku +'/openBox' : '';
             var apiKey = $scope.apiKey ? baseUrl += '?apiKey='+$scope.apiKey : '';
             
-            baseUrl += '&callback=JSON_CALLBACK' ;
-            
             var checkPageSize = (($scope.pageSize)&&($scope.pageSize !== 10)) ? baseUrl += '&pageSize='+$scope.pageSize : '';
             var checkWhichPage = (($scope.whichPage)&&($scope.whichPage !== 1)) ? baseUrl += '&page='+$scope.whichPage : '';
             
@@ -43,7 +41,7 @@ angular.module('bby-query-mixer.openBox').controller('openBoxCtrl', [
                 var eventActionName = "open box query success";
                 GaService.clickQueryButtonEvent(eventActionName, $scope.apiKey);
 
-                HttpClientService.httpClient(query).jsonp_query(successFn, errorFn);
+                HttpClientService.httpClient(query).json_query(successFn, errorFn);
             }else if ($scope.apiKey ===  ""){
                 $scope.errorResult = true;
                 $scope.results = "Please enter your API Key";

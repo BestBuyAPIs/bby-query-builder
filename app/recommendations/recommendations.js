@@ -15,7 +15,6 @@ angular.module('bby-query-mixer.recommendations').controller('RecommendationsCtr
             var endpointSelection = $scope.endpoint.selected ? baseUrl += ($scope.endpoint.selected) : '';
             var categoryOption = $scope.category.value ? baseUrl += ('(categoryId='+$scope.category.value+')') : '';
             var addKey = $scope.apiKey ? baseUrl += ('?apiKey='+$scope.apiKey):'';
-            baseUrl += '&callback=JSON_CALLBACK';
             return baseUrl;
         };
 
@@ -36,7 +35,7 @@ angular.module('bby-query-mixer.recommendations').controller('RecommendationsCtr
                 var eventActionName = "recommendation query success";
                 GaService.clickQueryButtonEvent(eventActionName, $scope.apiKey);
 
-                HttpClientService.httpClient(query).jsonp_query(successFn, errorFn);
+                HttpClientService.httpClient(query).json_query(successFn, errorFn);
             }else if ($scope.apiKey ===  ""){
                 $scope.errorResult = true;
                 $scope.results = "Please enter your API Key";

@@ -226,8 +226,8 @@ angular.module('appServices').factory('HttpClientService', ['$resource', functio
     
     var httpClient = function (query) {
 		return $resource(query, {}, {
-		    jsonp_query: {
-		        method: 'JSONP'
+		    json_query: {
+		        method: 'JSON'
 		    }
 		});
 	};
@@ -281,8 +281,6 @@ angular.module('bby-query-mixer.openBox').controller('openBoxCtrl', [
             var singleSkuQuery = (($scope.searchSelection.value === 'singleSku')&&($scope.singleSku)) ? baseUrl = 'https://api.bestbuy.com/beta/products/'+$scope.singleSku +'/openBox' : '';
             var apiKey = $scope.apiKey ? baseUrl += '?apiKey='+$scope.apiKey : '';
             
-            baseUrl += '&callback=JSON_CALLBACK' ;
-            
             var checkPageSize = (($scope.pageSize)&&($scope.pageSize !== 10)) ? baseUrl += '&pageSize='+$scope.pageSize : '';
             var checkWhichPage = (($scope.whichPage)&&($scope.whichPage !== 1)) ? baseUrl += '&page='+$scope.whichPage : '';
             
@@ -305,7 +303,7 @@ angular.module('bby-query-mixer.openBox').controller('openBoxCtrl', [
                 var eventActionName = "open box query success";
                 GaService.clickQueryButtonEvent(eventActionName, $scope.apiKey);
 
-                HttpClientService.httpClient(query).jsonp_query(successFn, errorFn);
+                HttpClientService.httpClient(query).json_query(successFn, errorFn);
             }else if ($scope.apiKey ===  ""){
                 $scope.errorResult = true;
                 $scope.results = "Please enter your API Key";
@@ -452,7 +450,7 @@ angular.module('bby-query-mixer.productSearch').controller('ProductSearchCtrl', 
                 var eventActionName = "products query success";
                 GaService.clickQueryButtonEvent(eventActionName, $scope.apiKey);
 
-                HttpClientService.httpClient(query).jsonp_query(successFn, errorFn);
+                HttpClientService.httpClient(query).json_query(successFn, errorFn);
             }else{
                 $scope.errorResult = true;
                 $scope.remixResults = 'Please enter your API Key';
@@ -482,7 +480,7 @@ angular.module('bby-query-mixer.productSearch').controller('ProductSearchCtrl', 
             var checkPageSize = (($scope.pageSize)&&($scope.pageSize !== 10)) ? paramArgs.push('pageSize='+$scope.pageSize) : '';
             var checkWhichPage = (($scope.whichPage)&&($scope.whichPage !== 1)) ? paramArgs.push('page='+$scope.whichPage) : '';
 
-            paramArgs.push('callback=JSON_CALLBACK&format=json');
+            paramArgs.push('format=json');
 
             if (paramArgs.length > 0) {
                 return '?' + paramArgs.join('&');
@@ -692,7 +690,6 @@ angular.module('bby-query-mixer.recommendations').controller('RecommendationsCtr
             var endpointSelection = $scope.endpoint.selected ? baseUrl += ($scope.endpoint.selected) : '';
             var categoryOption = $scope.category.value ? baseUrl += ('(categoryId='+$scope.category.value+')') : '';
             var addKey = $scope.apiKey ? baseUrl += ('?apiKey='+$scope.apiKey):'';
-            baseUrl += '&callback=JSON_CALLBACK';
             return baseUrl;
         };
 
@@ -713,7 +710,7 @@ angular.module('bby-query-mixer.recommendations').controller('RecommendationsCtr
                 var eventActionName = "recommendation query success";
                 GaService.clickQueryButtonEvent(eventActionName, $scope.apiKey);
 
-                HttpClientService.httpClient(query).jsonp_query(successFn, errorFn);
+                HttpClientService.httpClient(query).json_query(successFn, errorFn);
             }else if ($scope.apiKey ===  ""){
                 $scope.errorResult = true;
                 $scope.results = "Please enter your API Key";
@@ -768,7 +765,6 @@ angular.module('bby-query-mixer.smartLists').controller('SmartListsCtrl', [
             var baseUrl = 'https://api.bestbuy.com/beta/products/';
             var endpointSelection = $scope.endpoint.selected ? baseUrl += ($scope.endpoint.selected) : '';
             var addKey = $scope.apiKey ? baseUrl += ('?apiKey='+$scope.apiKey):'';
-            baseUrl += '&callback=JSON_CALLBACK';
             return baseUrl;
         };
 
@@ -789,7 +785,7 @@ angular.module('bby-query-mixer.smartLists').controller('SmartListsCtrl', [
                 var eventActionName = "smart lists query success";
                 GaService.clickQueryButtonEvent(eventActionName, $scope.apiKey);
 
-                HttpClientService.httpClient(query).jsonp_query(successFn, errorFn);
+                HttpClientService.httpClient(query).json_query(successFn, errorFn);
             }else if ($scope.apiKey ===  ""){
                 $scope.errorResult = true;
                 $scope.results = "Please enter your API Key";
@@ -1026,7 +1022,7 @@ angular.module('bby-query-mixer.stores').controller('storesCtrl', [
             var checkPageSize = (($scope.pageSize)&&($scope.pageSize !== 10)) ? queryParams.push('&pageSize='+$scope.pageSize) : '';
             var checkWhichPage = (($scope.whichPage)&&($scope.whichPage !== 1)) ? queryParams.push('&page='+$scope.whichPage) : '';
                         
-            queryParams.push('&callback=JSON_CALLBACK&format=json');
+            queryParams.push('&format=json');
             var parensCheck = searchArgs.length === 0 ? baseUrl += (searchArgs.join('')) : baseUrl += ('('+searchArgs.join('&')+')');
             baseUrl += queryParams.join('');
             return baseUrl
@@ -1049,7 +1045,7 @@ angular.module('bby-query-mixer.stores').controller('storesCtrl', [
                 var eventActionName = "stores query success";
                 GaService.clickQueryButtonEvent(eventActionName, $scope.apiKey);
 
-                HttpClientService.httpClient(query).jsonp_query(successFn, errorFn);
+                HttpClientService.httpClient(query).json_query(successFn, errorFn);
             } else if ($scope.apiKey ===  ""){
                 $scope.errorResult = true;
                 $scope.results = "Please enter your API Key";
@@ -1201,7 +1197,7 @@ angular.module('bby-query-mixer.categories').controller('CategoriesCtrl', [
                     (queryParams += '&show=id,name'):'';
             
 
-            queryParams += '&callback=JSON_CALLBACK&format=json';
+            queryParams += '&format=json';
 
             return queryUrl + queryParams;
         };
@@ -1223,7 +1219,7 @@ angular.module('bby-query-mixer.categories').controller('CategoriesCtrl', [
                 var eventActionName = "categories query success";
                 GaService.clickQueryButtonEvent(eventActionName, $scope.apiKey);
 
-                HttpClientService.httpClient(query).jsonp_query(successFn, errorFn);
+                HttpClientService.httpClient(query).json_query(successFn, errorFn);
             } else if ($scope.apiKey ===  ""){
                 $scope.errorResult = true;
                 $scope.results = "Please enter your API Key";

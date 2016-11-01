@@ -49,7 +49,7 @@ describe('bby-query-mixer.recommendations module', function () {
 
             it('should return a url when apiKey is supplied', function () {
                 scope.apiKey = 'someApiKey';
-                expect(scope.buildRecommendationsQuery()).toEqual('https://api.bestbuy.com/beta/products/?apiKey=someApiKey&callback=JSON_CALLBACK')
+                expect(scope.buildRecommendationsQuery()).toEqual('https://api.bestbuy.com/beta/products/?apiKey=someApiKey')
             });
         });
 
@@ -65,7 +65,7 @@ describe('bby-query-mixer.recommendations module', function () {
             });
 
             it('should return an error in an array on a failing response', function () {
-                $httpBackend.expectJSONP('https://api.bestbuy.com/beta/products/trendingViewed?apiKey=inactiveKey&callback=JSON_CALLBACK').respond(403, {
+                $httpBackend.expectGET('https://api.bestbuy.com/beta/products/trendingViewed?apiKey=inactiveKey').respond(403, {
                     status: 403,
                     errorMessage: "Account Inactive",
                     help: "http://developer.bestbuy.com/get-started"

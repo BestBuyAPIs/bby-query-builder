@@ -62,7 +62,7 @@ angular.module('bby-query-mixer.stores').controller('storesCtrl', [
             var checkPageSize = (($scope.pageSize)&&($scope.pageSize !== 10)) ? queryParams.push('&pageSize='+$scope.pageSize) : '';
             var checkWhichPage = (($scope.whichPage)&&($scope.whichPage !== 1)) ? queryParams.push('&page='+$scope.whichPage) : '';
                         
-            queryParams.push('&callback=JSON_CALLBACK&format=json');
+            queryParams.push('&format=json');
             var parensCheck = searchArgs.length === 0 ? baseUrl += (searchArgs.join('')) : baseUrl += ('('+searchArgs.join('&')+')');
             baseUrl += queryParams.join('');
             return baseUrl
@@ -85,7 +85,7 @@ angular.module('bby-query-mixer.stores').controller('storesCtrl', [
                 var eventActionName = "stores query success";
                 GaService.clickQueryButtonEvent(eventActionName, $scope.apiKey);
 
-                HttpClientService.httpClient(query).jsonp_query(successFn, errorFn);
+                HttpClientService.httpClient(query).get(successFn, errorFn);
             } else if ($scope.apiKey ===  ""){
                 $scope.errorResult = true;
                 $scope.results = "Please enter your API Key";

@@ -36,7 +36,7 @@ angular.module('bby-query-mixer.categories').controller('CategoriesCtrl', [
                     (queryParams += '&show=id,name'):'';
             
 
-            queryParams += '&callback=JSON_CALLBACK&format=json';
+            queryParams += '&format=json';
 
             return queryUrl + queryParams;
         };
@@ -58,7 +58,7 @@ angular.module('bby-query-mixer.categories').controller('CategoriesCtrl', [
                 var eventActionName = "categories query success";
                 GaService.clickQueryButtonEvent(eventActionName, $scope.apiKey);
 
-                HttpClientService.httpClient(query).jsonp_query(successFn, errorFn);
+                HttpClientService.httpClient(query).get(successFn, errorFn);
             } else if ($scope.apiKey ===  ""){
                 $scope.errorResult = true;
                 $scope.results = "Please enter your API Key";

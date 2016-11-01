@@ -44,7 +44,7 @@ describe('bby-query-mixer.categories module', function () {
 	    it('should update pagination in the query string', function (){
 	        scope.pageSize = '12';
 	        scope.whichPage = '3';
-	        expect(scope.buildRemixQuery()).toEqual('https://api.bestbuy.com/v1/categories?apiKey=youreAnApiKey&pageSize=12&page=&format=json');
+	        expect(scope.buildRemixQuery()).toEqual('https://api.bestbuy.com/v1/categories?apiKey=youreAnApiKey&pageSize=12&page=3&format=json');
 	    });
 	   	it('should add category name if needed', function (){
 	        scope.categoryName = 'awesomeProducts';

@@ -65,7 +65,7 @@ describe('bby-query-mixer.recommendations module', function () {
             });
 
             it('should return an error in an array on a failing response', function () {
-                $httpBackend.expectJSONP('https://api.bestbuy.com/beta/products/trendingViewed?apiKey=inactiveKey').respond(403, {
+                $httpBackend.expectGET('https://api.bestbuy.com/beta/products/trendingViewed?apiKey=inactiveKey').respond(403, {
                     status: 403,
                     errorMessage: "Account Inactive",
                     help: "http://developer.bestbuy.com/get-started"

@@ -77,7 +77,7 @@ angular.module('bby-query-mixer.productSearch').controller('ProductSearchCtrl', 
             var checkPageSize = (($scope.pageSize)&&($scope.pageSize !== 10)) ? paramArgs.push('pageSize='+$scope.pageSize) : '';
             var checkWhichPage = (($scope.whichPage)&&($scope.whichPage !== 1)) ? paramArgs.push('page='+$scope.whichPage) : '';
 
-            paramArgs.push('&format=json');
+            paramArgs.push('format=json');
 
             if (paramArgs.length > 0) {
                 return '?' + paramArgs.join('&');

@@ -39,7 +39,7 @@ describe('bby-query-mixer.productSearch module', function () {
 
             it('should return a query string with no apiKey parameter when no key provided', function () {
                 scope.apiKey='';
-                expect(scope.buildRemixQuery()).toEqual("https://api.bestbuy.com/v1/products");
+                expect(scope.buildRemixQuery()).toEqual("https://api.bestbuy.com/v1/products?format=json");
             });
 
             it('should update the category id value when category is changed', function () {

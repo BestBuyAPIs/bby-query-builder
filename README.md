@@ -120,7 +120,7 @@ The first time you do this you might have to delete your local gh-pages branch b
 
 For more information please visit [https://developer.bestbuy.com](https://developer.bestbuy.com)
 
-And contact us directly [@bbyopen](https://twitter.com/bbyopen) or email us [developer@bestbuy.com](mailto:developer@bestbuy.com).
+And contact us directly [@BestBuyAPI](https://twitter.com/BestBuyAPI) or email us [developer@bestbuy.com](mailto:developer@bestbuy.com).
 
 
 [angular]: http://angularjs.org/

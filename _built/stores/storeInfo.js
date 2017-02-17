@@ -18,7 +18,10 @@ angular.module('bby-query-mixer.stores').constant('storeServicesConfig', [
 	{ text:'Windows Store', value: '"windows store"' }
 ])
 .constant('storeTypesConfig',[
-    { text:"Big Box", value: "bigbox" },
-    { text: "Mobile", value: "mobile" },
-    { text: "Express (Kiosk)", value: "express" }
+    { text:"Big Box", value: "big box" },
+    { text: "Mobile", value: "mobile sas" },
+    { text: "Express Kiosk", value: "express kiosk" },
+    { text: "Warehouse Sale", value: "warehouse sale" },
+    { text: "Outlet Center", value: "outlet center" },
+    { text: "PAC Standalone Store", value: "pac standalone store" }
 ]);

@@ -1,5 +1,5 @@
 /**
- * @license AngularJS v1.2.29
+ * @license AngularJS v1.2.30
  * (c) 2010-2014 Google, Inc. http://angularjs.org
  * License: MIT
  */
@@ -68,7 +68,7 @@ function minErr(module) {
       return match;
     });
 
-    message = message + '\nhttp://errors.angularjs.org/1.2.29/' +
+    message = message + '\nhttp://errors.angularjs.org/1.2.30/' +
       (module ? module + '/' : '') + code;
     for (i = 2; i < arguments.length; i++) {
       message = message + (i == 2 ? '?' : '&') + 'p' + (i-2) + '=' +
@@ -1989,11 +1989,11 @@ function setupModuleLoader(window) {
  * - `codeName` – `{string}` – Code name of the release, such as "jiggling-armfat".
  */
 var version = {
-  full: '1.2.29',    // all of these placeholder strings will be replaced by grunt's
+  full: '1.2.30',    // all of these placeholder strings will be replaced by grunt's
   major: 1,    // package task
   minor: 2,
-  dot: 29,
-  codeName: 'ultimate-deprecation'
+  dot: 30,
+  codeName: 'patronal-resurrection'
 };
 
 
@@ -5932,10 +5932,11 @@ function $CompileProvider($provide, $$sanitizeUriProvider) {
           }
         }
 
-        nodeName = nodeName_(this.$$element);
+        // SVG elements' `nodeName` can be lowercase
+        nodeName = nodeName_(this.$$element).toUpperCase();
 
         // sanitize a[href] and img[src] values
-        if ((nodeName === 'A' && key === 'href') ||
+        if ((nodeName === 'A' && (key === 'href' || key === 'xlinkHref')) ||
             (nodeName === 'IMG' && key === 'src')) {
           this[key] = value = $$sanitizeUri(value, key === 'src');
         }
@@ -7047,6 +7048,8 @@ function $CompileProvider($provide, $$sanitizeUriProvider) {
       // maction[xlink:href] can source SVG.  It's not limited to <maction>.
       if (attrNormalizedName == "xlinkHref" ||
           (tag == "FORM" && attrNormalizedName == "action") ||
+          // links can be stylesheets or imports, which can run script in the current origin
+          (tag == "LINK" && attrNormalizedName == "href") ||
           (tag != "IMG" && (attrNormalizedName == "src" ||
                             attrNormalizedName == "ngSrc"))) {
         return $sce.RESOURCE_URL;
@@ -13192,6 +13195,21 @@ function $RootScopeProvider(){
     function initWatchVal() {}
   }];
 }
+
+/**
+ * @ngdoc service
+ * @name $rootElement
+ *
+ * @description
+ * The root element of Angular application. This is either the element where {@link
+ * ng.directive:ngApp ngApp} was declared or the element passed into
+ * {@link angular.bootstrap}. The element represent the root element of application. It is also the
+ * location where the applications {@link auto.$injector $injector} service gets
+ * published, it can be retrieved using `$rootElement.injector()`.
+ */
+
+
+// the implementation is in angular.bootstrap
 
 /**
  * @description
